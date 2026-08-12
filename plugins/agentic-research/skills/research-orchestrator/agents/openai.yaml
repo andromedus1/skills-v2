@@ -3,4 +3,4 @@ interface:
   short_description: "Use Research Orchestrator for repo workflows"
   default_prompt: "Use $research-orchestrator for this repository."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true
