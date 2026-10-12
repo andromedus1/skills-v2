@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review
 kind: feature
-stage: drafting
+stage: implementing
 tags: [prose, research-pipeline]
 parent: null
 depends_on: []
