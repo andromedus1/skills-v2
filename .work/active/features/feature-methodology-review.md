@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review
 kind: feature
-stage: implementing
+stage: review
 tags: [prose, research-pipeline]
 parent: null
 depends_on: []
@@ -84,3 +84,21 @@ Do not change doc-review's separate consistency/autofix contract.
 - Review weight: standard, one independent pass with host correction/verification.
 - The current fork instructions/README override inherited Workbench-centric meta
   docs. Those unrelated existing differences are outside this feature.
+
+## Implementation and structural verification — 2026-10-12
+
+Implemented the shared methodology-review skill, focused comparison/decision-record
+reference and Codex presentation metadata. Updated the plugin README, root README,
+research-composition and build-process entrypoints. Registered the new metadata in
+the existing portability test; no new test that mirrors skill wording was added.
+
+Validation passed: skill-creator quick_validate; existing skill-portability test;
+Claude/Codex manifest version/discovery and marketplace resolution parity; Codex
+presentation/invocation fields; 13 local links across touched documentation; Git
+whitespace check. System Python lacked PyYAML, so checks ran in an isolated temporary
+venv with PyYAML rather than modifying project dependencies.
+
+An isolated behavioral continuation exercise covers four synthetic nonsoftware
+projects. One cross-model feature review follows the standard single-pass policy.
+Their outcomes and host dispositions will be recorded below. No release/version bump
+or change to installed caches has occurred.

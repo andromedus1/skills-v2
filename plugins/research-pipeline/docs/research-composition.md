@@ -27,10 +27,18 @@ kickoff and remains authoritative for the engagement.
 | `brief` | resolve a work-item-blocking knowledge gap | commissioning-linked brief |
 | `deep-research` | investigate a consequential multi-facet domain | campaign |
 | `research-program` | coordinate multiple decision-linked research arcs | research epic with registered feature engagements |
+| `methodology-review` | compare methods and iterate through operator decisions | verified comparisons/reassessments linked from the project decision record |
 
 These are starting profiles, not separate engines or fixed cost tiers. The
 orchestrator discovers fan-out and confirms rigor according to the downstream
 decision.
+
+`methodology-review` composes these engagements into a project- or component-level
+review. It compares methods against intended outcomes and prior art, then returns
+project changes to the operator for adjudication. Approved work uses the normal
+handoff/delivery routes. Fresh reassessment distinguishes verified resolution from
+accepted, deferred or retained risk; an engagement finishing is not loop convergence.
+See [the skill](../skills/methodology-review/SKILL.md) for its exit and resume rules.
 
 ## Corpora and migration
 

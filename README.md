@@ -29,6 +29,11 @@ history authoritative.
 6. Implement, review, and release through `agile-workflow`.
 7. Run `research-pipeline:quality-checkpoint` at release boundaries.
 
+Use [methodology-review](plugins/research-pipeline/skills/methodology-review/SKILL.md)
+to compare a project's methods with prior art, adjudicate proposed changes, and
+reassess outcomes after authorized work. It supports a whole project or a selected
+component while keeping research, operator decisions and delivery state distinct.
+
 See [build process](plugins/research-pipeline/docs/build-process.md) and
 [research composition](plugins/research-pipeline/docs/research-composition.md).
 

@@ -65,6 +65,7 @@ The familiar pipeline names are process profiles over one engine:
 | `brief` | a work item lacks implementation-critical domain knowledge | commissioning-linked brief |
 | `deep-research` | a consequential domain has several facets | campaign |
 | `research-program` | several research arcs affect different decisions | `[research]` epic with feature engagements |
+| `methodology-review` | compare a project or component’s methods with alternatives | operator-adjudicated comparison/reassessment loop |
 
 Each wrapper supplies context and a decision-relevance hypothesis to
 `agentic-research:research-orchestrator`. The orchestrator owns kickoff, dials,

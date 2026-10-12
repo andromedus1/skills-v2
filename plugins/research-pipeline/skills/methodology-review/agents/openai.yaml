@@ -1,0 +1,6 @@
+interface:
+  display_name: "Methodology Review"
+  short_description: "Compare methods and iterate with your decisions"
+  default_prompt: "Use $methodology-review to compare this project's methods with relevant alternatives and bring proposed changes to me for adjudication."
+policy:
+  allow_implicit_invocation: true

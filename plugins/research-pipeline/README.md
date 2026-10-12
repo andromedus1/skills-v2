@@ -18,7 +18,7 @@ commission its orchestrator. See [research composition](docs/research-compositio
 | Layer | Skills |
 |---|---|
 | **Research intents** | `/research` (bounded question), `/deep-research` (multi-facet decision), `/research-program` (coordinated research arcs) |
-| **Prior art** | `/scout` |
+| **Prior art and methods** | `/scout` (landscape), `/methodology-review` (comparative methods with operator-adjudicated iteration) |
 | **Foundation docs** | `/ideate` (super-layer: produces VISION/SPEC/ARCHITECTURE + research-plan + PRINCIPLES), `/architecture` |
 | **Substrate planning** | `/epicize`, `/epic-design`, `/feature-design`, `/update-epicize`, `/brief` |
 | **Quality** | `/doc-review` (cascading), `/quality-checkpoint` (orchestrates 8 gates), `/gate-citations` (research-corpus citation integrity), `/test-quality`, `/security-review` |

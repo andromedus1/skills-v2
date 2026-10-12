@@ -36,6 +36,7 @@ for skill_name in (
     "feature-design",
     "ideate",
     "init-project",
+    "methodology-review",
     "quality-checkpoint",
     "security-review",
     "test-quality",
