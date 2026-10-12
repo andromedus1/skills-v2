@@ -27,5 +27,9 @@ Use the familiar pipeline intents (`scout`, `research`, `brief`,
 `agentic-research:research-orchestrator`, which owns source attestations,
 synthesis, current `.research/` paths, and verification.
 
+Use `research-pipeline:methodology-review` for comparative assessment of a project
+or component's methods, with operator decisions before changes and fresh reassessment
+after authorized work.
+
 Existing legacy research paths remain readable. Migrate them only through the
 operator-confirmed `agentic-research:convert` flow.

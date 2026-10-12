@@ -10,6 +10,7 @@ Research supplies one dynamic grounded-research engine.
 | `brief` | curate implementation-critical knowledge for a work item | commissioned brief |
 | `deep-research` | investigate a consequential multi-facet domain | campaign |
 | `research-program` | coordinate several decision-linked arcs | research epic |
+| `methodology-review` | compare methods and reassess after operator decisions | comparison engagements with an operational review record |
 
 These names are not fixed cost tiers and do not implement separate agent trees.
 Each supplies project context, a decision-relevance hypothesis, and a proposed

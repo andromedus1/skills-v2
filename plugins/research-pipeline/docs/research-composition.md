@@ -27,7 +27,7 @@ kickoff and remains authoritative for the engagement.
 | `brief` | resolve a work-item-blocking knowledge gap | commissioning-linked brief |
 | `deep-research` | investigate a consequential multi-facet domain | campaign |
 | `research-program` | coordinate multiple decision-linked research arcs | research epic with registered feature engagements |
-| `methodology-review` | compare methods and iterate through operator decisions | verified comparisons/reassessments linked from the project decision record |
+| `methodology-review` | compare methods and iterate through operator decisions | verified research comparisons plus operational assessment/decision records |
 
 These are starting profiles, not separate engines or fixed cost tiers. The
 orchestrator discovers fan-out and confirms rigor according to the downstream

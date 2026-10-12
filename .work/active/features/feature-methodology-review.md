@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review
 kind: feature
-stage: review
+stage: done
 tags: [prose, research-pipeline]
 parent: null
 depends_on: []
@@ -94,7 +94,7 @@ the existing portability test; no new test that mirrors skill wording was added.
 
 Validation passed: skill-creator quick_validate; existing skill-portability test;
 Claude/Codex manifest version/discovery and marketplace resolution parity; Codex
-presentation/invocation fields; 13 local links across touched documentation; Git
+presentation/invocation fields; 12 local links across touched documentation; Git
 whitespace check. System Python lacked PyYAML, so checks ran in an isolated temporary
 venv with PyYAML rather than modifying project dependencies.
 
@@ -102,3 +102,63 @@ An isolated behavioral continuation exercise covers four synthetic nonsoftware
 projects. One cross-model feature review follows the standard single-pass policy.
 Their outcomes and host dispositions will be recorded below. No release/version bump
 or change to installed caches has occurred.
+
+## Behavioral continuation checks — 2026-10-12
+
+A fresh-context native agent used the skill against four isolated synthetic
+nonsoftware projects in a temporary directory. It received requests, current process,
+checkpoint and completed assessment records, without expected answers. It performed
+the next permitted actions rather than reviewing the instructions.
+
+| Case | Observed behavior |
+|---|---|
+| Editorial, partial approval | Applied only the independent factual-check change. Left the separate source-sharing decision unanswered, and did not claim the applied change independently verified. Preserved round 1/5. |
+| Volunteer roster, rejected remedy | Retained weekly updates and the supported major risk, recorded the rejection rationale and revisit trigger, stopped with retained risks. Preserved round 2/5. |
+| Planning, exhausted limit | Kept the experiment unauthorized and major finding open, reported awaiting decision at 5/5, required an extension before another assessment. |
+| Editorial, supplied clean assessment | Closed clean within the specified scope from the independent full-scope evidence; retained minor observations and excluded live effectiveness. Preserved round 2/5. |
+
+The host compared file digests: only the authorized editorial process and the four
+checkpoint records changed; all source requests and assessment snapshots remained
+unchanged. Result links resolved. This tests continuation/authority/exit behavior,
+not fresh web acquisition or real-world methodological effectiveness. Fresh review
+was unavailable inside the offline fixtures and was reported as pending, not invented.
+
+## Review (2026-10-12)
+
+**Independent verdict**: Request changes. Claude reviewed through the installed
+peeragent wrapper, job `20261012T140425Z-9cd308a9`, terminal status success. It was
+instructed not to delegate back. Effective weight: standard, one independent pass;
+the host owns correction and verification without another independent pass.
+
+**Host closure**: Approve after verified inline corrections. No unresolved blockers.
+The independent verdict remains the original result; no claim is made that Claude
+reviewed or approved the corrected snapshot.
+
+| Accepted finding | Disposition and verification |
+|---|---|
+| Loop record location/ownership and metadata were underspecified | Fixed inline. Specify a matching Agile Workflow controller separate from research engagements, existing alternate trackers, or a fixed root fallback outside `.research/`. Define assessment storage and discovery, including archived records. The fallback frontmatter passes the existing index validator in schema v1 and v2 modes. |
+| Narrowed operator decisions could be lost in research handoff | Fixed inline. Emission receives exact decisions; reconcile operative brief/acceptance before downstream dispatch; preserve review/finding IDs, decision backlink, research origin and reciprocal links; deduplicate across research refreshes. A focused behavioral continuation verified a broad emitted proposal becomes only the authorized two-week newsletter pilot. |
+
+**Additional comments addressed inline**: refresh an existing knowledge index after
+research; route comparison challenge lenses through the orchestrator without a second
+verification stack; verify new external claims introduced by an assessor; define exit
+precedence; expose the skill in the overview and adopter template. No rejected or
+deferred findings, and no separate repair items were needed for these prose edits.
+
+The focused post-fix continuation reused the same fresh-context test agent in a new
+isolated fixture. It received the current skill, saved review record, synthetic verified
+comparison, operator instruction and an already emitted overbroad item. It narrowed
+the item, preserved `stage: drafting`, kept the two-workflow review scope and unresolved
+finding, recorded awaiting change/evidence at 1/5, and did not implement or emit another
+item. Host checks confirmed the research digest was unchanged, the item identities and
+links were correct, and no duplicate item was created. This is behavioral verification
+of the fix, not another independent feature review or live research validation.
+
+Final checks passed: skill-creator quick_validate; existing plugin portability test;
+Claude/Codex manifest parity and both marketplace discovery paths; Codex UI metadata;
+five new/changed local Markdown links; standalone record compatibility with the existing
+index's v1/v2 schema; targeted handoff continuation checks; and Git whitespace check.
+All acceptance criteria are met for local skill authoring. A real-project research
+pilot remains a future use of the skill, not evidence claimed by this feature.
+
+No plugin version, installed cache, remote branch or adopter project was changed.

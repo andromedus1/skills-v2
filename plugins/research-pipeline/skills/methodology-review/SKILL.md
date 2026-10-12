@@ -36,14 +36,22 @@ operating policy. The operator adjudicates those decisions. Routine research
 choices and corrections to the review's own analysis remain the agent's work.
 Prior explicit authorization remains valid within its stated scope.
 
-Keep delivery state and operator decisions in the project's existing work or
-decision record. Without one, use a single local `methodology-review-state.md` at the review
-output destination and report that choice; do not create an operational substrate
-merely to run the review. Keep research outputs in Agentic
-Research's normal artifact map, and link them from the state record. Do not rewrite
-a completed research report to reflect an operational decision or implementation
-status. Consult [review-record.md](references/review-record.md) when first recording
-the charter, findings or decisions; its fields extend document bodies, not ARD schemas.
+Resolve one durable loop record before research. In an Agile Workflow project, use
+an existing matching work item or scope a review-tracking item through
+`agile-workflow:scope`. Tag it `methodology-review`; do not give that loop controller
+a `research` tag or `research_dials`. Separately commissioned research items own their
+engagements, so the orchestrator cannot close the controller after the first report.
+Use another project's established decision tracker when applicable; never mix trackers.
+Otherwise use `methodology-review-state.md` at the project root, outside `.research/`,
+with the existing planning frontmatter described in the reference. Separate concurrent
+reviews by named sections; do not overwrite another review or bootstrap `.work/`.
+
+Store operator decisions, delivery links and dated full-scope assessment snapshots
+in this loop record. Research comparisons and source verification remain in Agentic
+Research's normal artifact map, linked from each snapshot. Do not rewrite a completed
+research report to reflect operational decisions or implementation status. Consult
+[review-record.md](references/review-record.md) when first recording the charter,
+findings or decisions; it uses existing schemas rather than adding an ARD tier.
 
 ## 1. Set a review charter
 
@@ -106,9 +114,13 @@ additional resources need their own authorized scope.
 ## 3. Produce findings and a decision packet
 
 Finish the engagement's required verification before presenting recommendations as
-verified. The comparison's independent challenge must test sample bias, comparability,
-source support and criteria that merely favor the current design. Use the project's
-cross-model preference when available; record any permitted fresh-context fallback.
+verified. Include sample bias, comparability, source support and criteria favoring
+the current design in its research seed. Where the agreed rigor includes an adversarial
+read, these are lenses for that orchestrator-owned pass, not a second verification
+stack. The full-scope assessor in step 5 is required for a clean exit even when the
+research rigor is floor. A pass may serve both roles only if its actual scope and
+structured result satisfy both requirements. Refresh the project's existing knowledge
+index after new research artifacts, without bootstrapping an index on other projects.
 
 Deduplicate findings with stable IDs. Separate methodological findings from incidental
 doc/code defects. A **major** finding has evidence of a material threat to an agreed
@@ -140,8 +152,17 @@ erase a finding from the earlier scope.
   its implementation. Distinguish adoption-only, further research, filing work and
   applying a specified change. Ask only where that authorization is actually missing.
 - When the operator explicitly requests filing research-derived work, invoke
-  `agentic-research:research-handoff` and honor its confirmation contract. Reuse an
-  existing item for the same finding; do not emit duplicates on every round.
+  `agentic-research:research-handoff` with the source artifact, authorized finding IDs,
+  exact decisions and filing destination; honor its confirmation contract. Check the
+  loop record and existing items for matching review/finding IDs before emission, even
+  if a refreshed research artifact has a new slug. Reuse matching items.
+- Before handing emitted work to design, implementation or autopilot, reconcile each
+  item's operative brief and acceptance scope to the operator's actual decision. Add
+  the stable review/finding IDs, exact authorized next action, a backlink to the loop
+  record and its decision, and the research-origin link. An original broader proposal
+  may remain as labeled background, never as the operative instruction. Record the
+  item link back in the loop record. These are work-side edits; do not alter research
+  to make it agree with the decision.
 - Apply authorized changes through the project's delivery workflow. This review skill
   does not bypass design, implementation, testing, review or deployment requirements.
   Record the resulting revision and evidence. If delivery occurs elsewhere or later,
@@ -167,9 +188,14 @@ Supply the charter, current project evidence, source-grounded comparisons and ex
 operator decisions, but do not prescribe a verdict. Ask it to assess current methods
 against the charter as well as verify earlier remedies. The assessment must distinguish
 new findings, persistent findings, verified resolutions, evidence-based withdrawals,
-and operator-retained risks. Research verification remains the orchestrator's job;
-this reassessment is not an extra copy of its citation/evaluator stack. An already
-independent initial assessment can supply the exit report if no changes were required.
+and operator-retained risks. Store its dated report in the loop record, with the
+research and delivery evidence it consumed. If it introduces an external claim absent
+from verified research, keep the new finding provisional and route the claim through
+the orchestrator before treating it as established or using it to justify a change.
+A consequential provisional concern prevents a clean exit until resolved. Research
+verification remains the orchestrator's job; this assessor does not replace or copy
+that stack. An already independent initial assessment can supply the exit report if
+no changes were required.
 
 Read the exit from that assessment, not from the author's confidence or a targeted
 grep. There is no claim that a bounded review proves universal methodological quality.
@@ -182,6 +208,11 @@ grep. There is no claim that a bounded review proves universal methodological qu
 | **Stopped with retained risks** | The operator elects to stop or retain/defer a material issue. List those findings and their revisit conditions. This is a dispositioned review, not a clean bill of health. |
 | **Incomplete** | Required coverage/verification is unavailable, the round limit is reached, or another unchanged round would add no evidence or authorized progress. Report the limitation and the concrete next step; do not manufacture convergence. |
 
+When several outcomes apply, report all finding statuses and choose the primary
+outcome in this order: explicit operator stop (retained risks, or incomplete if none),
+awaiting decision, awaiting change/evidence, incomplete, then clean. Paused portions
+do not stop unrelated work that is already authorized.
+
 A round ends with a verified comparison and full-scope assessment. Persist its count
 and baseline. Do not run another unchanged round while waiting for a decision or
 implementation, reset the counter on resume, lower severities to meet the exit bar,
@@ -191,10 +222,14 @@ never as clean. Further rounds require the operator to extend the limit.
 
 ## Resume and report
 
-Resume from the operational record, current revision and linked research artifacts.
-Reconcile intervening changes with the last charter, preserve earlier decisions and
-finding IDs, and identify the next unfulfilled step. Never infer approval from an
-item's presence or completion of its research engagement.
+To resume, use the supplied record path first; otherwise find the matching active
+`methodology-review` work item or the project-root `methodology-review-state.md`.
+If the requested review is already closed, recover its completed/archived record
+through the project's retention conventions. If several records match, ask which
+scope to resume. Read the current revision and linked research artifacts. Reconcile
+intervening changes with the last charter, preserve earlier decisions and finding
+IDs, and identify the next unfulfilled step. Never infer approval from an item's
+presence or completion of its research engagement.
 
 Report the assessed scope/baseline, approaches sampled, major findings by status,
 operator decisions, authorized changes and verification, unresolved risks, and exact

@@ -6,6 +6,37 @@ Agentic Research's artifact conventions; keep decisions and delivery state in th
 project's work/decision record. Preserve dated reports and link corrections or later
 assessments rather than retroactively changing what an earlier pass concluded.
 
+## Record location and discovery
+
+Use the matching `methodology-review` tracking item in Agile Workflow, without a
+`research` tag/dials on the loop controller. An engagement may close independently;
+the controller tracks the still-open decisions and reassessments. Other established
+project trackers keep their own conventions.
+
+The standalone fallback is the fixed project-root `methodology-review-state.md`,
+never a file under `.research/`. Use existing planning metadata so an adopter's index
+can consume it if its discovery rules include root files:
+
+```yaml
+---
+description: "Operational decisions and checkpoints for methodology reviews"
+type: design
+kind: planning
+updated: YYYY-MM-DD
+summary: "Review scopes, operator decisions, delivery links and assessment outcomes"
+decisions:
+  - "Project-method changes require operator adjudication; review progress is recorded here."
+---
+```
+
+Substitute the actual date and keep decisions current; the initial entry records
+the review's authority boundary, not a substantive project decision. Record the review ID and
+scope in a named body section; use additional sections for concurrent reviews.
+Append dated assessor reports in the relevant section, linking the research outputs
+and current baseline. Those reports assess loop progress; they are not source-direct
+research or a replacement for the orchestrator's analytical outputs. This record
+uses the existing planning schema, not a new frontmatter contract.
+
 ## Charter and loop checkpoint
 
 Record the target, baseline, jobs/outcomes, constraints, questions, criteria,
@@ -70,8 +101,13 @@ when the user's intent does not already settle that action. Reuse the user's exi
 answer rather than imposing a second approval ceremony.
 
 Capture the decision's date, operator, actual instruction/rationale, scope and next
-action. Link any emitted work item and research origin. A decision about one finding
-must not become blanket permission for all later findings or unrelated changes.
+action. Link each emitted work item. The item must link back to this decision and
+carry the stable review/finding IDs, research origin, authorized next action and an
+operative brief/acceptance boundary matching that decision. For example, a decision
+to pilot an approach in one workflow cannot leave a broader rollout as the item's
+brief. Keep the broader research proposal only as clearly labeled background.
+Deduplicate by review/finding identity across refreshed research slugs. A decision
+about one finding must not become blanket permission for later findings or changes.
 
 ## Assessment report
 
