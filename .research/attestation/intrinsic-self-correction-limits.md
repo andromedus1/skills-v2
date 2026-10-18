@@ -12,8 +12,8 @@ Jie Huang and coauthors; arXiv version 2, revised 2024-03-14; metadata identifie
 ICLR 2024. Engagement depth: abstract/metadata, not full experimental audit.
 
 ## Anchored details
-- **Abstract, middle:** intrinsic self-correction is defined without external feedback.
-- **Abstract, final paragraph:** authors report difficulty correcting reasoning and
+- **Abstract, framing sentences:** intrinsic self-correction is defined without external feedback.
+- **Abstract, closing sentences:** authors report difficulty correcting reasoning and
   occasional degradation after correction in the studied setting.
 - The stated scope is reasoning without external feedback; it does not establish
   failure of every feedback-driven workflow or every later model.

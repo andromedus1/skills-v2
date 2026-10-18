@@ -12,9 +12,9 @@ Dancheng Liu and coauthors; arXiv version 2, revised 2024-12-23. Page comments s
 in submission. Engagement depth: abstract/metadata; no experimental replication.
 
 ## Anchored details
-- **Abstract, middle:** the work addresses doubts about intrinsic self-correction
+- **Abstract, framing sentences:** the work addresses doubts about intrinsic self-correction
   using theoretical analysis and experiments.
-- **Abstract, final paragraph:** authors identify zero temperature and fair prompts
+- **Abstract, closing sentences:** authors identify zero temperature and fair prompts
   as factors enabling demonstrated self-correction across multiple models.
 - This is a conditioned positive claim, not a universal guarantee for arbitrary
   prompts or deployment settings.
