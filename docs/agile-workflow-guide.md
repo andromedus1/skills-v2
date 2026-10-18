@@ -1,3 +1,16 @@
+---
+title: Agile Workflow usage guide with upstream adoption context
+description: Read for substrate stages, design, implementation, autopilot and release usage; the Workbench adoption recommendation is upstream guidance.
+type: module-rules
+updated: 2026-10-18
+summary: Human-facing guide to the Agile Workflow delivery loop, operator decisions, work items and recovery. This fork continues using Agile Workflow despite the guide's upstream recommendation for new projects.
+decisions:
+  - Align consequential design choices before autonomous implementation.
+  - Use the work substrate to preserve delivery state across sessions.
+related:
+  - {slug: project-navigation.md, relationship: parallel-to}
+---
+
 # Agile-Workflow Guide
 
 > ## Maintenance mode (KTLO)

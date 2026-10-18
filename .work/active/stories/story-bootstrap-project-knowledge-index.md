@@ -1,7 +1,7 @@
 ---
 id: story-bootstrap-project-knowledge-index
 kind: story
-stage: implementing
+stage: review
 tags: [prose, knowledge-index, research-pipeline]
 parent: null
 depends_on: []
@@ -48,3 +48,38 @@ generated files.
 - Execution: inline; one cohesive documentation and generation task.
 - Review: standard bounded standalone-story review, without an independent reviewer.
 - Dependencies: none; scope does not alter the methodology-review feature.
+
+## Implementation notes
+
+- Added source frontmatter to all 13 existing docs and a high-priority
+  docs/project-navigation.md linking the fork's authorities and plugin entrypoints.
+- Preserved all 13 original document bodies byte for byte, including example dates.
+- Marked the deprecated Workflow guide and obsolete in-tree npm publishing research
+  as historical. Labeled inherited foundations as upstream context; research metadata
+  does not claim a new external-source verification.
+- Generated docs/knowledge-index-nav.yaml, docs/knowledge-index.yaml and
+  docs/knowledge-index-detail.yaml using the existing generator in an isolated
+  PyYAML environment. No generator, hook or skill behavior changed.
+- Execution capability: inline host; mechanical metadata and bounded prose scope.
+- Review weight: standard standalone-story lane, as recorded at scope time.
+- Tests added/removed: none; direct corpus checks and existing hook tests cover the
+  generated outputs and session integration without duplicating implementation.
+- Simplification: retained the existing generation and hook paths; linked plugin
+  authorities instead of copying their contracts or adding scan-root configuration.
+- Design discrepancies: none. The existing generator indexes docs and research,
+  not every plugin tree; the navigation guide makes that coverage explicit.
+- Adjacent work: no additional work items created.
+
+## Verification
+
+- Generation: 14 documents, 8 planning / 4 research / 2 historical; zero lint errors
+  and warnings. Navigator approximately 2 KB, below the 9,800-byte hook threshold.
+- Corpus parity: every docs/**/*.md appears once in the full index and has a detail
+  entry; the fork guide is the sole explicitly high-priority navigation entry.
+- Every new Markdown link and emitted relationship target resolves.
+- Compared original bodies against scope commit 0aa97f3e; all 13 are unchanged.
+- Repository and installed Codex-cache navigator scripts both emit this navigator
+  from the repo root and a nested plugin directory, within the full output budget.
+- Existing session-context hook suite passes; Git whitespace check passes.
+- Hook scripts were exercised directly. No fresh live model session or external
+  research refresh is claimed by this story.

@@ -1,3 +1,13 @@
+---
+description: Read the retained research behind shared skills and dual plugin manifests; recheck current host behavior before changing distribution.
+type: brief
+updated: 2026-10-18
+summary: Research snapshot comparing Codex repository instructions, skill format, plugin manifests and distribution options. The metadata catalogs the retained findings without refreshing their external sources.
+key_findings:
+  - The research recommends dual manifests around one shared skill source tree.
+  - Repository instructions, skills and plugin manifests serve distinct roles.
+---
+
 # Research: Codex Plugin Format and Standards
 
 Date: 2026-05-12

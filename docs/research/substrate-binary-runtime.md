@@ -1,3 +1,13 @@
+---
+description: Read for the distribution rationale behind compiled substrate tools; runtime measurements are retained research rather than current benchmarks.
+type: brief
+updated: 2026-10-18
+summary: May 2026 comparison of Rust and Bun for a shared substrate CLI and web board. Recommends Rust primarily because of the constraints of shipping binaries inside a plugin git tree.
+key_findings:
+  - The research selected Rust on binary distribution grounds despite Bun's web-development advantages.
+  - It proposed prebuilt platform binaries with a shell fallback to avoid requiring a user toolchain.
+---
+
 # Research: Substrate binary runtime (Rust vs Bun)
 
 ## Context

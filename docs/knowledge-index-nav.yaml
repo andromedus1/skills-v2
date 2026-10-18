@@ -1,0 +1,69 @@
+# Auto-generated. DO NOT EDIT BY HAND. Run /knowledge-index to regenerate.
+# Navigator layer — auto-loaded at session start (capped at 10KB by harness).
+# Provides corpus situational awareness only. Read knowledge-index.yaml for full index.
+
+schema_version: 3
+generated_at: 2026-10-18T21:06:24Z
+generated_from: frontmatter
+total_docs: 14
+
+by_kind:
+  planning: 8
+  research: 4
+  historical: 2
+
+# Substrate items (.work/) by tier. Query via .work/bin/work-view.
+substrate_summary:
+  active:
+    epic: 1
+    feature: 5
+    story: 2
+    release: 0
+  backlog: 5
+  releases: {}
+  archive: 2
+
+# Top 15 most-recently-updated docs (planning + research only).
+recent:
+  - path: docs/ARCHITECTURE.md
+    title: "Upstream skills repository architecture"
+    kind: planning
+    updated: 2026-10-18
+  - path: docs/designs/knowledge-graph-v2.md
+    title: "Design: knowledge-graph skill v2 (interactive doc-corpus graph)"
+    kind: planning
+    updated: 2026-10-18
+  - path: docs/SPEC.md
+    title: "Upstream plugin distribution specification"
+    kind: planning
+    updated: 2026-10-18
+  - path: docs/agile-workflow-guide.md
+    title: "Agile Workflow usage guide with upstream adoption context"
+    kind: planning
+    updated: 2026-10-18
+  - path: docs/project-navigation.md
+    title: "Skills v2 fork navigation"
+    kind: planning
+    updated: 2026-10-18
+  - path: docs/ux-ui-design-guide.md
+    title: "UX/UI Design Guide"
+    kind: planning
+    updated: 2026-10-18
+  - path: docs/workbench-guide.md
+    title: "Workbench upstream usage reference"
+    kind: planning
+    updated: 2026-10-18
+  - path: docs/VISION.md
+    title: "Upstream vision for the skills catalog"
+    kind: planning
+    updated: 2026-10-18
+
+# Docs flagged with nav_priority: high in frontmatter — read at session start.
+load_bearing:
+  - path: docs/project-navigation.md
+    title: "Skills v2 fork navigation"
+    kind: planning
+
+# On-demand layers (Read tool):
+full_index_path: docs/knowledge-index.yaml
+detail_index_path: docs/knowledge-index-detail.yaml

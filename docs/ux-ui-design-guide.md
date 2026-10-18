@@ -1,3 +1,13 @@
+---
+description: Read when choosing UI mockup skills or connecting visual design to a delivery workflow.
+type: module-rules
+updated: 2026-10-18
+summary: Human-facing guide to palettes, components, screens, flows and motion using disposable HTML mockups. Covers standalone use and integration with Agile Workflow and Workbench.
+decisions:
+  - Explore and align UI designs with mockups before production implementation.
+  - Use the design skill matching the scope of the visual decision.
+---
+
 # UX/UI Design Guide
 
 How to use the `ux-ui-design` plugin to design a user interface **before**

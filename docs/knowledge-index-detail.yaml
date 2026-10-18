@@ -1,0 +1,130 @@
+# Auto-generated. DO NOT EDIT BY HAND.
+# On-demand layer — load when surfacing a specific doc's full context.
+generated_at: '2026-10-18T21:06:24Z'
+generated_from: frontmatter
+schema_version: 1
+documents:
+  docs/ARCHITECTURE.md:
+    summary: Inherited map of Nathan's plugin repository, native catalogs, Pi bridge and substrate tools.
+      Plugin internals are delegated to their own documentation; the upstream Workbench emphasis does
+      not select this fork's process.
+    decisions:
+    - Shared skill sources are distributed through host-specific manifests and catalogs.
+    - Plugin-internal architecture belongs in each plugin's documentation.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/SPEC.md:
+    summary: Inherited specification for Claude, Codex and Pi distribution, manifest parity, versioning
+      and upstream plugin status. The Workbench-centered status policy belongs to the upstream catalog.
+    decisions:
+    - Claude and Codex manifests for a plugin carry the same identity and version.
+    - The two native marketplace catalogs expose the same ordered plugin identities.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/VISION.md:
+    summary: Inherited upstream vision for a cross-host plugin catalog centered on Workbench. Its workflow
+      choices describe Nathan's repository, while this fork's instructions retain Agile Workflow and Research
+      Pipeline.
+    decisions:
+    - The upstream catalog centers new workflow development on Workbench.
+    - Plugins share portable skills and version independently.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/agile-workflow-guide.md:
+    summary: Human-facing guide to the Agile Workflow delivery loop, operator decisions, work items and
+      recovery. This fork continues using Agile Workflow despite the guide's upstream recommendation for
+      new projects.
+    decisions:
+    - Align consequential design choices before autonomous implementation.
+    - Use the work substrate to preserve delivery state across sessions.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/designs/knowledge-graph-v2.md:
+    summary: Design for a searchable document graph with stable layout, contextual expansion, synchronized
+      detail views and embedded diagnostics. Records the proposed units and verification criteria for
+      the renderer.
+    decisions:
+    - Prefer search, context and expansion on demand over presenting the entire graph at once.
+    - Integrate relationship and corpus diagnostics with the graph interaction.
+  docs/project-navigation.md:
+    summary: Maps the fork's authoritative instructions and plugin documentation, distinguishes upstream
+      Workbench references, and explains how to regenerate the repository knowledge index.
+    decisions:
+    - Follow AGENTS.md, README.md and the work conventions for this fork's process.
+    - Use Research Pipeline for project context, Agentic Research for grounded research, and Agile Workflow
+      for delivery.
+    - Treat inherited Workbench guidance as upstream context without changing the fork's substrate.
+    related:
+    - slug: AGENTS.md
+      relationship: depends-on
+    - slug: README.md
+      relationship: depends-on
+    - slug: plugins/research-pipeline/docs/build-process.md
+      relationship: depends-on
+    - slug: plugins/research-pipeline/docs/research-composition.md
+      relationship: depends-on
+    - slug: plugins/research-pipeline/skills/methodology-review/SKILL.md
+      relationship: parallel-to
+    - slug: plugins/agentic-research/README.md
+      relationship: parallel-to
+  docs/research/codex-plugin-format.md:
+    summary: Research snapshot comparing Codex repository instructions, skill format, plugin manifests
+      and distribution options. The metadata catalogs the retained findings without refreshing their external
+      sources.
+    key_findings:
+    - The research recommends dual manifests around one shared skill source tree.
+    - Repository instructions, skills and plugin manifests serve distinct roles.
+  docs/research/npm-trusted-publishing.md:
+    summary: Retains the OIDC publishing proposal from when Pi packages lived in this tree. Current distribution
+      docs place Pi-native packages in a separate repository, so the described local workflow and setup
+      are historical.
+    related:
+    - slug: docs/SPEC.md
+      relationship: parallel-to
+  docs/research/pi-package-format.md:
+    summary: Research snapshot of Pi package resources, extensions, security implications and companion
+      packages. Describes package capabilities rather than proving this fork's current Pi installation
+      works.
+    key_findings:
+    - Pi packages can contain skills and executable extensions with different responsibilities.
+    - The research recommends keeping executable Pi integrations small and separate from portable skills.
+  docs/research/plugin-root-discovery.md:
+    summary: Retained May 2026 investigation of hook variables, cache layouts and active-plugin discovery
+      across Claude and Codex. Its version-specific observations require a new probe before being applied
+      to a changed host.
+    key_findings:
+    - The investigated hook variables were absent from ordinary agent-shell and terminal commands.
+    - The investigation ruled out reliable active-plugin discovery from an arbitrary shell under the observed
+      layouts.
+  docs/research/substrate-binary-runtime.md:
+    summary: May 2026 comparison of Rust and Bun for a shared substrate CLI and web board. Recommends
+      Rust primarily because of the constraints of shipping binaries inside a plugin git tree.
+    key_findings:
+    - The research selected Rust on binary distribution grounds despite Bun's web-development advantages.
+    - It proposed prebuilt platform binaries with a shell fallback to avoid requiring a user toolchain.
+  docs/ux-ui-design-guide.md:
+    summary: Human-facing guide to palettes, components, screens, flows and motion using disposable HTML
+      mockups. Covers standalone use and integration with Agile Workflow and Workbench.
+    decisions:
+    - Explore and align UI designs with mockups before production implementation.
+    - Use the design skill matching the scope of the visual decision.
+  docs/workbench-guide.md:
+    summary: Upstream usage guide covering Workbench adoption, ordinary-language delivery, autonomy, research
+      and release summaries. Retained as a reference for a separate workflow that this fork does not run.
+    decisions:
+    - Workbench records its decisions, evidence and delivery state in the adopting repository.
+    - Operators steer autonomy and review depth through the Workbench workflow.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/workflow-guide.md:
+    summary: Reference for the deprecated workflow plugin, including its command selection, lifecycle
+      and document layout. The body explicitly marks the plugin unsupported; it is not the current fork
+      workflow.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to

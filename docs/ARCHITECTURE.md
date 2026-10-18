@@ -1,3 +1,16 @@
+---
+title: Upstream skills repository architecture
+description: Read for plugin layout and distribution boundaries; use project-navigation.md to resolve this fork's workflow ownership.
+type: architecture
+updated: 2026-10-18
+summary: Inherited map of Nathan's plugin repository, native catalogs, Pi bridge and substrate tools. Plugin internals are delegated to their own documentation; the upstream Workbench emphasis does not select this fork's process.
+decisions:
+  - Shared skill sources are distributed through host-specific manifests and catalogs.
+  - Plugin-internal architecture belongs in each plugin's documentation.
+related:
+  - {slug: project-navigation.md, relationship: parallel-to}
+---
+
 # Architecture
 
 This is the meta map for the `nklisch/skills` repository. It explains how

@@ -1,3 +1,16 @@
+---
+title: Upstream plugin distribution specification
+description: Read for marketplace shapes and manifest invariants; check this fork's instructions before applying upstream workflow or release policy.
+type: module-rules
+updated: 2026-10-18
+summary: Inherited specification for Claude, Codex and Pi distribution, manifest parity, versioning and upstream plugin status. The Workbench-centered status policy belongs to the upstream catalog.
+decisions:
+  - Claude and Codex manifests for a plugin carry the same identity and version.
+  - The two native marketplace catalogs expose the same ordered plugin identities.
+related:
+  - {slug: project-navigation.md, relationship: parallel-to}
+---
+
 # Plugin distribution specification
 
 This page is the reference for changing plugin metadata safely. It describes

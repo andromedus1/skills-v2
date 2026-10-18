@@ -1,3 +1,13 @@
+---
+description: Read for the rationale and interaction design behind the knowledge graph renderer; verify implementation details against the current skill.
+type: design
+updated: 2026-10-18
+summary: Design for a searchable document graph with stable layout, contextual expansion, synchronized detail views and embedded diagnostics. Records the proposed units and verification criteria for the renderer.
+decisions:
+  - Prefer search, context and expansion on demand over presenting the entire graph at once.
+  - Integrate relationship and corpus diagnostics with the graph interaction.
+---
+
 # Design: knowledge-graph skill v2 (interactive doc-corpus graph)
 
 ## Overview

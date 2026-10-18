@@ -1,3 +1,14 @@
+---
+title: Historical npm publishing research for Pi packages
+description: Read for the earlier Pi package publishing investigation, not as release instructions for this repository.
+type: brief
+status: legacy
+updated: 2026-10-18
+summary: Retains the OIDC publishing proposal from when Pi packages lived in this tree. Current distribution docs place Pi-native packages in a separate repository, so the described local workflow and setup are historical.
+related:
+  - {slug: ../SPEC.md, relationship: parallel-to}
+---
+
 # Research: npm trusted publishing for Pi packages
 
 ## Context

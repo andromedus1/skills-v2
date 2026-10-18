@@ -1,3 +1,13 @@
+---
+description: Read before designing a launcher that must locate the active installed plugin outside a host hook.
+type: brief
+updated: 2026-10-18
+summary: Retained May 2026 investigation of hook variables, cache layouts and active-plugin discovery across Claude and Codex. Its version-specific observations require a new probe before being applied to a changed host.
+key_findings:
+  - The investigated hook variables were absent from ordinary agent-shell and terminal commands.
+  - The investigation ruled out reliable active-plugin discovery from an arbitrary shell under the observed layouts.
+---
+
 # Research: Plugin-root discovery from an arbitrary shell (Claude Code + Codex)
 
 Date: 2026-05-31

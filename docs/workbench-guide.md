@@ -1,3 +1,16 @@
+---
+title: Workbench upstream usage reference
+description: Read when studying Nathan's Workbench approach as prior art; this guide does not authorize adopting its substrate in this fork.
+type: module-rules
+updated: 2026-10-18
+summary: Upstream usage guide covering Workbench adoption, ordinary-language delivery, autonomy, research and release summaries. Retained as a reference for a separate workflow that this fork does not run.
+decisions:
+  - Workbench records its decisions, evidence and delivery state in the adopting repository.
+  - Operators steer autonomy and review depth through the Workbench workflow.
+related:
+  - {slug: project-navigation.md, relationship: parallel-to}
+---
+
 # Workbench Guide
 
 Adopt Workbench in a repository, then drive real work through an agent in

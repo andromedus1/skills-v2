@@ -1,3 +1,14 @@
+---
+title: Deprecated Workflow Suite guide
+description: Read only to understand the retired workflow plugin or an existing legacy installation.
+type: module-rules
+status: legacy
+updated: 2026-10-18
+summary: Reference for the deprecated workflow plugin, including its command selection, lifecycle and document layout. The body explicitly marks the plugin unsupported; it is not the current fork workflow.
+related:
+  - {slug: project-navigation.md, relationship: parallel-to}
+---
+
 # Workflow Suite Guide
 
 > ## ⚠ DEPRECATED — NO LONGER SUPPORTED

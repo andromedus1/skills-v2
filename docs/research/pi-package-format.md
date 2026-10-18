@@ -1,3 +1,13 @@
+---
+description: Read the retained Pi package and extension research before investigating Pi compatibility; confirm current package behavior separately.
+type: brief
+updated: 2026-10-18
+summary: Research snapshot of Pi package resources, extensions, security implications and companion packages. Describes package capabilities rather than proving this fork's current Pi installation works.
+key_findings:
+  - Pi packages can contain skills and executable extensions with different responsibilities.
+  - The research recommends keeping executable Pi integrations small and separate from portable skills.
+---
+
 # Research: Pi package format
 
 Pi is a first-class distribution target for this repo alongside Claude Code and

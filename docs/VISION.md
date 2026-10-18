@@ -1,3 +1,16 @@
+---
+title: Upstream vision for the skills catalog
+description: Read for Nathan's catalog direction and Workbench context; use project-navigation.md for this fork's active process.
+type: north-star
+updated: 2026-10-18
+summary: Inherited upstream vision for a cross-host plugin catalog centered on Workbench. Its workflow choices describe Nathan's repository, while this fork's instructions retain Agile Workflow and Research Pipeline.
+decisions:
+  - The upstream catalog centers new workflow development on Workbench.
+  - Plugins share portable skills and version independently.
+related:
+  - {slug: project-navigation.md, relationship: parallel-to}
+---
+
 # Vision
 
 **A curated workshop for agent tooling — skills and plugins that make AI coding
