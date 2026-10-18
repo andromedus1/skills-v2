@@ -1,7 +1,7 @@
 ---
 id: feature-quality-verification
 kind: feature
-stage: implementing
+stage: review
 tags: [methodology-review, research-pipeline, agentic-research, review]
 parent: null
 depends_on: []
@@ -722,3 +722,39 @@ driver read all four actual reports. Targeted candidate used only the pending fi
 Doc-review changed/unchanged capped-baseline cases and a rerun of residuals are
 running on both hosts against the current correction. Earlier residual reports
 are retained as pre-review-result.txt, not represented as post-fix coverage.
+
+## Accepted-fix verification complete
+
+Implemented I-1/I02 and I-2/I03 plus N-1..N-4 in quality-checkpoint and the touched
+host invocation sentence in gate-docs-extension. No underlying doc-review, delivery
+review or ARD contract changed. The pending adapter delegates eligibility to the
+existing owner; the refresh instruction now uses a real doc-review invocation.
+
+Both new capped-baseline cases and the residuals rerun passed on both hosts.
+Claude job `20261018T231022Z-0cb6ef68` and fresh native qve_cap_forward returned
+actual reports; driver read all six. Unchanged cap → changes required, no new
+attempt; changed inputs after verified remediation → incomplete until a new normal
+full doc-review with its own cap; residual tool failure + capped High → incomplete
+plus changes required. All retain the standard review and distinguish targeted
+fix evidence from current whole-corpus audit coverage. No live gates were run.
+
+There are now **13 distinct raw cases per host** (26 current reports), with tracked
+rerun for the corrected fixture and residuals rerun for the product correction.
+The other reports remain applicable because their governing contracts did not
+change; the scope comparison is the reviewed diff. The new pending boundary tests
+used the pending-only candidate; its content matches the final pending contract
+apart from line wrapping. Prior gate facts remain explicitly synthetic.
+
+Correction validation: RP portability passes; quality-checkpoint quick validator
+passes with portable name/description frontmatter; direct comparison confirms
+supported doc-review arguments, the owner's configured gate order and accurate
+none/light reporting. git diff --check passes. Generated knowledge indexes contain
+16 documents with zero errors/warnings and include the new parked handoff item.
+No AR files changed after the earlier 57/57 conformance/catalog verification, so
+that evidence remains applicable. No manifest or installed-cache changes.
+
+The accepted standard-review correction set is now verified. Delivery review closes
+under the standard one-pass policy; this is host fix verification, not a claim that
+the original reviewer approved later changes. No unresolved current-cycle delivery
+blocker. Important O-1 remains parked; nits were addressed; no other item emission.
+Feature returns to review while its separate required methodology exit is pending.

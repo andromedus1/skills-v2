@@ -37,9 +37,23 @@ For `--pending`, discover terminal items across all tiers:
 .work/bin/work-view --scope all --stage done --paths
 ```
 
-Read their frontmatter and select unbound non-release items. `work-view` has no
-`--no-release` flag; do not invent one. **Pending mode is preflight only:** report
-scope, existing evidence and missing prerequisites. Do not dispatch release-only
+Read their frontmatter and select unbound non-release items using
+`agile-workflow:release-deploy`'s candidate eligibility rules. Apply that owner's
+Agentic Research activation probe to the target project, not the skill's source
+checkout. Where AR is active, exclude research commissioning inputs in both active
+and archived tiers using the parsed tag query:
+
+```sh
+.work/bin/work-view --scope all --tag research --paths
+```
+
+Keep excluded research records as grounding context, not proposed release members.
+Without AR integration, `research` remains an ordinary project tag; similarly,
+`research-ops` is not the exact `research` tag. Do not replace tag parsing with a
+regex. `work-view` has no `--no-release` flag; do not invent one.
+
+**Pending mode is preflight only:** report scope, existing evidence and missing
+prerequisites. Do not dispatch release-only
 gates with a virtual version, bind items or claim readiness. A real binding or an
 explicitly configured adapter accepting the exact item set is required for a
 subsequent gate run; do not invent that adapter's contract.
@@ -72,7 +86,8 @@ narrow standalone fixes retain their existing verification/inline-review routes.
 For covering review evidence, retain the assessed scope/baseline, reviewer path,
 weight, findings, adjudication and accepted-fix verification. A terminal stage,
 passing linter, design advisory or research verification is not a delivery-review
-receipt. Honor explicit none/light policies without relabeling them independent.
+receipt. Honor explicit none/light policies and record whether an independent pass
+actually ran.
 
 A completed standard review plus verified accepted fixes remains valid; a changed
 hash alone does not require another pass. Do not describe the original reviewer
@@ -83,15 +98,15 @@ never restart a completed standard pass merely because context was lost.
 
 ## 3. Execute the declared checks sequentially
 
-Run doc-review first when required, using its supported no-argument full review
-or an explicitly agreed document scope. A release version is not its module
-argument. Invocation includes its own authorized Critical/High correction loop;
+Run doc-review first when required, using its no-argument full review, an agreed
+module name, or `--system-only`. A release version is not its module argument.
+Invocation includes its own authorized Critical/High correction loop;
 retain its actual `doc-review-report.md` and final severity counts, including a
 capped or incomplete outcome. Capture the resulting baseline before other scans.
 
-Then run the configured delivery gates in order: security, tests, cruft, docs,
-patterns; place custom gates according to their declared dependencies. Run
-citations last when required. Pass the real release version to release-bound gates.
+Then run delivery gates in `gates_for_release` order; the default order is security,
+tests, cruft, docs, patterns. Respect declared dependencies for additional gates.
+Run citations last when required. Pass the real version to release-bound gates.
 
 For tests and docs, read and append the relevant policy to the invocation:
 
@@ -117,9 +132,12 @@ severity policy. Advisory counts never prove semantic support or cause a new gat
 
 If a later action changes an earlier check's inputs, determine affected coverage
 and refresh that evidence under its owner's rules. Reuse unaffected evidence with
-an explicit scope comparison. Do not mark a stale report current or reset an owner's
-iteration limit. Doc-review's full re-audit rule and standard delivery's accepted-fix
-verification rule remain distinct.
+an explicit scope comparison. Do not mark a stale report current or bypass an
+owner's limits. If authorized delivery materially changes inputs after doc-review
+hits its cap, refresh with a new normal doc-review invocation, including its own
+fix loop and cap. It has no report-only mode. Never rerun an unchanged capped
+baseline to gain more attempts. Standard delivery still closes accepted fixes on
+verification without another independent pass.
 
 ## 4. Decide from results and unresolved work
 
@@ -165,6 +183,7 @@ Route findings to normal Agile Workflow implementation/review, and unavailable
 checks to their owners. After changes, resume the same checkpoint and refresh
 invalidated checks. Deduplication prevents duplicate items; it does not mean a
 rerun is free or that existing unresolved findings disappeared. Do not silently
-repeat unchanged checks, create another correction budget, or launch a second
-standard delivery review. Release execution remains an explicitly authorized
+repeat unchanged checks or invent extra attempts beyond the owning skill's rules.
+A changed-input doc-review refresh follows section 3; it does not authorize a
+second standard delivery review. Release execution remains an explicitly authorized
 `agile-workflow:release-deploy` action.

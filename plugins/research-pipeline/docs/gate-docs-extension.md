@@ -120,7 +120,7 @@ epic it blocks).
 
 ## Invocation contract
 
-`quality-checkpoint` calls Nathan's `gate-docs` via the Skill tool, then
+`quality-checkpoint` invokes `agile-workflow:gate-docs` through the host, then
 appends this policy to the brief template. Two integration points:
 
 1. **Brief append.** The orchestrator passes the contents of this doc as an
