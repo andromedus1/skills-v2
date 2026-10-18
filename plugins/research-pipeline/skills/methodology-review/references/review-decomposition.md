@@ -46,7 +46,8 @@ uncovered questions in the record; do not label them reviewed.
 Use the existing record locations from [review-record.md](review-record.md).
 Named sections in one controller suffice for a coordinated review. If a program
 needs independently scheduled review items, use the project's existing workflow
-to create them and link their authoritative records from the root. Review
+to create them and link their authoritative records from the root. Every child
+record links back to its root record and parent so resume restores the shared limit. Review
 controllers have no `research` tag/dials. Research commissioning items remain
 separate. Without a work substrate, use linked sections in the existing fallback
 record; do not create a new tracker or research tier.
@@ -55,7 +56,7 @@ Pass this skill and reference to a child worker, together with:
 
 | Input | Required content |
 | --- | --- |
-| Identity and purpose | Root/child IDs, parent question, covered questions and expected contribution |
+| Identity and purpose | Root/child IDs and record links, parent question, covered questions and expected contribution |
 | Charter | Baseline, scope/exclusions, outcomes, criteria/scenarios and inherited constraints |
 | Evidence | Relevant current artifacts and known gaps; source verification remains with Agentic Research |
 | Coordination | Dependencies, shared-question owner, root round/limit and allocated next checkpoint |
@@ -63,7 +64,8 @@ Pass this skill and reference to a child worker, together with:
 | Return location | Existing record section/item and the parent that consumes it |
 
 Delegate only independent work whose coordination is useful; an inline child can
-use the same contract. A child repeats the common protocol for its assigned scope.
+use the same contract. A child repeats the common protocol for its assigned scope;
+coordinated children return assessments for their parent's combined decision.
 It may propose a smaller cut within that scope but cannot enlarge its charter,
 reset limits, authorize changes, or rewrite a sibling's decisions. Batch related
 operator questions through the parent where useful. Reuse applicable authorization
@@ -78,6 +80,13 @@ Each child returns a dated assessment with:
 - Actual operator decisions and authorized actions, separate from recommendations.
 - Remedy state and remaining obligations; the next dependency/checkpoint.
 - An existing exit outcome for the child scope and its reason.
+
+Before an assessment has run, return a checkpoint with no outcome yet, outstanding
+steps and the next action. Do not label an ordinary in-progress checkpoint incomplete.
+Qualify new finding IDs by their originating review ID, such as `R4-B/METH-003`.
+For existing bare IDs, preserve the ID and use its owning review ID when matching
+or emitting work. Never merge findings merely because local numbers match. Retain
+origin identities across re-cutting; record aliases/merged IDs for actual duplicates.
 
 An assessment handoff is not a clean exit. A child with decisions or remedies
 pending returns that status. Its research engagement completing changes neither
@@ -106,18 +115,31 @@ satisfy every level; no duplicate pass is needed just to match a diagram.
 
 ## Rounds, stopping and resume
 
-The root owns the agreed limit and count of complete assessment rounds. Record
-the in-progress root round and the child checkpoints allocated to it before
-dispatch. Children contribute one comparison/assessment cycle to that round;
-collect and integrate their results before starting another methodological cycle.
-Do not run nested child remediation loops that bypass the root limit. Research
-verification corrections remain governed by the research engine's own contract.
+The root owns the agreed limit and count of complete assessment rounds. When
+selecting a program, check whether the limit fits its expected independent change
+cycles; explain any material mismatch and request an adjustment only when needed.
+Keep an already agreed limit unless the operator changes it.
+
+Record the in-progress root round and allocated child checkpoints before dispatch.
+A program child may complete decision → authorized change → child-scope reassessment
+on its own schedule, as its one cycle for that root round. It need not wait for a
+sibling's decision. Coordinated children contribute to the parent's combined cycle.
+Do not start another cycle for a child within the same root round.
+
+The fresh parent assessment closes a round by evaluating the whole charter using
+returned child checkpoints, available verified evidence and explicit gaps. Waiting
+children report their exact status; do not wait for every child to be clean or
+claim missing coverage was assessed. Count this completed assessment even when its
+outcome is pending or incomplete. A checkpoint without that assessment is not a
+completed round. Carry pending work into the next allocation without restarting
+it or granting extra cycles. Research verification corrections remain governed by
+the research engine's own contract; no nested remediation loop bypasses the root limit.
 
 Creating, splitting, re-cutting, resuming or moving a review into a program does
 not reset its round allowance. Preserve coverage and finding IDs when boundaries
 change. If a child is blocked, return its exact awaiting/incomplete outcome and
-continue independent authorized work. An incomplete parent checkpoint is not a
-completed round or permission to repeat unchanged child work indefinitely.
+continue independent authorized work. A pending checkpoint is not permission to
+repeat unchanged child work indefinitely.
 
 Before another round, identify changed evidence, an authorized change or an
 operator decision that permits progress. Reuse unaffected child assessments whose

@@ -63,7 +63,8 @@ assume either distinction without checking project intent.
 
 For a split review, record the root ID, selected shape, considered cuts, rationale,
 exclusions and remaining coupling. For each child, use a named section or link its
-authoritative review item. Record its ID/parent, covered question and contribution,
+authoritative review item. Each child links back to its root and parent. Record
+its ID/parent, covered question and contribution,
 baseline, inherited constraints/decisions, shared-question ownership, dependencies,
 allocated root-round checkpoint and latest assessment link. Use the child contract
 in [review-decomposition.md](review-decomposition.md) for dispatch and return fields.
@@ -101,7 +102,11 @@ agreed weights and evidence adequate for that precision.
 
 ## Finding record
 
-Use a stable ID, such as METH-001, across rounds. Record:
+Use a stable ID across rounds. For new findings, qualify the local ID by its
+originating review, such as `R4-B/METH-003`. Preserve existing bare IDs, identifying
+them by the owning review plus ID; identical numbers in different children are
+not duplicates. Keep origin identities when ownership changes and record aliases
+for actual merges. Apply the same identity when matching handoff items. Record:
 
 - Observation and evidence, affected outcome, severity/materiality rationale and confidence.
 - Current approach, credible alternatives and strongest contrary evidence.

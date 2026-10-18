@@ -297,7 +297,7 @@ cache updates and version bumps remain outside scope.
 - Extended the existing record writing aid and aligned process/readme descriptions.
   Retained the public skill, Codex metadata, ARD ownership and existing exit outcomes.
 - Validation: checkpoint forward tests and structural checks passed as recorded
-  below. Independent standard feature review is next. These tests do not constitute
+  below. Independent standard review and targeted fix verification completed. These tests do not constitute
   a full live-project research and delivery pilot.
 - Simplification: replaced the implicit landscape/component-study suggestion with
   explicit selection; no extra public skills, tracker schemas or research machinery.
@@ -331,6 +331,13 @@ parent integration sequence; process success alone was not treated as correctnes
 Codex forward worker: `/root/methodology_forward_codex`, completed; all four state
 artifacts inspected. Temporary fixture outputs were outside the repository and are
 not shipped. Exact requests and output fingerprints follow for reproducibility.
+
+Snapshot provenance: the initial eight outputs used the implementation before the
+three-line clarification that coordinated children may share a policy decision.
+Only the targeted Claude case-02 run used that clarification (the snapshot committed
+as 52c39640). The initial outputs remain evidence for unchanged behaviors, not a
+claim that all cases ran against the final text. Review corrections below require
+targeted verification of the affected behaviors.
 
 Structural verification after the clarification:
 
@@ -402,3 +409,141 @@ Coverage includes delivery validation and evidence retention. Validation child R
 codex output SHA-256: `e12d26838cd48d889092ad8572d1002210ae0ce632c8e4dd9ddc60c1841f456a`.
 
 claude output SHA-256: `f81a3bb6cec0543a9673e88f7c4337016f79f8634498f0a6f9356c5d6872a238`.
+
+
+## Review (2026-10-18)
+
+**Mode/weight:** substrate feature, standard; one independent Claude Opus/xhigh
+pass through peeragent, job `20261018T220747Z-ce45a917`, terminal success. Reviewer
+made no edits and checked the seven product files plus the implementation record.
+It verified the nine recorded output fingerprints and inspected all fixture reports.
+
+**Reviewer verdict:** Request changes. **Host disposition:** accept F1–F3 as
+material current-cycle issues, corrected inline and verified by the driver below.
+No further independent review is required under standard weight.
+
+- **F1 — independent schedules versus shared rounds:** accepted. A program child
+  can complete its allocated decision/change/child-assessment cycle without waiting
+  for a sibling. A fresh whole-charter parent assessment closes the root round using
+  returned reports and explicit pending/gap status, even when its outcome is not
+  clean. A progress checkpoint alone never increments the count. Pending work is
+  carried rather than restarted; a child cannot run another cycle within the same
+  root round. Selection checks the limit against expected cycles, preserving an
+  already agreed limit unless an actual adjustment is needed and authorized.
+- **F2 — coordinated child decisions:** accepted. The main entrypoint now explicitly
+  distinguishes child comparisons feeding a combined parent decision from program
+  children with independently adjudicable decisions. The reference agrees.
+- **F3 — colliding child finding IDs:** accepted. New IDs include the originating
+  review ID. Existing bare IDs remain intact and are matched with their origin;
+  re-cutting preserves identity and delivery links. Only actual duplicate findings
+  receive merge aliases. Handoff uses the same identity.
+- **O1–O4 — small corrections:** addressed inline: a pre-assessment checkpoint may
+  have no outcome yet; replace the hard-coded five with the agreed allowance; record
+  initial/targeted snapshot provenance; require each child record's root backlink
+  and follow it on resume.
+
+**Rejected part of F1 proposal:** do not automatically reopen the operator's limit
+just because the selector chooses a program. Prior explicit choices persist; only
+an actual fit problem warrants requesting an adjustment. This preserves session
+instructions against repeated confirmations while retaining a bounded review.
+
+**Important parked findings:** none. The user's separately requested quality-loop
+idea is `idea-quality-verification-loop`; it is not a review blocker or part of
+this feature. **Unresolved blockers:** none; F1–F3 corrected and targeted verification passed.
+
+### Correction verification snapshot
+
+The next forward tests exercise the corrected protocol in fresh contexts, not a
+second feature review: unchanged case-02 plus program scheduling (05), completion
+of a non-clean parent round (06), and child-ID collision/re-cut/resume (07).
+Both hosts receive raw requests and the skill only, with no reviewer diagnosis or
+expected answers. Snapshot SHA-256 values:
+
+- `SKILL.md`: `ac71d36e88d7ec390b652eafecb48505ccbf098fe0dba6212f72dc772fdb352f`.
+
+- `references/review-decomposition.md`: `6785316acfb97bb392da320f3e72b181b31a6ef3229a26571d5e31c1bd993825`.
+
+- `references/review-record.md`: `1e0edb8544355f48c8c1997798098aeeb0f7cc5ad743632851eeb1eedb7a2197`.
+
+
+### Correction verification results
+
+Both fresh-context hosts executed cases 02/05/06/07 against the correction snapshot
+above. Claude Sonnet/high job `20261018T221347Z-381c937d` completed successfully;
+Codex worker `/root/methodology_fix_verification` completed. The driver read all
+eight generated records and graded the affected invariants:
+
+| Case | Observed on both hosts |
+| --- | --- |
+| 02 | Program with coordinated learning children; two scoped assessments feed one policy decision; no assessment outcome invented at the initial checkpoint. |
+| 05 | P-R reassessment can proceed while P-L awaits its decision; 1 completed round and round 2 in progress; agreed limit 5 not reopened; no second child cycle within that round. |
+| 06 | Supplied fresh full-scope parent assessment completes round 2 despite awaiting decision; 2 complete rounds; no unchanged round 3; no clean parent claim. |
+| 07 | Separate origins distinguish both METH-001 findings and preserve D-A/D-B matches; new IDs are S-A/METH-002 and S-B/METH-002; S-C inherits coverage with the original S-A identity and root backlink; no merge or new allowance. |
+
+These are checkpoint-execution tests of scheduling/accounting decisions and record
+construction. They do not dispatch a live child assessment, run an external research
+campaign, execute a remediation loop or establish end-to-end pilot quality.
+
+After the corrections: skill validator, Research Pipeline portability suite,
+relative file-link/host-neutral prose checks, size checks and `git diff --check`
+all passed. Final sizes are 285 lines (skill), 157 (decomposition reference) and
+162 (record reference). No source edits followed these tests.
+
+### Additional correction-test inputs
+
+#### Correction case-02
+
+Exact unchanged request preserved in the initial case-02 record above.
+
+codex-corrections output SHA-256: `9f6a7fabfffc1f3e25c130294a79e374fa3671f38e9ca00fbd0d9e2160468d55`.
+
+claude-corrections output SHA-256: `94a36ff7d646729bec9650f3684a6ee5c5bf3dd2e737678be42ac70edd8a5dee`.
+
+#### Correction case-05
+
+```text
+# Request
+Resume program P and record the next checkpoint. The program already has an agreed five-round limit; do not reopen that settled choice. Review artifacts and the specific release-planning change are authorized. Do not run research, dispatch assessments or implement anything in this checkpoint.
+
+# Existing state
+Root P: one completed root round, round 2 in progress, limit 5. Baseline fixture-v2. Two independent component policies have separate owners and schedules. P-R owns release planning. Its operator-approved change has landed, delivery verification passed, and a fresh child-scope methodological assessment is still needed. P-L owns customer learning and awaits an operator policy decision expected in several weeks. Its existing assessment and verified evidence are current. There is no new parent assessment yet. Both children link back to P, and P links both current reports. Record what may proceed now, how the pending decision affects scheduling and what ends this round.
+```
+
+codex-corrections output SHA-256: `e372148fb81498a3909d1d3ce777c7a08172d147c018bd48f44516d40c31e215`.
+
+claude-corrections output SHA-256: `0c98ba35146898a27fe5ab2251dcbb14e5b41567b49bee45c626e168c014a599`.
+
+#### Correction case-06
+
+```text
+# Request
+Update program Q's record from the supplied assessment and identify the next useful action. Use only the supplied fixture evidence; no research, additional assessment or implementation is requested.
+
+# Existing state before report
+Q: one completed root round, round 2 in progress, agreed limit 5. Baseline fixture-v2. Q-R's authorized release-planning change passed delivery checks and its fresh child assessment verified the remedy. Q-L's current assessment and verified comparison remain valid but its independent policy decision is unanswered. No operator stop or limit extension was given.
+
+# Returned parent report
+A fresh independent assessor evaluated Q's whole charter on fixture-v2 using both children's actual reports, current verified comparisons, common cross-component scenarios and the exact operator decisions. It verified the Q-R remedy, found no conflicting recommendation or new major finding, and explicitly reported that Q-L's decision and any resulting remedy remain pending. It did not claim a future Q-L remedy was applied or assessed. Its outcome was awaiting decision. This is a completed full-scope parent assessment, not merely a progress note. No further evidence or authorized change has occurred since it returned.
+```
+
+codex-corrections output SHA-256: `54400b2fbe090909a47047d702fb3c1046902ce63547ebc691ce1924dba24feb`.
+
+claude-corrections output SHA-256: `702a771f3c4c49af3b79055eea6cba902cb611d248856ad1f9175fa9410a7706`.
+
+#### Correction case-07
+
+```text
+# Request
+Integrate these child records into root S's next checkpoint, including the newly reported observations and the coverage move. Use the current verified fixture evidence. No project changes, external research or delivery-item emission are authorized.
+
+# Existing records
+Root S links S-A and S-B. S-A links S as root and parent. S-B links S as root and parent. S has two completed rounds and round 3 in progress, shared limit 5. Existing child reports and evidence are current on fixture-v1; neither has an operator decision yet.
+S-A's existing bare local finding METH-001 is a supported major risk in interview participant selection. Existing delivery record D-A references owning review S-A and finding METH-001.
+S-B's existing bare local finding METH-001 is a separate supported major risk in retaining response records. Existing delivery record D-B references owning review S-B and finding METH-001.
+S-A's new supported observation is that the interpretation method discards negative responses before analysis; it has no ID yet. S-B's new supported observation is that the correction process does not notify downstream users after a revision; it has no ID yet. Both need durable IDs.
+A useful coverage re-cut has moved participant selection to child S-C, which links back to root S. The old S-A finding and D-A are still valid; the observation did not change. None of these four observations describe the same issue. Record identities, coverage and matching links so the next session can resume from S-C's record.
+```
+
+codex-corrections output SHA-256: `8f0809cc2258e3dfff6ba2231ecb35cea065e65e36f8e5ad7a96d68b54379332`.
+
+claude-corrections output SHA-256: `819880c6652c533b0566da0acb8d8a64dbd2da4d210b258ec68504535df03bd2`.

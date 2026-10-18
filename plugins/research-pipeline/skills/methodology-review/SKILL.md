@@ -86,8 +86,8 @@ counts, topic breadth or the amount of research needed.
 - **Focused review:** one bounded decision whose assessment needs no child reviews.
 - **Coordinated review:** distinct methodological subquestions contribute to a shared
   outcome and need a combined decision.
-- **Review program:** independently adjudicable component decisions warrant their
-  own change/reassessment cycles and dependency coordination.
+- **Review program:** independently adjudicable components have their own change
+  schedules, coordinated within the root's shared assessment rounds and limit.
 
 These are shapes of this skill, not separate versions. Explain the selected shape
 and its coverage limits. Honor an explicit operator choice where it fits the charter;
@@ -96,9 +96,11 @@ boundary or resumed multi-part review, read
 [review-decomposition.md](references/review-decomposition.md) before proceeding.
 It defines child inputs/results, parent integration and shared stopping rules.
 
-Each child repeats charter → map → evidence → comparison → operator decision →
-reassessment within a smaller scope. Reapply the selector only when further
-splitting adds decision value. Persist the chosen cut, rationale, exclusions and
+Each child repeats charter → map → evidence → comparison within a smaller scope.
+Coordinated children feed one combined operator decision and reassessment at the
+parent; program children also carry their own decision and child-scope reassessment.
+Reapply the selector only when further splitting adds decision value. Persist the
+chosen cut, rationale, exclusions and
 dependencies in the existing record. Routine decomposition inside authorized scope
 does not require another blanket approval; changed scope or constraints do.
 
@@ -165,7 +167,7 @@ with unresolved major findings first; retain smaller observations without using 
 to drive the loop indefinitely.
 
 For a split review, integrate child results before claiming a parent outcome.
-Reconcile overlapping findings by stable identity; expose conflicts, missing
+Reconcile overlapping findings while retaining each original identity; expose conflicts, missing
 coverage and cross-component effects. Route new cross-source analytical synthesis
 through Agentic Research; child reports are comparison lenses, not source evidence.
 A child may finish its assessment while the parent still awaits decisions or evidence.
@@ -251,11 +253,12 @@ outcome in this order: explicit operator stop (retained risks, or incomplete if 
 awaiting decision, awaiting change/evidence, incomplete, then clean. Paused portions
 do not stop unrelated work that is already authorized.
 
-A root round ends with a verified comparison and full-scope parent assessment.
-Persist its count, baseline and pending child checkpoints. Children share that limit;
-creating, splitting or resuming a child never grants another five rounds. Do not run
-another unchanged round while waiting for a decision or
-implementation, reset the counter on resume, lower severities to meet the exit bar,
+A root round ends when a fresh parent assessment evaluates the whole charter using
+available verified comparisons, returned child checkpoints and explicit coverage gaps.
+Waiting children return their status; their delay does not block other authorized
+child work. Persist the count, baseline and pending checkpoints. Children share the
+limit; creating, splitting or resuming a child never grants another allowance. Do not
+repeat an unchanged round, reset the counter on resume, lower severities to meet the exit bar,
 or widen the research question indefinitely. If clean conditions are unmet at the
 limit, stop as incomplete (or with the more specific pending/retained-risk outcome),
 never as clean. Further rounds require the operator to extend the limit.
@@ -264,6 +267,7 @@ never as clean. Further rounds require the operator to extend the limit.
 
 To resume, use the supplied record path first; otherwise find the matching active
 `methodology-review` work item or the project-root `methodology-review-state.md`.
+If the supplied record is a child, follow its root backlink before dispatch.
 If the requested review is already closed, recover its completed/archived record
 through the project's retention conventions. If several records match, ask which
 scope to resume. Read the current revision and linked research artifacts. Reconcile
