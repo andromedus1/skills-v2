@@ -1,6 +1,6 @@
 # Auto-generated. DO NOT EDIT BY HAND.
 # On-demand layer — load when surfacing a specific doc's full context.
-generated_at: '2026-10-18T22:17:33Z'
+generated_at: '2026-10-18T22:54:14Z'
 generated_from: frontmatter
 schema_version: 1
 documents:
@@ -128,6 +128,14 @@ documents:
     related:
     - slug: docs/project-navigation.md
       relationship: parallel-to
+  .research/analysis/briefs/quality-feedback-loops.md:
+    summary: Explicit criteria and observed outcomes support evaluation, while studies disagree about
+      intrinsic self-correction under different conditions.
+    key_findings:
+    - Evaluator-optimizer guidance describes clear criteria and measurable refinement value as best-fit
+      conditions.
+    - Self-correction findings are conditional; repeated model judgment alone is not a correctness guarantee.
+    - 'Proposed implication: record checked outcomes and preserve bounded unresolved exits.'
   .research/analysis/briefs/research-package-boundary.md:
     summary: Preserve the research engine and project-process boundary; test a coordinated suite experience
       before a full package merger, and make methodology-review research scale explicit.

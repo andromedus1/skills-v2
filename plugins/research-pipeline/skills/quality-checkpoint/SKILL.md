@@ -1,225 +1,170 @@
 ---
 name: quality-checkpoint
 description: >
-  Orchestrate the 8-gate quality system at release time: gate-security, gate-tests,
-  gate-cruft, gate-docs (with cascading consistency extension), gate-patterns,
-  gate-infra, gate-citations (research-corpus citation integrity), plus /doc-review.
-  Findings emit as substrate items, not reports.
-  Run pre-release-deploy when binding items to a version.
+  Check release readiness using configured delivery gates, document review and
+  research citation lint. Reconcile actual results, unresolved findings and
+  delivery-review evidence before recommending release. Use at a release boundary;
+  --pending prepares an unbound scope without claiming release readiness.
 ---
 
-# Quality Checkpoint Orchestrator
+# Quality Checkpoint
 
-You are the **Quality Checkpoint** orchestrator. The build-process methodology
-(`${CLAUDE_PLUGIN_ROOT}/docs/build-process.md`
-§Quality Checkpoint) prescribes an 8-gate sweep before any release-deploy: seven
-substrate-emitting gates (Nathan's five + our `gate-infra` and `gate-citations`)
-plus our narrative `doc-review` pass running alongside.
+Coordinate the checks defined by the project's process. Read the plugin's
+[build process](../../docs/build-process.md), project instructions and
+`.work/CONVENTIONS.md`. Agile Workflow owns delivery, gates and releases;
+Agentic Research owns research verification. This skill combines their evidence,
+not their pass criteria or retry loops.
 
-Your job is to invoke them in order on a single shared release bundle, then
-surface a consolidated summary so the user can decide whether the bundle is
-ready for `/agile-workflow:release-deploy` or needs draining via
-`/agile-workflow:autopilot` first.
+## 1. Establish scope and required checks
 
-## Why this skill exists
+Accept a release version or `--pending`. Reuse an explicit scope from the request;
+ask only when it is absent or ambiguous. Record the target items, changed files,
+revision and relevant uncommitted content so later results have a known baseline.
 
-Running 8 gates by hand has three friction points:
-1. The user has to remember the sequence and re-type the version 7 times
-2. Each gate emits items independently; nothing aggregates the blocking set
-3. Our extensions to Nathan's gate-docs and gate-tests (cascading consistency,
-   spec-driven coverage) need to be passed in as policy at invocation time —
-   easy to forget
+For a version, run:
 
-This orchestrator does all three. Gate outputs (substrate items) still live
-under `.work/active/stories/` where each gate writes them — this skill only
-adds the sequencing, the policy injection, and the cross-cutting summary.
-
-## Model Assignment
-
-- **Orchestrator (this skill's main loop)** — Host quality-first tier at low reasoning. Lightweight sequencing +
-  policy passing + summary. Each gate spawns its own deep sub-agent for the
-  actual analysis; the orchestrator's job is dispatch + report.
-
-## Context — files to read before starting
-
-1. `${CLAUDE_PLUGIN_ROOT}/docs/build-process.md`
-   §Quality Checkpoint — canonical methodology
-2. `${CLAUDE_PLUGIN_ROOT}/docs/gate-docs-extension.md`
-   — policy to append to `agile-workflow:gate-docs` invocation
-3. `${CLAUDE_PLUGIN_ROOT}/docs/gate-tests-extension.md`
-   — policy to append to `agile-workflow:gate-tests` invocation
-4. The project's CLAUDE.md — project-specific conventions, especially
-   gate-infra-relevant infra structure
-
-## Anti-Patterns (CRITICAL)
-
-- **NEVER skip gates to save time.** Each catches a different class of issue.
-  If a gate is genuinely irrelevant for this bundle (e.g., gate-infra on a
-  bundle that touched zero infra files), confirm with the user before
-  skipping and log the reason in the Phase 3 summary.
-- **NEVER batch gates in parallel.** Items emitted by earlier gates can
-  affect later ones (e.g., gate-cruft removals can invalidate a test that
-  gate-tests was about to evaluate). Sequential dispatch only.
-- **NEVER act on findings.** This skill orchestrates and reports. Items
-  emitted by gates become work for `/agile-workflow:autopilot` to drain or
-  `/agile-workflow:implement` per-item — not for this skill.
-- **NEVER hide blocking items.** If a gate emits any item with
-  `stage: implementing` (Critical/High severity), surface it explicitly in
-  the Phase 4 handoff. A clean release is one with zero blockers, not one
-  where blockers were summarized away.
-- **NEVER substitute your own judgment for a gate's findings.** Each gate's
-  sub-agent is the analytical authority within its lane. Pass through what
-  it returned.
-
-## Workflow
-
-### Phase 1: Determine release scope
-
-If invoked with a version arg (e.g. `/quality-checkpoint v0.2`), use that.
-
-Otherwise, use AskUserQuestion to ask:
-
-> Which version? Provide a version tag, or `--pending` to checkpoint all
-> unbound `stage: done` items as a virtual bundle.
-
-Validate the answer:
-- If a version: confirm `.work/bin/work-view --release <version> --paths`
-  returns at least one item; if zero, halt with "No items bound to release
-  `<version>`."
-- If `--pending`: use `.work/bin/work-view --stage done --no-release --paths`
-  as the bundle.
-
-### Phase 2: Invoke gates in sequence via Skill tool
-
-Pass the agreed scope to each gate. Order matters — security first
-(blocking gates run early), patterns last (stabilizes after other gates have
-emitted their items).
-
-```
-1. Skill(agile-workflow:gate-security, <version>)
-2. Skill(agile-workflow:gate-tests, <version>)
-     — append the contents of docs/gate-tests-extension.md to the brief
-3. Skill(agile-workflow:gate-cruft, <version>)
-4. Skill(agile-workflow:gate-docs, <version>)
-     — append the contents of docs/gate-docs-extension.md to the brief
-5. Skill(research-pipeline:doc-review, <version>)
-     — runs alongside gate-docs for the cascading narrative pass
-6. Skill(agile-workflow:gate-patterns, <version>)
-7. Skill(agile-workflow:gate-infra, <version>)
-8. Skill(research-pipeline:gate-citations, <version>)
-     — research-corpus citation-chain integrity (our gate; no extension policy needed)
-```
-
-For each gate:
-- Invoke via the Skill tool, passing `<version>` (or `--pending` scope) as
-  args, plus the extension-policy text where applicable (steps 2 and 4 only)
-- Wait for the gate to complete
-- Capture the gate's reported counts (findings by severity, items emitted)
-  and any file paths it printed
-
-If a gate fails or errors, capture the failure mode and continue to the next
-gate — report all failures together in Phase 3. A gate that errors is itself
-a release-blocker (re-run it before release-deploy).
-
-**Extension-policy injection.** For gate-tests (step 2) and gate-docs
-(step 4), read the corresponding extension doc and pass its contents as
-additional brief text. Concrete pattern:
-
-```
-Skill(agile-workflow:gate-tests, args="<version>\n\nAdditional policy appended by quality-checkpoint:\n<contents of docs/gate-tests-extension.md>")
-```
-
-The agile-workflow gate's sub-agent reads the additional policy and applies
-it alongside its built-in methodology.
-
-### Phase 3: Report consolidated findings
-
-After all 8 gates + doc-review have run, write a single consolidated summary
-directly in your response. Include:
-
-- **Scope** — version, bundle item count, bundle file count
-- **Per-gate breakdown** — for each of the 8 gates:
-  - Items emitted (count, with first 3 ids)
-  - Severity breakdown (Critical / High / Medium / Low)
-  - Query command to view (e.g. `work-view --gate security --release <version>`)
-  - Any errors / skips
-- **doc-review** — report path on disk, top issues
-- **Consolidated blocking set** — every item across all gates with
-  `stage: implementing` OR `stage: drafting`, sorted by gate-origin
-- **Cross-cutting observations** — items where MULTIPLE gates fired on the
-  same file (e.g., gate-docs flagged a module AND gate-patterns wants to
-  extract a pattern from the same module AND gate-tests has uncovered
-  criteria for it — that module is a hotspot)
-
-Each line in the consolidated blocking set should be queryable:
-
-```bash
-.work/bin/work-view --release <version> --stage implementing,drafting --paths
-```
-
-### Phase 4: Suggest next action
-
-Use AskUserQuestion if the user needs to decide, or report directly:
-
-- **If 0 blocking items** (no `stage: implementing` or `drafting` from any
-  gate): "Bundle `<version>` is clean. Ready for
-  `/agile-workflow:release-deploy <version>`."
-
-- **If blocking items exist:** list them by gate, then recommend
-  `/agile-workflow:autopilot` to drain. Show the exact drain command:
-  ```
-  /agile-workflow:autopilot --release <version> --stage implementing,drafting
-  ```
-  After autopilot drains, the user re-runs `/quality-checkpoint <version>` —
-  this skill is idempotent (each gate skips already-tracked findings), so a
-  second run will only emit net-new items.
-
-- **If gate errors occurred:** list the failed gates and recommend re-running
-  them individually before release-deploy.
-
-## Output
-
-- Substrate items written by each gate (durable; on disk under
-  `.work/active/stories/` and `.work/backlog/`)
-- doc-review report on disk at `docs/doc-review-report-<version>.md`
-- Inline consolidated summary in this skill's response (no separate
-  report file — the per-gate items + the doc-review report are the durable
-  record)
-- A clear "next action" handoff: release-deploy, autopilot drain, or
-  gate-rerun
-
-## Completion Criteria
-
-- Scope confirmed (version arg accepted, or `--pending` resolved)
-- All 8 gates + doc-review invoked (or skipped with documented reason)
-- Extension policies (gate-docs, gate-tests) passed at invocation
-- Consolidated blocking set surfaced
-- Next-action recommendation made
-
-## Idempotency
-
-Each gate is bundle-scoped and skips already-tracked findings on re-run
-(Nathan's gates do this via `(file:line, category)` tuple matching;
-gate-infra and our extensions follow the same pattern). So re-running
-`/quality-checkpoint <version>` after a partial autopilot drain is safe and
-cheap — only net-new findings emit.
-
-## Queryability cheat-sheet
-
-After this skill completes, the user (or downstream skills) can interrogate
-the findings:
-
-```bash
-# All findings for the release
+```sh
 .work/bin/work-view --release <version> --paths
-
-# Per-gate findings
-.work/bin/work-view --gate <name> --release <version> --paths
-# Where <name> ∈ {security, tests, cruft, docs, patterns, infra, citations}
-
-# Only this orchestrator's extension findings (cascading + spec-driven)
-.work/bin/work-view --tag research-pipeline-extension --release <version>
-
-# Blocking set
-.work/bin/work-view --release <version> --stage implementing,drafting --paths
 ```
+
+Exclude the release orchestration item from the delivery bundle. Recover archived
+bodies from their `git_ref` and original active path when needed for changes,
+acceptance or review evidence. An empty delivery bundle is not a successful sweep.
+
+For `--pending`, discover terminal items across all tiers:
+
+```sh
+.work/bin/work-view --scope all --stage done --paths
+```
+
+Read their frontmatter and select unbound non-release items. `work-view` has no
+`--no-release` flag; do not invent one. **Pending mode is preflight only:** report
+scope, existing evidence and missing prerequisites. Do not dispatch release-only
+gates with a virtual version, bind items or claim readiness. A real binding or an
+explicitly configured adapter accepting the exact item set is required for a
+subsequent gate run; do not invent that adapter's contract.
+
+For a real release, resolve the required checks before dispatch:
+
+- `gates_for_release`, when present, selects the project's delivery gates.
+  Otherwise use the standard gate names: security, tests, cruft, docs,
+  patterns. A missing required skill is a prerequisite failure, not an implicit skip.
+- Add `research-pipeline:doc-review` for the planning corpus and
+  `research-pipeline:gate-citations` for `.research/`, unless the project or caller
+  explicitly excludes them. An absent activating corpus is a documented no-op.
+- Reuse explicit exclusions and their reasons. Do not ask again or skip a required
+  check to save time. Resolve any newly necessary exclusion with the operator.
+- Resolve custom gates through the project's declared namespace and input
+  contract. There is no bundled `gate-infra`; do not assume one exists.
+
+Persist the scope and required/excluded checks in the existing release or work
+record before dispatch. If pending mode has no record, report its preflight in
+conversation; do not create a new tracker just for this summary.
+
+## 2. Reconcile delivery-review evidence
+
+Read the bundle's item records, including recovered archived bodies. Follow
+`agile-workflow:review` and its effective weight; path names do not determine the
+lane. Consequential changes to executable instructions or foundational contracts
+use the feature boundary when independence is warranted. Child checkpoints and
+narrow standalone fixes retain their existing verification/inline-review routes.
+
+For covering review evidence, retain the assessed scope/baseline, reviewer path,
+weight, findings, adjudication and accepted-fix verification. A terminal stage,
+passing linter, design advisory or research verification is not a delivery-review
+receipt. Honor explicit none/light policies without relabeling them independent.
+
+A completed standard review plus verified accepted fixes remains valid; a changed
+hash alone does not require another pass. Do not describe the original reviewer
+as approving later corrections. If a later change introduces a materially uncovered
+contract, name that gap and route it through normal delivery/review. Missing
+required review blocks readiness. Resume from existing receipts and pending fixes;
+never restart a completed standard pass merely because context was lost.
+
+## 3. Execute the declared checks sequentially
+
+Run doc-review first when required, using its supported no-argument full review
+or an explicitly agreed document scope. A release version is not its module
+argument. Invocation includes its own authorized Critical/High correction loop;
+retain its actual `doc-review-report.md` and final severity counts, including a
+capped or incomplete outcome. Capture the resulting baseline before other scans.
+
+Then run the configured delivery gates in order: security, tests, cruft, docs,
+patterns; place custom gates according to their declared dependencies. Run
+citations last when required. Pass the real release version to release-bound gates.
+
+For tests and docs, read and append the relevant policy to the invocation:
+
+- [gate-tests-extension.md](../../docs/gate-tests-extension.md)
+- [gate-docs-extension.md](../../docs/gate-docs-extension.md)
+
+Use public skill namespaces and the host's normal skill invocation mechanism.
+Wait for each result. Continue independent checks after an error where their
+prerequisites still hold, recording any checks that could not run. Missing tools,
+failed processes, missing reports or incomplete coverage cannot count as passes.
+The checkpoint does not implement emitted findings; normal delivery owns them.
+
+In the existing record, capture for each required check:
+
+| Check | Assessed scope/baseline | Actual result and evidence | Remaining obligations |
+|---|---|---|---|
+| Skill/command and applicable pass criterion | Revision/digests and files | Report path, verdict, counts, execution error or not run | Finding IDs, accepted fixes, unavailable coverage or next owner |
+
+Distinguish successful execution from an approving result. For citation lint,
+inspect JSON: default exit zero is not proof of no broken chains. Separate broken
+chains, thin attestations and advisory pattern counts; apply the citation gate's
+severity policy. Advisory counts never prove semantic support or cause a new gate.
+
+If a later action changes an earlier check's inputs, determine affected coverage
+and refresh that evidence under its owner's rules. Reuse unaffected evidence with
+an explicit scope comparison. Do not mark a stale report current or reset an owner's
+iteration limit. Doc-review's full re-audit rule and standard delivery's accepted-fix
+verification rule remain distinct.
+
+## 4. Decide from results and unresolved work
+
+Reconcile all release-relevant outstanding work, including previously tracked
+findings that emitted no new item on this run. Query each stage separately;
+`--stage` accepts one value, not a comma-separated list:
+
+```sh
+.work/bin/work-view --release <version> --stage drafting --paths
+.work/bin/work-view --release <version> --stage implementing --paths
+.work/bin/work-view --release <version> --stage review --paths
+```
+
+Exclude the release controller itself. Follow the gate's severity/disposition
+policy for blocking versus advisory findings; surface any unresolved required
+bundle work, review or dependency. A finding deduplicated against an old item is
+still a finding until its required remedy is verified.
+
+Use this precedence:
+
+1. **Preflight only** — `--pending`; no release-readiness verdict.
+2. **Incomplete checks** — any required check or review evidence is missing,
+   errored, stale or lacks required coverage. List affected checks and next owners.
+3. **Changes required** — checks returned blocking findings or required work remains,
+   including doc-review Critical/High residuals even if no work item was emitted.
+4. **Ready within checked scope** — every required check has a current successful
+   result under its owner's criteria; required delivery review and corrections
+   are evidenced; no blocking findings or required work remain. List nonblocking
+   observations and coverage limits. This recommendation does not deploy or publish.
+
+When several conditions apply, list every outstanding obligation even though the
+primary label follows this precedence. Zero newly emitted items, zero advisories,
+or process completion alone can never establish readiness.
+
+## 5. Report and hand off
+
+Report scope/baseline, required checks and exclusions, each result/evidence link,
+new and previously tracked blocking findings, doc-review residual counts, review
+coverage and the next action. Preserve this checkpoint in the existing record for
+resume; reports and finding items remain at their owning skills' locations.
+
+Route findings to normal Agile Workflow implementation/review, and unavailable
+checks to their owners. After changes, resume the same checkpoint and refresh
+invalidated checks. Deduplication prevents duplicate items; it does not mean a
+rerun is free or that existing unresolved findings disappeared. Do not silently
+repeat unchanged checks, create another correction budget, or launch a second
+standard delivery review. Release execution remains an explicitly authorized
+`agile-workflow:release-deploy` action.

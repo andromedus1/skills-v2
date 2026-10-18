@@ -2,8 +2,8 @@
 
 Additive checks `research-pipeline:quality-checkpoint` layers on top of
 `agile-workflow:gate-docs` (see
-`plugins/agile-workflow/skills/gate-docs/SKILL.md`) when running the 8-gate
-release-time quality system.
+`plugins/agile-workflow/skills/gate-docs/SKILL.md`) when running the configured
+release-time quality checks.
 
 Nathan's `gate-docs` already covers foundation-doc drift, README staleness,
 CHANGELOG gaps, repo-skill / pattern-skill staleness, and doc misplacement.
@@ -16,8 +16,9 @@ methodology (`docs/build-process.md` §Knowledge Layer + §Doc-Review):
 
 The orchestrator (`quality-checkpoint`) appends these checks to the sub-agent
 brief when dispatching `agile-workflow:gate-docs`, and ALSO invokes
-`research-pipeline:doc-review` in parallel for the cascading pass (doc-review
-has its own report; gate-docs emits items).
+`research-pipeline:doc-review` for the cascading pass before the gate scans
+(doc-review has its own report; gate-docs emits items). Required checks run
+sequentially against the recorded baseline; doc-review residuals remain explicit.
 
 Findings from this extension are emitted as items with `gate_origin: docs`
 and tag `[documentation, research-pipeline-extension]` so they're queryable:
@@ -128,9 +129,9 @@ appends this policy to the brief template. Two integration points:
    checks alongside the foundation-doc-drift / README / CHANGELOG / etc.
    passes.
 
-2. **Parallel doc-review invocation.** `quality-checkpoint` ALSO invokes
+2. **Doc-review before gate scans.** `quality-checkpoint` ALSO invokes
    `research-pipeline:doc-review` for the cascading pass — doc-review writes
-   a report to `docs/doc-review-report-<version>.md` (durable artifact),
+   a report to `doc-review-report.md` at the project root (durable artifact),
    gate-docs emits substrate items (release-binding artifacts). The two are
    complementary, not redundant: doc-review is the deep narrative pass;
    gate-docs is the queryable item set.

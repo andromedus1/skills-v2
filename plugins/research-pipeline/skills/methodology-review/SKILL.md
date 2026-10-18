@@ -72,6 +72,11 @@ and current delivery state. Record:
   settings; let the orchestrator settle its dials. Default to at most five complete
   root assessment rounds, including the initial round; the operator may change this limit.
 
+Name the required research and delivery checks, their owners and the evidence that
+will establish each result. Record actual outcomes and assessed inputs in the existing
+loop record; missing reports or successful worker execution alone cannot satisfy a check.
+Preserve each owner's correction rules and limits rather than creating a common retry loop.
+
 Use existing answers and authorization; do not repeat settled kickoff questions.
 Expose material ambiguity before dependent work. A suite landscape or one pilot
 may help establish useful boundaries; neither is a mandatory preliminary campaign.

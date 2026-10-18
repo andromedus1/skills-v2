@@ -111,14 +111,15 @@ Respect `depends_on`. Keep implementation discoveries, decisions, tests, and
 review findings in the item body. Commit coherent increments and stage
 transitions. Do not treat conversation summaries as project state.
 
-Review depth is proportional:
+Resolve review weight through `agile-workflow:review`: caller choice, project
+convention, then standard. Risk may broaden review lenses; it does not silently
+add passes. Standard is one independent pass followed by adjudication and verified
+fixes. Child and standalone-story exceptions remain with that skill.
 
-- light: local, reversible, well-tested change;
-- standard: ordinary feature with meaningful interfaces;
-- deep: security, data integrity, concurrency, migration, or broad architectural impact.
-
-This review-weight vocabulary guides which existing review lenses and gates to
-activate; it does not replace them.
+Consequential executable-instruction or foundation changes use the feature review
+boundary when independence is warranted. Reuse a covering review and its accepted-fix
+verification; a filename or later hash alone is not a reason for another peer pass.
+Identify materially uncovered contracts and route them through normal delivery.
 
 ## Knowledge layer
 
@@ -139,16 +140,25 @@ rewrite or delete a legacy corpus implicitly.
 
 ## Quality checkpoint
 
-Before a release, `research-pipeline:quality-checkpoint` sequences the configured
-Agile Workflow gates, the fork's infrastructure gate, document review, and the
-research citation gate. Findings become `.work/` items.
+Before a release, `research-pipeline:quality-checkpoint` declares and sequences
+configured Agile Workflow gates plus applicable document review and research
+citation checks. Explicit project exclusions persist; unavailable required skills
+are prerequisite failures. No bundled infrastructure gate is assumed. `--pending`
+is an unbound preflight, not a release sweep or readiness verdict.
+
+The checkpoint records actual results and reconciles covering delivery review.
+Gate findings become `.work/` items; doc-review keeps its own report and residual
+counts. Zero newly emitted items cannot establish that either kind of check passed.
 
 The citation gate is a thin release adapter over Agentic Research's canonical
 lint. Semantic source support and isolated evaluation run inside research
 engagements; the release gate does not duplicate them.
 
-Gate errors are blockers. Drain blocking findings through normal Agile Workflow
-implementation and review, then rerun the checkpoint.
+Required missing, failed, stale or uncovered checks prevent readiness. So do
+unresolved blocking findings, including residual Critical/High doc-review findings.
+Drain work through normal implementation/review; refresh affected checks under
+their owners' rules. Preserve each owner's limits and avoid duplicate standard
+reviews. The checkpoint's recommendation never authorizes deployment/publication.
 
 ## Migration and compatibility
 
@@ -168,5 +178,13 @@ An arc is complete when:
 2. relevant tests and gates pass;
 3. durable docs and knowledge artifacts reflect the current system;
 4. tracked items carry implementation and review evidence;
-5. changes are committed and the intended remote branch is current; and
+5. changes are committed and any authorized remote update is complete; and
 6. any release or publication action has explicit authority.
+
+For each required check, retain its actual result, assessed scope/inputs, evidence
+and remaining obligations in the existing work or engagement record. Missing,
+errored, stale, capped-with-blockers or unverified results are not passes; an
+artifact's existence, successful process or zero emitted items cannot substitute.
+This applies to ordinary delivery as well as release checkpoints. Correction and
+reassessment follow the owning workflow's criteria and limits, not one universal
+quality score or repeated-review loop.

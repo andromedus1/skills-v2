@@ -52,6 +52,12 @@ uses the existing planning schema, not a new frontmatter contract.
 Record the target, baseline, jobs/outcomes, constraints, questions, criteria,
 scenarios, included/excluded scope, research settings, completed assessment rounds
 and round limit. Link the latest verified research artifact and next required step.
+List required checks and owners with their actual result, assessed scope/baseline,
+evidence location and remaining obligation. Mark absent, errored or stale evidence
+explicitly; a tool's completion or a persisted artifact is not a successful verdict.
+On correction/resume, preserve earlier reports and explain which coverage remains
+valid or needs renewal under the owning workflow. Delivery's standard accepted-fix
+verification and this review's fresh whole-scope assessment are distinct obligations.
 For a multi-engagement program, link its actual commissioning items; only those items
 own dependencies, stages and completion. Do not copy delivery decomposition here.
 

@@ -460,3 +460,72 @@ or clean-pilot claim can bypass that obligation.
 The design's seven initial forward scenarios are expanded to nine per host by adding
 a missing required skill and a previously tracked open finding queried through the
 actual binary. This protects false-clean paths without testing exact prose.
+## Implementation and verification checkpoint (2026-10-18)
+
+Implemented the three units at their existing owners. Quality-checkpoint now uses
+configured gates, supported single-stage discovery, pending preflight, current
+result evidence, existing review receipts and residual doc-review findings. It
+runs doc-review before scans and preserves each owner's correction limits.
+Research and methodology records now retain required results and pending work.
+Citation summaries separate execution/chain/thin/advisory/semantic facts without
+changing the detector or JSON. Updated delivery conventions, build-process,
+composition, README and both extension docs; documented the narrow AR record patch.
+
+Simplification: replaced the fixed eight-gate/fake-release recipe with one
+configured sequence and removed stale infra, report-path, parallel-doc-review and
+manual peer-review directions. No generic quality engine, score, hook, new gate,
+work schema, kernel copy or mandatory additional standard review was introduced.
+The canonical ARD kernel remains unchanged; minor raw version-warning noise remains.
+The companion invocation example now accepts either host's plugin-root variable;
+resolver selection behavior itself is outside scope and unchanged.
+
+Research commissioning completed at 8870f1b9 with an actual APPROVED correction
+check and lead spot-check. Its record preserves the surfaced second NEEDS-REVISION
+and bounded correction verification rather than claiming a first-pass approval.
+No research gate is now pending. Root round count remains 1 completed of 5.
+
+Executed validation:
+
+- RP skill-portability and AR skill-metadata checks pass under uv/PyYAML.
+- Canonical ARD conformance: 57/57; generated catalog check passes.
+- Four changed SKILLs pass the system quick validator and stricter portable
+  frontmatter checks: quality-checkpoint 170 lines, gate-citations 203,
+  methodology-review 290, research-orchestrator 415. New reference is under 200.
+- Linked new resources resolve; affected Claude/Codex manifest identity/version and
+  skill discovery match. Both marketplace inventories and normalized source
+  coordinates match. The first ad-hoc checker wrongly required identical host
+  description prose and compared external source objects to paths; inspection
+  confirmed existing host-specific descriptions and equivalent git-subdir shapes,
+  so the checker was corrected rather than editing valid manifests.
+- The documented companion invocation resolves a usable canonical lint with either
+  PLUGIN_ROOT or CLAUDE_PLUGIN_ROOT. No cache/version or resolver logic changed.
+- Knowledge regeneration: 16 documents, no lint errors/warnings. git diff --check
+  passes. No unrelated runtime build is applicable to these instruction changes.
+- Actual repository pending discovery: supported all-tier done query plus null
+  release-binding selection finds 13 items (including the completed research child).
+  Result is preflight only; no binding, virtual release gate or readiness claim.
+
+Forward fixture root:
+`/var/folders/z5/_qtmw2jj3jb1rgyklh1ngm1r0000gn/T/quality-forward-sqo9t_13/`.
+Fresh Codex worker executed all nine raw cases and wrote actual result.md files;
+driver read each. No expected answers, feature design or prior conclusions were
+provided. Results: residuals → incomplete plus capped High; covered_fix → ready
+within supplied scope without another standard reviewer; uncovered_change → missing
+new-contract review; stale_check → refresh affected scans; unavailable → required
+skill missing; tracked → changes required for the real queried open finding;
+pending → preflight only using actual binary; advisories → zero items, grouped
+nonblocking patterns, no semantic claim; research_receipt → unresolved/missing
+verdict and terminal spot-check, commissioning stays open. All intended invariants
+held. Captured gate facts are labeled hypothetical, not claimed live gate executions.
+
+Claude forward job `20261018T225256Z-810fc8ce` is still running. Its actual outputs,
+standard independent feature review and fresh whole-charter QVE assessment remain
+required before closure. The live pilot evidence is the actual component assessments,
+parent integration, source research and recovered record; the nine-case exercises
+are separate synthetic forward tests. No general effectiveness claim follows.
+
+No durable test code was added for prose matching. Existing structural interfaces,
+real command behavior and independent task execution provide proportionate evidence.
+No adjacent work item was emitted; the resolver/package-install experiments and Pi
+remain outside this arc. Any difference from the provisional child advice is recorded
+in the parent decision, particularly retaining citation matching.

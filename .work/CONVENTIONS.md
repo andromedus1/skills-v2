@@ -23,8 +23,17 @@ own semver in `plugins/<name>/.claude-plugin/plugin.json` (+ the matching
 which commits and pushes the bump on its own. The marketplace is a local directory
 (`andrewclark88-skills-v2` → this working tree), so consumers pull a plugin's new
 version with `claude plugin update <plugin>@andrewclark88-skills-v2 --scope project`.
-There is **no CI** — PRs merge manually after review (cross-model `/peer-review` for
-high-blast-radius prompt/skill changes; see backlog `cross-model-review-prompt-ware`).
+There is **no CI** — PRs merge manually after the applicable Agile Workflow review
+and verification. Consequential skill or foundation changes that alter authority,
+required checks, grounding, completion or cross-skill contracts use the feature
+review boundary when independence is warranted. Narrow standalone fixes keep
+their bounded inline lane; child stories close on verification.
+
+Use `agile-workflow:review` and its effective weight. A completed standard review
+plus verified accepted fixes supplies the covering evidence; do not add a separate
+file-triggered peer pass. Record the reviewed scope, actual outcome and correction
+verification. Missing, failed or stale required evidence is not a pass, including
+on this repository's normal path without a formal release checkpoint.
 
 ## Gates for release-deploy
 

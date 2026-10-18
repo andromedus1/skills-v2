@@ -234,6 +234,11 @@ dispatched to a sub-agent is composed per **Dispatch composition** (the discipli
 again, never skipped on a re-author). A second-pass `NEEDS-REVISION` is surfaced to the user, not
 looped silently.
 
+Before verification or resume, use [verification-record.md](references/verification-record.md)
+to retain the required gates, assessed inputs, actual results, corrections and next step in
+the existing engagement record. Successful execution alone cannot close an unresolved gate;
+this record does not change the gate catalog, rigor or correction limits above.
+
 ## Fan-out (the scale control)
 
 Width is **discovered at `decompose`**, not preset — the number of facets is the number of

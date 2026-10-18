@@ -2,8 +2,8 @@
 
 Additive check `research-pipeline:quality-checkpoint` layers on top of
 `agile-workflow:gate-tests` (see
-`plugins/agile-workflow/skills/gate-tests/SKILL.md`) when running the 8-gate
-release-time quality system.
+`plugins/agile-workflow/skills/gate-tests/SKILL.md`) when running the configured
+release-time quality checks.
 
 Nathan's `gate-tests` already enforces "tests derive from specs, not
 implementations", maps test coverage per bound item, applies equivalence /
@@ -105,7 +105,7 @@ These flow into the standard Phase 4 item-emission with `gate_origin: tests`,
 
 ## Invocation contract
 
-`quality-checkpoint` calls Nathan's `gate-tests` via the Skill tool, then
+`quality-checkpoint` invokes `agile-workflow:gate-tests`, then
 appends this policy to the sub-agent brief as an "Additional methodology
 step" between Nathan's existing step 1 (extract contract) and step 2 (map
 existing test coverage). The sub-agent runs the deterministic parse + map

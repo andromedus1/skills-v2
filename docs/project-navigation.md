@@ -57,6 +57,16 @@ Research under `docs/research/` retains its source dates and limitations in the
 body. Adding or refreshing index metadata is not a new verification of those
 external claims.
 
+## Narrow Agentic Research fork patches
+
+This fork retains explicit Codex invocation metadata for the research orchestrator
+and a directly linked [verification-record writing aid](../plugins/agentic-research/skills/research-orchestrator/references/verification-record.md).
+The latter makes assessed inputs, actual gate outcomes and pending corrections
+recoverable without changing ARD's gate catalog, rigor, isolation or stop rules.
+The canonical `ard-core/` kernel, discipline, schemas and generated catalogs remain
+unchanged. Preserve these documented differences when comparing upstream trees;
+implementation and review history belongs to `.work/` and Git.
+
 ## Regenerate the knowledge index
 
 From the repository root, run the existing generator with PyYAML available:

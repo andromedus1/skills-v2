@@ -15,9 +15,10 @@ ARD citation lint, which mechanically resolves every
 JSON, and convert broken-chain findings into items** that the release flow drains before
 shipping.
 
-**This gate is syntactic.** It proves the citation chain is intact — every `[handle]{N}`
-resolves to a real attestation under `.research/attestation/` with valid provenance, no handle
-collides, no source is unreachable. It does **not** judge whether a claim is actually supported
+**This gate is syntactic.** It checks handle resolution, provenance, collisions and
+local source existence through the canonical lint. Its `--no-url-check` run does not
+verify remote reachability. A successful run can still report defects; interpret the
+JSON and severity policy below. It does **not** judge whether a claim is supported
 by its source. Agentic Research performs passage-level adversarial review and isolated evaluation
 during the engagement. The checks compose; this gate is the release-time mechanical adapter.
 
@@ -69,7 +70,7 @@ Resolve the companion plugin, then run its citation lint over the corpus in JSON
 probe; surface everything, let severity drive staging):
 
 ```bash
-AGENTIC_RESEARCH_ROOT="$(${CLAUDE_PLUGIN_ROOT}/scripts/resolve-agentic-research.sh)"
+AGENTIC_RESEARCH_ROOT="$("${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/resolve-agentic-research.sh")"
 python3 "$AGENTIC_RESEARCH_ROOT/ard-core/kernel/lint-citations.py" .research/ \
   --no-url-check --format json > /tmp/citation-lint-<version>.json
 ```
@@ -95,10 +96,15 @@ A citation is **broken** when its `status` is not one of the non-broken statuses
 citation whose `severity` is `high`/`medium`/`low`. Also collect `thin_attestations` (GR.5
 thin-attestation flags) as low-severity findings.
 
-**Note on advisory pattern flags.** The lint's `patterns[]` (e.g. the `version-number` flag a
-numbered `## Sources` list trips) are `[warn]` advisories, **not** broken chains — do **not**
-emit items for them. Only `citations[]` with a broken status and `thin_attestations[]` become
-items.
+**Result interpretation.** Confirm execution and valid JSON before reading findings;
+an error or missing output is a gate failure. Default exit zero does not mean no
+broken chains. The lint's `patterns[]` are advisory spot-check signals, not broken
+chains: emit no items for them. `version-number` can flag neutral version mentions,
+source titles, decimals or dotted labels such as `1.1`; ordinary `1.`/`2.` Sources
+numbering alone does not trigger it. Preserve canonical matching and raw JSON.
+Only broken-status citations and thin-attestation findings become items. Group
+advisories for reporting; their count neither blocks this gate nor proves semantic
+support. Research's required semantic verification still applies.
 
 ### Phase 4: Convert findings to items
 
@@ -166,6 +172,9 @@ git commit -m "gate-citations: <N> citation-chain findings for <version>"
 ## Output
 
 In conversation:
+- **Execution/evidence**: command outcome and retained JSON path; report errors explicitly
+- **Advisory spot-checks**: counts by category, at most one representative file/line
+  example per category, and the raw output location; no emitted items from patterns
 - **Corpus**: lint ran over `.research/` — `<N>` files, `<M>` citations resolved
 - **Broken chains**: count by status (unresolved / colliding / mismatched / unreachable / missing-provenance)
 - **Thin attestations**: count
@@ -186,8 +195,9 @@ In conversation:
 - **Don't fix the chains here — produce items only.** Repairs (writing the missing attestation,
   reconciling a colliding handle) happen via `/agile-workflow:implement` on each item, or via
   re-running the producing research skill.
-- **Don't emit items for advisory pattern `[warn]`s** (e.g. `version-number` on numbered
-  source lists). Only broken-status citations and thin attestations become items.
+- **Don't emit items for advisory pattern flags**, including neutral version mentions
+  in source titles. Only broken-status citations and thin attestations become items.
+  Report separately whether checks ran, defects remain and semantic support was assessed.
 - **Idempotent.** Skip already-tracked `(file, handle, status)` findings on re-run, so a second
   `/quality-checkpoint` pass after a partial drain only emits net-new items.
 - **No `.research/` corpus ⇒ clean no-op.** Report and exit; do not fabricate findings.

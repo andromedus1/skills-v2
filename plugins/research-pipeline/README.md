@@ -21,7 +21,7 @@ commission its orchestrator. See [research composition](docs/research-compositio
 | **Prior art and methods** | `/scout` (landscape), `/methodology-review` (adaptive whole/component reviews with operator decisions and parent reassessment) |
 | **Foundation docs** | `/ideate` (super-layer: produces VISION/SPEC/ARCHITECTURE + research-plan + PRINCIPLES), `/architecture` |
 | **Substrate planning** | `/epicize`, `/epic-design`, `/feature-design`, `/update-epicize`, `/brief` |
-| **Quality** | `/doc-review` (cascading), `/quality-checkpoint` (orchestrates 8 gates), `/gate-citations` (research-corpus citation integrity), `/test-quality`, `/security-review` |
+| **Quality** | `/doc-review` (cascading), `/quality-checkpoint` (configured checks and readiness evidence), `/gate-citations` (research-corpus citation integrity), `/test-quality`, `/security-review` |
 | **Lifecycle** | `/init-project`, `/expand`, `/update-documentation`, `/knowledge-index` |
 | **Knowledge viz** | `/knowledge-graph` (interactive corpus graph + index-integrity linter; sibling to `agile-workflow:board`) |
 | **Auto-loaded** | `/engineering-principles` (code-design), `/build-process` (methodology) |
@@ -34,9 +34,10 @@ See the [top-level README](../../README.md) for the full catalog.
 
 This plugin operates on Nathan Klisch's `agile-workflow` substrate. Same `.work/` format, same frontmatter schema, same `work-view` query tool. On shared projects, our skills check tags (`[needs-brief]`, `[needs-research]`) to decide when to run; his skills ignore them.
 
-**Where we extend his skills**: `gate-infra` is added in
-`plugins/agile-workflow/` (his namespace), and our `quality-checkpoint`
-orchestrator invokes his gates with optional extension policies. The pipeline's
+**Where we extend his skills**: our `quality-checkpoint` orchestrator invokes
+configured gates with extension policies, reconciles delivery-review evidence,
+and combines actual gate results with doc-review's residual findings. Pending
+unbound work receives preflight only; no infrastructure gate is assumed. The pipeline's
 release-time citation gate is a process adapter over Agentic Research's
 authoritative validator; research engagements run the same engine's verification
 stack inline.
