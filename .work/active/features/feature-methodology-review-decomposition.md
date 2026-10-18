@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-decomposition
 kind: feature
-stage: review
+stage: done
 tags: [methodology-review, research-pipeline]
 parent: null
 depends_on: []
@@ -547,3 +547,24 @@ A useful coverage re-cut has moved participant selection to child S-C, which lin
 codex-corrections output SHA-256: `8f0809cc2258e3dfff6ba2231ecb35cea065e65e36f8e5ad7a96d68b54379332`.
 
 claude-corrections output SHA-256: `819880c6652c533b0566da0acb8d8a64dbd2da4d210b258ec68504535df03bd2`.
+
+
+## Completion — 2026-10-18
+
+**Host verdict: Approve after corrections and verification.** Standard review's
+single independent pass completed; all accepted material findings were corrected
+in 89048c60 and verified without a second independent pass. Blockers: none.
+Important findings: none. Small comments: addressed as recorded. Partial rejection:
+automatic reconfirmation of an already agreed limit, with rationale above.
+
+Acceptance is satisfied for the selector, repeated scoped comparison, child return
+contract, parent integration, shared rounds, authority-preserving resume and stopping,
+research separation, persistent risks and portable skill surfaces. Process discovery
+links describe the resulting protocol. A complete live-project pilot remains outside
+the validation claim; the tested checkpoints and structural checks are documented.
+
+Local implementation only: no version bump, installation/cache update, publication,
+push or project-method adoption. The user-requested future quality-verification loop
+remains parked in idea-quality-verification-loop. No parent or release binding keeps
+this completed feature active; archive with its full evidence retained in Git and
+regenerate the knowledge index from source artifacts.
