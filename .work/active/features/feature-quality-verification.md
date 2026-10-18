@@ -1,7 +1,7 @@
 ---
 id: feature-quality-verification
 kind: feature
-stage: implementing
+stage: review
 tags: [methodology-review, research-pipeline, agentic-research, review]
 parent: null
 depends_on: []
@@ -529,3 +529,33 @@ real command behavior and independent task execution provide proportionate evide
 No adjacent work item was emitted; the resolver/package-install experiments and Pi
 remain outside this arc. Any difference from the provisional child advice is recorded
 in the parent decision, particularly retaining citation matching.
+
+## Integrated verification and QVE round 2 allocation
+
+Claude forward job 810fc8ce returned terminal success with all nine actual reports.
+Driver read every report from both hosts. Outcomes match the recorded invariants;
+both used actual supported work-view queries for pending/tracked cases. The initial
+tracked fixture accidentally retained a no-binding-authority sentence copied from
+pending. Claude correctly surfaced that contradiction. Driver preserved initial
+inputs/results, corrected the fixture to its intended authorized binding, and
+reran only tracked on both hosts. Native Codex and Claude continuation job
+`20261018T225656Z-80609280` both returned the intended changes-required result for
+the still-open High finding, without a duplicate standard reviewer. This repaired
+test input did not require a product change or a broader rerun.
+
+All implementation acceptance evidence is now present. The synthetic runs' writes
+were deliberately restricted to result.md rather than actual release/commissioning
+records; that fixture limit is not an unperformed production migration. Real-record
+resume and actual repository preflight evidence are recorded separately above.
+
+Product baseline: **4575547d**. No product contracts changed after that commit.
+Research child is done, both-host verification is green, and this feature advances
+to review. Effective delivery weight remains **standard, one independent pass**.
+
+Allocate **QVE root round 2**, with **1 completed of 5**. The fresh combined
+assessment will cover QVE-E/R/S and the whole charter on this baseline; existing
+child findings/IDs and original coverage remain inputs. No independent child
+cycle is allocated. One fresh Claude dispatch will perform two explicit duties:
+standard integrated feature review, and full-charter methodology assessment.
+Their outcomes must remain separate; neither a completed process nor the partial
+initial assessment supplies a clean final verdict.
