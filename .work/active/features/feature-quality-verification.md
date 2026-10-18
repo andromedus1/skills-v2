@@ -758,3 +758,17 @@ under the standard one-pass policy; this is host fix verification, not a claim t
 the original reviewer approved later changes. No unresolved current-cycle delivery
 blocker. Important O-1 remains parked; nits were addressed; no other item emission.
 Feature returns to review while its separate required methodology exit is pending.
+
+## QVE round 3 allocation
+
+Product baseline **6419b3bc**; all accepted corrections and applicable checks are
+complete. Allocate fresh full-charter **root round 3**, with **2 complete of 5**.
+Scope remains coordinated QVE-E/R/S plus parent integration. No new research gap,
+operator decision or changed scope is introduced. All original finding IDs persist.
+
+A fresh Claude assessor will evaluate current methods against the whole charter
+and verify earlier remedies, with actual required research and delivery evidence.
+This is methodology-review's required changed-baseline exit assessment, not a
+second standard delivery review. The separate standard review remains closed by
+its original pass and accepted-fix verification. Await the actual structured
+methodology report; no current-baseline clean claim has yet been made.
