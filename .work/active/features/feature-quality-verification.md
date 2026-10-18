@@ -1,7 +1,7 @@
 ---
 id: feature-quality-verification
 kind: feature
-stage: review
+stage: done
 tags: [methodology-review, research-pipeline, agentic-research, review]
 parent: null
 depends_on: []
@@ -569,14 +569,14 @@ pass. Product snapshot 4575547d, operational HEAD 13711e20. The report below is
 preserved verbatim; host adjudication follows and controls next actions.
 
 > I made no repository edits, staging or commits. Scratch output is under `/tmp/rvw-*` only.
-> 
+>
 > # Duty 1: feature review of feature-quality-verification (standard weight, one independent pass)
-> 
+>
 > **Verdict: Approve with comments.** I found no blockers. The new checkpoint now works with the real `work-view` interface, ties readiness to actual results and leftover doc-review findings, and reuses a completed standard review instead of asking for another. There are two Important issues, both on less common paths, and four nits. The host owns how to classify them.
-> 
+>
 > ## Blockers
 > None.
-> 
+>
 > ## Important
 > - **I-1. Pending preflight counts `[research]` engagements that release-deploy never binds.** `quality-checkpoint/SKILL.md:36-41` picks every unbound, done, non-release item from `--scope all --stage done`. Release-deploy leaves out `tags: [research]` items when Agentic Research is installed (`release-deploy/SKILL.md:91-113` and `:144-147`), and it is installed here.
 >   - On this repository the query returns 13 items. Two of them are research items: `active/stories/story-research-quality-feedback.md` and `archive/story-research-package-boundary.md`. The feature record (`feature-quality-verification.md:504-506`) accepts all 13 as correct.
@@ -589,21 +589,21 @@ preserved verbatim; host adjudication follows and controls next actions.
 >     - Claude: "without starting a new correction budget".
 >   - Impact: no false "ready" (the result stays Incomplete), but the resume path after a cap can stall or invent an interface.
 >   - Fix, one sentence: once remediation has changed doc-review's inputs, a new normal doc-review run is the refresh, with its own loop and cap. Only re-running on an unchanged capped baseline is forbidden.
-> 
+>
 > ## Nits
 > - **N-1.** `:92` gives a fixed gate order. Release-deploy uses `gates_for_release` order (`:5`, `:414`), and agile-workflow's opt-in `gate-refactor` is a configured gate, not a custom one (`:57`). Suggest "in `gates_for_release` order (default …)".
 > - **N-2.** `:86-88` says "or an explicitly agreed document scope". doc-review only accepts no argument, a module name, or `--system-only`.
 > - **N-3.** `:75` treats none and light alike. A `light` review may include one fresh-context pass (`review/SKILL.md:74`).
 > - **N-4.** `gate-docs-extension.md:123` still says "via the Skill tool". The matching line in gate-tests-extension was made host-neutral.
-> 
+>
 > ## Optional (existing before this change)
 > - **O-1.** A real-version checkpoint needs items already bound to the release. Release-deploy binds them and then runs the same gates straight away, so the usual path either runs the gates twice or depends on binding by hand. Also, `:60-62` gives no place to save the checkpoint when no release file exists yet.
-> 
+>
 > ## Considered and not raised
 > - No committed text-matching tests: not a defect. The structural tests, real command runs and forward runs are proportionate.
 > - `work-view --stage bogus` exits 0 with no output. That is upstream binary behavior. The skill now uses only valid single stage values and treats an empty version bundle as a failure. I'm keeping it as a limitation.
 > - No case for a file-triggered pass, a shared quality engine, a fixed retry count or a stricter review weight.
-> 
+>
 > ## Notes
 > - **Scope:** 70348687..13711e20. Product contracts are at 4575547d; 4575547d..HEAD only changes the feature record. No agile-workflow or `ard-core` files changed, and no manifests or versions changed.
 > - **Checks I ran, all passing:**
@@ -620,15 +620,15 @@ preserved verbatim; host adjudication follows and controls next actions.
 >   - Fixture gate facts are inputs, not real gate runs.
 >   - Not exercised: an empty real-version bundle, a lint error or missing JSON, an unsupported doc-review argument.
 > - **Skipped:** security, runtime and infrastructure scans. The change is prose skills and generated YAML only; no code, secrets, infrastructure or hooks changed.
-> 
+>
 > # Duty 2: QVE root round 2, whole-charter methodology assessment
-> 
+>
 > **Outcome: Clean within reviewed scope at 4575547d/13711e20, provided the host's Duty 1 adjudication confirms there are no blockers.** There are no unresolved major findings, and the required research checks pass. If the host classifies I-1 or I-2 as a blocker, the outcome becomes **Awaiting change or evidence** until the fix is verified. This is not a claim of universal quality.
-> 
+>
 > **Coverage:** the whole charter, meaning QVE-E, QVE-R and QVE-S plus how they interact, across the success, failed/missing, changed-output, exhausted-limit and resume paths.
 > - **Contracts read directly this pass:** quality-checkpoint (new and baseline), doc-review, review, implement, release-deploy, the five agile-workflow gates' arguments, gate-citations, the AR orchestrator's verification-depth and completion sections, `verification-record.md`, ARD SPEC §3/§7, methodology-review and its references, conventions, build-process, composition, README and navigation.
 > - **Evidence consumed:** the brief and story gate history (two NEEDS-REVISION results, then APPROVED and the lead spot-check), the component returns, parent assessment 1, the live handoff and the forward results.
-> 
+>
 > | ID | State | Evidence |
 > |---|---|---|
 > | E/METH-001 (major) | **Verified resolved** | Outcome precedence `:141-155`; one stage per query `:130-134`; an empty bundle is not a sweep `:32`; doc-review residuals block `:146-147`; both hosts' residuals, tracked, stale_check and unavailable cases agree. Not downgraded. |
@@ -641,9 +641,9 @@ preserved verbatim; host adjudication follows and controls next actions.
 > | QVE/METH-I01 | Verified resolved | CONVENTIONS `:35-36`, build-process Completion. |
 > | **QVE/METH-I02 (new, minor)** | Open | Pending scope includes research engagements (Duty 1 I-1). |
 > | **QVE/METH-I03 (new, minor)** | Open | Refresh after a cap is ambiguous (Duty 1 I-2). The result stays Incomplete, so it is safe; it is not major. |
-> 
+>
 > There are no evidence-based withdrawals and no new major findings.
-> 
+>
 > **Criteria:**
 > - **Detection and independence:** improved. Worker exit, emitted-item counts and lint exit codes are no longer treated as a pass.
 > - **Authority:** preserved. The checkpoint never deploys or publishes.
@@ -651,19 +651,19 @@ preserved verbatim; host adjudication follows and controls next actions.
 > - **Cost:** no added passes.
 > - **False-positive burden:** better reported, but raw noise remains.
 > - **Portability and ownership:** both hosts work. The AR change is a documented narrow fork patch, and the kernel is unchanged.
-> 
+>
 > **Other minor observations kept on record:**
 > - The unknown-stage behavior in `work-view` noted under Duty 1.
 > - After the research's second NEEDS-REVISION, the driver surfaced it and ran one bounded check under prior authority, with no fresh operator response recorded. That fits AR's rule that it be surfaced, not looped silently, but the contract doesn't say who authorizes that follow-up check.
 > - The forward fixtures' limited ability to tell outcomes apart, as noted under Duty 1.
 > - The gate duplication in O-1.
 > - The research is based on paper abstracts and supports no claim that cross-model review is better.
-> 
+>
 > **Remaining obligations:**
 > 1. The host adjudicates Duty 1, closes the feature review, and records this report with its date and baseline in the QVE record. Recording it completes root round 2, making it **2 of 5**.
 > 2. If the host fixes I02 or I03 first, those edits come after this assessment and are not covered by it. Verify them under standard accepted-fix verification. Minor-only corrections don't need another methodology round, but the record should say so.
 > 3. I made no new external claims, so nothing is provisional.
-> 
+>
 > Coverage limits: I did not rerun the 17 QVE-S fixtures, re-read the archived review bodies (ca4f0daa, 7c17b1de) or the hooks, or observe a live release gate run.
 
 ### Host adjudication and next obligations
@@ -772,3 +772,176 @@ This is methodology-review's required changed-baseline exit assessment, not a
 second standard delivery review. The separate standard review remains closed by
 its original pass and accepted-fix verification. Await the actual structured
 methodology report; no current-baseline clean claim has yet been made.
+
+## QVE round 3 final assessment (2026-10-18)
+
+Fresh Claude Opus high via peeragent job `20261018T231314Z-e20e5283` returned
+terminal success with actual methodology outcome **Clean within reviewed scope**.
+Assessed product baseline 6419b3bc, operational HEAD a2f03eaa. This was the separate
+methodology exit assessment, not another standard feature review. Full report:
+
+> # QVE root round 3: methodology assessment (2026-10-18)
+>
+> **Outcome: Clean within reviewed scope.** The fresh full-charter assessment on the current baseline finds no unresolved major findings, and every required research and delivery check has passing evidence. This is a bounded result, not a claim of universal quality. There is one new minor finding (QVE/METH-I04) and some retained minor observations, listed below.
+>
+> I made no repository edits, staging or commits. My only scratch files are `/tmp/qve3-*`.
+>
+> ## Baseline and coverage
+>
+> - **HEAD:** `a2f03eaa`. The product baseline is `6419b3bc`; the only change since then is 14 lines added to the feature record. This assessment does not cover any later edits.
+> - **Shape:** coordinated review. It covers QVE-E (quality results), QVE-R (review routing) and QVE-S (citation signal), plus how they combine.
+> - **Paths checked:** success, failed or missing checks, changed output, exhausted limits and resume.
+> - **Criteria checked:** detection, independence, authority, recovery, cost, false-positive burden, portability and ownership.
+> - **Contracts read directly:**
+>   - quality-checkpoint in full, plus the 4575547d→6419b3bc correction diff
+>   - doc-review's arguments, Phase 4 loop and cap
+>   - review weights and story exceptions
+>   - release-deploy's candidate eligibility, AR activation probe and gate order
+>   - how gate items set `release_binding`
+>   - gate-citations
+>   - AR orchestrator patch and `verification-record.md`
+>   - build-process, research-composition, `.work/CONVENTIONS.md`, project-navigation
+>   - methodology-review and its two references
+>   - the citation-lint kernel's result categories
+> - **Evidence consumed:**
+>   - the research story's gate history (two NEEDS-REVISION results, then a bounded correction check that returned APPROVED, then the lead spot-check), plus the brief
+>   - component returns, parent assessment 1, the live handoff, and the standard review report with its adjudication
+> - **Forward cases:**
+>   - Read in full: cap_unchanged and cap_changed on both hosts.
+>   - Read all but each result's closing section: research_active and research_inert on both hosts.
+>   - Read the key lines: residuals on both hosts, compared against the pre-review result.
+>   - Spot-checked the outcome lines of the other eight cases.
+>   - All of these are synthetic inputs, not executed release gates.
+>
+> ## Checks run this round
+>
+> | Check | Result |
+> |---|---|
+> | RP skill portability (uv + PyYAML) | ok |
+> | AR skill metadata | ok |
+> | Resolver test | ok |
+> | ARD conformance | 57/57 |
+> | Catalog sync check | in sync; `ard-core` diff since 70348687 is empty |
+> | Citation lint under `PLUGIN_ROOT` and `CLAUDE_PLUGIN_ROOT` | both exit 0; 35 resolved, 0 broken, 0 thin; 13 advisories (10 version-number, 2 named-feature, 1 comparative) |
+> | Knowledge index lint | 0 errors, 0 warnings |
+> | Real pending discovery | 13 done → 11 eligible after the exact research-tag exclusion (the two research stories); all bindings null. Matches the corrected count. |
+> | `git diff --check` | clean for `plugins/`, `docs/` and `.research/`. The 17 hits are trailing whitespace, all in record-only commit `c1827823`. |
+>
+> The first time I read the lint JSON I got zero citations. That was my parsing mistake (counts are per file under `results[]`), not a product defect. I corrected it before using the numbers above.
+>
+> ## Findings by state
+>
+> **Verified resolved (no downgrades):**
+>
+> - **QVE-E/METH-001 (major):**
+>   - Results now take precedence over emitted-item counts.
+>   - Stage queries use one value at a time.
+>   - An empty bundle is not treated as a successful sweep.
+>   - doc-review Critical/High residuals block readiness.
+>   - Blocking gate items carry `release_binding: <version>`, so the per-stage queries see them.
+> - **E/METH-002:** none of the invalid interfaces remain (no `--no-release`, no comma-separated stages, no `gate-infra`, no virtual-version gates). The doc-review arguments are now correct.
+> - **E/METH-003:** result-evidence rules exist at each owner.
+> - **R/METH-001 and R/METH-002:** CONVENTIONS and build-process defer to the review skill's weights. covered_fix and uncovered_change behave correctly on both hosts.
+> - **S/METH-002:** the numbered-list explanation is corrected.
+> - **QVE/METH-I01:** the evidence rule now reaches non-release Completion and CONVENTIONS.
+> - **QVE/METH-I02:** delegated to release-deploy's eligibility rules and target-project probe. The exact-tag query covers both tiers. Both hosts handle the active and inactive cases correctly, including `research-ops`. Real repo: 11 eligible.
+> - **QVE/METH-I03:** after material input changes, the refresh is a new normal doc-review run with its own cap. An unchanged capped baseline gets no extra attempts, and no report-only mode is invented. Both hosts agree on the unchanged, changed and residuals cases.
+>
+> **Retained:**
+>
+> - **S/METH-001 (minor):** raw heuristic noise remains (10 version-number advisories on the real corpus) under the recorded decision on precision, recall and maintenance. Reporting is improved. Revisit if the burden is observed or upstream ARD tightens the matcher.
+>
+> **New:**
+>
+> - **QVE/METH-I04 (minor, local evidence, high confidence that the gap exists):** the kernel's JSON includes warn-only lists that no consuming skill reports.
+>   - The main one is `campaign_unbound`. Per `lint-citations.py:272-275`, it exists so that fabricated cross-campaign `cN-` handles stay visible.
+>   - `substrate_confidence_omitted` is a lower-stakes deprecation notice.
+>   - gate-citations' Output section, `verification-record.md` and the checkpoint all list only broken, thin and pattern results, so a summary showing "0 broken" can hide these.
+>   - Consequence is uncertain. Both lists are empty here, no multi-campaign corpus exists, and the gap predates QVE.
+>   - Choices: keep it as is, or add one reporting line in gate-citations and the verification record. Either way, keep it warn-only and leave the kernel unchanged.
+>
+> **Persistent or withdrawn:** no persistent major findings and no evidence-based withdrawals.
+>
+> **Unresolved major findings: 0.**
+>
+> ## Minor observations
+>
+> 1. **O-1 / idea-release-checkpoint-handoff:**
+>    - A real-version checkpoint needs a release that already has bound items. release-deploy binds and then runs the same gates right away.
+>    - The actual consequence is cost: gates are idempotent, so repeat runs re-scan but don't duplicate items.
+>    - doc-review and citations run only through the checkpoint.
+>    - Running a checkpoint before binding hits the empty-bundle rule and comes out Incomplete, not falsely clean.
+>    - This repo's normal ship path, `bump-version.sh`, uses neither, so current cost is near zero. Parking it is proportionate.
+> 2. **No overall limit on doc-review refreshes:** cap → fix → new run can repeat. Each run has its own cap and needs an authorized material change, so cost stays visible. This is consistent with the brief, which favours reporting unresolved results at the cap over a fixed retry count.
+> 3. **doc-review's own edits:** its autonomous Critical/High fixes during a checkpoint fall only under the generic "materially uncovered contract" rule. The forward cases tested staleness, not review coverage of those edits. This predates QVE.
+> 4. **Pending discovery gathers less than release-deploy:** it filters archived items by `stage: done`, while release-deploy collects every unbound archived stub. There is no effect here (all archived items are done), and the mode is preflight only.
+> 5. **Persistent:** `work-view --stage bogus` returns nothing and exits 0 (upstream binary).
+> 6. **Persistent:** AR doesn't say who authorizes a bounded check after a second NEEDS-REVISION has been surfaced.
+> 7. **Fixture limits:** cap_changed, stale_check and uncovered_change state the coverage facts outright, so they test interpretation and reuse more than detection. No live release was run, and there is no case for an empty real bundle, a lint error, or an unsupported argument.
+> 8. **Research limits:** the papers were read at abstract level only. No universal reliability or cross-model superiority is established.
+>
+> ## Coverage limits
+>
+> - I didn't rerun the 17 QVE-S fixtures or re-read the archived review bodies or hooks. I didn't re-check sources (that is AR's job).
+> - I checked manifests only by confirming none changed in the range.
+> - I read 4 of the 13 cases on each host in full or nearly so; the rest I covered through key lines or outcome lines only.
+> - I'm a fresh-context Claude assessor, which is cross-model relative to the Codex driver. I made no new external claims, so nothing is provisional.
+>
+> ## Remaining obligations
+>
+> 1. The driver records this dated report in the QVE record. That completes round 3, making it **3 of 5**, with no reset.
+> 2. Decide what to do with QVE/METH-I04. My recommendation is to keep it or park it. Fixing it now would change the baseline, and the clean result would then need another fresh assessment (round 4).
+> 3. The feature closes under its normal workflow. The standard review is already closed, and this exit doesn't require another delivery pass.
+> 4. Still out of scope: publication/install, package merger, resolver repair, Pi, corpus conversion and live release execution.
+
+### Host adjudication and final state
+
+**Root round 3 complete of 5. Outcome: Clean within reviewed scope.** Full QVE-E/R/S
+and parent integration were assessed on the current product baseline. No unresolved
+major finding and no pending required research or delivery check. Original major
+E/METH-001 is verified resolved, not downgraded. I02 and I03 are verified resolved.
+The three original backlog inputs have their recorded dispositions and verified
+implementation; no outstanding accepted implementation remains in this feature.
+
+QVE/METH-I04 is accepted as a minor reporting-coverage follow-up and parked as
+idea-citation-advisory-coverage (c0dbd573). Driver inspected the canonical fields and
+consumer output. Correct one factual statement in the assessor's report: the raw
+/tmp/qve3-lint.json has **zero campaign_unbound handles and five
+substrate_confidence_omitted notices**, not two empty lists. The same five notices
+were already recorded during research verification; optional deprecation metadata
+is not a failed gate. This correction does not change the minor classification or
+product contracts. Do not misquote the assessor as having observed the right count.
+
+The pre-existing gate duplication remains parked as idea-release-checkpoint-handoff.
+Retain raw version-pattern noise and the assessor's other bounded observations
+without asserting absent capability or creating speculative implementation work.
+No overall repeated-delivery cost bound, autonomous doc-review changes' coverage,
+and invalid historical stub shapes are limitations/possible future scenarios, not
+new established major failures in this corpus. No live release, general reliability,
+or comparative model-superiority claim is made.
+
+The 17 whitespace findings were in quoted blank lines of this work record, introduced
+in c1827823. They are removed as record formatting only; the earlier clean working-
+diff checks were narrower than an aggregate-range check. The final aggregate check
+includes .work and must pass. Product baseline remains 6419b3bc: subsequent work
+changes are reports, stage/retention metadata, parked ideas and generated navigation.
+This does not invalidate the current-product assessment or allocate a new round.
+
+## Review closure (2026-10-18)
+
+**Verdict:** Approve with comments, accepted fixes verified.
+**Mode/weight:** substrate feature, standard; exactly one independent delivery pass.
+**Reviewer:** Claude Opus xhigh job 20261018T225833Z-56043ead.
+**Closure:** host verification of I-1/I-2 and N-1..N-4; separate required methodology
+assessment is now clean at round 3. Child research closes on its own verification.
+**Unresolved blockers:** none.
+**Important follow-ups:** idea-release-checkpoint-handoff; idea-citation-advisory-coverage.
+**Retained minor limitations:** citation heuristic noise and bounded evidence/coverage
+limits above. **Rejected advice:** skipping fresh methodology assessment after product
+corrections; actual skill required the performed round 3. No other rejected fix.
+
+Advance review → done. No parent epic, no release binding, no publication/install/push.
+Commit this complete body before archiving it and the completed research child as
+terminal refs under the default delete-refs convention. Preserve all research artifacts
+and the full operational history through git_ref. Regenerate knowledge navigation
+from source after archiving. The two unrelated Pi backlog items remain untouched.
