@@ -183,3 +183,110 @@ Surfaced by the post-arc review; see `plugins/research-pipeline/docs/ard-adoptio
 § Deferred follow-ups.
 ```
 
+## Component returns — root round 1 (2026-10-18)
+
+All children inherit QVE's charter, 70348687 baseline (91b8c5eb only adds work
+records), root round 1 allocated / 0 complete / limit 5, authority and exclusions.
+Root/parent backlink for each is this item's QVE section. Child outcomes are
+**awaiting change or evidence**; returned reports alone complete no root round.
+These are local operational assessments, not research-source attestations.
+
+### QVE-E — quality criteria and outcomes
+
+Driver assessment: doc-review already fixes Critical/High findings and requires a
+fresh audit with a cap; methodology-review already requires a whole-scope assessment
+and zero unresolved major findings; AR already owns lint, adversarial reading,
+conditional evaluation and terminal spot-check. Standard delivery review already
+prescribes one independent pass then verified correction. No evidence supports a
+uniform repeated loop across all these owners.
+
+- **QVE-E/METH-001, major, supported contract ambiguity:** quality-checkpoint's
+  Phase 4 first branch equates zero emitted blockers with readiness. Gate errors
+  and doc-review residual Critical/High counts can coexist with zero emitted items.
+  Its earlier error-blocker instruction is contrary evidence; this is inconsistent
+  closure prose, not a demonstrated production false-clean incident.
+- **QVE-E/METH-002, major execution gap:** actual `work-view --stage done
+  --no-release --paths` exits 1 (unknown flag); `--stage implementing,drafting
+  --paths` exits 0 with no matches despite current items in both stages. No
+  gate-infra skill exists in either plugin. Base gates require a real release,
+  while doc-review accepts no release-version argument. These interfaces cannot
+  execute the advertised virtual sweep faithfully.
+- **QVE-E/METH-003, minor clarification:** record actual required-check outcomes,
+  scope/baseline and evidence in existing research/review records. Process success
+  is not an approving verdict. Preserve existing owner-specific stops and weights.
+
+Prefer a result-based checkpoint with supported discovery and explicit incomplete
+preflight for unbound work, over a new universal loop or leaving the contract
+unchanged. Required missing/error/stale checks and residual blockers prevent
+readiness. No remedy applied; research verification and parent assessment pending.
+
+### QVE-R — independent delivery-review routing
+
+Fresh component assessor `/root/quality_review_routing` inspected current contracts
+and recovered two archived records; it did not rerun their historical peer jobs.
+`agile-workflow:implement` supports prose features and invokes normal feature
+review; `agile-workflow:review` owns weights, one-pass standard, child verification,
+and standalone inline review. Historical missing-review claim is superseded by
+these rules and recorded Claude passes at `ca4f0daa` (feature-methodology-review)
+and `7c17b1de` (feature-methodology-review-decomposition).
+
+- **QVE-R/METH-001, minor:** `.work/CONVENTIONS.md` still names manual `/peer-review`
+  and the absorbed backlog item. Replace this stale route and clarify reuse of
+  covering delivery review plus accepted-fix verification. No escaped defect was
+  demonstrated; existing feature routing is strong contrary evidence.
+- **QVE-R/METH-002, minor:** build-process's light/standard/deep shorthand conflicts
+  with canonical weights none/light/standard/thorough/maximum. Deep lenses do not
+  authorize extra standard passes.
+
+Prefer a concise project/Pipeline convention and checkpoint evidence reconciliation.
+Reject unconditional file-triggered peer gates or hooks: they duplicate reviews,
+ignore deliberate story exceptions, and require new host/deduplication machinery
+without an observed routing miss. A changed hash from accepted verified fixes does
+not invalidate standard review; materially uncovered contracts require their normal
+review owner. Recover archived review bodies through git_ref. No remedies applied.
+Next: root integration, actual cross-host execution and fresh whole-scope assessment.
+
+### QVE-S — citation-warning signal
+
+Fresh component assessor `/root/quality_citation_signal` ran 17 synthetic CLI
+fixtures at each threshold none/low/medium/high and compared the public shim.
+Raw temporary evidence: `/tmp/qve-s-fixtures-3cc8zvv3/summary.json` and
+`baseline-checks.json`. These are synthetic experiments, not research substrate.
+Reproduce via canonical `ard-core/kernel/lint-citations.py <fixture>
+--attestation-dir <fixtures>/attestation --analysis-dir <fixtures>/analysis
+--no-url-check --format json --exit-code-on low`.
+
+Observed version warnings for neutral OAuth 2.0 prose/headings, version-bearing
+source titles, hierarchical 1.1 labels, decimals, quoted/source-direct version
+prose, factual v2.1.0 and lower-case version 3 claims, including cited claims.
+Ordinary numbered 1./2. Sources lists and existing code/URL/frontmatter masks
+produce none; upper-case Version 3 is also missed. Advisory-only cases exit zero
+at every threshold. A missing-handle control exits zero by default and one at all
+blocking thresholds. The shim matches all 17 high-threshold runs. Conformance
+57/57 and catalog generation check pass. The ARD tree matches upstream 43f7f4bf
+at the assessed baseline; generated catalogs contain descriptions, not matchers.
+
+- **QVE-S/METH-001, minor:** broad token matching produces reproduced false
+  positives. Warning fatigue/trust effects are plausible, not measured. The
+  advisory status, preserved recall and existing ban on emitting pattern items
+  are strong contrary evidence against treating this as an integrity failure.
+- **QVE-S/METH-002, minor:** gate-citations incorrectly attributes these warnings
+  to ordinary numbered Sources lists. Correct the trigger explanation and separate
+  execution, broken chains, thin attestations, advisory counts and semantic support.
+
+Child recommends bounded canonical narrowing plus clearer reporting, with positive
+controls for explicit/unprefixed/comparative version facts. Retaining matching with
+clearer reporting is the fallback if recall or maintenance costs dominate. Do not
+suppress headings or cited lines wholesale. No remedy applied; parent must choose
+and record the tradeoff. Canonical changes require an explicit narrow fork patch;
+retired Pipeline vendoring is not current ownership. Root owns integration and
+external evidence; no second unchanged child cycle is requested.
+
+### Pending independent integration checkpoint
+
+Claude Opus fresh-context job `20261018T224044Z-6d8d1ec7` is commissioned for two
+separately reported duties: standard adversarial verification of the external
+brief, and initial full-charter QVE assessment combining all three reports.
+The lead spot-check, parent decision/design, actual implementation, live record
+resume exercise, cross-host verification, standard feature review and fresh
+post-change whole-scope assessment remain outstanding. No clean outcome yet.
