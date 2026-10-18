@@ -6,6 +6,16 @@ Agentic Research's artifact conventions; keep decisions and delivery state in th
 project's work/decision record. Preserve dated reports and link corrections or later
 assessments rather than retroactively changing what an earlier pass concluded.
 
+## Contents
+
+- [Record location and discovery](#record-location-and-discovery)
+- [Charter and loop checkpoint](#charter-and-loop-checkpoint)
+- [Component coverage and coordination](#component-coverage-and-coordination)
+- [Comparison rows](#comparison-rows)
+- [Finding record](#finding-record)
+- [Decision packet](#decision-packet)
+- [Assessment report](#assessment-report)
+
 ## Record location and discovery
 
 Use the matching `methodology-review` tracking item in Agile Workflow, without a
@@ -48,6 +58,27 @@ own dependencies, stages and completion. Do not copy delivery decomposition here
 Separate fixed constraints from hypotheses. For example, a required jurisdiction
 can be fixed while a manually curated catalog is an approach to compare. Do not
 assume either distinction without checking project intent.
+
+## Component coverage and coordination
+
+For a split review, record the root ID, selected shape, considered cuts, rationale,
+exclusions and remaining coupling. For each child, use a named section or link its
+authoritative review item. Record its ID/parent, covered question and contribution,
+baseline, inherited constraints/decisions, shared-question ownership, dependencies,
+allocated root-round checkpoint and latest assessment link. Use the child contract
+in [review-decomposition.md](review-decomposition.md) for dispatch and return fields.
+
+Keep the completed-root-round count, current round and shared limit at the root.
+Research engagement counts and child completion counts are different quantities.
+Link child outcomes and unresolved obligations without copying another work item's
+stages or delivery decomposition. Record parent integration findings and the fresh
+whole-scope assessment alongside the child links. A root checkpoint may remain
+incomplete or awaiting decisions even when its children have returned reports.
+
+On a new cut or resumed review, retain prior IDs/assessments and record the coverage
+mapping to current children, changed baselines and next unfulfilled steps. The
+standalone fallback uses the same body fields in linked sections of
+`methodology-review-state.md`; no new frontmatter or tracker is needed.
 
 ## Comparison rows
 
@@ -116,6 +147,11 @@ unavailable evidence. Report counts and IDs for new/persistent major findings,
 accepted but pending remedies, verified resolutions, evidence-based withdrawals,
 retained/deferred major risks and minor observations. Link the source and verification
 records. End with one exit outcome from the skill and its reason.
+
+For a parent report, include actual child coverage, conflicts and cross-component
+scenarios checked. Explain reuse of prior assessments and any unresolved dependency.
+State the root round/checkpoint and next step; do not derive the parent's verdict
+from child verdict counts.
 
 A useful final assessment can say “no new major findings; two previously identified
 risks remain by operator decision.” It must not turn that into “zero major findings.”

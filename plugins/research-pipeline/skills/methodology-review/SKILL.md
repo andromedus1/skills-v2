@@ -3,8 +3,8 @@ name: methodology-review
 description: >
   Compare a project's methods, workflows and assumptions with relevant products,
   projects and research. Scout alternative approaches, assess a whole project or
-  selected component, and iterate through operator decisions and fresh review until
-  no major findings remain or an explicit stopping condition applies. Use for
+  selected component, decompose broader reviews into useful component reviews, and
+  iterate through operator decisions and fresh assessment. Use for
   methodological assessment or comparison with prior art, not ordinary code review
   or documentation consistency checks.
 ---
@@ -36,7 +36,7 @@ operating policy. The operator adjudicates those decisions. Routine research
 choices and corrections to the review's own analysis remain the agent's work.
 Prior explicit authorization remains valid within its stated scope.
 
-Resolve one durable loop record before research. In an Agile Workflow project, use
+Resolve one durable root loop record before research. In an Agile Workflow project, use
 an existing matching work item or scope a review-tracking item through
 `agile-workflow:scope`. Tag it `methodology-review`; do not give that loop controller
 a `research` tag or `research_dials`. Separately commissioned research items own their
@@ -70,24 +70,51 @@ and current delivery state. Record:
 - Confirmed research settings, completion criteria and review-round limit. Propose
   mixed scope authority and standard verification unless context calls for different
   settings; let the orchestrator settle its dials. Default to at most five complete
-  assessment rounds, including the initial round; the operator may change this limit.
+  root assessment rounds, including the initial round; the operator may change this limit.
 
 Use existing answers and authorization; do not repeat settled kickoff questions.
-Expose material ambiguity before dependent work. A suite landscape can precede
-component studies, with one pilot calibrating the rubric before wider use. This is
-an option, not a fixed topology. Use `research-pipeline:research-program` when
-several separately commissioned engagements and their dependencies warrant it.
-Each engagement gets its own registration; an engagement closing does not close
-the surrounding review loop.
+Expose material ambiguity before dependent work. A suite landscape or one pilot
+may help establish useful boundaries; neither is a mandatory preliminary campaign.
 
-## 2. Research and compare
+## 2. Map decisions and select the review shape
 
-Use `research-pipeline:scout` for missing landscape coverage, then commission the
-bounded comparison through `agentic-research:research-orchestrator`. Reuse relevant
-existing research through its source/refresh rules; do not automatically repeat a
-whole scout each round. Supply the charter, decision relevance and proposed
-landscape/comparison output. The orchestrator discovers the research facets and
-runs its verification stack; this skill does not duplicate that machinery.
+Map the decisions, assumptions, shared constraints and common scenarios before
+choosing how to execute the review. Start with an unsplit review. Split only when
+distinct comparisons would improve a decision; do not infer depth from folder
+counts, topic breadth or the amount of research needed.
+
+- **Focused review:** one bounded decision whose assessment needs no child reviews.
+- **Coordinated review:** distinct methodological subquestions contribute to a shared
+  outcome and need a combined decision.
+- **Review program:** independently adjudicable component decisions warrant their
+  own change/reassessment cycles and dependency coordination.
+
+These are shapes of this skill, not separate versions. Explain the selected shape
+and its coverage limits. Honor an explicit operator choice where it fits the charter;
+surface a consequential mismatch before dependent work. For a split, uncertain
+boundary or resumed multi-part review, read
+[review-decomposition.md](references/review-decomposition.md) before proceeding.
+It defines child inputs/results, parent integration and shared stopping rules.
+
+Each child repeats charter → map → evidence → comparison → operator decision →
+reassessment within a smaller scope. Reapply the selector only when further
+splitting adds decision value. Persist the chosen cut, rationale, exclusions and
+dependencies in the existing record. Routine decomposition inside authorized scope
+does not require another blanket approval; changed scope or constraints do.
+
+## 3. Research and compare
+
+For each review unit, name the evidence gap and the decision a finding could change.
+Reuse sufficient current research through the engine's source/refresh rules. Use
+`research-pipeline:scout` for missing landscape coverage; do not repeat it each round.
+Commission needed comparisons through `agentic-research:research-orchestrator`,
+supplying the unit's charter, decision relevance and proposed output. The engine
+discovers research facets and owns verification. A focused review may need a large
+research campaign; review shape does not set research shape or verification rigor.
+Use `research-pipeline:research-program` for separately commissioned research
+engagements and their dependencies, not merely because the review has children.
+Each research engagement has its own registration; its completion cannot close a
+review controller. Preserve already confirmed settings within their agreed scope.
 
 Ask the research engagement to:
 
@@ -111,13 +138,13 @@ Do not fetch private project content into public searches or external services.
 Source acquisition is research; paid trials, deployments and experiments requiring
 additional resources need their own authorized scope.
 
-## 3. Produce findings and a decision packet
+## 4. Produce findings and a decision packet
 
 Finish the engagement's required verification before presenting recommendations as
 verified. Include sample bias, comparability, source support and criteria favoring
 the current design in its research seed. Where the agreed rigor includes an adversarial
 read, these are lenses for that orchestrator-owned pass, not a second verification
-stack. The full-scope assessor in step 5 is required for a clean exit even when the
+stack. The full-scope assessor in step 6 is required for a clean exit even when the
 research rigor is floor. A pass may serve both roles only if its actual scope and
 structured result satisfy both requirements. Refresh the project's existing knowledge
 index after new research artifacts, without bootstrapping an index on other projects.
@@ -137,7 +164,13 @@ would be authorized by each proposed choice. Present one manageable decision bat
 with unresolved major findings first; retain smaller observations without using them
 to drive the loop indefinitely.
 
-## 4. Operator adjudication and authorized action
+For a split review, integrate child results before claiming a parent outcome.
+Reconcile overlapping findings by stable identity; expose conflicts, missing
+coverage and cross-component effects. Route new cross-source analytical synthesis
+through Agentic Research; child reports are comparison lenses, not source evidence.
+A child may finish its assessment while the parent still awaits decisions or evidence.
+
+## 5. Operator adjudication and authorized action
 
 Ask the operator to choose among accepting a proposal, modifying it, rejecting it,
 deferring it, or requesting more evidence. Record the actual response, rationale,
@@ -174,7 +207,7 @@ asking the same question on an unchanged baseline; reopen only for materially ne
 evidence, changed constraints or an explicit operator request. Correct a false finding
 when the evidence warrants it, independently of whether its proposal was popular.
 
-## 5. Fresh reassessment and exit
+## 6. Fresh reassessment and exit
 
 After an authorized change or additional deciding research, reassess the **whole
 agreed review scope**, including cross-component consequences, regressions and new
@@ -197,6 +230,11 @@ verification remains the orchestrator's job; this assessor does not replace or c
 that stack. An already independent initial assessment can supply the exit report if
 no changes were required.
 
+At a parent, supply child assessments and their coverage/baselines as well as shared
+scenarios. All children passing is insufficient: the assessor must examine their
+combined effects against the parent's charter. A pass may cover children and parent
+when its recorded scope satisfies both, avoiding equivalent duplicate reviews.
+
 Read the exit from that assessment, not from the author's confidence or a targeted
 grep. There is no claim that a bounded review proves universal methodological quality.
 
@@ -213,8 +251,10 @@ outcome in this order: explicit operator stop (retained risks, or incomplete if 
 awaiting decision, awaiting change/evidence, incomplete, then clean. Paused portions
 do not stop unrelated work that is already authorized.
 
-A round ends with a verified comparison and full-scope assessment. Persist its count
-and baseline. Do not run another unchanged round while waiting for a decision or
+A root round ends with a verified comparison and full-scope parent assessment.
+Persist its count, baseline and pending child checkpoints. Children share that limit;
+creating, splitting or resuming a child never grants another five rounds. Do not run
+another unchanged round while waiting for a decision or
 implementation, reset the counter on resume, lower severities to meet the exit bar,
 or widen the research question indefinitely. If clean conditions are unmet at the
 limit, stop as incomplete (or with the more specific pending/retained-risk outcome),
@@ -230,6 +270,10 @@ scope to resume. Read the current revision and linked research artifacts. Reconc
 intervening changes with the last charter, preserve earlier decisions and finding
 IDs, and identify the next unfulfilled step. Never infer approval from an item's
 presence or completion of its research engagement.
+
+For a split review, restore the root round, coverage map, child records and dependency
+checkpoints before dispatch. Reuse unaffected assessments; reconcile changed scope
+without dropping unresolved findings. Follow the reference's resume/stop rules.
 
 Report the assessed scope/baseline, approaches sampled, major findings by status,
 operator decisions, authorized changes and verification, unresolved risks, and exact

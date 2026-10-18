@@ -33,12 +33,14 @@ These are starting profiles, not separate engines or fixed cost tiers. The
 orchestrator discovers fan-out and confirms rigor according to the downstream
 decision.
 
-`methodology-review` composes these engagements into a project- or component-level
-review. It compares methods against intended outcomes and prior art, then returns
-project changes to the operator for adjudication. Approved work uses the normal
-handoff/delivery routes. Fresh reassessment distinguishes verified resolution from
-accepted, deferred or retained risk; an engagement finishing is not loop convergence.
-See [the skill](../skills/methodology-review/SKILL.md) for its exit and resume rules.
+`methodology-review` maps methodological decisions before selecting its review
+shape. A child can repeat the same comparison/adjudication/reassessment protocol
+within a smaller scope, with research depth chosen separately. The parent assesses
+combined effects against its original outcomes; child completion is not parent
+convergence. Research execution and cross-source synthesis remain with Agentic
+Research. Approved changes use the normal handoff/delivery routes. See
+[the skill](../skills/methodology-review/SKILL.md) and its linked decomposition
+reference for selection, child reporting, shared round limits and resume rules.
 
 ## Corpora and migration
 

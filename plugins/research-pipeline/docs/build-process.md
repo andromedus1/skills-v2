@@ -71,6 +71,12 @@ Each wrapper supplies context and a decision-relevance hypothesis to
 `agentic-research:research-orchestrator`. The orchestrator owns kickoff, dials,
 decomposition, attestations, synthesis, current output paths, and verification.
 
+`methodology-review` also coordinates the surrounding review: it maps decisions,
+selects a shape, and integrates component assessments where needed. Review scope
+and research depth are separate choices. Its parent assessment checks combined
+effects, with child work sharing the root's round limit and recorded decisions.
+See [methodology-review](../skills/methodology-review/SKILL.md) for the protocol.
+
 Use `[research]` work items with `research_dials:` when durable commissioning is
 useful. Cite completed results through `research_refs:`. Emit actionable work
 only through `agentic-research:research-handoff` after operator confirmation.

@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-decomposition
 kind: feature
-stage: implementing
+stage: review
 tags: [methodology-review, research-pipeline]
 parent: null
 depends_on: []
@@ -24,8 +24,10 @@ needed. Review decomposition and research decomposition remain distinct.
 
 Andrew confirmed: "Whole review, with adaptive research inside each part."
 This promotes idea-methodology-research-depth and extends its original research-
-scale question to the surrounding methodology review. Current work is the concrete
-design proposal; it does not implement, publish or install the skill change.
+scale question to the surrounding methodology review. Andrew subsequently authorized
+implementation by asking to keep going on methodology-review, including the selector,
+child-to-parent reporting and resume/stop rules. Publication and installation remain
+outside this feature's scope.
 
 ## Strategic decisions
 
@@ -67,8 +69,8 @@ verification, or one work item per analytical facet.
 
 The directional pass is complete: Andrew selected whole-review decomposition with
 adaptive research within each part. Remaining choices below are reversible design
-judgments within that direction. No implementation authorization is inferred from
-the design discussion; `implementing` records design readiness in the substrate.
+judgments within that direction. The follow-up instruction authorizes implementing
+the design and completing its validation and review.
 
 - Keep one public `methodology-review` entrypoint; infer the shape from the mapped
   questions and dependencies, while honoring an explicit operator choice that
@@ -284,9 +286,119 @@ cache updates and version bumps remain outside scope.
   it to methodological questions, decisions and coordination; invoke ARD for
   research facets, source acquisition, synthesis and verification.
 
-## Design status
+## Implementation notes
 
-Design complete; implementation not started. No plugin source, manifest, installed
-cache or research artifact changed in this design pass. The open empirical question
-is whether the decomposition guidance selects useful boundaries in real cases;
-the behavioral cases above are the next evidence to obtain.
+- Execution: inline, one owner for the cohesive skill/reference contract. No
+  exploratory or implementation fan-out is needed.
+- Review weight: standard (default); one independent Claude feature review, then
+  accepted corrections and host verification without a second review.
+- Added the selector and linked review-decomposition reference, including child
+  input/result fields, parent integration, shared root rounds and resume rules.
+- Extended the existing record writing aid and aligned process/readme descriptions.
+  Retained the public skill, Codex metadata, ARD ownership and existing exit outcomes.
+- Validation: checkpoint forward tests and structural checks passed as recorded
+  below. Independent standard feature review is next. These tests do not constitute
+  a full live-project research and delivery pilot.
+- Simplification: replaced the implicit landscape/component-study suggestion with
+  explicit selection; no extra public skills, tracker schemas or research machinery.
+
+
+## Verification evidence — 2026-10-18
+
+Executed four isolated checkpoint scenarios on both Codex (native fresh-context
+agent) and Claude Sonnet/high (peeragent fresh process). Each received only the
+skill, directly linked references and the fixture requests below; no expected
+answers, implementation design or prior test results. Neither ran external research,
+changed project policy or bootstrapped a work substrate. This is forward execution
+of the skill at bounded checkpoints, not a complete delegated research/adoption loop.
+
+| Case | Observed Codex behavior | Observed Claude behavior |
+| --- | --- | --- |
+| 01: indivisible choice, broad evidence | Focused, unsplit; evidence requests remain research dimensions | Focused, unsplit; assessment not yet run |
+| 02: independent methods, nested coordinated comparison | Program; coordinated customer-learning node with focused selection/interpretation children; other focused children | Initial run called the two comparisons lenses rather than explicit child assessments. Clarified that coordinated children may share one policy decision. A new process rerunning the unchanged input produced MR-001.1a/.1b child assessments feeding one MR-001.1 decision, under the program root. |
+| 03: two clean children, incompatible recommendations | Parent cannot close; conflicting retention requirements; round 2 still in progress | Parent cannot close; conflict provisional pending fresh whole-scope assessment; 1 complete round, round 2 open |
+| 04: resume with pending remedy and retained major risk | Preserved round 5, workflow-A pilot authority and deferred METH-002; no unnecessary split or repeated approval | Preserved the same limits, authorization and risk; no reset, no clean outcome and no repeated approval |
+
+Case 04's shape differed (coordinated versus program) on an underspecified existing
+cut. Both preserved the required authority, evidence and root-round invariants;
+shape labels were not graded as fixed answers. Pre-assessment checkpoint status
+also differed; neither host invented a completed assessment.
+
+Claude initial job: `20261018T220102Z-c199627f`, terminal success. Targeted case-02
+job after the clarification: `20261018T220427Z-2d8b9b6c`, terminal success. The driver
+read the generated state files, including the targeted nested child table and
+parent integration sequence; process success alone was not treated as correctness.
+Codex forward worker: `/root/methodology_forward_codex`, completed; all four state
+artifacts inspected. Temporary fixture outputs were outside the repository and are
+not shipped. Exact requests and output fingerprints follow for reproducibility.
+
+Structural verification after the clarification:
+
+- `uv run --no-project --with PyYAML python ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py plugins/research-pipeline/skills/methodology-review` — pass.
+- `uv run --no-project --with PyYAML sh plugins/research-pipeline/scripts/tests/skill-portability.test.sh` — pass, including affected portable skill/Codex metadata shape.
+- Local relative file targets resolve; main skill 281 lines, decomposition reference
+  135, record reference 157; host-only dispatch names absent — pass.
+- `git diff --check` — pass. No executable, hook, manifest, dependency or version
+  changes requiring unrelated runtime suites. There is no repository CI configured.
+
+### Forward-test requests and output fingerprints
+
+#### case-01
+
+```text
+# Request
+Use methodology-review to plan the next checkpoint for one decision: whether this team should replace its manual verification step with an automated gate. The policy is indivisible for this team. Evidence is needed about coverage, false negatives, recovery and operator burden. Those are evidence dimensions, not independently changeable policies. The operator has authorized investigation only, with mixed scope and standard research verification. No research has been performed yet. Record the review shape, useful boundaries, evidence requests and next step. Do not run the research in this checkpoint.
+```
+
+codex output SHA-256: `aab28948b3eb62a2a0c5c41f2134196b8e5e4c8e58095b4cc1f00c3db64cbcc9`.
+
+claude output SHA-256: `13c2499a7eb2740c705fa4a86f3045f2cb94c1ddd29170bd9ac4511b3c5bc665`.
+
+#### case-02
+
+```text
+# Request
+Use methodology-review to organize a review of this project's approach to customer learning, release planning and knowledge capture. Each has a separate owner, a separately changeable policy and its own rollout schedule. The shared outcome is learning reliably without slowing delivery. Within customer learning, interview selection and interpretation need separate comparisons before one coordinated learning-policy decision. Release planning is one bounded choice. Knowledge capture has current evidence ready to reuse. Investigation is authorized; project changes are not. Mixed scope and standard research verification are agreed. There is no .work directory or other established tracker. Record the first checkpoint and how component results will be used. Do not run research or create a delivery substrate during this checkpoint.
+```
+
+codex output SHA-256: `4360450fadbfee8e2bf27c987c8f68ff0b49b2a754c453571b3685efd3cc61d1`.
+
+claude output SHA-256: `a59bdc9e944f16d41af658ca9aba52244cb53b5d81477ebfaccea18a4d0face6`.
+
+claude-targeted output SHA-256: `66eeb67a55e43f5ecd06a30921a4661d7124a7bc28f93595587dfba37f315e33`.
+
+#### case-03
+
+```text
+# Request
+Resume methodology review R3 from the supplied state and component reports. Both child assessors reported clean. Can the parent close? Record the next checkpoint using the existing evidence. Do not perform new research or implementation.
+
+# Existing state
+Root: R3. Baseline: fixture-v1. Completed root rounds: 1; in-progress root round: 2; shared limit: 5.
+Charter: choose a response-record handling method that stays within storage constraints and supports correction of interpretation errors for a month. Two related policy components were assessed separately. No operator decisions authorize applying either recommendation yet. The supplied reports are current verified fixture evidence, but there has been no fresh parent assessment of their combined effects.
+
+# Child R3-A report
+Scope: storage burden. Current baseline fixture-v1. Assessor reports clean within child scope. Recommends deleting every raw response after 24 hours. The provided measurements support the storage benefit. No parent interaction assessment was performed.
+
+# Child R3-B report
+Scope: correction of interpretation errors. Current baseline fixture-v1. Assessor reports clean within child scope. Recommends re-reading raw responses during correction requests up to 30 days after receipt. The provided process trial supports this correction method. No parent interaction assessment was performed.
+```
+
+codex output SHA-256: `f1cc6cb722cbcafa17be418ab31c1c864305cbadabd2813667fcbb883b3c0bd8`.
+
+claude output SHA-256: `094b9d92e6b74c8c6f8da127849e9a9f8d3545a80fbd4e65b117bad3bba6e0b5`.
+
+#### case-04
+
+```text
+# Request
+Resume methodology review R4 and record the next checkpoint. You may split the existing validation question into performance and recovery questions if useful. Continue within the already authorized pilot; do not ask to approve it again. This checkpoint is investigation/coordination only, not the implementation itself.
+
+# Existing state
+Root R4; baseline fixture-v1; four complete root assessment rounds; fifth round in progress; shared limit five. Only a documentation typo changed since the previous checkpoint.
+Coverage includes delivery validation and evidence retention. Validation child R4-A has a finished, verified research engagement. Its proposed remedy is not applied yet. The operator authorized a pilot in workflow A only; the delivery item remains pending. The research completion did not contain a methodology assessor report. Retention child R4-B has finding METH-002, a supported major risk, explicitly deferred by the operator with no remedy authorized. The operator has not elected to end the root review. Existing criteria and research settings remain valid. A newly split child would have no prior local history.
+```
+
+codex output SHA-256: `e12d26838cd48d889092ad8572d1002210ae0ce632c8e4dd9ddc60c1841f456a`.
+
+claude output SHA-256: `f81a3bb6cec0543a9673e88f7c4337016f79f8634498f0a6f9356c5d6872a238`.

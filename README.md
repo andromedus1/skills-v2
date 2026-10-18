@@ -31,8 +31,10 @@ history authoritative.
 
 Use [methodology-review](plugins/research-pipeline/skills/methodology-review/SKILL.md)
 to compare a project's methods with prior art, adjudicate proposed changes, and
-reassess outcomes after authorized work. It supports a whole project or a selected
-component while keeping research, operator decisions and delivery state distinct.
+reassess outcomes after authorized work. It maps decisions to select a focused,
+coordinated or program review, with adaptive research inside each component.
+Parent assessment checks the combined effects; review records preserve decisions,
+coverage and shared stopping limits across interruptions.
 
 See [build process](plugins/research-pipeline/docs/build-process.md) and
 [research composition](plugins/research-pipeline/docs/research-composition.md).
