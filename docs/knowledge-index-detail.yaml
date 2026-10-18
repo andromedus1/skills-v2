@@ -1,6 +1,6 @@
 # Auto-generated. DO NOT EDIT BY HAND.
 # On-demand layer — load when surfacing a specific doc's full context.
-generated_at: '2026-10-18T21:08:33Z'
+generated_at: '2026-10-18T21:47:26Z'
 generated_from: frontmatter
 schema_version: 1
 documents:
@@ -128,3 +128,12 @@ documents:
     related:
     - slug: docs/project-navigation.md
       relationship: parallel-to
+  .research/analysis/briefs/research-package-boundary.md:
+    summary: Preserve the research engine and project-process boundary; test a coordinated suite experience
+      before a full package merger, and make methodology-review research scale explicit.
+    key_findings:
+    - 'Proposed: preserve module boundaries while testing coordinated installation.'
+    - Current integration has a reproduced cache-selection weakness and undeclared manifest dependencies.
+    - Claude documents dependency bundles; equivalent OpenAI installation behavior remains unverified.
+    - 'Proposed: clarify methodology-review research-scale selection and preserve its existing decision
+      loop.'

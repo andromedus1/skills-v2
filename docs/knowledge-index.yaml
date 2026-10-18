@@ -6,9 +6,9 @@
 #   2 = enforce (missing v2 fields are errors)
 # Set to 2 once the project's docs are fully backfilled to v2 frontmatter.
 schema_version: 1
-generated_at: 2026-10-18T21:08:33Z
+generated_at: 2026-10-18T21:47:26Z
 generated_from: frontmatter
-total_docs: 14
+total_docs: 15
 
 documents:
   # ── planning ──────────────────────────────────────────────────────────────
@@ -70,6 +70,13 @@ documents:
     consumer_hint: Read for Nathan's catalog direction and Workbench context; use project-navigation.md for this fork's active process.
 
   # ── research ──────────────────────────────────────────────────────────────
+
+  - path: .research/analysis/briefs/research-package-boundary.md
+    title: Research package boundary and methodology review
+    type: brief
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: "Agentic Research brief: Research package boundary and methodology review"
 
   - path: docs/research/codex-plugin-format.md
     title: "Research: Codex Plugin Format and Standards"
