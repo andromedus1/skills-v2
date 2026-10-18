@@ -1,7 +1,7 @@
 ---
 id: story-bootstrap-project-knowledge-index
 kind: story
-stage: review
+stage: done
 tags: [prose, knowledge-index, research-pipeline]
 parent: null
 depends_on: []
@@ -83,3 +83,16 @@ generated files.
 - Existing session-context hook suite passes; Git whitespace check passes.
 - Hook scripts were exercised directly. No fresh live model session or external
   research refresh is claimed by this story.
+
+## Review (2026-10-18)
+
+**Verdict**: Approve.
+
+**Blockers**: none. **Important findings**: none. **Nits**: none.
+
+Bounded inline standalone-story review checked source metadata against the document
+bodies, the ownership distinctions against AGENTS.md and Andrew's clarification,
+the generator's actual discovery coverage, and the recorded hook/size evidence.
+All acceptance criteria are satisfied. Research snapshots remain qualified; no
+inherited body, installed plugin, research engine or methodology-review contract
+was changed. No independent reviewer is required for this story lane.
