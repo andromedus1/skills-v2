@@ -152,3 +152,11 @@ after both return.
   regardless of profile. Adversarial read attempt 2 dispatched with incremental
   checklist writing to `verification-checklist.md`; evaluate follows its
   verdict; lead spot-check last. Stage remains `implementing`.
+- Adversarial read, attempt 2 (first completed): **NEEDS-REVISION**. Checklist
+  `.research/analysis/campaigns/qvc-review-evidence/verification-checklist.md`.
+  Lint rerun 361 resolved, 0 broken/thin, 59 advisories (2 from
+  `acquisitions.md`). No fabrication; material issues are caveats stripped at
+  synthesis and mis-scoped citations (A1, A2+E2, A3+R1, C1, C2, C3, C4+E1+D1,
+  E3+W4) plus minor findings. `parent.md` checked exhaustively; briefs ~80/96
+  and ~110/144 citations; sources not re-fetched. Revision pass dispatched;
+  then adversarial re-read. A second NEEDS-REVISION is surfaced to Andrew.
