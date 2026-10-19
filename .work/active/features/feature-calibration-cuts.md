@@ -1,7 +1,7 @@
 ---
 id: feature-calibration-cuts
 kind: feature
-stage: implementing
+stage: review
 tags: [research-pipeline, methodology-review, process]
 parent: null
 depends_on: []
@@ -61,3 +61,28 @@ blueprint pilot (Andrew chose "C4 compress now").
 still runs verbatim; [ ] gate command includes `--no-pattern-check` and the gate
 text has no orphaned advisory handling; [ ] methodology-review word count ≤ ~3,700
 with a complete rule mapping verified independently; [ ] RP portability passes.
+
+## Implementation notes
+- Execution capability: host inline for C1–C3; one worker for C4 plus a separate
+  fresh-context preservation checker. Review weight: standard (default).
+- C1/C2 (`.work/CONVENTIONS.md`, quality-checkpoint §2): receipt drops `Weight`;
+  post-review block lists only exceptions (commits neither the receipt's listed
+  fixes nor another tracked item's own commit) or one "none outside listed fixes
+  and tracked items" line; closure anchor dropped (enumerate `<head>..HEAD` at
+  closure); commit messages name their item. Enumeration command verified.
+- C3 (`gate-citations/SKILL.md`, quality-checkpoint §3 wording): gate runs
+  `--no-pattern-check`; pattern-advisory handling/reporting removed; warn-only
+  counts and exit-code/JSON rules kept. Verified: exit 0, valid JSON, 0 broken,
+  0 pattern flags on this repo.
+- C4 (methodology-review SKILL + 2 references): 5,302 → 4,192 words (−21%).
+  **Discrepancy:** target ~3,700 (−30%) not met; further cuts would have removed
+  operative rules (worker stopped; preservation beats brevity). Worker inventory
+  296 rules (271 direct, 25 merged, 0 dropped). Independent checker inventory 315
+  rules: 310 preserved, 5 weakened, 0 missing; two material (child review items
+  lost the no-research-tag rule; review-record intro routed comparison rows to the
+  loop record) and three minor ("only when", "as applicable to the domain",
+  "before dispatch") plus one wording issue — all restored. Headings, section
+  order, frontmatter and inbound links unchanged; 29 relative links resolve.
+  Scratch evidence (`/private/tmp/claude-501/c4/`) not retained, per Andrew's
+  earlier call on experiment artifacts.
+- Verification: RP portability ok; `git diff --check` clean.

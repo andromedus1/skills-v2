@@ -1,10 +1,10 @@
 # Comparison and review record
 
-Use these fields in the project's existing records. They are a writing aid, not a
-new frontmatter schema, database or research tier. Keep analytical snapshots under
-Agentic Research's artifact conventions; keep decisions and delivery state in the
-project's work/decision record. Preserve dated reports and link corrections or later
-assessments rather than retroactively changing what an earlier pass concluded.
+These fields are a writing aid, not a new frontmatter schema, database or research
+tier. Decision, delivery and assessment fields belong in the loop record chosen under
+the skill's [Scope and authority](../SKILL.md#scope-and-authority); comparison rows
+belong in the Agentic Research artifacts that record links. Preserve dated reports; link corrections and
+later assessments rather than changing what an earlier pass concluded.
 
 ## Contents
 
@@ -18,14 +18,9 @@ assessments rather than retroactively changing what an earlier pass concluded.
 
 ## Record location and discovery
 
-Use the matching `methodology-review` tracking item in Agile Workflow, without a
-`research` tag/dials on the loop controller. An engagement may close independently;
-the controller tracks the still-open decisions and reassessments. Other established
-project trackers keep their own conventions.
-
-The standalone fallback is the fixed project-root `methodology-review-state.md`,
-never a file under `.research/`. Use existing planning metadata so an adopter's index
-can consume it if its discovery rules include root files:
+The standalone fallback `methodology-review-state.md` uses existing planning
+metadata, so an adopter's index can consume it if its discovery rules include root
+files:
 
 ```yaml
 ---
@@ -39,53 +34,46 @@ decisions:
 ---
 ```
 
-Substitute the actual date and keep decisions current; the initial entry records
-the review's authority boundary, not a substantive project decision. Record the review ID and
-scope in a named body section; use additional sections for concurrent reviews.
-Append dated assessor reports in the relevant section, linking the research outputs
-and current baseline. Those reports assess loop progress; they are not source-direct
-research or a replacement for the orchestrator's analytical outputs. This record
-uses the existing planning schema, not a new frontmatter contract.
+Substitute the actual date and keep `decisions` current; the initial entry records
+the review's authority boundary, not a substantive project decision. Give each
+review's ID and scope a named body section holding its dated assessor reports,
+which link research outputs and the current baseline. They assess loop progress;
+they are neither source-direct research nor a replacement for the orchestrator's
+analytical outputs.
 
 ## Charter and loop checkpoint
 
-Record the target, baseline, jobs/outcomes, constraints, questions, criteria,
-scenarios, included/excluded scope, research settings, completed assessment rounds
-and round limit. Link the latest verified research artifact and next required step.
-List required checks and owners with their actual result, assessed scope/baseline,
+Record the target, review questions and the skill's step 1 charter, plus completed
+assessment rounds, the latest verified research artifact and the next required step.
+Separate fixed constraints from hypotheses by checking project intent, never by
+assumption.
+
+For each required check, record its owner, actual result, assessed scope/baseline,
 evidence location and remaining obligation. Mark absent, errored or stale evidence
 explicitly; a tool's completion or a persisted artifact is not a successful verdict
-([build process §Completion](../../../docs/build-process.md#completion)).
-On correction/resume, preserve earlier reports and explain which coverage remains
-valid or needs renewal under the owning workflow. Delivery's standard accepted-fix
-verification and this review's fresh whole-scope assessment are distinct obligations.
-For a multi-engagement program, link its actual commissioning items; only those items
-own dependencies, stages and completion. Do not copy delivery decomposition here.
-
-Separate fixed constraints from hypotheses. For example, a required jurisdiction
-can be fixed while a manually curated catalog is an approach to compare. Do not
-assume either distinction without checking project intent.
+([build process §Completion](../../../docs/build-process.md#completion)). On
+correction or resume, keep earlier reports and say which coverage remains valid or
+needs renewal under the owning workflow. Delivery's accepted-fix verification and
+this review's fresh whole-scope assessment are distinct obligations. For a
+multi-engagement program, link the actual commissioning items, which alone own
+dependencies, stages and completion; never copy another item's stages or delivery
+decomposition here.
 
 ## Component coverage and coordination
 
-For a split review, record the root ID, selected shape, considered cuts, rationale,
-exclusions and remaining coupling. For each child, use a named section or link its
-authoritative review item. Each child links back to its root and parent. Record
-its ID/parent, covered question and contribution,
-baseline, inherited constraints/decisions, shared-question ownership, dependencies,
-allocated root-round checkpoint and latest assessment link. Use the child contract
-in [review-decomposition.md](review-decomposition.md) for dispatch and return fields.
+For a split review, the root records its ID, selected shape, considered cuts,
+rationale, exclusions and remaining coupling, plus the completed-round count,
+current round and shared limit. Research engagement counts and child completion
+counts are different quantities. Each child gets a named section or a link to its
+authoritative review item, holding the
+[child contract](review-decomposition.md#run-a-child-review) inputs and its latest
+assessment link. Beside the child links, record parent integration findings and the
+fresh whole-scope assessment, linking (not copying) child outcomes and obligations.
 
-Keep the completed-root-round count, current round and shared limit at the root.
-Research engagement counts and child completion counts are different quantities.
-Link child outcomes and unresolved obligations without copying another work item's
-stages or delivery decomposition. Record parent integration findings and the fresh
-whole-scope assessment alongside the child links.
-
-On a new cut or resumed review, retain prior IDs/assessments and record the coverage
+After a new cut or on resume, retain prior IDs and assessments and record their
 mapping to current children, changed baselines and next unfulfilled steps. The
-standalone fallback uses the same body fields in linked sections of
-`methodology-review-state.md`; no new frontmatter or tracker is needed.
+standalone fallback holds the same fields in linked sections; no new frontmatter or
+tracker is needed.
 
 ## Comparison rows
 
@@ -93,35 +81,34 @@ For each representative approach, record:
 
 | Field | Content |
 |---|---|
-| Intended use | Users, job, context and constraints; why it belongs in the sample |
-| Native approach | Its own concepts, workflow and configuration before translating to our terms |
-| Coverage mapping | Direct, delegated, partial, explicitly excluded or unknown; additional capabilities outside our current categories |
-| Scenario | Common task/input and its positive, adverse and correction paths |
-| Method | Acquisition, reasoning, evaluation, human decisions, action and learning as applicable |
-| Evidence | Specific source chain and inspected revision/date; distinguish claims, demonstrations and measurements |
-| Consequence | Outcome quality, uncertainty, human/operating burden, limitations and tradeoffs |
-| Transfer | What could be retained, simplified, adopted, integrated or tested here; why context supports transfer |
+| Intended use | Users, job, context, constraints; why it is in the sample |
+| Native approach | Its own concepts, workflow and configuration, before our terms |
+| Coverage mapping | Direct, delegated, partial, explicitly excluded or unknown; capabilities outside our categories |
+| Scenario | Common task/input with positive, adverse and correction paths |
+| Method | Acquisition, reasoning, evaluation, human decisions, action, learning as applicable |
+| Evidence | Source chain and inspected revision/date; claim, demonstration or measurement |
+| Consequence | Outcome quality, uncertainty, human/operating burden, limitations, tradeoffs |
+| Transfer | What to retain, simplify, adopt, integrate or test here, and why context supports it |
 
-Choose representative methods, not a fixed vendor quota. Explain excluded families
-that could affect the decision. Do not assign a numerical aggregate score without
-agreed weights and evidence adequate for that precision.
+Choose representative methods, not a vendor quota. Assign no numerical aggregate
+score without agreed weights and evidence adequate for that precision.
 
 ## Finding record
 
-Use a stable ID across rounds. For new findings, qualify the local ID by its
-originating review, such as `R4-B/METH-003`. Preserve existing bare IDs, identifying
-them by the owning review plus ID; identical numbers in different children are
-not duplicates. Keep origin identities when ownership changes and record aliases
-for actual merges. Apply the same identity when matching handoff items. Record:
+Keep one stable ID across rounds; never mint a fresh ID to conceal persistence.
+Qualify new local IDs by originating review (`R4-B/METH-003`); keep existing bare
+IDs, identified by owning review plus ID. Equal local numbers in different reviews
+are not duplicates and never justify a merge. Keep origin identities when ownership
+or boundaries change, record aliases only for actual merges, and match handoff items
+by the same identity. Record:
 
 - Observation and evidence, affected outcome, severity/materiality rationale and confidence.
 - Current approach, credible alternatives and strongest contrary evidence.
-- Recommended choice and the exact proposed project effect; retention is a valid choice.
+- Recommended choice and exact proposed project effect; retention is a valid choice.
 - Deciding evidence or experiment, success/failure criteria and important burdens.
-- Prior finding IDs if merged, and the assessment that verified a remedy or withdrew
-  the finding. Do not mint a fresh ID to conceal persistence.
+- Prior IDs if merged, and the assessment that verified a remedy or withdrew the finding.
 
-Keep three different facts visible:
+Keep three facts distinct:
 
 | Dimension | Examples |
 |---|---|
@@ -129,39 +116,30 @@ Keep three different facts visible:
 | Operator decision | Unanswered; accept; modify; reject; defer; request more evidence |
 | Remedy verification | Not authorized; authorized/pending; applied/awaiting assessment; verified resolved |
 
-These are report fields, not new work-item stages. An accepted proposal with a queued
-implementation is still pending; a rejected proposal can leave a supported risk.
-Withdrawal requires a source/evidence rationale, not merely a rejected recommendation.
-If an alternative authorized remedy resolves the issue, verify it normally.
+These are report fields, not work-item stages. An accepted proposal with queued
+implementation is still pending; a rejected one can leave a supported risk.
+Withdrawal needs a source/evidence rationale, not merely a rejected recommendation.
+An alternative authorized remedy that resolves the issue is verified normally.
 
 ## Decision packet
 
-Present concise, comparable choices for each unresolved major finding. Include the
-recommendation, consequence of retention, confidence, affected scope and what the
-choice authorizes. Ask about adoption, experiments, filing or implementation only
-when the user's intent does not already settle that action. Reuse the user's existing
-answer rather than imposing a second approval ceremony.
-
-Capture the decision's date, operator, actual instruction/rationale, scope and next
-action. Link each emitted work item. The item must link back to this decision and
-carry the stable review/finding IDs, research origin, authorized next action and an
-operative brief/acceptance boundary matching that decision. For example, a decision
-to pilot an approach in one workflow cannot leave a broader rollout as the item's
-brief. Keep the broader research proposal only as clearly labeled background.
-Deduplicate by review/finding identity across refreshed research slugs. A decision
-about one finding must not become blanket permission for later findings or changes.
+For each unresolved major finding, give concise, comparable choices: recommendation,
+consequence of retention, confidence, affected scope and what each choice
+authorizes. Capture the decision's date, operator, actual instruction/rationale,
+scope and next action, and link each emitted item; item linkage, brief alignment
+and deduplication follow the skill's
+[step 5](../SKILL.md#5-operator-adjudication-and-authorized-action).
 
 ## Assessment report
 
-Record the charter/baseline and full agreed coverage, including any exclusions or
-unavailable evidence. Report counts and IDs for new/persistent major findings,
+Record the charter/baseline and full agreed coverage, including exclusions and
+unavailable evidence. Give counts and IDs for new and persistent major findings,
 accepted but pending remedies, verified resolutions, evidence-based withdrawals,
-retained/deferred major risks and minor observations. Link the source and verification
-records. End with one exit outcome from the skill and its reason.
+retained/deferred major risks and minor observations. Link source and verification
+records; end with one exit outcome from the skill and its reason. A parent report
+adds actual child coverage, conflicts and cross-component scenarios checked, reuse
+of prior assessments, unresolved dependencies, the root round/checkpoint and next
+step.
 
-For a parent report, include actual child coverage, conflicts and cross-component
-scenarios checked. Explain reuse of prior assessments and any unresolved dependency.
-State the root round/checkpoint and next step.
-
-A useful final assessment can say “no new major findings; two previously identified
-risks remain by operator decision.” It must not turn that into “zero major findings.”
+“No new major findings; two previously identified risks remain by operator decision”
+must never become “zero major findings.”
