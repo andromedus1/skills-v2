@@ -7,9 +7,10 @@ summary: >
   operations paging guidance, security-operations alarm triage, and clinical decision-support alert overrides on
   how people respond to warnings with high false-positive rates, which numeric thresholds have been used and under
   what definitions, and which practices keep advisory signals acted on. The sources converge that noisy warnings
-  delivered outside the work context are ignored, but they also show non-blocking warnings acted on at high rates at
-  Facebook's diff time and drawing low not-useful click ratios (which undercount ignoring) at Google's review time,
-  where they are curated by an action-rate feedback loop and socially enforced before approval. As a composed reading,
+  delivered outside the work context are ignored, but they also show diff-time findings, given to developers as part
+  of code review, acted on at high rates at Facebook (the source does not say whether those reports gate landing),
+  and review-time findings drawing low not-useful click ratios (which undercount ignoring) at Google, where they are
+  curated by an action-rate feedback loop and socially enforced before approval. As a composed reading,
   delivery point, curation, and volume/repetition are more associated with decay than advisory status as such, though
   one review found no volume-override relationship.
 key_findings:
@@ -316,18 +317,20 @@ does not say whether the policy changed between them.
 Disconfirming probe: do advisory (non-blocking) warnings degrade as such? I searched the attested sources for cases
 where advisory signals are acted on, and for cases where an apparent degradation is something else.
 
-- **Non-blocking review-time findings are acted on.** Tricorder code-review results do not block submission by
+- **Review-time findings are acted on.** Tricorder code-review results do not block submission by
   default. Some teams want analyzers "to actually block commits, rather than just appear in the code-review tool",
   usually for zero-FP custom checks [google-static-analysis-lessons]{26}. Yet the platform
   not-useful rate was about 5%, and an average changelist had "two please-fix clicks and no not-useful clicks"
   [google-tricorder-icse2015]{27}. Codebase instances of a ClangTidy check "decreased dramatically" after it was shown
-  in review [google-tricorder-icse2015]{27}. Infer reports at diff time as an automatic code-review bot, with a fix
-  rate over 70% [facebook-infer-zoncolan-scaling]{28}. This disconfirms a blanket "advisory degrades" claim, with three
-  caveats:
+  in review [google-tricorder-icse2015]{27}. Infer reports at diff time as part of code review, with a fix rate over
+  70% [facebook-infer-zoncolan-scaling]{28}. This disconfirms a blanket "advisory degrades" claim, with four caveats:
   - The counter-evidence is the builders' own data, and Tricorder's click metrics undercount ignoring
     [google-tricorder-icse2015]{27}.
-  - These findings are non-blocking but socially enforced: "Reviewers typically withhold approval of a change until all
-    their comments, manual and automated, have been addressed" [google-static-analysis-lessons]{26}.
+  - Google's review-time findings are non-blocking by default but socially enforced: "Reviewers typically withhold
+    approval of a change until all their comments, manual and automated, have been addressed"
+    [google-static-analysis-lessons]{26}.
+  - The Facebook source does not say whether Infer's diff-time reports gate landing
+    [facebook-infer-zoncolan-scaling]{28}, so the over-70% fix rate is not shown to come from purely advisory delivery.
   - Zoncolan's action rate above 80% covers a funnel in which the security on-call "validates the alarm reported,
     blocks the diff" when appropriate [facebook-infer-zoncolan-scaling]{28}, so it is not evidence about purely
     advisory signals.
@@ -398,6 +401,10 @@ Thresholds such as 10% are only meaningful once the false-positive definition be
 - 2026-10-19 — Correction (position preserved): restored tiering, click-undercount and survivor-effect qualifiers,
   softened the summary generalization, and extended the Zoncolan attestation with the on-call blocking passage; see
   `../verification-checklist.md`, "Revision response (2026-10-19)".
+- 2026-10-19 — Correction (position preserved), bounded pass after the adversarial re-read: removed "non-blocking"
+  for Facebook's diff-time findings (summary and Disconfirming analysis), retitled the review-time disconfirming
+  bullet, and added the caveat that the Facebook source does not say whether those reports gate landing; see
+  `../verification-checklist.md`, "Bounded correction response (2026-10-19)".
 
 ## Sources (corpus numbering)
 

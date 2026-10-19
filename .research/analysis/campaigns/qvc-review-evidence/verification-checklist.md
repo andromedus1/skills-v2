@@ -729,8 +729,8 @@ W3 (WN L190-191), W5 (WN L9-13, L338), W6 (WN L316), A8 (L77), B3 (L162), E8 (L1
 
 #### (b) Claim-shapes the lint missed
 
-- **m4: L272-273, "removing or tiering checks whose non-action rate is high [tricorder]{27} [facebook]{28}
-  [ddi]{36}".** In `{36}`, tiering is by severity (`ddi-alert-tiering-compliance.md` L21-24), not by non-action rate.
+- **m4: L272-273, "removing or tiering checks whose non-action rate is high (shortened handles for references 27, 28
+  and 36)".** In `{36}`, tiering is by severity (`ddi-alert-tiering-compliance.md` L21-24), not by non-action rate.
   The composed criterion is attributed to the tiering source. The wording predates the revision. *Revision:* "removing
   checks whose non-action rate is high {27}{28}, and tiering by severity {36}".
 - **m5: L278-279, "Before a threshold is applied, the false-positive definition must be stated
@@ -828,3 +828,196 @@ Info: i1, i2, i3.
 No fabrication was found: no unresolved handle, no training-recall citation, no lens cited as source, and no recalled
 metadata. A light revision touching only the lines above, with the one attestation extension, should be enough. A
 second full re-read is not needed: a targeted check of N1 and N2 would do.
+
+## Bounded correction response (2026-10-19)
+
+Operator-authorized bounded correction after the adversarial re-read (N1, N2, m1-m5, i1-i3) and the evaluate gate's
+recommendations 1-5. Mode: correction (discipline §8), position preserved; the attestation was extended before any
+prose changed. Line numbers refer to the files after this pass. Files touched: `parent.md`,
+`specialists/reviewer-independence.md` (RI), `specialists/warning-noise.md` (WN), and
+`.research/attestation/llm-judge-mt-bench.md` (additive only). Each edited artifact has a dated `## Revisions` entry;
+`updated:` was already 2026-10-19 and is unchanged.
+
+### Attestation extension (done first)
+
+- `llm-judge-mt-bench.md` L59-82, under "Additional anchored details (re-fetched 2026-10-19, arXiv HTML v4, same
+  source)". Re-fetched https://arxiv.org/html/2306.05685v4 this session. Recorded verbatim: the Table 4 caption ("Judge
+  failure rate on 10 math questions with different prompts. We test LLaMA-13B vs. Vicuna-13B and swap positions. A
+  failure means when GPT-4 says an incorrect answer is correct."), the row Failure rate Default 14/20, CoT 6/20,
+  Reference 3/20, the full Section 3.4 paragraph, and the Section 4.2 Table 7 sentence and caption. The note records
+  that the prose gives 70% and 15% only, and that the CoT value is in the table alone. `git diff` shows only added
+  lines; frontmatter and existing quotes are unchanged.
+
+### Material findings
+
+| Item | Disposition | Changes (file:line) |
+| --- | --- | --- |
+| N1 | Fixed | parent L7-10 (summary: 14/20, 6/20, 3/20, 20 judgements); L19 (key finding: "the one study comparing judge prompts", CoT also reduced); L76-83 (body rewritten with n, all three rates, the "same mistake" quote kept as residual-case context); the CoT `qualifies` row was removed from Contradictions (formerly between L207 and L208), because the sources do not diverge; L225-227 (Disconfirming: CoT also reduced errors, by less); L263-266 (decision bullet: no longer "the attested conditions"). RI L9 (key finding), L39-43 (n and CoT rate), L61-63 ("also cut failures … though less"), L115-118 (longer reasoning reduced failures, by less), F6 L197, Contradictions CoT bullet removed (formerly L230-233). |
+| N2 | Fixed | parent L13-15 (summary: "given to developers as part of code review … the source does not say whether they gate landing"); L242-249 (Disconfirming: Facebook gating caveat and the on-call blocking passage placed before the Google caveats); L295-296 (decision bullet caveat). WN L10-12 (summary), L320 (bullet retitled "Review-time findings are acted on"), L325-326 ("as part of code review"; "four caveats"), L329-333 (Google caveat now names Google; new Facebook gating caveat directly after it). No fetched source states that Infer's diff-time reports are non-blocking, so the word was removed, not grounded. |
+
+### Minor and info findings
+
+| Item | Disposition | Changes (file:line) |
+| --- | --- | --- |
+| m1 | Fixed | parent L53-55 (heading "rises with the gap between compared models"; "performance gap between the compared models"), now backed by the verbatim Section 4.2 sentence in the attestation extension. Same wording carried to RI L39 and F1 L192 for consistency. |
+| m2 | Fixed | parent L23 (key finding), L248-249 (Disconfirming), L294 (decision): second FindBugs reason (per-user customization) added. |
+| m3 | Fixed | parent L280-282: "reported as mattering (a cite-through of Porter et al.; a posit and familiarity data without methods)". |
+| m4 | Fixed | parent L289-291: "removing checks whose non-action rate is high" cites Tricorder and Facebook; "tiering alerts by severity" cites the tiering study. |
+| m5 | Fixed | parent L297-298: Google citation dropped; sentence marked `{inferred: aggregate}` with a pointer to the `incommensurable` row. |
+| i1 | Fixed | parent L300-301: "(routing is attested; see the practice table and Contradictions)". |
+| i2 | Fixed | parent L73: "the authors hypothesise GPT-4 was 'over-reasoning'". |
+| i3 | Fixed | parent L182: "information-only Level 3 not collected at the tiered site". |
+
+### Evaluator recommendations
+
+| Rec. | Disposition | Changes (file:line) |
+| --- | --- | --- |
+| 1 | Fixed | Facebook "non-blocking" removed (see N2). Heading retitled at parent L157, "Review-time findings outside the commit gate, and justified non-action"; L159-161 now ground "rather than blocking commits" in the Google "Gating commits" passage and say the findings are not purely advisory. |
+| 2 | Fixed | parent summary L7-8: self-preference "mostly legitimate for stronger models but more harmful when the judge is wrong"; "grading without references" restored. |
+| 3 | Fixed | "most clearly" (summary, body heading) and "most often associated" (key finding) were replaced by wording scoped to the single prompt comparison (parent L9, L19, L76). The remaining "largest reduction" wording is read directly off Table 4 and scoped to that comparison. |
+| 4 | Fixed | parent L182: tiering row names the metric (alert compliance) and arms (tiered vs non-tiered site). Evidence labels for the tiering study (L182) and the repeats study (L186) now both state design and setting ("observational, retrospective …"). The demonstrated / independently-measured split is kept as in WN (L48-51 label definitions): two hospitals in one delivery system vs a cohort using a commercial EHR. |
+| 5 | Fixed | parent L268-275: a simplify-versus-strengthen sentence marked `{inferred: aggregate}`, built only from attested findings (self-preference and its legitimacy, similarity bias, reference grounding, the panel study), ending "No fetched source measures either option on generated code." |
+
+### Lint
+
+`lint-citations.py .research/analysis/campaigns/qvc-review-evidence/ --attestation-dir .research/attestation/
+--no-url-check --format json`: 0 thin; 1 `substrate_confidence_omitted` (`anthropic-agent-evals`, unchanged). Lint
+reports 3 `unresolved-handle` chains, all in this checklist at the re-read's m4 quotation (L732-733), which writes the
+handles in shortened form. They predate this pass (present at HEAD) and are outside the edit scope, which allows
+appending only. Per-file lint of `parent.md`, both briefs and `llm-judge-mt-bench.md` gives 0 broken, 0 thin. This
+response section uses no citation-form tokens.
+
+### Not resolved / residual
+
+- The 3 unresolved-handle hits in the re-read text (L732-733) remain. A future checklist edit, if authorized, can
+  spell the handles in full or put them in code formatting.
+- Evaluator recommendation 6 (component-4 spot-checks) was out of scope and was not run.
+
+## Targeted N1/N2 re-check (2026-10-19)
+
+Operator-authorized, bounded. Fresh-context reader; composition: discipline bundle + this checklist's N1/N2
+definitions. Scope: whether N1 and N2 are resolved, and whether the bounded correction added any unsupported claim in
+the lines it touched (`git diff HEAD` of `parent.md`, both briefs and `llm-judge-mt-bench.md`). Line numbers refer to
+the working tree as of this read. Severity key as above.
+
+### Attestation extension
+
+- **Additivity:** `git diff --numstat HEAD -- .research/attestation/` gives 25 added, 0 removed, all in
+  `llm-judge-mt-bench.md` L59-82 under a dated heading. Frontmatter and the earlier quotes are unchanged. Additive.
+- **Re-fetch (scratchpad only, not cited):** arXiv HTML v4 of 2306.05685, fetched again this session. The Table 4
+  caption matches word for word ("Judge failure rate on 10 math questions with different prompts. We test LLaMA-13B
+  vs. Vicuna-13B and swap positions. A failure means when GPT-4 says an incorrect answer is correct."), and so does
+  the row (Default 14/20, CoT 6/20, Reference 3/20). The four Section 3.4 quotes and the Section 4.2 Table 7
+  sentence also match word for word. Reading "20 judgements per prompt" off "10 math questions ... swap positions"
+  and the /20 denominator is sound.
+- **i (no action needed):** the Table 7 caption quote at L81-82 stops before the source's last sentence ("The y-axis
+  value is the GPT-4 and human agreement."). There is no ellipsis, but nothing is distorted.
+
+### N1: resolved, but the fix adds a new exclusivity (N3)
+
+Resolved. "diverges", "most clearly", "only reference guidance", "most often associated" and "the attested
+conditions" are gone from the parent and RI (checked with grep). The chain-of-thought `qualifies` rows were removed
+from both Contradictions sections. The three Table 4 rates now appear with their n at parent L9-10, L77-79 and RI
+L39-43, L61-63 and F6. Each traces to `llm-judge-mt-bench.md` L62-66, and the "same mistake" quote is now framed as
+describing the remaining cases (L73). The legitimacy-study chain-of-thought result (parent L80-81, RI L59-61) traces
+to `llm-self-preference-legitimacy.md` L29-30 and L45-46. The model-gap wording (parent L52-55, RI L39, F1) traces to
+the extension's Section 4.2 sentence (L79).
+
+- **N3 (M): "the one study comparing judge prompts".** Locations: parent key finding L19 ("in the one study comparing
+  judge prompts"), body heading L76 ("where judge prompts were compared"), Disconfirming L226 ("in the one prompt
+  comparison"), and decision L263-264 ("In the one comparison of judge prompts"). Brief: RI key finding L9. This
+  exclusivity is the "the only X with Y" shape that discipline §6 forbids, and the attested corpus contradicts it.
+  `llm-self-preference-legitimacy.md` L45-46 (Section 5.2) compares no-reasoning judging with chain-of-thought judging.
+  `llm-judge-panel-poll.md` L33 (Section 4.3) reports GPT-4 judging improving with prompt changes. What holds is
+  narrower: MT-bench is the only fetched study that sets reference-guided judging beside chain-of-thought judging. The
+  impact is directional. At L19 and L263-264 the parent leaves out the second chain-of-thought result, so the
+  key-findings list and the decision bullet present chain-of-thought as resting on one 20-judgement comparison, when a
+  second fetched study also supports it. RI L9 contradicts itself: it says "the one study comparing judge prompts" and
+  then cites "another study".
+  - *Revision (wording only; no attestation change needed):* replace each phrase with something scoped to MT-bench,
+    for example "in MT-bench's comparison of default, chain-of-thought and reference-guided judge prompts (20 math
+    judgements per prompt)". Retitle the L76 heading the same way, for example "Reference guidance gave the largest
+    reduction in MT-bench's prompt comparison". At L19 and in the L263-265 decision bullet, either add "and
+    chain-of-thought judging lowered harmful self-preference in another study" or drop the exclusivity. Nothing else
+    needs to change.
+- **m (summary L9):** "In one 20-judgement math-grading comparison" reads as 20 judgements in total. It is 20 per
+  prompt, 60 across the three prompts. Suggested wording: "a math-grading comparison of 20 judgements per prompt".
+
+### N2: resolved
+
+"non-blocking" no longer appears beside Facebook anywhere in the parent or WN. The remaining uses are Google-only, at
+WN L20 and L329, which are supported by `google-static-analysis-lessons.md` L84-86, or generic, at WN L34, L317 and
+L387. The new wording, "given to developers as part of code review", appears at parent L13-14 and L240 and WN L11
+and L325. It is supported by `facebook-infer-zoncolan-scaling.md` L22-23 and the bot-in-review passage at L40-43.
+The absence claim "the source does not say whether [they] gate landing" appears at parent L14-15, L244-245 and L295
+and WN L11 and L332-333. It is consistent with the full-text attestation and the earlier CACM re-fetch. The on-call
+caveat "can block a diff over a Zoncolan alarm" (parent L245-246) keeps the source's "When appropriate" through
+"can", and traces to L69. The Facebook caveat now sits beside the Google caveats (parent L244-249; WN L332-333), as
+asked.
+
+### Other touched lines (walked; no new material issue)
+
+- Summary L6-9 (self-preference legitimacy; ungrounded different-model judge): `llm-self-preference-legitimacy.md`
+  L25-27 and `llm-judge-affinity-similarity.md` L52-57. Supported.
+- Google heading and L157-161 ("rather than blocking commits ... not purely advisory"): `google-static-analysis-lessons.md`
+  L84-86 and L76-78. Supported.
+- FindBugs second reason (L23, L249, L294): L43-44 ("developer customization resulted in an inconsistent view").
+  "Per-user" is close enough, given "user-level customization" at L82-83. Supported.
+- Tiering row L182 (metric, arms, Level 3 not collected, design label): `ddi-alert-tiering-compliance.md` L14-18, L27,
+  L30-33 and L40. Repeats row L186: `cds-alert-fatigue-repeats.md` L14-16. Supported.
+- "the authors hypothesise ... 'over-reasoning'" (L73): `llm-judge-panel-poll.md` L33-34. Exact.
+- Porter cite-through and the posit plus familiarity data (L280-282): `review-measures-defects-replication.md` L40 and
+  `code-reviews-do-not-find-bugs.md` L19-21 and L28-30. Supported.
+- Simplify-versus-strengthen sentence (L268-275, marked `{inferred: aggregate}`): every component traces to the cited
+  attestation (`llm-self-recognition-preference.md` L21-28; `llm-self-bias-refinement.md` L21-23; legitimacy L25;
+  affinity L52-57; panel L22-24 and L41-42), and the closing scope statement is present. Supported.
+- m5 and i1 lines (L297-301): marked, or pointer-only. Supported.
+- **m (carried over, not new):** in the split citation at L290-291, the Facebook handle stays attached to "removing
+  checks whose non-action rate is high". The attestation shows filtering and promotion of high-signal categories
+  (L49-54) and RacerD being kept at a fix rate of about 50% for severity (L46-48), but no removal for non-action. This
+  is outside N1/N2 and the line sits under `extends`. Optional: cite Facebook for "filtering output before diff-time
+  delivery" instead.
+
+### Verdict: NEEDS-REVISION
+
+N1 and N2 are resolved, and the MT-bench extension is additive and matches the source word for word. One new material
+issue came in with the N1 fix: N3, the "one study comparing judge prompts" exclusivity at parent L19, L76, L226 and
+L263-264 and RI L9. The fix is wording only. After it, a grep for "one study comparing", "one prompt comparison",
+"one comparison of judge" and "where judge prompts" across the parent and RI is enough to check it. No further
+adversarial pass is needed. No fabrication was found: no unresolved handle in the touched lines, no training-recall
+citation, and no lens cited as a source.
+
+## Lead spot-check (2026-10-19)
+
+Hard-floor spot-check by the engagement lead, consuming lint, adversarial and
+evaluator findings.
+
+- **Evaluator candidates (component 4), all checked against attestations and
+  supported:** Qwen2.5-72B HSPP 86 vs SPR 55 (`llm-self-preference-legitimacy`
+  L40); panel 7–8× cost and Cohere affiliation (`llm-judge-panel-poll` L18,
+  L24, L41); kappa 0.763 vs 0.627 (L27-28); reminder acceptance −30% per extra
+  reminder (`cds-alert-fatigue-repeats` L30); 75% wording bugs, 10%/25%
+  thresholds (`google-tricorder-icse2015` L31-32, L57); >80% at most one
+  iteration (`google-modern-code-review` L26); ~15% defect comments
+  (`code-reviews-do-not-find-bugs` L24); 24% vs 6% with distinct denominators
+  (`llm-critics-catch-bugs` L43).
+- **Lint pattern sample (parent, 9 flags):** "largest reduction" (L76, L264)
+  matches MT-bench Table 4; "Block only checks with effectively no false
+  positives" (L183) matches Google's zero effective FP for build-breaking
+  checks; the Porter cite-through (L281) matches
+  `review-measures-defects-replication` L40. Version/decimal flags are model
+  names and cited figures.
+- **N3 corrected in place** (targeted re-check, NEEDS-REVISION): exclusivity
+  scoped to MT-bench in `parent.md` (summary, key finding, L76 heading,
+  disconfirming, decision bullet) and `reviewer-independence.md` L9; the
+  {13} chain-of-thought result restored in the summary, key finding and
+  decision bullet; "20 judgements per prompt" clarified; optional Facebook
+  re-point applied. Grep confirms the four exclusive phrasings are gone.
+- Shortened handles quoted at the attempt-3 m4 entry rewritten as plain text
+  (they were lint `unresolved-handle` hits in this record, not the synthesis).
+- Lint after correction: 0 broken, 0 thin.
+
+**Verification outcome:** lint pass; evaluate APPROVED; adversarial-read's
+final targeted check NEEDS-REVISION (N3), corrected by the lead in place and
+**not independently re-read**. Per Andrew's bounded-fix decision this is
+recorded as **verification incomplete** with that single limitation.

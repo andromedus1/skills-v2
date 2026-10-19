@@ -55,3 +55,28 @@ open-ended chat questions (MT-bench, 80 questions) and Chatbot Arena votes.
   of cases." Agreement rises "from 70% to nearly 100%" as the performance gap between the
   compared models grows (Table 7), i.e. agreement is lowest where the compared answers are
   close in quality.
+
+## Additional anchored details (re-fetched 2026-10-19, arXiv HTML v4, same source)
+- **Table 4 (rendered inside Section 3.3 of the HTML; Section 3.4 refers to it):** caption, verbatim:
+
+  > Table 4: Judge failure rate on 10 math questions with different prompts. We test LLaMA-13B vs. Vicuna-13B and swap positions. A failure means when GPT-4 says an incorrect answer is correct.
+
+  Row "Failure rate": Default 14/20; CoT 6/20; Reference 3/20. Each condition is 20 judgements (10 questions, one
+  model pair, both positions). The prose figures in Section 3.4 (70% and 15%) correspond to 14/20 and 3/20; the prose
+  gives no percentage for the CoT prompt, whose value appears only in the table.
+- **Section 3.4, "Chain-of-thought and reference-guided judge" (fuller context):**
+
+  > We propose two simple methods to mitigate this issue: chain-of-thought judge and reference-guided judge.
+
+  > We propose a similar technique to prompt an LLM judge to begin with answering the question independently and then start grading.
+
+  > However, even with the CoT prompt, we find that in many cases LLM makes exactly the same mistake as the given answers in its problem-solving process (See example in Figure 14 (Appendix), suggesting that LLM judge may still be misled by the context.
+
+  > Hence, we propose a reference-guided method, in which we first generate LLM judge’s answer independently, and then display it as a reference answer in the judge prompt. In Table 4, we see a significant improvement in failure rate (from 70% to 15%) over the default prompt.
+
+- **Section 4.2, agreement breakdown by model pair:**
+
+  > In Table 7, we observe the agreement between GPT-4 and human progressively increases in line with the performance disparity of the model pairs (i.e., larger win rate difference), from 70% to nearly 100%. This suggests that GPT-4 aligns with humans better when significant performance differences exist between the models.
+
+  Table 7 caption: "Each point corresponds to a model pair and counts only the non-tie votes between the two models.
+  The x-axis value is the win rate difference between the two models."

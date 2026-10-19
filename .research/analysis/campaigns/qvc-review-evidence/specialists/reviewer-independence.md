@@ -6,7 +6,7 @@ summary: LLM judges measurably favour their own and similar models' outputs, but
 key_findings:
   - Judge favouritism toward a judge's own (and functionally similar) outputs is reported by several independent groups across tasks; a ground-truth study finds stronger models' self-preference mostly legitimate yet more harmful when they are wrong.
   - Switching to a different model does not remove correlated-judgement risk; a similarity study finds judges grading without references favour functionally similar models, and model errors growing more alike with capability.
-  - Reference grounding (a reference answer or reference-based oracle feedback) is the condition under which judge errors fell most clearly; evidence on longer judge reasoning diverges, and model identity alone was not the varied factor in most studies. No fetched study gave judges executable tests.
+  - Reference grounding (a reference answer or reference-based oracle feedback) is associated with reduced judge error; in MT-bench's comparison of default, chain-of-thought and reference-guided judge prompts (10 math questions, 20 judgements per prompt), a reference-guided judge cut failures most (14/20 default to 3/20) and a chain-of-thought judge also cut them (to 6/20), and chain-of-thought and long-reasoning judging lowered harmful self-preference in another study. Model identity alone was not the varied factor in most studies. No fetched study gave judges executable tests.
   - A randomized inspection experiment found one-person teams poorer than two- or four-person teams and no difference between two and four, with effort rising with reviewer count; its abstract reports no significant treatment effects on effectiveness overall.
   - Practice data show a median of two reviewers in several organizations and a median of one at Google; observational links between review participation and post-release defects did not hold up robustly in an independent replication.
   - Re-review after changes is governed by documented policy (approval with comments for minor follow-ups; optional dismissal of stale approvals on any diff change), not by measured outcomes in the fetched sources.
@@ -36,10 +36,11 @@ QA, short code snippets); none studies multi-file agent-generated changes review
 
 **Agreement with humans.** On MT-bench, GPT-4's non-tie agreement with 58 expert human labelers
 reached 85%, above the 81% agreement among the humans themselves; agreement rose from about 70% to
-nearly 100% as the quality gap between the compared answers widened [llm-judge-mt-bench]{11}. The
+nearly 100% as the performance gap between the compared models widened [llm-judge-mt-bench]{11}. The
 same study found GPT-4 could misgrade basic math it could solve, being influenced by the answers under
 review, and that a reference-guided judge (answer first, then grade against that reference) cut the
-math-grading failure rate from 70% to 15% [llm-judge-mt-bench]{11}. Model grading is nondeterministic
+math-grading failure rate from 70% to 15% (14/20 to 3/20 judgements on 10 math questions, one model pair
+with positions swapped), with a chain-of-thought judge at 6/20 [llm-judge-mt-bench]{11}. Model grading is nondeterministic
 and needs human calibration [anthropic-agent-evals]{7}. *(demonstrated; 2023 judges, chat tasks.)*
 
 **Self-preference.** The MT-bench study observed GPT-4 favouring itself with a 10% higher win rate and
@@ -57,9 +58,9 @@ models prefer themselves more: Qwen2.5-72B showed harmful self-preference propen
 versus an overall self-preference ratio of 55; on MBPP+ large models ranged from about 50 to 75 against
 overall ratios below 40 [llm-self-preference-legitimacy]{13}. Chain-of-thought judging lowered harmful
 self-preference, and long chain-of-thought reasoning models lowered it further, across the models tested
-[llm-self-preference-legitimacy]{13}. In MT-bench math grading, by contrast, a chain-of-thought judge in many cases
-"makes exactly the same mistake as the given answers"; only the reference-guided judge cut failures
-[llm-judge-mt-bench]{11}.
+[llm-self-preference-legitimacy]{13}. In MT-bench math grading, a chain-of-thought judge also cut failures (6/20
+against 14/20 with the default prompt), though less than a reference-guided judge (3/20), and in many cases still
+"makes exactly the same mistake as the given answers" [llm-judge-mt-bench]{11}.
 *(demonstrated; this study shares an author with the summarization study, so it is not fully
 independent of it.)*
 
@@ -111,8 +112,9 @@ code was short and single-file, and inserted bugs differ from natural model erro
 **What the independence evidence does and does not show.** The detection improvements in this sample
 came from adding a differently-informed check: a reference answer [llm-judge-mt-bench]{11}, reference-based
 oracle feedback [llm-self-bias-refinement]{15}, heterogeneous model families [llm-judge-panel-poll]{16}, or a
-trained critic plus a human [llm-critics-catch-bugs]{17}; longer judge reasoning [llm-self-preference-legitimacy]{13}
-adds no external reference and did not stop a math judge repeating graded answers' mistakes [llm-judge-mt-bench]{11}
+trained critic plus a human [llm-critics-catch-bugs]{17}. Longer judge reasoning adds no external reference; it
+lowered harmful self-preference [llm-self-preference-legitimacy]{13} and cut math-grading failures, by less than a
+reference answer did and with graded answers' mistakes still repeated in many cases [llm-judge-mt-bench]{11}
 {inferred: aggregate}. No fetched study isolates "same model versus
 different model" as the single varied factor on review of generated code; the panel study varies family
 and count together, and the critic study varies training and human assistance
@@ -187,12 +189,12 @@ No fetched source measures how often post-approval edits introduce defects, or c
 
 | # | Finding | Evidence type | Sources |
 | --- | --- | --- | --- |
-| F1 | GPT-4 (2023) as a judge agrees with expert humans about as well as humans agree with each other on chat preference (85% vs 81%, non-tie); agreement is weaker when answers are close in quality. | demonstrated | [llm-judge-mt-bench]{11} |
+| F1 | GPT-4 (2023) as a judge agrees with expert humans about as well as humans agree with each other on chat preference (85% vs 81%, non-tie); agreement rises with the performance gap between the compared models. | demonstrated | [llm-judge-mt-bench]{11} |
 | F2 | LLM judges favour their own outputs (and outputs of similar models) across several task types; the MT-bench observation was itself inconclusive. | independently measured (separate groups, different setups) | [llm-judge-mt-bench]{11} [llm-self-recognition-preference]{12} [llm-self-bias-refinement]{15} [llm-judge-affinity-similarity]{14} [llm-judge-panel-poll]{16} |
 | F3 | With ground truth, stronger judges' self-preference is mostly legitimate, but harmful self-preference when wrong is larger in stronger models; long reasoning reduces it. | demonstrated | [llm-self-preference-legitimacy]{13} |
 | F4 | Using a different model does not remove favouritism toward functionally similar models; model errors grow more similar with capability. | demonstrated | [llm-judge-affinity-similarity]{14} |
 | F5 | Self-refinement amplifies self-bias; reference-grounded feedback reduces it and yields real gains. | demonstrated | [llm-self-bias-refinement]{15} |
-| F6 | A reference-guided judge sharply reduces math-grading failures. | demonstrated | [llm-judge-mt-bench]{11} |
+| F6 | A reference-guided judge cut math-grading failures most (3/20 vs 14/20 default; chain-of-thought 6/20; 10 questions, 20 judgements per prompt). | demonstrated | [llm-judge-mt-bench]{11} |
 | F7 | A diverse three-family panel tracks human judgement better than a single GPT-4 judge in QA and Arena ranking, more cheaply, but not better than every single judge on every dataset. | demonstrated (single group) | [llm-judge-panel-poll]{16} |
 | F8 | Trained LLM critics catch more inserted bugs in short code than paid human reviewers but hallucinate more; human-plus-critic teams cut hallucinations without adding comprehensiveness. | demonstrated (single vendor) | [llm-critics-catch-bugs]{17} |
 | F9 | One-person inspection teams were poorer than two- or four-person teams; two and four did not differ; effort rose with team size. Abstract reports no significant treatment effect overall. | demonstrated (randomized field experiment) | [inspection-team-size-experiment]{18} |
@@ -227,10 +229,6 @@ No fetched source measures how often post-approval edits introduce defects, or c
 - **Inspection team size: effect versus no significant effect** — `tension` inside one source. The detailed
   analysis and main-results section report one-person teams poorer than two- or four-person teams; the abstract
   reports no significant influence of treatments on effectiveness [inspection-team-size-experiment]{18}.
-- **Chain-of-thought judging helps versus repeats errors** — `qualifies`. Chain-of-thought and long-reasoning judging
-  lowered harmful self-preference on verifiable tasks [llm-self-preference-legitimacy]{13}; a chain-of-thought math
-  judge in many cases repeated the graded answer's mistake, where a reference-guided judge did not
-  [llm-judge-mt-bench]{11}. Different tasks and metrics.
 
 ## Disconfirming analysis
 
@@ -300,6 +298,13 @@ not an empirically settled question.
 
 - 2026-10-19 — Correction (position preserved): restored qualifiers, separated chain-of-thought from reference
   grounding, re-scoped citations; see `../verification-checklist.md`, "Revision response (2026-10-19)".
+- 2026-10-19 — Correction (position preserved), bounded pass after the adversarial re-read: with the MT-bench
+  attestation extended by Table 4, chain-of-thought judging is stated as also cutting math-grading failures (6/20
+  against 14/20 default and 3/20 reference; 20 judgements per prompt), the chain-of-thought `qualifies` row was
+  removed because the sources do not diverge, and the agreement breakdown now reads as a performance gap between
+  compared models; see `../verification-checklist.md`, "Bounded correction response (2026-10-19)".
+- 2026-10-19 (lead spot-check correction): N3 — "the one study comparing judge prompts" scoped to MT-bench's
+  default/chain-of-thought/reference comparison. See `verification-checklist.md`, "Lead spot-check (2026-10-19)".
 
 ## Sources (corpus numbering)
 

@@ -182,3 +182,12 @@ after both return.
   first), N2, m1–m5 and the evaluator's recommendations 1–5. Verification: a
   targeted N1/N2 re-check plus lead spot-check, not a full third read. If that
   check fails, mark verification incomplete and proceed with the limitation.
+- Targeted N1/N2 re-check: N1 and N2 resolved; new **N3** (exclusive "one
+  study comparing judge prompts" — other attestations also compare prompts).
+  Lead spot-check: evaluator candidates and lint pattern sample supported; N3
+  corrected in place (scoping + restored {13} result); lint 0 broken / 0 thin.
+- **Outcome: verification incomplete** per Andrew's bounded-fix rule — the
+  final targeted adversarial check returned NEEDS-REVISION and its N3 fix was
+  made by the lead without an independent re-read. Stage stays `implementing`;
+  consumers treat the synthesis as verified except that limitation. Closing it
+  needs only an independent read of the N3 lines.
