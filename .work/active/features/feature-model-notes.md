@@ -1,7 +1,7 @@
 ---
 id: feature-model-notes
 kind: feature
-stage: drafting
+stage: review
 tags: [agile-workflow, process]
 parent: null
 depends_on: [feature-upstream-sync-2026-10]
@@ -31,3 +31,27 @@ May let the fork's models.md patch shrink to defaults while local experience liv
   qualified observations from this session; record Andrew's standing model lineup
   once; no staleness trigger; minimal external research (current effort levels
   per host only).
+
+## Implementation (2026-10-19)
+Standing lineup confirmed by Andrew (recorded in `.work/CONVENTIONS.md`
+`## Model lineup`). Minimal-churn choice: `models.md` is upstream-owned, so instead
+of rewriting it a short fork note sets the resolution order (peeragent alias
+table + runtime discovery → operator lineup → MODEL-NOTES; upstream names are
+dated examples), keeping future syncs cheap. `model-selection-pattern.md` was
+already role-based; it gains a "Resolving concrete models" section with the
+durable tendencies. `.work/MODEL-NOTES.md` added under Workbench's evidence rules
+(no frontmatter, qualified, pruned; not indexed), seeded with six observations from
+2026-10-19 and two working-guidance lines. Fork patch documented in
+`docs/project-navigation.md`. No staleness trigger; no external research needed
+(effort levels per host come from the peeragent skill).
+
+## Implementation notes
+- Execution capability: host inline. Review weight: standard (default).
+- Files: `plugins/agile-workflow/skills/principles/references/models.md` (fork
+  note, 7 lines); `plugins/research-pipeline/docs/model-selection-pattern.md`;
+  `.work/CONVENTIONS.md`; `.work/MODEL-NOTES.md`; `docs/project-navigation.md`.
+- Verification: RP portability ok; models.md diff vs upstream = Kimi/Pi patch +
+  the fork note only.
+- Discrepancy from the reshape decision: models.md is not rewritten wholesale
+  (fork note instead) to limit upstream-sync drift — consistent with the new
+  overbuilding calibration.

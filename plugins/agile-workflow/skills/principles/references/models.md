@@ -14,6 +14,13 @@ Luna/Terra/Sol, Gemini 3.5, and GLM-5.2) are current resolutions
 of each class as of writing. Always resolve
 the concrete model against current sources when the choice is load-bearing.
 
+> **Fork resolution order (skills-v2).** Treat the model names in this file as
+> upstream's dated examples. Resolve concrete model IDs and effort levels from
+> the peeragent skill's alias table and what the host actually offers at run
+> time; apply the operator's standing lineup in the project's `.work/CONVENTIONS.md`
+> (`## Model lineup`); consult qualified local evidence in `.work/MODEL-NOTES.md`.
+> Roles, capability axes and the host-to-peer pairing below stay authoritative.
+
 ## Contents
 
 1. [Capability axes (the decision vocabulary)](#1-capability-axes-the-decision-vocabulary)

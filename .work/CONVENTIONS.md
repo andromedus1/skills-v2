@@ -100,6 +100,17 @@ restatement, or when Andrew reports friction.
 Delegated agents never delete, revert or overwrite files they did not create in
 that job; they report the conflict instead.
 
+## Model lineup
+
+Andrew's standing lineup (2026-10-19); concrete IDs resolve through peeragent's
+alias table. Claude host: the host model (Opus) designs, integrates and
+adjudicates, and host-class sub-agents implement and research; independent
+feature review is Codex `sol` medium; whole-scope methodology assessment is Codex
+`sol` high; quick scenario or smoke checks are Codex `luna` high. Codex host:
+independent review is Claude `opus` xhigh (`fable` high for the hardest reviews).
+If the other model is unavailable, use a fresh-context sub-agent of the host model
+and label it same-class. Qualified observations live in `.work/MODEL-NOTES.md`.
+
 ## Gates for release-deploy
 
 gates_for_release:
