@@ -74,10 +74,10 @@ An enumerated commit without a line makes the evidence stale; `uncovered` routes
 through normal delivery and review, and readiness then also needs that item's
 evidence. A changed hash alone does not require another pass. Standalone-story
 inline reviews keep the existing record. Reviews recorded before this convention
-may be reconstructed from git and labeled `reconstructed` (head: the last product
-commit before the review record); a reconstruction counts only when the review
-record shows an independent pass at the required weight. Otherwise the evidence
-is missing.
+may be reconstructed from git and labeled `reconstructed`, using the head the
+reviewer's own report states it assessed and classifying every later commit as
+above; a reconstruction counts only when the record shows the review its effective
+weight required. If the assessed head cannot be recovered, the evidence is missing.
 
 ## Gates for release-deploy
 

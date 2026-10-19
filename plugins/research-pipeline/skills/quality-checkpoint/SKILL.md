@@ -89,8 +89,9 @@ independent, weight, finding counts and accepted-fix verification. A terminal st
 passing linter, design advisory or research verification is not a delivery-review
 receipt. Honor explicit none/light policies and record whether an independent pass
 actually ran. For a review without a receipt, reconstruct its range from git and
-label it `reconstructed` only when the record shows the required independent pass;
-otherwise record the evidence as missing.
+label it `reconstructed`, using the head the reviewer's report states it assessed,
+only when the record shows the review its effective weight required; otherwise
+record the evidence as missing.
 
 A completed standard review plus verified accepted fixes remains valid; a changed
 hash alone does not require another pass. Enumerate commits after the reviewed
