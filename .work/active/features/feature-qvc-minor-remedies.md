@@ -1,7 +1,7 @@
 ---
 id: feature-qvc-minor-remedies
 kind: feature
-stage: implementing
+stage: review
 tags: [methodology-review, research-pipeline, cleanup]
 parent: null
 depends_on: [feature-qvc-review-receipts]
@@ -186,3 +186,29 @@ sub-agent reads the retargeted skill and dry-runs discovery + Pass 1 on this rep
 - **Least sure**: Unit 2's new 2b (foundation vs item decision contradictions)
   may be noisy on long-lived items; keep it severity Medium unless the item is
   active and the contradiction is direct.
+
+## Implementation notes
+- Execution capability: host-coordinated; two parallel workers (Units 1+4 and
+  Unit 2, disjoint write sets), then one worker for Unit 3 after Unit 2; host
+  follow-up on the bump-version test. Justified by four heterogeneous surfaces.
+- Review weight: standard (default).
+- Files changed: gate-citations SKILL; doc-review SKILL; build-process,
+  research-composition, quality-checkpoint, methodology-review SKILL +
+  review-record, AR verification-record, CONVENTIONS; RP feature/epic-design;
+  two skill tests; `scripts/bump-version.sh`;
+  `plugins/agile-workflow/scripts/tests/bump-version.test.sh`;
+  `docs/project-navigation.md`.
+- Tests added/removed: bump-version guard regression case (+4 assertions);
+  test scratch repos seeded on a named branch.
+- Simplification: doc-review 353 → 326 lines; restated status lists removed from
+  gate-citations; ~165 words of duplicated rule prose removed.
+- Discrepancies from design: see each story's completion evidence (doc-review
+  description edit and mechanical-only loop exit; gate-citations extra lines;
+  POSIX `set --`; `--no-project`; bump test patched outside the original unit).
+- Adjacent issues parked: `idea-architecture-roadmap-links`.
+
+## Integrated verification (2026-10-19)
+RP skill portability ok; AR skill metadata ok; resolver test ok; bump-version
+70/70; ARD conformance 57/57; gate lint command (`--exit-code-on medium`) on
+this repo exit 0 with valid JSON. Owed at review: a fresh-context doc-review
+dry run (the worker's was in-context).
