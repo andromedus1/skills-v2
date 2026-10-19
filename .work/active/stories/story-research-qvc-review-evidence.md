@@ -167,3 +167,13 @@ after both return.
   from restored qualifiers. Next: adversarial re-read (attempt 3; a further
   NEEDS-REVISION is surfaced to Andrew) and `evaluate` (isolated: synthesis +
   seed only), dispatched in parallel on the same revised synthesis.
+- `evaluate` (isolated): **APPROVED** with non-material corrections
+  (`campaign-evaluation.md`).
+- Adversarial re-read (attempt 3): **NEEDS-REVISION** — prior material findings
+  resolved except C2, whose fix introduced N1 (MT-bench chain-of-thought also
+  cut failures, 14→6 of 20 vs reference 3 of 20; synthesis states a
+  contradiction the source lacks; the wording originated in the attempt-2
+  checklist and was copied as fact). N2: Facebook diff-time findings called
+  "non-blocking" without support. Minor m1–m5. Both attestation extensions
+  verified against re-fetched sources. Second NEEDS-REVISION surfaced to Andrew
+  per the orchestrator; no further revision without his decision.

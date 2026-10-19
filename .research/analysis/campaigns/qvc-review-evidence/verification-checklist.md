@@ -580,3 +580,251 @@ from revision ("the only defect evidence", comparative-superlative) was reworded
 
 - None of the listed findings was left unaddressed. Length: parent grew from about 2,900 to about 3,550 words because of
   the restored qualifiers and three new Contradictions rows; the briefs changed by under 6%.
+
+## Adversarial re-read (2026-10-19)
+
+Gate: `adversarial-read`, re-read after revision pass 1. Fresh-context reader; composition: discipline bundle +
+adversarial-reader brief (CATALOGS §4). Line numbers refer to the revised files as of this read. Severity key as above
+(**M** material, **m** minor, **i** info).
+
+### Lint regeneration
+
+`lint-citations.py .research/analysis/campaigns/qvc-review-evidence/ --attestation-dir .research/attestation/
+--no-url-check --format json`: 0 broken chains, 0 thin, 0 `intra-program-resolved`, 0 campaign-unbound;
+1 `substrate_confidence_omitted` (`anthropic-agent-evals`, reused, unchanged). Citations: parent 146 (143 resolved,
+3 `reduced-substrate-attestation`, all `coverity-alert-actionability-oss`), RI 99 resolved, WN 144 (138 resolved, 6
+reduced-substrate, all Coverity OSS), this checklist 8, acquisitions 0. Pattern advisories: parent 6 (L36, L53, L57,
+L67, L235 model or version names and a quoted statistic; L176 "no false positives" read off the source; none is a
+composed claim), RI 27, WN 23, acquisitions 2, checklist 18. A `campaign-evaluation.md` (evaluate gate, APPROVED)
+appeared in the campaign directory during this read. It was not an input here and does not change these findings.
+
+### Sampling statement
+
+- **parent.md:** exhaustive. Read in full. Every sentence and all 146 citation instances were walked against the
+  attestation bodies: frontmatter summary, 8 key findings, Q1, Q2, practice table, Cross-facet, all 13
+  Contradictions rows, Disconfirming, Decision relevance, Limits, Revisit.
+- **Attestations:** all 28 cited attestations read in full, including the two extensions, so jobs (d) and (h) cover the
+  whole retrieved set.
+- **Briefs:** every hunk of `git diff 13fe4e07` in `reviewer-independence.md` and `warning-noise.md` was read and
+  walked, along with both briefs' frontmatter summaries and key findings and WN's Disconfirming analysis, Limits and
+  Decision relevance (L316-394). Unchanged brief bodies were not re-walked; they were covered in attempt 2.
+- **Re-fetches this session (scratchpad only; nothing committed):** (1) Facebook CACM PDF (attestation `source_url`),
+  text extracted; (2) arXiv HTML v2 of 2502.04313; (3) arXiv HTML v4 of 2306.05685 (MT-bench), re-fetched to test a
+  claim the revision added (see N1). Re-fetched text is used here only to verify. It is not cited. Each fix below
+  goes through the attestation, as discipline §8 requires.
+
+### Prior material findings: resolution
+
+| Finding | Status | Evidence (revised lines) |
+| --- | --- | --- |
+| A1 | **Resolved** | Parent L259-262: `{18}` is the only defect evidence, scoped to "one experiment"; `{19}` is limited to practice. "zero" is gone. RI L290-293 now uses the cite-through form "Rigby and Bird attribute…". |
+| A2 + E2 | **Resolved** | Parent L108-111 adds the Section 3.7 two-person qualifier ("viewed with caution") and an `extends` note that both arms include a second inspection (attested, `inspection-team-size-experiment.md` L17-18). The Disconfirming bullet (L229-232) no longer uses the result. RI L259-261 and F15 match. |
+| A3 + R1 | **Resolved as scoped** | `{14}` now supports only the "not the active ingredient" clause (L253-254), backed by the extended attestation L48-57. The grounding clause cites `{11}` `{15}`. Executable checks and recorded criteria are labelled "untested". RI L9 matches. **New issue on the same bullet's exclusivity: see N1.** |
+| C1 | **Resolved** | The abstract's no-significant-effect statement now accompanies the one-to-two gain in the summary (L8-10), key finding L18, body L88-92 (with the discontinued 1sX1p treatment and the Section 4 line), Disconfirming L224-225 and decision L259-261. RI summary and L253-254 match. |
+| C2 | **Resolved as scoped (bundling); the revision introduced a new error** | Chain-of-thought is now separated from reference grounding (L72-77), and key finding L16 is softened. The new `qualifies` row L201 and the "evidence diverges" framing, however, rest on a claim that is false against the source and missing from the attestation. See N1. The error came from this gate's own attempt-2 wording of C2(ii). |
+| C3 | **Resolved** | `tension` row L211 cites both sides correctly (`cpoe-alert-override-review.md` L29-31; `cds-alert-fatigue-repeats.md` L22-23). L243-246 qualified and marked `{inferred: aggregate}`. |
+| C4 + E1 + D1 | **Resolved, but the revision added an unattested specific** | Click-undercount caveat at L156-158 (attested, Tricorder L64-66, L72-73). FindBugs Attempt 3 at L131-133, key finding L20, L239-240 and L275-276 (attested, `google-static-analysis-lessons.md` L41-44). Social enforcement and builder-reported caveats are in Disconfirming L237-239 and decision L273-276. Crediting high action rates to Facebook added "non-blocking", which neither the attestation nor the source supports. See N2. |
+| E3 + W4 | **Resolved** | Parent L175 states overall, Level 2, Level 1 (hard stop by design) and an unmeasured information-only tier, with the type label "advisory-tier effect indirect". Decision L277-278 repeats this. WN key finding L21 and practice 4 L211-212 match (`ddi-alert-tiering-compliance.md` L30-33). |
+
+**Minor and info findings, spot-checked (all walked; resolved unless noted):** A4 (L18, L98-100 "unstable … added no
+model fit"), A5/R5 (L97-98; RI F12), A6/W2 (L20; WN L76), A7 (L268-270), B1/R2 (summary; RI L8, L242), B2 (L262-263),
+C5 (L288-289), C6 (row L212, attested in Tricorder L42-44, Facebook L49-50 and SRE L45), C7 (L203 retyped `tension`
+with the "similar to what McIntosh et al. found" quote), D2 (L101-104 correct cite-through form; the decision-bullet
+compression is noted under m3), D3 (L50-52; see m1), E4 (L22, L162-164; Table 3 values match `cds-outpatient-override-appropriateness.md` L27-28),
+E5/R7 (L225-228; RI L104-107), E6 (L53-54), E7 (L69-70; see i2), E10 (L236), R6 (RI L256-257), W1 (verified below),
+W3 (WN L190-191), W5 (WN L9-13, L338), W6 (WN L316), A8 (L77), B3 (L162), E8 (L143), E9 (L161). Nothing reopened.
+
+### Attestation extensions (additivity and use)
+
+- **Additivity:** `git diff 13fe4e07 -- .research/attestation/` shows only added lines (+10 Facebook, +13 affinity).
+  No existing line changed. Both additions sit under a dated "Additional anchored details (re-fetched 2026-10-19)"
+  heading. Frontmatter `fetched:` stays 2026-10-18; the re-fetch date is recorded in the heading. Acceptable.
+- **W1, `facebook-infer-zoncolan-scaling.md` L64-72:** verified verbatim against the re-fetched CACM PDF. The PDF
+  contains "When appropriate, the on-call validates the alarm reported, blocks the diff, and provides support to
+  write the code in a secure way", and the audience sentence and "At “diff time,” security related issues are pushed
+  to the security engineer on-call…" also match. WN L331-333 and F16 L262 use the passage within its scope ("when
+  appropriate"; "can … block"). **Within scope.**
+- **D4, `llm-judge-affinity-similarity.md` L48-59:** verified verbatim against arXiv HTML v2. "This is done based on
+  its own internal knowledge without access to a ground-truth solution" is in §3.1 "Experimental Setup". "To mimic
+  more common, but ungrounded settings … we do not provide the judge with access to ground-truth responses or MCQ
+  answer options" is in §B.9. The reference-equipped five-judge ensemble is in §B.3.2. All section labels exist.
+  Parent L62 ("Judges grading without ground-truth solutions") and L253-254 ("a held-out judge grading without
+  references") and RI L8 and L66-67 use the passage within its scope. **Within scope.** The conclusion in the
+  revision response, that this does not qualify the grounding claims, follows: the study did not test grounded
+  judges for affinity bias.
+
+### Findings by job: revised parent.md and touched brief sections
+
+#### (a) Semantic citation-chain walk
+
+- **N1 (M): the "chain-of-thought diverges" claim and the "only reference guidance" exclusivity.** Locations: parent
+  summary L7-8 ("judge errors fell most clearly with reference grounding, while evidence on longer judge reasoning
+  diverges"), body L74-77, Contradictions row L201 ("a chain-of-thought math judge in many cases repeated the graded
+  answer's mistake, and only reference guidance cut failures [llm-judge-mt-bench]{11}"), key finding L16 ("reference
+  grounding is the condition most often associated with reduced judge error"), and decision L254-256 ("Reference
+  guidance and reference-based feedback are *the* attested conditions under which judge error fell"). Brief: RI key
+  finding L9 ("evidence on longer judge reasoning diverges"), RI L61 ("only the reference-guided judge cut failures"),
+  RI L231-232 ("where a reference-guided judge did not").
+  - *Attestation:* `llm-judge-mt-bench.md` L39-43 records the CoT qualitative remark and the reference-guided
+    70%→15%. It records nothing about the CoT judge's failure rate. "only reference guidance cut failures" is
+    therefore unattested (read-but-not-attested at the claim's critical specific).
+  - *Source (re-fetched, arXiv HTML v4, §3.4 and Table 4):* "Table 4: Judge failure rate on 10 math questions with
+    different prompts … Default 14/20, CoT 6/20, Reference 3/20". The CoT judge also cut failures, from 70% to 30%.
+    The "same mistake" remark describes the residual cases. The claim is false against the source. Both fetched
+    studies therefore show longer reasoning reducing judge error: MT-bench by less than references, and the
+    legitimacy study's HSPP. The evidence does not diverge in direction. The `qualifies` row L201 states a
+    contradiction that the source does not contain, and "most often" in L16 and "the attested conditions" in
+    L254-255 exclude a condition with equal study count.
+  - *Also stripped:* the 70%→15% figure (L72-73), the only quantitative support for "where judge errors fell most
+    clearly", comes from 20 judgements on 10 math questions (one model pair, positions swapped). The attestation
+    records neither n.
+  - *Origin:* this gate's attempt-2 C2(ii) wording ("with only the reference-guided judge cutting failures"), which
+    the revision adopted. The error is the gate's, propagated into the substrate (see (f)).
+  - *Revision (discipline §8 direction, extend the substrate first):* add §3.4 / Table 4 to `llm-judge-mt-bench.md`
+    (Default 14/20, CoT 6/20, Reference 3/20; 10 math questions; failure = GPT-4 judging an incorrect answer
+    correct). Then correct the parent and RI:
+    - Summary and body: "reference guidance cut math-grading failures most (70% to 15% on 20 judgements); chain-of-thought also reduced them (to 30%) and lowered harmful self-preference, though it often repeated the graded answer's mistakes".
+    - L201 and RI L229-232: drop the row or restate it without "only". Retype it, because both sources agree that CoT helped.
+    - Key finding L16: "reference grounding produced the largest reduction where compared".
+    - Decision L254-256: "Reference guidance produced the largest attested reduction in judge error; chain-of-thought judging also reduced it".
+    - RI L9, L61: matching corrections.
+- **N2 (M): Facebook's diff-time findings described as "non-blocking".** Locations: parent summary L11-12 ("Facebook
+  reports non-blocking diff-time findings acted on at high rates") and Disconfirming L233-234, where Facebook's 70% is
+  newly the lead counter-evidence "Against 'advisory warnings degrade'" while the caveats (L237-240) cover only
+  Google. Brief: WN summary L10-11 ("non-blocking warnings acted on at high rates at Facebook's diff time"). Both
+  parent locations and the WN summary wording were introduced by this revision; the attempt-2 versions cited only
+  Google and Coverity.
+  - *Attestation:* `facebook-infer-zoncolan-scaling.md` says diff-time issues are "given to developers promptly as part
+    of code review" (L22-23), and Infer participates as a bot in review (L40-42). It says nothing about whether those
+    reports gate landing. The W1 extension (L69) shows that some Facebook diff-time security findings are blocked by
+    the on-call.
+  - *Source (re-fetched CACM PDF):* the only blocking statement is the Zoncolan on-call passage. The article describes
+    Infer as "participating as a bot in code review … programmers come to the review tool to discuss their code with
+    human reviewers". It does not say the reports are non-blocking.
+  - *Why it is material:* the commission's decision is whether citation advisories should be reclassified, suppressed
+    or retained (seed L64-67), so a source's advisory status carries the decision. The revision's own logic for
+    Google, that "socially enforced" review findings are not purely advisory, applies equally to an unattested
+    Facebook delivery mode. As written, the summary attributes to Facebook a property Facebook does not report.
+  - *Revision:* summary and WN L10-11: "Facebook reports diff-time findings posted as code-review bot comments acted on
+    at high rates (the source does not say whether they gate landing)". Add the same caveat at parent L237-240 beside
+    the Google caveats. In WN L319-327, either move the Infer sentence out from under "Non-blocking review-time
+    findings are acted on" or add that caveat. If a fetched source states Infer's diff-time reports are non-blocking,
+    extend the attestation and keep the word.
+- **m1: L50-52, "as the quality gap between answers widened".** The source (Table 7, attested L55-57) varies "the
+  performance gap between the compared models" (win-rate disparity of model pairs), not per-answer quality. The
+  heading "weakest on close calls" rests on the attestation's own gloss. *Revision:* "as the performance gap between
+  the compared models widened". "Expert humans" is correct: MT-bench S2, Table 5, confirmed on re-fetch, and
+  attested at L44-47 and L52.
+- **m2: L20 (key finding) and L275-276 (decision).** FindBugs Attempt 3 is cited as discontinued "over effective false
+  positives". The source gives two reasons; the second is that "developer customization resulted in an inconsistent
+  view" (`google-static-analysis-lessons.md` L43-44). Body L131-133 carries both. The decision bullet weighs
+  suppression, which is customization, so the dropped reason bears on it. *Revision:* add "and per-user
+  customization" to L275-276.
+- **m3: L263-264, "reviewer expertise and familiarity are attested as mattering [review-measures-defects-replication]{22}
+  [code-reviews-do-not-find-bugs]{23}".** `{22}` is a cite-through of Porter et al., and body L103-104 correctly writes
+  "attributes to Porter et al.". `{23}`'s expertise claim is a posit from a talk abstract with no methods (attested
+  L19-21; body L102-103 says "posited … (documented, no methods)"). "Attested as mattering" upgrades both claims.
+  *Revision:* "are reported as mattering (a cite-through of Porter et al. {22}; a posit and familiarity data without
+  methods {23})".
+
+#### (b) Claim-shapes the lint missed
+
+- **m4: L272-273, "removing or tiering checks whose non-action rate is high [tricorder]{27} [facebook]{28}
+  [ddi]{36}".** In `{36}`, tiering is by severity (`ddi-alert-tiering-compliance.md` L21-24), not by non-action rate.
+  The composed criterion is attributed to the tiering source. The wording predates the revision. *Revision:* "removing
+  checks whose non-action rate is high {27}{28}, and tiering by severity {36}".
+- **m5: L278-279, "Before a threshold is applied, the false-positive definition must be stated
+  [google-static-analysis-lessons]{26}".** This normative "must" is composed from the incommensurability finding
+  (L149-150). `{26}` defines its own term but does not prescribe this. The wording predates the revision and sits
+  under the bullet's `extends`, but the citation reads as Google's rule. *Revision:* drop the citation or mark the
+  sentence `{inferred: aggregate}` with a pointer to the incommensurable row L209.
+- **i1: L281, "specialist queues are an attested alternative to suppression".** No citation; under `extends`. The
+  support is in row L212 and practice row L177, where routing is attested. "Alternative to suppression" is the
+  synthesis's framing. Acceptable; a pointer "(see Contradictions)" would make the support visible.
+- Nothing else surfaced. Revision-added comparatives such as "most clearly" (L8, L72) are addressed under N1.
+
+#### (c) Coherence-read for smoothed contradictions
+
+- The inverse failure, a manufactured contradiction, is N1 (row L201). It is not smoothing, but it misrepresents the
+  source relationship in the same structural place.
+- The new rows L211 (`tension`) and L212 (`qualifies`) are fairly stated and their relationship types fit. Row L203
+  was retyped correctly.
+- Summary versus body: after the revision, the summary no longer states anything stronger than the body, except the
+  N1 and N2 items.
+- The decision bullets now carry the caveats the evidence sections keep (C4 is resolved). One residual tension, which
+  predates the revision and is acceptable: L252-253 ("supports keeping an independent check over pure self-review")
+  against L218-219 ("Self-review is therefore not shown to be worse than cross-model review"). They reconcile because
+  "independent check" includes grounded checks, and the bullet says so in its last clause. **i**, no action.
+
+#### (d) Noise-domination / relevance-weighting
+
+- For N2, the most relevant attested material on Facebook's delivery mode is the W1 extension (on-call blocking) and
+  the bot-in-review passage. Neither is used next to the summary claim. This is covered by the N2 revision.
+- For N1, the more relevant number (the CoT rate) is in the source but not in the retrieved set, so this is an
+  attestation gap (see (h)), not a `CX.1` instance.
+- Nothing else surfaced. The D2 and D3 additions use the most relevant attested passages.
+
+#### (e) Quote-context walk (`GR.4`)
+
+- **i2: L69-70, "GPT-4's weakness is attributed partly to 'over-reasoning'".** The source "hypothesise[s]"
+  (`llm-judge-panel-poll.md` L33-34). "Attributed partly" is close enough; "hypothesised" would be exact. Optional.
+- **i3: L175, "information-only tier not measured".** Accurate for the tiered site. The non-tiered site's Level 3
+  compliance (9%) was measured (`ddi-alert-tiering-compliance.md` L30-31). "Not measured at the tiered site" would be
+  exact. Optional.
+- Revision-added quotes checked in context, with no stripped qualifier: "viewed with caution" (L110); "Increasing team
+  size does not always improve performance" (L91); "did not significantly influence…" (L90); "are known to be low" /
+  "Developers may ignore findings…" (L156-157); "the presence of effective false positives caused developers to lose
+  confidence in the tool" (L132; see m2 for the dropped second reason elsewhere); "sweet spot for developer
+  satisfaction" (L143); "Alert overriding may often be justified" (L162); "a dedicated cleanup team" (L212; the source
+  also requires "higher false positive rates", which fits the row); "similar to what McIntosh et al. found" (L203);
+  "over-reasoning" (L69).
+- The "makes exactly the same mistake" quote (L76, L201) is accurate, but its frame strips the source's own Table 4
+  context. See N1.
+
+#### (f) Analytical-tier-inheritance walk
+
+- Lint reports 0 `intra-program-resolved`. No handle resolves to a brief, position, glossary or checklist.
+- **N1 is an analytical-tier inheritance in substance.** The "only reference guidance cut failures" specific came
+  into the parent (L201) and the RI brief (L61, L232) from this gate's attempt-2 checklist paraphrase (C2(ii)), not
+  from the attestation. A verification artifact's framing was asserted as source fact. The N1 revision fixes it. For
+  the lead: revision passes should take a checklist's suggested wording as a pointer to the attestation, not as a
+  source.
+- Nothing else surfaced. The overlapping lens `quality-feedback-loops` is still uncited.
+
+#### (g) Line-reference walk
+
+- The parent still cites at handle granularity. The section anchors in the two attestation extensions (§3.1, §B.9,
+  §B.3.2; "Funneled deployment", "People and deployments") were checked against the re-fetched sources and exist.
+  Section anchors that revised prose relies on were found: Porter §3.7 and §4 (attestation L34-42), Tricorder §V.a
+  (L61-67), Google Attempt 3 (L41-44), and ddi Table 3 (L30-33). Nothing surfaced.
+
+#### (h) Thin-attestation check (`GR.5`, semantic)
+
+- **`llm-judge-mt-bench.md` §3.4 entry (L39-43) is substantively thin for the use the revision now makes of it.** It
+  gives the reference-guided rate but not the CoT rate in the same table, nor the n (20 judgements). That made the
+  N1 over-read possible. Covered by the N1 revision (extend the attestation).
+- `anthropic-agent-evals` and `coverity-alert-actionability-oss` are unchanged from attempt 2 (H1 and H2). Their uses
+  are still within what they support (L77, L39, L236).
+- Both extensions are adequately anchored (verbatim quotes with section labels).
+
+### Verdict: NEEDS-REVISION
+
+All eight prior material findings are resolved as scoped, the minor and info findings are addressed, and both
+attestation extensions are additive, verbatim-accurate against the re-fetched sources, and used within scope. The
+revision introduced two new material problems, each small to fix:
+
+1. **N1.** Parent L7-8, L16, L72-77, L201, L254-256; RI L9, L61, L231-232. The claim that chain-of-thought evidence
+   "diverges" and that "only reference guidance cut failures" is unattested and false against MT-bench Table 4 (CoT
+   cut failures from 70% to 30%; references to 15%; n = 20). Extend `llm-judge-mt-bench.md` with Table 4 first, then
+   correct the synthesis wording, drop or retype row L201, and remove the exclusivity in the decision bullet.
+2. **N2.** Parent L11-12 and L233-240; WN L10-11 and L319-327. Facebook's diff-time findings are called
+   "non-blocking"; neither the attestation nor the source says so. Reword, and add the missing caveat beside the
+   Google caveats.
+
+Minor findings that do not block: m1 (L50-52 model-gap wording), m2 (L20 and L275-276 second FindBugs reason), m3
+(L263-264 cite-through compression), m4 (L272-273 tiering criterion), m5 (L278-279 composed "must" cited to Google).
+Info: i1, i2, i3.
+
+No fabrication was found: no unresolved handle, no training-recall citation, no lens cited as source, and no recalled
+metadata. A light revision touching only the lines above, with the one attestation extension, should be enough. A
+second full re-read is not needed: a targeted check of N1 and N2 would do.
