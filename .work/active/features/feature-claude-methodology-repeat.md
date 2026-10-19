@@ -357,3 +357,133 @@ Child assessments predate this criterion and are not re-run. Follow-on: a pilot
 of methodology-review + scout on project-blueprint's data-science component,
 parked for later; it requires Andrew to place project-blueprint in scope and is
 not authorized by this decision.
+
+## Root integration — round 1 (2026-10-19)
+
+Inputs: the three child returns above (baseline `e3e2e070`), the supplementary
+research `.research/analysis/campaigns/qvc-review-evidence/parent.md` (verified
+except one lead-corrected N3 rewording not independently re-read; see the
+research story), the intended-use weighting decision, and root spot-checks.
+Severities below are the children's; the root records counter-evidence but does
+not reclassify — that is the fresh assessor's job.
+
+### Root spot-checks of child facts
+- QVC-R/METH-003 confirmed: `main` = `origin/main` = `86204084` (2026-06-09);
+  63 first-parent commits ahead at baseline; last PR #48 merged 2026-06-09;
+  `known_marketplaces.json` source is the working-tree directory.
+- QVC-E/METH-001 "release-deploy never invokes quality-checkpoint" confirmed by
+  grep; nuance: the documented pipeline runs quality-checkpoint as a separate
+  operator step before `release-deploy`, so it is operator-sequenced rather than
+  unreachable.
+- QVC-R/METH-002 instance (`6419b3bc` after review record `c1827823`): the
+  commit closed on accepted-fix verification, but QVE's round-3 fresh assessor
+  read the `4575547d→6419b3bc` correction diff. No escape is shown for that
+  instance; the general mechanism stands.
+- QVC-R/METH-001 instance found: standalone story
+  `story-fix-research-orchestrator-codex-discovery` (`c7d0de75`) changed a
+  cross-plugin invocation policy through the inline lane; it carried a
+  regression test and no harm is known.
+
+### Deduplication (origin IDs retained)
+| Cluster | Members | Note |
+| --- | --- | --- |
+| C1 Enforcement and completion evidence (root shared question) | QVC-E/METH-001 (major), QVC-E/METH-006, QVC-S/METH-002, QVC-R/METH-003 (major) | Different faces of one question; see interactions |
+| C2 Review routing and reuse | QVC-R/METH-001 (major), QVC-R/METH-002 (major) **alias** QVC-E/METH-005, QVC-R/METH-005, QVC-R/METH-006 | E-005 and R-002 are the same mechanism; R-002 owns it |
+| C3 Duplicated contracts and prose burden | QVC-E/METH-002 **overlaps** QVC-R/METH-004; QVC-S/METH-002's triplicated rule is an instance | Children disagree on timing (E defers, R consolidates now) |
+| C4 doc-review as a correction loop | QVC-E/METH-003, QVC-E/METH-004 | |
+| C5 Citation signal | QVC-S/METH-001…004 | |
+
+### Cross-child interactions
+1. **R-003 removes E-001's main counterargument.** E-001's counterargument was
+   that manual PR merge backstops reader-compliance rules. Under R-003 that
+   backstop is not operating, and E-006 shows the actual ship path
+   (working-tree marketplace + `bump-version.sh`) runs neither review nor
+   tests. Combined: on the current path, the agent's own review lane and reader
+   compliance are the only quality controls between a commit and live use.
+2. **R-001 × C3/C5:** small prose edits — the class where QVC-S found adjacent
+   contract drift surviving a reviewed edit — route to the inline lane by size.
+3. **E-004 × R-001/R-003:** doc-review's autonomous Critical/High edits to
+   foundation docs are not routed through review and, via the working-tree
+   marketplace, are live on commit.
+4. **S-004 × R-003/E-006:** gate-level citation advisories surface only in
+   release checkpoints, which this repo rarely runs; their only practical
+   consumer is the in-engagement lint.
+
+### Live evidence from this round's own research loop
+The supplementary engagement exercised ARD's correction loop for real:
+attempt-2 adversarial read → NEEDS-REVISION; revision introduced N1 by adopting
+the reader's own suggested wording as source fact; a second independent read
+caught it (and N2); the bounded correction introduced N3; the targeted check
+caught that. Demonstrated here: (a) correction passes can introduce errors,
+including verifier-originated ones; (b) each independent re-read caught
+material errors the reviser missed; (c) ARD's surface-the-second-NEEDS-REVISION
+rule worked and produced an operator decision. This is n=1 and is evidence for
+C1/C2 (independent checks earn their cost on consequential claims; author
+self-verification of fixes is weak), not a general measurement.
+
+### Research mapping (implications, not measured effects on this workflow)
+- **C2 / cross-model preference.** Independent checking over pure self-review is
+  supported; a different model is not shown to be the active ingredient — a
+  held-out judge grading without references still favoured similar models
+  {14}; reference guidance gave the largest reduction in MT-bench's
+  judge-prompt comparison, with chain-of-thought also reducing failures {11},
+  {13}. Retaining the cross-model preference is cheap; grounding review in
+  recorded criteria or executable scenarios is untested but is where the
+  evidence points (bears on R-005, E-001).
+- **C2 / reviewer count and routing.** A step to a second check matters more
+  than further reviewers, with the inspection study's own non-significant
+  abstract caveat {18}; reviewer count varies with perceived risk in practice
+  {19}{20}. Supports routing by consequence (R-001) rather than more passes
+  (R-006).
+- **C2 / covering-review reuse.** The sources treat reuse as a policy choice
+  (approve-with-bounded-follow-ups {24} vs diff-tied dismissal {25}); neither
+  is measured. Recording what a review covered is the documented practice that
+  makes reuse checkable (supports R-002 option b, not mandatory re-review).
+- **C5 / citation advisories.** Warnings delivered outside the work context were
+  ignored, while review-time findings on changed material were acted on at high
+  rates (Facebook's diff-time data; Google's are socially enforced at approval);
+  blocking is reserved for effectively zero-false-positive checks; thresholds
+  require a stated false-positive definition; high dismissal can be correct.
+  Supports S-002 (mechanical exit on broken chains, which are ~zero-FP), S-004
+  (gate-level pattern reports lack a consumer), and an action-measured S-001
+  experiment. Transfer to prose linters and agent consumers is untested.
+- **C1 / E-001.** Agent-evaluation guidance favours checking resulting state and
+  calibrated graders {7}; the new research adds no measurement of prompt-ware
+  regression suites. E-001's experiment remains the deciding evidence.
+
+### Intended-use weighting (operator criterion)
+- Job 1 (domain methods reviewed over time): C3's prose burden and the
+  missing longitudinal reopen/compare guidance weigh against adding more rules;
+  proposals that add mechanism (fields, flags, fixtures) rank above more prose.
+- Job 2 (suite + components): the program/coordinated shape worked in QVE and
+  QVC; no finding threatens it.
+- Job 3 (scout pairing): untested; the parked pilot is the deciding evidence.
+
+### Comparison with QVE (formed after the blind child returns)
+| Topic | QVE | QVC | Relationship |
+| --- | --- | --- | --- |
+| Checkpoint correctness | Major E/METH-001 (zero items ≈ ready), E/METH-002 (invalid `work-view` flags, no `gate-infra`); fixed and verified | Not re-raised; QVC-E notes the rewrite fixed real defects | QVC confirms QVE's fixes hold |
+| Enforcement | Accepted prose rules at each owner (E/METH-003, I01) | E-001 (major): those rules are compliance-only with no durable behavioral evidence; QVE's forward scenarios were temporary | New; challenges QVE's remedy type, not its diagnosis |
+| PR gate / ship path | Not raised; O-1 parked release duplication | R-003 (major), E-006 | New |
+| Review routing | R/METH-001: stale `/peer-review`; rejected file-triggered peer gates | R-001 (major): routing by size, not consequence | Different angle; QVC agrees file triggers are wrong but finds the consequence rule conditional |
+| Covering-review reuse | Adopted "changed hash from verified fixes does not invalidate standard review" | R-002 (major) / E-005: reuse undecidable without recorded range | Direct tension with a QVE-adopted rule |
+| Duplication | Not raised (QVE added several of the restatements) | E-002, R-004 | New; partly a consequence of QVE's remedy |
+| doc-review | Minor obs 3: autonomous edits under generic coverage rule | E-003, E-004 | Agreement, QVC broader (stale target model, unpersisted cap) |
+| Citation noise | S/METH-001 retained; matcher unchanged | S-001: experiment before any matcher change | Agreement on minor; QVC adds precision measurement on corpus (0/13 true) |
+| Warn-only lists | I04 parked (`idea-citation-advisory-coverage`) | S-003 | Agreement; QVC adds silently-clean fabricated-campaign demonstration |
+| Exit-code rule | Prose "exit 0 is not a pass" adopted | S-002: make it mechanical | Refinement |
+
+Pattern: QVE assessed whether contracts **execute correctly** and fixed them
+with clarified prose; QVC asks whether the rules are **enforced at all** and
+what they cost, and finds the dominant risk outside the documents (PR gate,
+ship path, routing at scope time). QVC's majors are largely invisible to a
+contract-reading review. Limitation: QVC children read the post-QVE files, so
+some findings (duplication) are partly reactions to QVE's remedies.
+
+### Root status
+Majors carried to the fresh assessor: QVC-E/METH-001, QVC-R/METH-001,
+QVC-R/METH-002 (alias QVC-E/METH-005), QVC-R/METH-003. No operator decisions on
+findings yet; no remedies authorized. Root round 1: integration done; fresh
+whole-scope assessment next (Codex via peeragent, fallback fresh Claude).
+Assessor limitation to record: Codex drove QVE, so it partly assesses its own
+earlier remedies.
