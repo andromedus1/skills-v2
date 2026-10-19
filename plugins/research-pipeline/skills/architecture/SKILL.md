@@ -41,7 +41,7 @@ dependencies.
 ## What This Skill Does NOT Do
 
 - **Does NOT define vision or principles.** That's the north star (`/ideate`).
-- **Does NOT produce a roadmap.** That's `/epicize` — after architecture.
+- **Does NOT decompose work.** `/epicize` emits epics into `.work/` after architecture.
 - **Does NOT do domain research.** That's `/research`. If you discover during architecture that
   a domain isn't well enough understood, STOP and tell the user to run `/research` first.
 
@@ -129,7 +129,7 @@ decisions:
 *Last updated: {date}*
 
 > How the system is built. For *what* and *why*, see [North Star](north-star.md).
-> For *what's next*, see [Roadmap](roadmap.md).
+> For *what's next*, see the epics in `.work/active/epics/`.
 
 ## System Overview
 {Diagram — ASCII art showing components and data flow}
@@ -154,13 +154,12 @@ decisions:
 
 ## Open Questions
 {Architectural decisions still unresolved — each should be either a research need or a
-decision to make during roadmapping}
+decision to make during epic decomposition}
 
 ## Related Documents
 | Document | Purpose |
 |----------|---------|
 | [North Star](north-star.md) | Vision, principles, domain model |
-| [Roadmap](roadmap.md) | Phased build plan (after this document) |
 
 ## Related Architecture Docs
 | Document | Purpose |
@@ -177,7 +176,7 @@ If any exist besides this doc, list them. `/update-documentation` should maintai
 as new architecture docs are added.
 
 **Contains:** Modules, data flow, conventions, dependencies, what's deferred.
-**Does NOT contain:** Vision/principles (north star), phase status (roadmap).
+**Does NOT contain:** Vision/principles (north star), delivery status (`.work/` items).
 
 ### Phase 5: Regenerate Knowledge Index
 
@@ -204,14 +203,14 @@ decisions:
 
 **Run `/doc-review` after writing the architecture doc.** Architecture is the first doc that
 must be consistent with both the north star and domain briefs. Catch contradictions now —
-before a roadmap is built on top of them.
+before epics are decomposed on top of them.
 
 ### Phase 7: Summary + Next Steps
 
 Present:
 - The architecture document (written to disk)
 - Doc review results (any issues found and fixed)
-- Any open questions that need resolution before roadmapping
+- Any open questions that need resolution before epic decomposition
 - Any new research needs discovered during architecture design
 
 ```
@@ -219,17 +218,17 @@ Present:
 - {Decision 1} — {rationale, grounded in domain brief}
 - {Decision 2} — {rationale}
 
-Open questions for roadmapping:
+Open questions for epic decomposition:
 - {Question 1}
 
-Next step: Run /epicize to create the phased build plan."
+Next step: Run /epicize to emit epics into .work/."
 ```
 
 If new research needs were discovered:
 ```
 "During architecture, I identified research gaps:
 - {Domain} — {what we need to know}
-Run /research for these before /epicize, or flag them as open questions in the roadmap."
+Run /research for these before /epicize, or flag them as open questions on the affected epics."
 ```
 
 ---
@@ -242,7 +241,7 @@ Run /research for these before /epicize, or flag them as open questions in the r
 - **Don't assume how external systems work.** If there's no brief for an API/protocol, don't
   guess the architecture — flag it as a research gap.
 - **Don't include vision or principles.** That's the north star's job. Reference it, don't duplicate.
-- **Don't include a roadmap.** That's the next step.
+- **Don't decompose work.** Epics and features belong in `.work/`, via `/epicize`.
 - **Don't rush to close open questions.** If something is genuinely unresolved, flag it honestly.
   It's better to have an open question than a wrong assumption baked into the architecture.
 - **Don't design in isolation.** Every major decision should be discussed with the user before
