@@ -5,7 +5,7 @@
   "author": {
     "name": "Kevoun"
   },
-  "repository": "https://github.com/nklisch/skills",
+  "repository": "https://github.com/andromedus1/skills-v2",
   "license": "MIT",
   "skills": "./skills/",
   "interface": {
@@ -24,6 +24,6 @@
     "defaultPrompt": [
       "Use agentic-research to run a grounded research engagement with citation attestations and verification gates."
     ],
-    "websiteURL": "https://github.com/nklisch/skills"
+    "websiteURL": "https://github.com/andromedus1/skills-v2"
   }
 }
