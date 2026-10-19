@@ -487,3 +487,6 @@ findings yet; no remedies authorized. Root round 1: integration done; fresh
 whole-scope assessment next (Codex via peeragent, fallback fresh Claude).
 Assessor limitation to record: Codex drove QVE, so it partly assesses its own
 earlier remedies.
+Fresh assessor dispatched 2026-10-19: Codex `gpt-6.1-sol` high via peeragent,
+job `20261019T144048Z-e4a7e91b`, read-only, prompt does not prescribe a verdict.
+Job success will mean only that the worker finished.
