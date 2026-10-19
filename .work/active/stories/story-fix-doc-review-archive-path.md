@@ -1,7 +1,7 @@
 ---
 id: story-fix-doc-review-archive-path
 kind: story
-stage: review
+stage: done
 tags: [bug, research-pipeline]
 parent: null
 depends_on: []
@@ -40,3 +40,18 @@ doc-review's SKILL contains `<kind>s/` (failed before the fix, passes after).
   to all 7 archived stubs in this repo recovers every body (3 stories, 4
   features); (4) the reported symptom (archived story unrecoverable) is gone.
 - Adjacent issues parked: none.
+
+## Review (2026-10-19)
+
+**Verdict**: Approve
+
+**Blockers**: none
+**Important**: none
+**Nits**: none
+**Rejected**: none
+
+**Notes**: bounded inline standalone-story review (no independent or cross-model
+reviewer, per the standalone lane). Correctness: directory names match the
+substrate layout; all 7 archived stubs recover. Scope: two-line prose change plus
+a targeted regression guard. Adjacent: the same shorthand in upstream
+agile-workflow parked as `idea-kind-plural-shorthand`.
