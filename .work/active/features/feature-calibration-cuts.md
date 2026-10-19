@@ -1,7 +1,7 @@
 ---
 id: feature-calibration-cuts
 kind: feature
-stage: review
+stage: done
 tags: [research-pipeline, methodology-review, process]
 parent: null
 depends_on: []
@@ -86,3 +86,30 @@ with a complete rule mapping verified independently; [ ] RP portability passes.
   Scratch evidence (`/private/tmp/claude-501/c4/`) not retained, per Andrew's
   earlier call on experiment artifacts.
 - Verification: RP portability ok; `git diff --check` clean.
+
+## Review (2026-10-19)
+
+**Verdict**: Approve with comments
+
+**Blockers**: none.
+**Important**: C4 target (~30%) unmet at 21% — receiver adjudication: **accepted
+deviation**. The target was approximate; further cuts would remove operative rules;
+two independent checks (fresh-context checker, 315-rule inventory; reviewer's
+38-rule sample) found no lost or weakened rule after fixes. Surfaced to Andrew on
+the PR; a further pass is a new decision.
+**Nits**: none. **Rejected**: none.
+
+**Notes**: standard weight, one independent pass. Reviewer verified receipt
+exceptions stay traceable (other-item commits must name their item), uncovered
+changes still named and routed, enumeration runs with `<head>..HEAD`; gate exit 0
+with 0 broken/0 thin and identical non-pattern results (204 advisories
+suppressed); methodology exit precedence and headings intact, 29 links resolve;
+portability ok.
+
+**Receipt**
+- Reviewed: `31c2f65e..99f7f08c` — `.work/CONVENTIONS.md`, quality-checkpoint, gate-citations, methodology-review SKILL + 2 references
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T203804Z-1365de42`; independent: yes (cross-model; host Claude)
+- Findings: blockers 0, important 1, nits 0, rejected 0
+- Accepted-fix verification: none required (deviation adjudicated)
+
+**Post-review changes**: none outside listed fixes and tracked items
