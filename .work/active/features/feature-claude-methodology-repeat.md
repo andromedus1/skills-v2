@@ -170,3 +170,59 @@ warning-noise tolerance. Doc-review lessons and QVC-S mechanics are local.
 
 Exit: none yet. Next: commission research; dispatch children blinded to QVE's
 returns and assessments.
+
+## Component returns — root round 1 (2026-10-18)
+
+Children ran blinded to QVE's returns, assessments and adjudications. Reports are
+recorded as returned (condensed only for layout); the root has not yet integrated them.
+
+### QVC-S — citation-warning signal (returned 2026-10-18)
+
+Scope: canonical lint `plugins/agentic-research/ard-core/kernel/lint-citations.py`
+(+ `catalogs.json`, `CATALOGS.md` §3, `conformance/`), gate adapter
+`gate-citations/SKILL.md`, consumers (`quality-checkpoint/SKILL.md:128-131`,
+AR fork patch `verification-record.md:26-33`), `.research/` corpus. Baseline
+`e3e2e070`. Not covered: a real release gate run (idempotency/emission), URL
+checks, verified external warning-noise evidence. Parked idea read only after the
+classification was written (`/private/tmp/claude-501/qvcs/classification.txt`).
+
+Reproduction: the gate's exact command (`--no-url-check --format json`) → exit 0;
+17 files; 35 citations all resolved; 0 broken/thin; `substrate_confidence_omitted`
+5; `campaign_unbound` 0; 13 pattern flags (version-number 10, named-feature-claim 2,
+comparative-superlative 1). `--exit-code-on high|medium|low` → exit 0. Conformance
+57/57. Classification: version-number 10/10 false positives (9 in source-direct
+attestations — arXiv "version 2", manifest and fixture versions; 1 analytical line
+anchored by a citation two lines later); named-feature 1 FP + 1 ambiguous;
+superlative 1 ambiguous-leaning-FP. 0/13 true defects; ≈85% FP by definition; the
+gate prescribes no action for advisories (`SKILL.md:101-105`). Probe: arXiv IDs,
+`§4.2`, `0.71`, `Python 3.12` flagged; `ICLR 2024`, dates, `GPT-4`, code, URLs not;
+"version 1.9.0" splits into two matches. Masking check: a high unresolved handle on
+an advisory line still reports high and trips `--exit-code-on high`; advisories do
+not mask integrity failures. Sample: one corpus, two briefs — recall on real
+fabricated claims cannot be estimated here.
+
+| ID | Finding (all minor) | Recommendation / would authorize | Owner |
+| --- | --- | --- | --- |
+| QVC-S/METH-001 | Version matcher (`lint-citations.py:70`) ignores citations and tier; in attestations only URL/code are suppressed (`:466-469`) while decimal/count/effort rules are tier-suppressed (`:470-484`), contrary to the category's "without an in-corpus anchor" definition (`CATALOGS.md:116`); conformance has no negative fixture. Counter: cheap, grouped, deliberate recall trade (`:369-375`) | Scratch-only precision/recall experiment first; then possibly an upstream proposal (tier/citation suppression + negative fixtures). No repo edits | agentic-research (kernel unchanged by fork policy, `docs/project-navigation.md:66`) |
+| QVC-S/METH-002 | "Exit 0 is not a pass" is prose-only and stated three times (gate `:100-101`, checkpoint `:128-131`, verification-record `:26-27`); gate omits `--exit-code-on medium`, which matches its own blocking policy | Edit only `gate-citations/SKILL.md` Phase 3 command and interpretation; keep the JSON-validity check (crash also exits 1) | research-pipeline |
+| QVC-S/METH-003 | Gate drops warn-only `campaign_unbound` / `substrate_confidence_omitted`; conformance fixture `c9-f1-real` resolves `intra-program-resolved`, severity none, visible only in `campaign_unbound` (`:584-587`) → silently clean through the gate. Exposure here nil | One reporting line with both list counts; no items/threshold. Matching verification-record line is an AR fork patch — Andrew's call | research-pipeline (+ AR fork patch) |
+| QVC-S/METH-004 | Gate-level pattern reporting has no consumer: engagements already lint and spot-check (`research-orchestrator/SKILL.md:88,96,230`); checkpoint says advisory counts never create a gate; 9/13 flags are attestation-only. Counter: only signal on briefs edited post-engagement | Decide with METH-001: retain, report by tier, or `--no-pattern-check` at the gate | research-pipeline |
+
+Incidental defects (gate-citations SKILL): non-broken status list `:93-95` omits
+`acquisition-candidate`; stage table `:113-119` and item Status list omit
+`non-canonical-handle` and `duplicate-frontmatter-key` (pre-existing drift that
+survived a reviewed adjacent edit); version caveat `:102-104` omits arXiv IDs, `§x.y`
+and "version N"; example JSON paths `:83,89` use `.research/briefs/`.
+
+Versus `idea-citation-advisory-coverage`: agrees with METH-003 (counts 0/5); adds the
+silently-clean fabricated campaign case; contradicts its premise that version-number
+work is complete — residual noise is in the matcher and the gate's missing consumer.
+METH-002 and incidentals 1, 2, 4 are new.
+
+Sibling implications: QVC-E — METH-002 is a reader-compliance rule triplicated;
+incidental 2 is copied-contract drift. QVC-R — a reviewed prose-only edit missed
+adjacent contract drift. Evidence requests: static-analysis FP tolerance (Tricorder
+~10% effective FP, recalled unverified), warn-only alert fatigue, METH-001 experiment.
+
+Child exit: **awaiting change or evidence** — no major findings; supplementary
+research pending; METH-001–004 minor proposals await batch adjudication.
