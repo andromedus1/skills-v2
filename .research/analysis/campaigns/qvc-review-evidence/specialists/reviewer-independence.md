@@ -304,7 +304,7 @@ not an empirically settled question.
   removed because the sources do not diverge, and the agreement breakdown now reads as a performance gap between
   compared models; see `../verification-checklist.md`, "Bounded correction response (2026-10-19)".
 - 2026-10-19 (lead spot-check correction): N3 — "the one study comparing judge prompts" scoped to MT-bench's
-  default/chain-of-thought/reference comparison. See `verification-checklist.md`, "Lead spot-check (2026-10-19)".
+  default/chain-of-thought/reference comparison. See `../verification-checklist.md`, "Lead spot-check (2026-10-19)".
 
 ## Sources (corpus numbering)
 

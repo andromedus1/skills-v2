@@ -1021,3 +1021,82 @@ evaluator findings.
 final targeted check NEEDS-REVISION (N3), corrected by the lead in place and
 **not independently re-read**. Per Andrew's bounded-fix decision this is
 recorded as **verification incomplete** with that single limitation.
+
+## Independent N3 re-read (2026-10-19)
+
+Operator-authorized, narrowly scoped. Fresh-context reader; composition: discipline bundle (with §6 as the focus)
+plus this checklist's N3 definition and the lead's spot-check note. Scope: only the lines the lead's N3 correction
+changed in commit 12901e01. In `parent.md` these are the summary (L9-10), key finding L19, the body heading L76,
+Disconfirming L226-227, the decision bullet L263-266, the Citation-advisories re-point L290-291 and the revisions
+entry L339-343. In `specialists/reviewer-independence.md` (RI) they are key finding L9 and the revisions entry
+L306-307. Every citation was walked to its attestation. Line numbers refer to the committed tree. Severity key as
+above.
+
+### Exclusivity grep
+
+"one study comparing", "one prompt comparison", "one comparison of judge", "where judge prompts", "the only",
+"only reference", "most clearly" and "diverges" no longer appear in the parent or RI, except where the revisions
+entries quote the removed phrase (parent L339, RI L306). This confirms the lead's grep.
+
+### Per-sentence results
+
+1. **Parent summary L9-10.** "In MT-bench's math-grading comparison (20 judgements per prompt), reference guidance
+   cut judge failures most (14/20 to 3/20) and chain-of-thought also cut them (to 6/20)": `llm-judge-mt-bench.md`
+   L62-66. "Most" is ranked within the three measured prompts and read straight off Table 4, so it is not a composed
+   superlative. The m (per prompt) is fixed. "chain-of-thought lowered harmful self-preference in another study":
+   `llm-self-preference-legitimacy.md` L29-30 and L45-46. "reference-based feedback reduced self-bias in another
+   study": `llm-self-bias-refinement.md` L32-38. **Supported.** *i:* "another study" appears twice for two different
+   studies. It reads correctly, but "a third study" would be clearer.
+2. **Parent key finding L19.** The MT-bench clause is scoped by name with its three arms and n. "largest reduction"
+   and "chain-of-thought also reduced them" come from L62-66, and the added chain-of-thought clause from legitimacy
+   L45-46. **Supported; exclusivity removed; the omitted second chain-of-thought result is restored.**
+3. **Parent heading L76.** "Reference guidance gave the largest reduction in MT-bench's judge-prompt comparison."
+   This is scoped to MT-bench, and the following body (L76-79) gives the arms, n and the "same mistake" quote word
+   for word (L73). **Supported.**
+4. **Parent Disconfirming L226-227.** "reference grounding reduced judge errors, as did chain-of-thought judging, by
+   less, in MT-bench's prompt comparison [llm-judge-mt-bench]{11}": L62-66 (3/20 against 6/20). It is scoped and
+   makes no exclusivity claim. **Supported.**
+5. **Parent decision bullet L263-266** (under `extends`). The MT-bench clause is scoped as "In MT-bench's comparison
+   of judge prompts (20 math judgements each)". Chain-of-thought and long reasoning lowering harmful self-preference
+   traces to legitimacy L29-30 and L45-46. Reference-based feedback reducing self-bias traces to self-bias-refinement
+   L32-38. "untested" agrees with RI's "No fetched study gave judges executable tests". **Supported; exclusivity
+   removed; the chain-of-thought result is restored.** *i:* "judge error" here (and "judge errors" at L226) is wider
+   than Table 4's metric, which counts only incorrect answers judged correct (L62). The heading at L76 and the body at
+   L77-78 state the metric, so this is not material.
+6. **Parent Citation advisories L290-291** (under `extends`, optional re-point). The Facebook handle is removed from
+   "removing checks whose non-action rate is high". That is consistent with `facebook-infer-zoncolan-scaling.md`
+   L49-54 (filtering and promotion, no removal). The claim stays supported by `google-tricorder-icse2015.md` L29-30,
+   L40-42 and L57. Splitting "tiering alerts by severity" onto `ddi-alert-tiering-compliance.md` L21-24 keeps the
+   m4 fix. Dropping Facebook leaves no clause without a source, because Tricorder L42 carries "shown on changed
+   material". **Supported; no new claim.** *i (carried over, not new):* Tricorder pairs removal with probation and
+   says "In practice, we typically work with the analyzer writers to fix the problem instead of immediately
+   disabling" (L57-60). The practice table carries the probation step (L183), but this bullet does not. This is
+   optional.
+7. **RI key finding L9.** The self-contradiction ("the one study" ... "another study") is gone. The MT-bench clause
+   is scoped by name with 10 questions and 20 judgements per prompt, which matches L62-66. The chain-of-thought
+   clause traces to legitimacy L29-30 and L45-46. "Reference grounding ... is associated with reduced judge error"
+   draws on MT-bench L62-66 and self-bias-refinement L32-38; "associated" is properly hedged. **Supported.**
+8. **Revisions entries (parent L339-343; RI L306-307).** The parent entry describes the change accurately. The
+   restored handle `[llm-self-preference-legitimacy]{13}` resolves, and the reason it gives for dropping Facebook
+   matches the attestation. *i:* the RI entry at L307 points to `verification-checklist.md`, but the earlier RI
+   entries use `../verification-checklist.md` because the brief sits in `specialists/`. The pointer does not
+   resolve as written.
+
+### Observation outside the N3 delta (not new; not blocking)
+
+- **m (carried over, not introduced by N3):** in MT-bench, the "reference" is the judge's own answer, generated
+  independently before grading (`llm-judge-mt-bench.md` L41-42, L71 and L75). It is not externally supplied ground
+  truth. RI states this at L41 ("answer first, then grade against that reference"). The parent never says it, so
+  "reference grounding" (L226, L274) beside "relying on grounded evidence for correctness" (L269) can be read as
+  external grounding. This is relevant to the same-model question, since GPT-4 produced the reference used to grade.
+  It predates N3, so it does not affect this verdict. Optional: add "(the judge's own independently generated
+  answer)" at parent L78.
+
+### Verdict: APPROVED
+
+N3 is resolved. Every exclusive phrasing is gone from the parent and RI. Each N3-touched MT-bench clause is scoped
+by name and gives its n. The second chain-of-thought result (legitimacy L45-46) is restored at the summary, L19 and
+the decision bullet, and RI L9 no longer contradicts itself. In the touched lines there is no new exclusivity or
+comparative claim beyond within-Table-4 ranking, no stripped source qualifier, no unmarked composition, no
+unresolved handle, no training-recall citation and no lens cited as a source. The remaining notes are
+informational, plus one minor item carried over from before N3.

@@ -656,3 +656,10 @@ Partial authorization only: each item's operative brief is limited to the row
 above. Next: deliver both features through normal design → implement →
 review; record experiment results; then allocate root round 2 for a fresh
 whole-scope reassessment on the changed baseline.
+
+Research update (2026-10-19): `story-research-qvc-review-evidence` closed
+**verified** after an independent N3 re-read (APPROVED). Root correction to the
+integration's research mapping (C2): the MT-bench "reference guidance" was the
+judge's own independently generated answer, not external ground truth, so it
+weakly supports "grounding" in recorded criteria or executable checks; that
+extension remains untested.

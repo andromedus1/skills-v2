@@ -1,7 +1,7 @@
 ---
 id: story-research-qvc-review-evidence
 kind: story
-stage: implementing
+stage: done
 tags: [research]
 parent: feature-claude-methodology-repeat
 depends_on: []
@@ -191,3 +191,15 @@ after both return.
   made by the lead without an independent re-read. Stage stays `implementing`;
   consumers treat the synthesis as verified except that limitation. Closing it
   needs only an independent read of the N3 lines.
+- Independent N3 re-read (operator-authorized, 2026-10-19): **APPROVED** —
+  N3 resolved, no new material issue. Verification now complete at standard
+  rigor (+ evaluate): lint pass; adversarial-read APPROVED on the final lines;
+  evaluate APPROVED; lead spot-check done. Lead fixed one relative link in the
+  RI revision log (non-substantive).
+- **Known limitations carried to consumers:** in MT-bench the "reference" is
+  the judge's own independently generated answer, not external ground truth
+  (`llm-judge-mt-bench.md` L41-42; stated in the RI brief, not in `parent.md`);
+  "judge error" there means an incorrect answer judged correct. Other reader
+  notes (wording "another study" twice; Tricorder probation qualifier at
+  parent L290-291) are informational and left as recorded in the checklist.
+  Stage → done.
