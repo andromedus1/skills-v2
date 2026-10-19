@@ -858,3 +858,18 @@ product-equivalent to the allocated baseline `c6c2b6fb`. Report preserved verbat
   `andrewclark88/skills-v2`. The PR therefore also carries the 19 first-parent
   commits merged to `andrewclark88` main by 2026-06-09 (PRs #29–#48). This
   choice is the operator's confirmation to push and open the PR.
+
+## Checkpoint — PR opened (2026-10-19)
+
+- QVC-R/METH-003 remedy applied in part: branch pushed to `andromedus1`
+  (`a36137fa..f3c1569f`) and PR opened —
+  https://github.com/andromedus1/skills-v2/pull/1 (base `main` `ec94cd04`), with
+  a review guide of the QVC arc's consequential contract files. The accepted
+  remedy also requires Andrew's review of those diffs before merge; that is
+  pending and is Andrew's action.
+- Root rounds: **2 of 5 complete**. No round 3 is allocated now: an unchanged
+  reassessment before Andrew's PR review would add no evidence. Next: after
+  Andrew reviews/merges (or requests changes), allocate round 3 for a fresh
+  whole-scope check of R/METH-003's completion; expected exit if nothing else
+  changes is clean within reviewed scope with the recorded minor retentions.
+- Current primary outcome: **Awaiting change or evidence** (operator PR review).
