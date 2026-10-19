@@ -30,6 +30,12 @@
 #   - Per-category: version-number skipped in URLs and inline code; count and
 #     decimal-with-attribution skipped in attestation files; composed-effort-estimate
 #     and comparative-superlative skipped in blockquotes.
+#   - version-number flags a version "without an in-corpus anchor" (CATALOGS §3):
+#     skipped in source-direct attestations (the anchor tier), and on a line whose
+#     citation resolves to an attestation (resolved / reduced-substrate-attestation)
+#     whose body contains the same version token. A cited line whose attestations
+#     lack the token still fires. Known hole: a coincident token elsewhere in the
+#     cited attestation's body also anchors the line.
 #
 # Usage:
 #   python3 lint-citations.py <brief-or-dir>
@@ -424,7 +430,41 @@ def _is_in_inline_code(line, pos):
     return False
 
 
-def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_citation, do_pattern, do_thin, check_urls):
+# Citation statuses whose attestation body can anchor a version token on the citing
+# line. Not intra-program (analytical tier) or acquisition-candidate (unfetched).
+ANCHOR_STATUSES = {"resolved", "reduced-substrate-attestation"}
+_NUM_RUN = re.compile(r"\d+(?:\.\d+)*")
+
+
+def _version_core(line, m):
+    """Maximal digit/dot run overlapping the version-number match (re-joins a
+    `version 1` match with the `.9.0` that follows it)."""
+    for r in _NUM_RUN.finditer(line):
+        if r.start() < m.end() and m.start() < r.end():
+            return r.group(0)
+    return None
+
+
+def _attestation_has_token(core, att_body):
+    """Does the attestation body carry this version token? A dotted core must appear
+    as a whole number (3.1 does not match 3.12 or 13.1); an undotted core (from a
+    `version N` match) must appear as `version N` or `vN`, case-insensitive."""
+    if "." in core:
+        return re.search(rf"(?<![\d.]){re.escape(core)}(?!\d|\.\d)", att_body) is not None
+    return re.search(rf"(?i)\b(?:version|v)\s*{re.escape(core)}(?!\d|\.\d)", att_body) is not None
+
+
+def _attestation_body(handle, attestation_dir, cache):
+    """Attestation body (after frontmatter), read once per run via `cache`."""
+    path = os.path.join(attestation_dir, f"{handle}.md")
+    if path not in cache:
+        with open(path, encoding="utf-8") as fh:
+            cache[path] = body_after_frontmatter(fh.read())
+    return cache[path]
+
+
+def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_citation, do_pattern, do_thin,
+              check_urls, body_cache=None):
     with open(path, encoding="utf-8") as fh:
         text = fh.read()
     fm = parse_frontmatter(text)
@@ -448,6 +488,13 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
             if do_thin and f.pop("thin", False):
                 thin.append({"handle": m.group(1), "line": line})
     if do_pattern:
+        # line -> bodies of cited attestations that can anchor a version token there.
+        body_cache = {} if body_cache is None else body_cache
+        anchored = {}
+        for c in citations:
+            if c["status"] in ANCHOR_STATUSES:
+                anchored.setdefault(c["line"], []).append(
+                    _attestation_body(c["handle"], attestation_dir, body_cache))
         lines = text.splitlines()
         fm_skip = _frontmatter_line_count(lines)   # number of leading lines to skip
         code_mask = _code_block_mask(lines)
@@ -467,6 +514,13 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
                         # Version strings inside URLs or inline code are structural, not claims.
                         if _is_in_url(line, pos) or _is_in_inline_code(line, pos):
                             continue
+                        # Anchored: the attestation tier, or a cited attestation carrying the token.
+                        if is_attestation:
+                            continue
+                        if lineno in anchored:
+                            core = _version_core(line, m)
+                            if core and any(_attestation_has_token(core, b) for b in anchored[lineno]):
+                                continue
                     elif cat == "count-without-unit-citation":
                         # Attestation counts are source-attested; inline-code counts are examples.
                         if is_attestation or _is_in_inline_code(line, pos):
@@ -570,10 +624,11 @@ def main():
 
     matchers, non_broken = load_catalog_config(args.catalogs)
     handle_counts = source_handle_counts(args.attestation_dir)
+    body_cache = {}   # attestation path -> body, shared across files (one read per run)
 
     results = [lint_file(p, args.attestation_dir, args.analysis_dir, matchers, handle_counts,
                          not args.no_citation_check, not args.no_pattern_check,
-                         not args.no_thin_check, not args.no_url_check)
+                         not args.no_thin_check, not args.no_url_check, body_cache)
                for p in collect(args.target)]
 
     broken = [c for r in results for c in r["citations"] if c["status"] not in non_broken]

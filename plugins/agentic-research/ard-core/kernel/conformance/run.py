@@ -15,6 +15,9 @@
 #   - --stats mode: audit surfaces colliding-handle and filename-mismatch findings
 #     correctly; by-handle counts are accurate.
 #   - substrate_confidence omission deprecation + the "exactly N" census matcher.
+#   - version-number anchor rule: no flag in source-direct attestations; a cited
+#     line is suppressed only when a resolved/reduced-substrate cited attestation
+#     contains the matched token (expected.json "version_anchor").
 #
 # Usage:
 #   python3 run.py                 # lint ../lint-citations.py against ./, vs expected.json
@@ -85,6 +88,7 @@ def main():
     n_stats = 0
     n_sc = 0
     n_lint = 0
+    n_anchor = 0
 
     # ── Check group 1c: lint-hardening — superlative closed-world "exactly N" census ──
     # comparative-superlative must fire on bounded-count census phrasing, not only
@@ -188,6 +192,31 @@ def main():
                 f"(provenance: source-direct)"
             )
 
+    # ── Check group 7b: version-number anchor rule (CATALOGS §3 item 2) ─────────
+    # Data-driven from expected.json "version_anchor": per fixture file, lines that
+    # must NOT fire version-number (source-direct attestation tier; cited lines whose
+    # resolved/reduced-substrate attestation contains the token) and lines that MUST
+    # fire (uncited, token absent from the cited attestation, non-anchor citation).
+    # The flagged set includes cited lines, so a blanket "any cited line" suppression
+    # fails here as well as the previous unanchored matcher.
+    anchor = expected.get("version_anchor", {})
+    want_by_file = {}
+    for kind in ("suppressed", "flagged"):
+        for rel, lns in anchor.get(kind, {}).items():
+            want_by_file.setdefault(rel, []).extend((kind, ln) for ln in lns)
+    for rel, wants in sorted(want_by_file.items()):
+        out_va = run_lint(args.lint, os.path.join(HERE, rel), ATT_DIR, ANA_DIR)
+        fired = {p["line"] for r in out_va["results"] for p in r["patterns"]
+                 if p["category"] == "version-number"}
+        for kind, ln in wants:
+            n_anchor += 1
+            if kind == "suppressed" and ln in fired:
+                failures.append(f"version-anchor: {rel} L{ln} version-number is anchored "
+                                f"and must be suppressed, but fired")
+            elif kind == "flagged" and ln not in fired:
+                failures.append(f"version-anchor: {rel} L{ln} version-number is unanchored "
+                                f"and must fire, but did not")
+
     # ── Check group 8: --stats mode — attestation-tier audit ────────────────────
     out_stats = run_lint(args.lint, BRIEFS_DIR, ATT_DIR, ANA_DIR, extra_args=["--stats"])
     stats = out_stats.get("stats", {})
@@ -232,10 +261,11 @@ def main():
     # counters incremented at each executed assertion above.
     n_baseline = (len(expected["citations"]) + len(expected["thin"])
                   + len(expected["pattern_categories"]))
-    n_total = n_baseline + n_suppression + n_stats + n_sc + n_lint
+    n_total = n_baseline + n_suppression + n_stats + n_sc + n_lint + n_anchor
     print(f"ok — conformance: {n_total}/{n_total} checks passed "
           f"({n_baseline} baseline · {n_suppression} suppression · {n_stats} stats · "
-          f"{n_sc} substrate-confidence · {n_lint} lint-hardening)")
+          f"{n_sc} substrate-confidence · {n_lint} lint-hardening · "
+          f"{n_anchor} version-anchor)")
     sys.exit(0)
 
 
