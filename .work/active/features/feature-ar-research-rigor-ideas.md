@@ -1,7 +1,7 @@
 ---
 id: feature-ar-research-rigor-ideas
 kind: feature
-stage: drafting
+stage: implementing
 tags: [agentic-research]
 parent: null
 depends_on: []
@@ -21,3 +21,38 @@ In fork-owned agentic-research, evaluate and adapt: an 'adaptive' verification-r
 ## Simplification opportunity
 
 An adaptive option may replace manual rigor selection at kickoff.
+
+## Design decisions (Andrew, 2026-10-19)
+- **Adopt `adaptive`** as a `verification_rigor` value: the orchestrator selects the
+  lowest level that credibly fits the decision's consequence, uncertainty,
+  novelty, source disagreement, synthesis complexity and breadth (no fixed
+  source/agent-count thresholds), states the resolved level and why in the
+  engagement record and report, and asks only when no default is set and the call
+  is genuinely close. Explicit `floor`/`standard`/`full` win. Hard-floor and
+  reachability rules (e.g. `evaluate` for cross-specialist synthesis) still apply
+  to the resolved level.
+- **Owner marker:** `.research/CONVENTIONS.md` declares `owner: agentic-research`;
+  the convert scaffold writes it for new trees.
+- **Hybrid stop rule:** after an accepted finding, revise and rerun deterministic
+  checks plus only the affected semantic gate and scope; surface to the user when
+  the same failure recurs twice without material progress, or when a revision
+  introduces new material errors a second time. Replaces "a second-pass
+  NEEDS-REVISION is surfaced".
+
+## Implementation Units
+1. ARD contract: `ard-core/SPEC.md` (§ dials / §7 rigor profiles: add `adaptive` as
+   a resolution mode over the existing profiles, not a new gate set),
+   `ard-core/CATALOGS.md` if it enumerates the values, then
+   `tools/gen-contract.py` + `--check`; `kernel/templates/dispatch.md`.
+2. Orchestrator: `skills/research-orchestrator/SKILL.md` (dials table, defaults,
+   kickoff, verification depth, revision rule, research_dials reading),
+   `references/refresh-reengagement.md`, README, `docs/HANDOFF.md`.
+3. Ownership: `.research/CONVENTIONS.md` gains frontmatter/line `owner:
+   agentic-research`; `agentic-research:convert` scaffold writes it.
+4. Upstream-owned readers (`agile-workflow` convert, deep-code-scan): if they
+   validate rigor values, add `adaptive` as a documented fork patch; otherwise
+   leave untouched.
+**Acceptance**: [ ] every fork-owned enum site lists `adaptive` consistently;
+[ ] the orchestrator states the resolved level; [ ] hybrid stop rule replaces the
+old sentence everywhere it appears; [ ] conformance 77/77, `gen-contract --check`,
+AR skill metadata, refresh tests pass; [ ] historical theory positions untouched.
