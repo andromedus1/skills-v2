@@ -1,7 +1,7 @@
 ---
 id: feature-upstream-sync-2026-10
 kind: feature
-stage: review
+stage: done
 tags: [upstream, agile-workflow, ux-ui-design]
 parent: null
 depends_on: []
@@ -120,3 +120,38 @@ work-view-dist-version 16, hooks unittest OK; Workbench unittest 84 OK;
 `work-view-fallback-readiness.test.sh` fails on macOS bash 3.2 identically before
 the merge (pre-existing); knowledge index regenerated (24 docs, no warnings).
 Owed after merge: install updates and `ux-ui` discovery smoke on both hosts.
+
+## Review (2026-10-19)
+
+**Verdict**: Approve with comments (after receiver adjudication; reviewer verdict
+was Block on an environment-only verification gap)
+
+**Blockers**: none remaining. Reviewer's blocker was environmental — its sandbox
+lacked PyYAML and uv cache access, so RP portability and AR metadata could not
+run there; no code defect identified. Host ran both with PyYAML: RP skill
+portability ok, AR skill metadata ok.
+**Important**: none.
+**Nits**: accepted — `docs/project-navigation.md` now records the declined
+Antigravity root manifests and the Workbench manifest exception (`02d08178`,
+docs only, not a consequential path).
+**Rejected**: none.
+
+**Notes**: feature substrate review, standard weight, one independent pass.
+Reviewer verified merge parents and pin, upstream-tree differences limited to
+documented patches and declined manifest deletions (Workbench identical),
+fork-owned paths intact, Workbench disabled, declined items absent, catalog
+parity, RP concierge wording vs upstream and the ux-ui triggers, bump-version
+70/70, conformance 77/77. Host also found the working-copy `.work/bin/work-view`
+overwritten with 0.16.14 (likely by the installed 0.16.14 agile-workflow plugin);
+restored the committed 0.16.16. Install update and `ux-ui` discovery smoke remain
+owed after merge.
+
+**Receipt**
+- Reviewed: `41954477..4e4d31b7` — merge `422de5eb`, callers `af5505c2`, docs `60329862`; `.work/` records excluded
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T193330Z-d4f0c234`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: default)
+- Findings: blockers 1 (environmental), important 0, nits 1, rejected 0
+- Accepted-fix verification: host test runs (RP portability, AR metadata) and `02d08178` doc nit
+
+**Post-review changes** (`4e4d31b7..02d08178`)
+- none on consequential paths (enumeration empty; `02d08178` touches `docs/project-navigation.md` only)
