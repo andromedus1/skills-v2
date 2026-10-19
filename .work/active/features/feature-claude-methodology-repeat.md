@@ -729,3 +729,120 @@ Changed product baseline: `c6c2b6fb` (from `e3e2e070`). Round 2 of 5 allocated;
 the full QVC charter (three topics, interactions, seven scenarios, intended-use
 weighting), verifying remedies for decided findings and assessing new or
 persistent findings on the changed baseline. Not prescribed a verdict.
+
+## QVC parent assessment 2 (2026-10-19)
+
+Codex `gpt-6.1-sol` high, peeragent job `20261019T160106Z-cd5ebb2b`, terminal
+`success` (worker finished; substantive outcome below). Assessed HEAD `10ce06bb`,
+product-equivalent to the allocated baseline `c6c2b6fb`. Report preserved verbatim:
+
+> **QVC root round 2 assessment — 2026-10-19**
+> 
+> Assessed HEAD `10ce06bb9804a07765c327002f5ef95cb419688e`, product-equivalent to allocated baseline `c6c2b6fb`. Inspected the product changes from `e3e2e070`, all three topics, their interactions, seven scenarios, and Andrew’s intended-use weighting. No repository files were changed, staged or committed; scratch artifacts remain under `/tmp/qvc-r2-checks`.
+> 
+> **Independence limitation:** Codex reviewed all three delivered features in separate jobs and assessed round 1; Codex also drove QVE. This assessment has fresh context but shares that model lineage. Conclusions below rest on inspected evidence.
+> 
+> I read the [root record](/Users/andromedus/dev/skills-v2/.work/active/features/feature-claude-methodology-repeat.md), protocol and references, three delivered features and four checkpoint stories, changed product surfaces, relevant unchanged delivery/research contracts, verified research synthesis, engagement record, and quality-feedback brief. Unaffected child assessments were reused; changed remedies and interactions were reassessed.
+> 
+> **Checks run**
+> 
+> | Check | Result |
+> |---|---|
+> | ARD conformance | **77/77 passed** |
+> | Generated catalog consistency | Passed |
+> | RP skill portability; AR skill metadata | Passed using supported Python fallback with cached PyYAML copied into scratch |
+> | Missing-PyYAML paths | Both exit 2 with installation hint |
+> | Companion resolver | Passed |
+> | Bump-version regression suite | **70/70 passed**, including refusal on `main` before changes |
+> | Research refresh tests | All passed |
+> | Knowledge-index lint | 0 errors, 0 warnings |
+> | Affected plugins’ Claude/Codex manifest identity/version parity | Passed |
+> | Citation lint through gate resolver, `--no-url-check --format json --exit-code-on medium` | Exit 0; valid JSON; 51 files, 445 citations, **0 broken, 0 thin** |
+> | Gate severity fixtures | High/medium exit 1; low exits 0; valid JSON and broken chains preserved |
+> | Matcher comparison on current corpus | Version warnings **174 → 60**; all other JSON unchanged |
+> | Regression discrimination | Old matcher fails 12 checks; span-only mutant fails the two dotted-token checks |
+> | Working tree; whitespace | Clean; `git diff --check` passed |
+> 
+> Current advisories: 60 version, 52 decimal-attribution, 41 superlative, 5 count, 3 named-feature. Warn-only counts: 0 unbound campaigns, 5 omitted-confidence notices. These counts establish neither semantic support nor field precision/recall.
+> 
+> **Receipt verification**
+> 
+> All three receipts record reviewed inputs, reviewer path/class, independence, weight, finding counts and accepted-fix verification. Their records evidence one standard independent pass followed by host verification, consistent with the delivery policy.
+> 
+> I ran the convention’s exact enumeration command on the recorded fix ranges and recovered closure ranges:
+> 
+> | Feature | Reviewed head → closure | Enumerated consequential commits |
+> |---|---|---|
+> | Review receipts | `a27d41d3 → 7853f361` | `7eb12d33`, correctly classified |
+> | Minor remedies | `64bf8ae2 → 6334a196` | `3b1a9b6a`, correctly classified |
+> | Citation matcher | `672ccdc5 → c6c2b6fb` | `d8afde36`, correctly classified |
+> 
+> No enumerated commit lacks a classification. However, the latter two records still contain literal `<closure>` placeholders. Their coverage is recoverable and complete, but their documentary compliance is unfinished.
+> 
+> **Findings**
+> 
+> Severity describes the current residual consequence. E/METH-005 remains an alias of R/METH-002.
+> 
+> | ID | Status | Severity | Rationale |
+> |---|---|---|---|
+> | QVC-E/METH-001 | persistent | Minor | Durable automated behavioral coverage remains absent. Existing operational evidence does not establish material failure or justify the unselected harness. |
+> | QVC-E/METH-002 | verified resolved | Minor originally | Authorized local consolidation landed; operative evidence rules and canonical pointers survive. |
+> | QVC-E/METH-003 | verified resolved | Minor originally | Report now records baseline, iteration, capped state, residuals and fixes. Interrupted-loop behavior remains unexercised. |
+> | QVC-E/METH-004 | verified resolved | Minor originally | Foundation/work discovery replaces retired phase checks; contradictions require operator decisions; post-loop fixes are prohibited. |
+> | QVC-E/METH-005 | partially resolved | Alias | See R/METH-002; counted once. |
+> | QVC-E/METH-006 | partially resolved | Minor | Main-branch guard works. The bump path still lacks automatic review/test enforcement; broader enforcement was not authorized. |
+> | QVC-R/METH-001 | persistent | Minor | Consequentiality still requires scoping judgment. No new evidence establishes material failure requiring universal escalation. |
+> | QVC-R/METH-002 | partially resolved | **Minor residual; originally major** | Reviewed-input anchors and complete classifications resolve the material reconstruction gap. Two recoverable closure placeholders remain; no uncovered commit was found. |
+> | QVC-R/METH-003 | pending remedy | **Major** | PR-per-arc was accepted and is due at this arc’s close. Its pending state is expected, not delivery failure; completion is not yet evidenced. |
+> | QVC-R/METH-004 | verified resolved | Minor originally | Fork-local reuse restatements were consolidated without adding passes. Upstream-owned repetitions remain outside the authorized remedy. |
+> | QVC-R/METH-005 | persistent | Minor | Receiver adjudication remains. Records expose findings and accepted fixes; no demonstrated material failure supports escalation. |
+> | QVC-R/METH-006 | withdrawn | None | Distinct feature, aggregate and methodology contracts still support round 1’s withdrawal. |
+> | QVC-S/METH-001 | verified resolved | Minor originally | Tier/token suppression and discriminating fixtures implement variant B. Independently reproduced 112 attestation and 2 analytical suppressions. |
+> | QVC-S/METH-002 | verified resolved | Minor originally | Gate threshold matches blocking policy; JSON validation remains mandatory. |
+> | QVC-S/METH-003 | verified resolved | Minor originally | Both warn-only lists now have explicit reporting without item emission or thresholds. |
+> | QVC-S/METH-004 | persistent | Minor | Gate advisories still lack mandatory disposition. Post-engagement edits remain a credible consumer; removal remains unsupported. |
+> | **QVC/METH-001** | **new** | Minor | Doc-review’s archive template uses `<kind>s`, producing `storys`. Actual recovery of the archived research story fails there and succeeds under `stories`. Its incomplete-coverage rule prevents silent approval. |
+> 
+> **Counts:** **1 unresolved major**, which is also the **1 accepted pending remedy**: R/METH-003. **7 verified resolutions**, 2 partial resolutions with minor residuals, 4 persistent minor findings, 1 new minor finding, and 1 carried withdrawal. Zero new or persistent unremedied majors beyond the pending PR remedy; zero operator-retained/deferred major risks.
+> 
+> The accepted hygiene remedies also landed: dependency declaration/error hints, corrected advisory references and fallback wording, documented fork patches, and the tested branch guard.
+> 
+> **Seven scenarios and cross-child interactions**
+> 
+> | Scenario | Assessment |
+> |---|---|
+> | 1. Successful research, delivery and checkpoint | Research now records completed verification, including N3 approval. Delivery receipts compose with checkpoint reconciliation; no live release was exercised. |
+> | 2. Required check fails or is missing | Local operative rules survived consolidation. Gate fixtures preserve failures and distinguish blocking severity. |
+> | 3. Output changes after review | Anchored receipts and enumerated classifications support reuse without claiming the original reviewer approved later fixes. |
+> | 4. Correction limit exhausted | Doc-review exposes iteration/cap/residual state; checkpoint still blocks residual Critical/High findings and prohibits unchanged capped retries. |
+> | 5. Interrupted or cross-host resume | Receipts and report fields improve reconstruction. Closure placeholders, archive pluralization and untested interrupted execution remain limits. |
+> | 6. Small versus consequential edits | Feature/standalone routing and standard-pass limits remain intact. No evidence warrants the unselected universal trigger rule. |
+> | 7. Real and spurious citation warnings | Suppression reduces measured corpus noise without changing integrity output. Positive fixtures retain unsupported cited versions. |
+> 
+> I specifically checked consolidation against completion/reuse guarantees; doc-review fixes against authority and checkpoint residual handling; fork ownership against ARD’s single-engine boundary; matcher suppression against integrity checks; and the bump guard against publication expectations. No new major regression was established.
+> 
+> For Andrew’s three intended jobs, receipts support longitudinal reconstruction, coordinated reviews retain whole-scope integration, and Scout remains available for evidence gaps. Effects on domain-review burden and effectiveness remain **provisional**, pending the separately parked pilot. This assessment introduces no new external factual claims. Research retains its recorded limitations, particularly the judge-generated MT-bench reference and unestablished transfer to agent review or prose-warning consumers.
+> 
+> **Coverage limits:** I did not run live doc-review correction/resume, quality-checkpoint item emission, release-deploy, publication, adopter-project trials, or new model-based scenario evaluations. I did not re-fetch sources, inspect every attestation/gate/hook, exercise the uv bootstrap path, or re-query remote PR state. Historical synthetic precision/recall was not independently replayed. No execution blocker remains for this read-only assessment.
+> 
+> **Exit: Awaiting change or evidence.** The accepted PR-per-arc remedy has not yet completed. Passing local checks and feature reviews cannot substitute for that obligation.
+> 
+> **Next required step:** the host records this as completed root round **2 of 5**, fills the two closure anchors, carries the archive-path correction as minor work, and completes the arc-close PR remedy with Andrew’s required confirmation and consequential-diff review. No additional standard feature-review pass is required merely to refresh hashes.
+
+### Host adjudication
+
+- Accepted as the round-2 parent result. **Root round 2 complete: 2 of 5.**
+  Outcome: **Awaiting change or evidence** — the only unresolved major is
+  QVC-R/METH-003, whose accepted remedy (PR per arc) is due at this arc's close.
+- Closure anchors filled (record-only): `feature-qvc-minor-remedies`
+  `64bf8ae2..6334a196`; `feature-ar-fork-citation-matcher` `672ccdc5..c6c2b6fb`.
+  The enumerations the assessor ran on those ranges already matched the
+  recorded lines; QVC-R/METH-002's residual is thereby closed at record level.
+- QVC/METH-001 (new, minor): doc-review archive recovery path `<kind>s` yields
+  `storys`. Small correctness fix routed through the standalone fix lane.
+- Retained minors (operator-unselected, unchanged): QVC-E/METH-001,
+  QVC-R/METH-001, QVC-R/METH-005, QVC-S/METH-004; QVC-E/METH-006 partially
+  resolved (guard only). No new major.
+- Next: fix QVC/METH-001; then open the arc PR with Andrew's confirmation;
+  after the PR exists, a short fresh check of the remedy can close round 3
+  if the outcome warrants.

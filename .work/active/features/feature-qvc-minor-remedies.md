@@ -252,5 +252,5 @@ RP portability ok, `work-view --scope active --kind feature --paths` runs.
 - Findings: blockers 2, important 2, nits 0, rejected 0
 - Accepted-fix verification: `3b1a9b6a` verified by host (checks in Notes)
 
-**Post-review changes** (`64bf8ae2..<closure>`)
+**Post-review changes** (`64bf8ae2..6334a196`)
 - `3b1a9b6a` fix(doc-review): recover archived bodies; no post-loop fixes; scope active items (doc-review/SKILL.md) — fix-of:B1, B2, important-1, important-2 verified by host checks above

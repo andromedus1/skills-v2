@@ -207,5 +207,5 @@ span-only mutant fails on the two new checks; `expected.json` edited minimally.
 - Findings: blockers 0, important 1, nits 0, rejected 0
 - Accepted-fix verification: `d8afde36` verified by host (conformance 77/77; mutant fails)
 
-**Post-review changes** (`672ccdc5..<closure>`)
+**Post-review changes** (`672ccdc5..c6c2b6fb`)
 - `d8afde36` test(agentic-research): cover dotted 'version N.M' anchor keys (conformance brief, expected.json, README) — fix-of:important-1 verified by host
