@@ -111,9 +111,9 @@ low-severity findings. `substrate_confidence_omitted` and `campaign_unbound` are
 count them for the report, emit no items.
 
 The lint's `patterns[]` are advisory spot-check signals, not broken chains: emit no items for
-them. Until `feature-ar-fork-citation-matcher` lands, `version-number` flags any dotted number or
-"version N" phrase in neutral text, including arXiv IDs, `§x.y` references, decimals and source
-titles. Preserve canonical matching and raw JSON. Group advisories for reporting; their count
+them. `version-number` is suppressed in source-direct attestations and on lines whose cited
+attestation contains the token; residual flags are mostly section refs, arXiv IDs, decimals and
+model names in analytical prose. Preserve canonical matching and raw JSON. Group advisories for reporting; their count
 neither blocks this gate nor proves semantic support. Research's required semantic verification still applies.
 
 ### Phase 4: Convert findings to items

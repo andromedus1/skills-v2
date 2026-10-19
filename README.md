@@ -100,14 +100,14 @@ substrates are silent. Navigator generation fails above the 10KB inline budget.
 ## Plugin catalog
 
 The repository carries Nathan's current plugins plus the fork-owned
-`research-pipeline`. The two marketplace catalogs are:
+`research-pipeline` and `agentic-research`. The two marketplace catalogs are:
 
 - [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json)
 - [.agents/plugins/marketplace.json](.agents/plugins/marketplace.json)
 
 Every local plugin has matching Claude and Codex manifests. Upstream-owned
-plugin trees track `upstream/main`; fork-specific behavior belongs in
-`research-pipeline` or is documented as a narrow upstream patch.
+plugin trees track `upstream/main`; fork-specific behavior belongs in the
+fork-owned plugins or is documented as a narrow upstream patch.
 
 ## Development
 

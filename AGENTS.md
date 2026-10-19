@@ -22,10 +22,10 @@ existing `.work/`, `.research/`, or knowledge artifacts to Workbench schemas.
 
 ## Ownership
 
-- Nathan's upstream owns all plugins except `research-pipeline` and explicitly
-  documented fork patches.
-- Andrew's fork owns `research-pipeline`, marketplace identity/composition, and
-  this repository's retained `.work/` history.
+- Nathan's upstream owns all plugins except `research-pipeline`,
+  `agentic-research` and explicitly documented fork patches.
+- Andrew's fork owns `research-pipeline`, `agentic-research`, marketplace
+  identity/composition, and this repository's retained `.work/` history.
 - `agentic-research` owns ARD. Never copy its kernel, discipline, validators,
   templates, or research orchestration into `research-pipeline`.
 - Research Pipeline may wrap Agentic Research with process intent, knowledge

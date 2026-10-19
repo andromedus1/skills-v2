@@ -113,7 +113,7 @@ The gain over doc-research: claims get **verified, not attributed** (a diff a do
 Mechanical substrate-test patterns matched against synthesis output. `lint` is a hard-floor gate; this is its diagnostic catalog. Six baseline categories:
 
 1. **Decimals with source attributions** (`decimal-with-attribution`) — a decimal figure adjacent to a source name; highest empirical failure rate. Flags proximity for verification.
-2. **Version numbers** (`version-number`) — version identifiers in comparative/attributional claims without an in-corpus anchor.
+2. **Version numbers** (`version-number`) — version identifiers in comparative/attributional claims without an in-corpus anchor. Source-direct attestations are themselves the anchor tier; an analytical line is anchored when an attestation it cites (resolved or reduced-substrate) contains the same version token.
 3. **File / word / page counts** (`count-without-unit-citation`) — numeric counts with units and no citation.
 4. **Comparative superlatives** (`comparative-superlative`) — "the only X with Y", "the strongest baseline" — claims requiring a full-set survey the agent did not perform.
 5. **Named-feature claims** (`named-feature-claim`) — capabilities attributed to a tool/system by name without a fetched anchor.

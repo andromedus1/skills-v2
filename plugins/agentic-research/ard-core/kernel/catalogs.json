@@ -264,7 +264,7 @@
       {
         "id": "version-number",
         "name": "Version numbers",
-        "description": "version identifiers in comparative/attributional claims without an in-corpus anchor."
+        "description": "version identifiers in comparative/attributional claims without an in-corpus anchor. Source-direct attestations are themselves the anchor tier; an analytical line is anchored when an attestation it cites (resolved or reduced-substrate) contains the same version token."
       },
       {
         "id": "count-without-unit-citation",

@@ -57,15 +57,16 @@ Research under `docs/research/` retains its source dates and limitations in the
 body. Adding or refreshing index metadata is not a new verification of those
 external claims.
 
-## Narrow Agentic Research fork patches
+## Fork-owned Agentic Research
 
-This fork retains explicit Codex invocation metadata for the research orchestrator
-and a directly linked [verification-record writing aid](../plugins/agentic-research/skills/research-orchestrator/references/verification-record.md).
-The latter makes assessed inputs, actual gate outcomes and pending corrections
-recoverable without changing ARD's gate catalog, rigor, isolation or stop rules.
-The canonical `ard-core/` kernel, discipline, schemas and generated catalogs remain
-unchanged. Preserve these documented differences when comparing upstream trees;
-implementation and review history belongs to `.work/` and Git.
+This fork owns `agentic-research` (Andrew, 2026-10-19). It diverges from upstream
+where this fork's needs require: explicit Codex invocation metadata for the research
+orchestrator; a directly linked [verification-record writing aid](../plugins/agentic-research/skills/research-orchestrator/references/verification-record.md)
+that keeps assessed inputs, actual gate outcomes and pending corrections recoverable;
+and an anchor-aware `version-number` advisory in the citation lint, specified in
+`ard-core/CATALOGS.md` §3 and covered by the kernel conformance suite. Upstream changes
+are merged deliberately rather than tracked; implementation and review history
+belongs to `.work/` and Git.
 
 ## Agile Workflow fork patches
 
