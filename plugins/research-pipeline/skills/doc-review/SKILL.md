@@ -127,9 +127,10 @@ patterns, placeholders and mentions of legacy locations are not citations.
 #### 2d. Done-item claims
 For each done item (archive or `stage: done`), files its implementation notes or
 "Files"/"Delivered" sections name as delivered must exist. Archived items may be
-bodyless stubs: recover the body with `git show <git_ref>:.work/active/<kind>s/<id>.md`;
-if it cannot be recovered, list the item under incomplete coverage, never as clean. Resolve plugin- or
-package-relative paths first; alternatives the item merely discussed are not claims.
+bodyless stubs: recover the body with `git show <git_ref>:.work/active/<dir>/<id>.md`,
+where `<dir>` is `epics`, `features` or `stories` for the stub's `kind`; if it cannot
+be recovered, list the item under incomplete coverage, never as clean. Resolve plugin-
+or package-relative paths first; alternatives the item merely discussed are not claims.
 - Renamed per `git log --follow` → **Info** (the record was true when written).
 - Deleted with a later commit or item explaining the removal → clean.
 - Missing with no explanation → **Critical**, operator decision (reopen, or record the

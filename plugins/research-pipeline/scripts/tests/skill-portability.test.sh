@@ -82,4 +82,11 @@ grep -q 'GLM/Kimi Pi host' "$plugin_root/skills/epic-design/SKILL.md"
 grep -q 'Kimi (Moonshot; Pi-native driver)' \
   "$plugin_root/../agile-workflow/skills/principles/references/models.md"
 
+# Archive bodies live under .work/active/{epics,features,stories}/; "<kind>s"
+# yields "storys" for stories (QVC/METH-001).
+if grep -q '<kind>s/' "$plugin_root/skills/doc-review/SKILL.md"; then
+  printf '%s\n' 'doc-review archive recovery pluralizes <kind> naively' >&2
+  exit 1
+fi
+
 printf '%s\n' 'research-pipeline skill portability: ok'
