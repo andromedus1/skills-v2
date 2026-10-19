@@ -1,7 +1,7 @@
 ---
 id: feature-ar-fork-citation-matcher
 kind: feature
-stage: review
+stage: done
 tags: [agentic-research, methodology-review]
 parent: null
 depends_on: [feature-qvc-minor-remedies]
@@ -176,3 +176,36 @@ real corpus; skill metadata test for AR.
 Conformance 75/75; `gen-contract.py --check` in sync; AR skill metadata ok; RP
 portability ok; `test_refresh_scan.py` ALL PASS; gate command on this repo: 0
 broken, version-number 60, other categories unchanged.
+
+## Review (2026-10-19)
+
+**Verdict**: Approve with comments
+
+**Blockers**: none
+**Important**: accepted and fixed in `d8afde36` — conformance did not cover the
+overlap of dotted numbers and `version N` (a span-only `_version_core` mutant
+passed 75/75 while suppressing `version 3.9` against `Version 3`). Added brief
+L31 (suppressed `version 2.3.0`) and L32 (flagged `version 3.9`); suite 77/77;
+the span-only mutant now fails exactly on L31 and L32.
+**Nits**: none
+**Rejected**: none
+
+**Notes**: feature substrate review, standard weight, one independent pass.
+Reviewer confirmed 75/75 and that the previous matcher, blanket, tier-only,
+substring and candidate-anchor variants fail; 16 behavioral + 9 token-boundary
+probes; body cache; `--no-citation-check` conservative; corpus 174 → 60 with all
+other JSON identical; `test_refresh_scan.py` ALL PASS; `gen-contract.py --check`
+in sync. Candidate-file tier suppression accepted as consistent with the
+provenance rule; candidates correctly cannot anchor. Coincident-token recall
+limitation remains documented. Host fix verification: conformance 77/77; scratch
+span-only mutant fails on the two new checks; `expected.json` edited minimally.
+
+**Receipt**
+- Reviewed: `df73daf0..672ccdc5` — AR kernel, conformance, CATALOGS/catalogs.json, AGENTS.md, README.md, docs/project-navigation.md, gate-citations; `.work/` excluded
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T155657Z-bf023c5b`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: default)
+- Findings: blockers 0, important 1, nits 0, rejected 0
+- Accepted-fix verification: `d8afde36` verified by host (conformance 77/77; mutant fails)
+
+**Post-review changes** (`672ccdc5..<closure>`)
+- `d8afde36` test(agentic-research): cover dotted 'version N.M' anchor keys (conformance brief, expected.json, README) — fix-of:important-1 verified by host
