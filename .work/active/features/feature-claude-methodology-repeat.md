@@ -226,3 +226,58 @@ adjacent contract drift. Evidence requests: static-analysis FP tolerance (Tricor
 
 Child exit: **awaiting change or evidence** — no major findings; supplementary
 research pending; METH-001–004 minor proposals await batch adjudication.
+
+### QVC-E — quality criteria, evidence and correction loops (returned 2026-10-18)
+
+Scope: build-process, research-composition, quality-checkpoint, doc-review,
+gate-docs-extension, methodology-review (+refs); research-orchestrator,
+verification-record, evaluator/adversarial-reader briefs; `.work/CONVENTIONS.md`;
+tests and CI; agile `review`/`release-deploy` interfaces only. Baseline `e3e2e070`
+(checked at `acf477a4`). Ran read-only (scratch `/private/tmp/claude-501/qvce`):
+conformance 57/57; resolver test pass; skill-portability and skill-metadata
+**fail under default python3** (no PyYAML), pass in a scratch venv; citation lint
+0 broken/0 thin/13 advisories. Unavailable: live release or checkpoint run, any
+doc-review run (no report in history), supplementary research, adopter projects.
+
+Enforcement map: citation syntax and skill shape are mechanical (not in CI; shape
+tests environment-fragile); "missing/errored/stale ≠ pass", covering-review reuse,
+doc-review's fresh-audit exit and cap, ARD's one-revision rule, methodology round
+limit and release-readiness precedence are reader compliance (or author judgment).
+CI (`.github/workflows/`) covers only Workbench and view binaries.
+
+| ID | Sev. | Finding | Recommendation / would authorize |
+| --- | --- | --- | --- |
+| QVC-E/METH-001 | **major** (conf. medium) | Every evidence/correction rule in scope is enforced only by reader compliance and has no durable behavioral regression evidence: tests are shape-only (`skill-portability.test.sh:18-71`), not in CI, and error by default; the rewritten quality-checkpoint has never run live and `release-deploy/SKILL.md` never invokes it; earlier scenario artifacts were temporary. Grounding: outcomes are environment state, regression evals protect capability (`anthropic-agent-evals`), and "local failure examples and execution tests must establish whether a concrete workflow change helps" (brief:64-67). Decision-blocking uncertainty for retain-vs-simplify, not proof the rules are wrong. Counter: the rewrite fixed real defects (nonexistent `gate-infra`; zero items read as clean); model-graded evals are noisy; manual PR merge backstops | Experiment: durable scenario fixtures for the charter's 7 scenarios with expected-outcome labels and a manual (peeragent) runner, plus a retrospective audit of closed items' evidence tables; run against current rules and a compressed variant. Would authorize fixture/runner files under `plugins/research-pipeline/scripts/tests/` via normal delivery; no skill-text changes |
+| QVC-E/METH-002 | minor | One contract ("missing/errored/stale ≠ pass; process success or zero items ≠ approval") restated on ≥7 surfaces (`build-process.md:157-158,184-188`; `research-composition.md:51-52`; `quality-checkpoint/SKILL.md:34,118-119,128,162-163,172-173`; `verification-record.md:10-11,24-27`; `CONVENTIONS.md:35-36`; `methodology-review/SKILL.md:77`; `review-record.md:56`); "child ≠ parent convergence" four times. methodology-review ≈5,300 words/≈108 negations. Counter: skills load alone; this review's charter shows the protocol working | Defer until METH-001's harness can compare variants (candidates: canonical `build-process.md` §Completion with one-line local applications; compress methodology-review). Authorizes nothing yet |
+| QVC-E/METH-003 | minor | Correction-loop bounds uneven: ARD well bounded (`research-orchestrator/SKILL.md:232-235`); doc-review cap 5 (`doc-review/SKILL.md:291,297`) but its report has no baseline/iteration/capped fields (`:221-228`), so checkpoint rules `quality-checkpoint:105,137-139` are uncheckable and an interrupted loop resets its cap; agile thorough/maximum has no numeric cap (`review/SKILL.md:76,233-237`); methodology's default 5 is unjustified by grounding (brief:64-66), though adjustable; `review-decomposition.md:135-136` ambiguous on whether research revisions count | Add baseline, iteration and capped fields to the doc-review report template; authorizes that edit only |
+| QVC-E/METH-004 | minor (could be major where docs merge unreviewed) | doc-review's autonomous Critical/High fixing (`:287,293`) includes resolving foundation-doc contradictions (`:213`), which can change stated intent (vs `build-process.md:20-21`; its own `:348`); checkpoint makes it required/blocking (`quality-checkpoint:66,103-105,164-165`). Its target model is stale: roadmap phases, blocking-brief lines, MCP/BigQuery/TS specifics (`:120-139,151-153,188-203`) vs retired roadmap pattern (`CONVENTIONS.md:3-7`); substantively unchanged since bootstrap port; overlaps gate-docs Check 1. Transferable strength: exit read from a fresh full-scope audit with explicit non-re-audit list (`:304-317`), already in methodology-review. Non-transferable: no stable IDs, full re-audit regardless of fix size, same-host reviewer, emphatic prose | Andrew decides doc-review's role (retain; mechanical-only autofix + route contradictions to operator; retarget to `foundation_docs` + `.work`; drop from required set where gate-docs covers it). Would authorize scoping one feature item |
+| QVC-E/METH-005 | minor | Post-review "materially uncovered" is author-judged (`quality-checkpoint:92-97`, `build-process.md:119-122`, `CONVENTIONS.md:32-34`, `verification-record.md:36-39`) with no recorded diff anchor | Record reviewed sha and `git diff --stat <reviewed>..HEAD` at closure; owned primarily by QVC-R |
+| QVC-E/METH-006 | minor | "Missing required evidence is not a pass" (`CONVENTIONS.md:35-36`) binds to nothing on the actual ship path: `scripts/bump-version.sh` runs no tests and commits/pushes (`:157,194`); no plugin-bump check list; release path dormant (cf. `idea-release-checkpoint-handoff`). Simpler baseline (PR checklist: shape tests, conformance, resolver test, reviewed sha, verified fixes) fits better; item evidence tables still add resume value. Counter: a checklist is also compliance-only | CONVENTIONS edit and/or PR template |
+
+Incidental defects: I-1 ARD hard-floor lint command is repo-relative
+(`research-orchestrator/SKILL.md:88,227`), failing outside skills-v2 (upstream);
+I-2 tests need undeclared PyYAML; I-3 doc-review uses `${CLAUDE_PLUGIN_ROOT}` only
+(`:17`) and stale non-namespaced `knowledge/lint`, `/knowledge-index`
+(`:58,323,349`); I-4 foundation doc `build-process.md` missing from
+`docs/knowledge-index.yaml`, so doc-review discovery skips it; I-5 no upstream-drift
+test for the AR fork patch (`docs/project-navigation.md:60-68`); I-6
+`bump-version.sh` pushes with no branch guard.
+
+Scenario walk: success coherent on paper but checkpoint unreachable from
+`release-deploy`; missing check consistent "not a pass" by compliance only;
+changed-after-review has three defensible but different policies, delivery lacks
+a diff anchor; exhausted limit handled by ARD/methodology, not doc-review or
+thorough review; cross-host resume durable except doc-review loop state; small vs
+consequential author-classified.
+
+Sibling implications: QVC-R — uncapped thorough review, author-judged materiality,
+doc-review's same-host reviewer vs any cross-model requirement, unguarded push.
+QVC-S — "JSON not exit code" triplicated; mechanical alternative via
+`--exit-code-on`. Evidence requests: ER-1 reliability/variance of scenario or
+model-graded regression evals for prompt changes; ER-2 PR/review checklist
+compliance vs defect outcomes; ER-3 safe/unsafe autofix classes in linters/doc
+tools; ER-4 diminishing returns and iteration caps in refinement loops. Local
+experiment (needs authorization): doc-review on a seeded-drift fixture.
+
+Child exit: **awaiting decision** (METH-001 experiment; METH-004 doc-review role);
+secondary awaiting evidence (ER-1–4). No remedies pending.
