@@ -1,7 +1,7 @@
 ---
 id: feature-overbuild-calibration
 kind: feature
-stage: implementing
+stage: review
 tags: [research-pipeline, process]
 parent: null
 depends_on: [feature-upstream-sync-2026-10]
@@ -55,3 +55,29 @@ portability passes; [ ] cuts list present with per-item guarantee; nothing remov
 ## Risks
 - Calibration ignored like other prose — mitigated by placing it where design and
   review already read (CONVENTIONS) and by the forecast hook in design skills.
+
+## Proposed cuts (for Andrew; nothing removed)
+
+Calibration applied to this fork's recent receipts and checks. Each row names the
+guarantee that must survive.
+
+| # | Target | Evidence | Proposed trim | Guarantee preserved |
+| --- | --- | --- | --- | --- |
+| C1 | Review receipt `**Post-review changes**` block (`.work/CONVENTIONS.md` receipts; quality-checkpoint §2) | Four receipted reviews: every enumerated commit was the review's own fix commit; round 2's only receipt finding was two unfilled `<closure>` placeholders — bookkeeping about bookkeeping | Keep `Reviewed`, `Reviewer`/independence and `Accepted-fix verification`. Require the post-review block only when a consequential commit after the reviewed head is *not* a listed fix commit; drop the closure-range anchor (git computes it) | Unreviewed consequential changes stay visible; reuse stays checkable |
+| C2 | Receipt `Weight` and `Findings` count lines | Weight is resolved by the review skill and recorded in its Notes; counts duplicate the review block above the receipt | Drop both lines from the receipt template | Same facts remain in the upstream review record |
+| C3 | gate-citations pattern-advisory reporting (QVC-S/METH-004, retained) | Release gate prescribes no action for advisories; engagements already lint and spot-check patterns; releases are rare here | Run the gate with `--no-pattern-check`, keeping integrity and warn-only counts | Broken-chain integrity and warn-only visibility unchanged; pattern review stays inside engagements |
+| C4 | methodology-review SKILL (~5,300 words, ~108 negations; QVC-E/METH-002 deferred) | The calibration names instruction volume as this repo's main cost; QVC showed the protocol works but is long | One compression pass targeting −30% words: merge restated authority/stop rules, move the outcome-precedence prose into the table | Same steps, authority boundary, round limit and exit table |
+| C5 | doc-review 5-iteration loop with a full dispatched re-audit each iteration | No doc-review run on record; cost unknown | No trim now — needs evidence. Revisit after its first real run on a project | — |
+
+Not proposed: research rigor dials (today's floor-rigor scout was proportionate),
+conformance/parity tests (justified complexity), operator authority rules.
+
+## Implementation notes
+- Execution capability: host inline (three small prose edits plus analysis).
+- Review weight: standard (default).
+- Files: `.work/CONVENTIONS.md` (calibration section + delegation rule);
+  RP `feature-design/SKILL.md` (machinery forecast after Phase 5a, 1 paragraph);
+  RP `epic-design/SKILL.md` (forecast in Phase 5 pre-mortem, 6 lines).
+- Verification: RP portability ok; calibration text equals the confirmed draft
+  (rewrapped only); forecast adds no artifact, template or gate.
+- Discrepancies: none.

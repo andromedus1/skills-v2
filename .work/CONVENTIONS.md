@@ -79,6 +79,27 @@ reviewer's own report states it assessed and classifying every later commit as
 above; a reconstruction counts only when the record shows the review its effective
 weight required. If the assessed head cannot be recovered, the evidence is missing.
 
+## Overbuilding calibration
+
+skills-v2 ships prompt-ware plugins for one maintainer's projects on two hosts
+(Claude, Codex), with no CI and manual PR merges. Cost is felt as instruction
+volume an agent must load, review time, and drift between restated rules — not CPU.
+
+Likely overbuilding here: restating one rule in several skills or docs; receipts,
+ledgers or status fields that mainly police agent bookkeeping; extra review or
+research passes where one independent pass and an executable check would do; gate
+prose without a consumer; research ceremony for reversible, low-consequence choices.
+
+Justified complexity: conformance and parity tests at stable interfaces (ARD kernel,
+manifests, hooks); citation integrity checks; Andrew's authority over method,
+publication and migration; cross-host behavior.
+
+Revisit when a check catches nothing across several arcs, when a rule needs a third
+restatement, or when Andrew reports friction.
+
+Delegated agents never delete, revert or overwrite files they did not create in
+that job; they report the conflict instead.
+
 ## Gates for release-deploy
 
 gates_for_release:
