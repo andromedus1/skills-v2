@@ -1,7 +1,7 @@
 ---
 id: feature-ar-research-rigor-ideas
 kind: feature
-stage: review
+stage: done
 tags: [agentic-research]
 parent: null
 depends_on: []
@@ -77,3 +77,30 @@ AR skill metadata, refresh tests pass; [ ] historical theory positions untouched
   frontmatter.
 - Residue: RP `deep-research/SKILL.md:18` ("propose standard or full only when
   consequence warrants") remains compatible with `adaptive`; left as is.
+
+## Review (2026-10-19)
+
+**Verdict**: Approve (after receiver adjudication; reviewer verdict was Block on an
+environment-only verification gap)
+
+**Blockers**: none remaining. Reviewer's only blocker: its sandbox could not run
+`skill-metadata.test.sh` (uv cache denied, no PyYAML). Host ran it: agentic-research
+skill metadata ok. No implementation change requested.
+**Important**: none. **Nits**: none. **Rejected**: none.
+
+**Notes**: standard weight, one independent pass. Reviewer confirmed `adaptive`
+resolves consistently to an existing profile, explicit values/hard floor/
+cross-specialist `evaluate`/operator authority intact, hybrid stop rule replaces
+all second-pass rules, ownership handling coherent, theory positions unchanged;
+`gen-contract --check` pass, conformance 77/77, refresh tests 8/8.
+
+**Receipt**
+- Reviewed: `e392052f..df9f2356` — agentic-research SPEC, CATALOGS, catalogs.json, dispatch template, orchestrator + references, convert, README, HANDOFF; `.research/CONVENTIONS.md`
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T194925Z-c6cb0ec9`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: default)
+- Findings: blockers 1 (environmental), important 0, nits 0, rejected 0
+- Accepted-fix verification: none required (host ran the blocked test: ok)
+
+**Post-review changes** (`df9f2356..edd9573a`)
+- `19c175c8` implement: feature-model-notes — other:feature-model-notes
+- `edd9573a` fix: forecast respects autopilot; … — other:feature-overbuild-calibration

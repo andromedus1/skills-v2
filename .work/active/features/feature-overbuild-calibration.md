@@ -1,7 +1,7 @@
 ---
 id: feature-overbuild-calibration
 kind: feature
-stage: review
+stage: done
 tags: [research-pipeline, process]
 parent: null
 depends_on: [feature-upstream-sync-2026-10]
@@ -81,3 +81,37 @@ conformance/parity tests (justified complexity), operator authority rules.
 - Verification: RP portability ok; calibration text equals the confirmed draft
   (rewrapped only); forecast adds no artifact, template or gate.
 - Discrepancies: none.
+
+## Review (2026-10-19)
+
+**Verdict**: Approve with comments (after receiver adjudication; reviewer verdict
+was Request changes)
+
+**Blockers**: none remaining. Accepted and fixed in `edd9573a`: (1) the machinery
+forecast required a user question even under autopilot — now asks interactively
+only when the choice changes behavior, workflow, contracts or durable state and
+applies the skills' judgment rules under autopilot, reusing accepted decisions;
+(2) cuts-table evidence refreshed — C2 narrowed to the `Weight` line, C4 states
+SKILL 2,641 + references 2,661 words, C5 records the existing dry run.
+**Important**: accepted and fixed in `edd9573a`: epic-design forecast now carries
+user action/failure, new state/owner and retry-loop triggers; delegation rule
+scoped to the assignment (no blanket ban on authorized edits).
+**Nits**: none. **Rejected**: none.
+
+**Notes**: standard weight, one independent pass. Reviewer verified C1's evidence
+from the archived receipts and that C3 (`--no-pattern-check`) preserves all
+non-pattern JSON (204 advisories removed). Host verification: RP portability ok.
+Observation for C1: on this multi-feature branch the post-review enumeration lists
+sibling features' commits, which the `other:` classification handles.
+
+**Receipt**
+- Reviewed: `af7428cf..e9764d45` — `.work/CONVENTIONS.md`, RP feature-design and epic-design
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T193840Z-bde37e2e`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: default)
+- Findings: blockers 2, important 2, nits 0, rejected 0
+- Accepted-fix verification: `edd9573a` verified by host (diff re-read; RP portability ok)
+
+**Post-review changes** (`e9764d45..edd9573a`)
+- `df9f2356` implement: feature-ar-research-rigor-ideas — other:feature-ar-research-rigor-ideas
+- `19c175c8` implement: feature-model-notes — other:feature-model-notes
+- `edd9573a` fix: forecast respects autopilot; … (RP feature/epic-design, CONVENTIONS) — fix-of:blockers 1–2, important 1–2 verified by host
