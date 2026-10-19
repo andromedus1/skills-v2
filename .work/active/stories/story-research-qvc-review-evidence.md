@@ -54,3 +54,101 @@ consumer: methodology-revisers
 verification_rigor: standard
 temporal_contract: write-once-on-converge
 ```
+
+## Engagement record
+
+### Kickoff (autonomous delegation; dials confirmed at scope time)
+
+- Read dials: `scope_authority: mixed`, `verification_rigor: standard`,
+  `intent: calibrate-external`, `output_kind: synthesis-brief`.
+- `decision_relevance` (from the commission body): whether to retain, simplify
+  or strengthen the cross-model review preference, review weights and
+  covering-review reuse; and whether citation advisories should be
+  reclassified, suppressed or retained.
+- Remaining registration fields settled at dispatch: `consumer:
+  methodology-revisers`; `temporal_contract: write-once-on-converge`;
+  `primitives_extends: []`; `primitives_opts_out: []`;
+  `analytical_artifact_type: per-campaign-brief`.
+- Substrate-check: overlapping prior work is
+  `.research/analysis/briefs/quality-feedback-loops.md` (lens only, never
+  cited) and its attestations `anthropic-agent-evals` {7} and
+  `anthropic-evaluator-optimizer` {6} (reusable as sources). No prior
+  attestation covers judge bias, code-review practice or static-analysis
+  warning response.
+
+### Decomposition (Checkpoint A, surface-and-proceed)
+
+Declared portion (from scoping): the two commissioned questions. Emergent
+candidates considered:
+
+1. One inline facet covering both questions. Cheapest, but the questions draw
+   on disjoint literatures (LLM evaluation and software-engineering review
+   versus static analysis and alert operations), so one author serialises two
+   independent acquisition passes.
+2. Two facets, one per question: `reviewer-independence` and
+   `warning-noise`. Matches the declared split, keeps each literature with one
+   specialist, and leaves a thin but real cross-join (both bear on when an
+   additional check earns its cost).
+3. Four facets: LLM-judge bias; human code-review practice; static-analysis
+   false positives; alert fatigue and triage practice. Finer, but splits
+   tightly coupled evidence (judge bias and multi-reviewer detection answer
+   the same independence question) and multiplies cross-join work for a
+   synthesis-brief output.
+
+Chosen: candidate 2 (two specialists, parallel). Self-flag: the cross-join is
+modest; the parent synthesis is mainly a side-by-side mapping onto the
+decision questions, not a merged thesis. Corpus numbering: specialists use
+provisional blocks, compacted by the lead into contiguous corpus-wide numbers
+after both return.
+
+### Fan-out and synthesis
+
+- Two research specialists dispatched in parallel (discipline bundle inlined
+  verbatim + specialist brief + facet params; model opus):
+  `reviewer-independence` (15 new attestations, provisional 11-25) and
+  `warning-noise` (12 new attestations, provisional 41-52, compacted by the
+  lead to 26-37). Corpus numbers 11-37 appended to `.research/references.md`;
+  bibliography at `.research/reference/qvc-review-evidence/BIBLIOGRAPHY.md`.
+- Checkpoint B (surface-and-proceed): contradictions carried into
+  `parent.md` § Contradictions, including two the lead added at the
+  cross-join: Google reviewer guidance (approve with unresolved comments)
+  versus Google static-analysis article (reviewers typically withhold approval
+  until automated comments are addressed); and Tricorder 2015 (probation at
+  10%, possible shut-off above 25%) versus the 2018 article (disabled above 10%
+  until improved). The latter was also added to the warning-noise brief as C7
+  before verification.
+- Acquisition offgas: `acquisitions.md` written (0 blocking, 6 enriching).
+  The lead verified the reference-list groundings of four enriching
+  candidates against the fetched PDFs/HTML and extended the attestations
+  `google-static-analysis-lessons`, `facebook-infer-zoncolan-scaling`,
+  `code-reviews-do-not-find-bugs` and `ddi-alert-tiering-compliance` with
+  those reference-list entries (additive substrate extension; no cited claim
+  changed). One public search found no open full text for the abstract-only
+  Imtiaz et al. source. Queue promotion is proposed, not written (operator
+  decision via `/agentic-research:research-handoff`).
+
+### Verification (in progress)
+
+- Lint (hard floor), with URL liveness: 3 files, 361 resolved citations,
+  0 broken, 0 thin, 57 pattern advisories. Grouped: version-number and
+  decimal-with-attribution (model names such as GPT-3.5/Qwen2.5, decimals,
+  bibliography lines); comparative-superlative on source-named phrases
+  ("most recent push", "most severe tier", "least serious tier", "no false
+  positives"); one count-without-unit (L37 warning-noise, cited on the next
+  line); one named-feature-claim (L219 warning-noise, cited inline);
+  reduced-substrate-attestation info on the abstract-only
+  `coverity-alert-actionability-oss`; deprecation notice for the reused
+  `anthropic-agent-evals` attestation lacking `substrate_confidence` (not
+  edited: outside this engagement's authored substrate). Advisories reviewed;
+  none is an unsupported composed claim. Zero broken/thin does not by itself
+  establish semantic support.
+- Adversarial read, attempt 1: the reader stalled (watchdog, no progress for
+  600s) without writing a checklist or verdict. Recorded as not run, not as a
+  pass. Re-dispatch pending.
+- Resume (2026-10-19, lead session): the first engagement worker ended with
+  the adversarial read unrun. Gate catalog for this shape: lint and spot-check
+  (hard floor), adversarial-read (standard profile), and `evaluate`, which ARD
+  SPEC §7/§3.1 places in the floor of any cross-specialist synthesis shape
+  regardless of profile. Adversarial read attempt 2 dispatched with incremental
+  checklist writing to `verification-checklist.md`; evaluate follows its
+  verdict; lead spot-check last. Stage remains `implementing`.
