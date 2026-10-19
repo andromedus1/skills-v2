@@ -191,7 +191,7 @@ EOF
   # only the script-under-test's commit/push are shimmed away later).
   (
     cd "$repo"
-    "$REAL_GIT" init -q
+    "$REAL_GIT" init -q -b scratch
     "$REAL_GIT" config user.email test@example.com
     "$REAL_GIT" config user.name "Test"
     "$REAL_GIT" config commit.gpgsign false
@@ -492,6 +492,20 @@ assert_eq "ar: major .research-view-version == 2.0.0" "2.0.0" "$(cat "${REPO11}/
 assert_true "ar: major research-view.sh literal == 2.0.0" \
   "grep -q '^RESEARCH_VIEW_VERSION=\"2.0.0\"\$' '${REPO11}/${RV_SH_REL}'"
 rm -rf "$REPO11"
+
+# ---------------------------------------------------------------------------
+# Guard: refuse to bump on main (bumps land on the arc branch and merge via PR)
+# ---------------------------------------------------------------------------
+echo "=== Guard: refuses on main ==="
+REPO12="$(new_scratch_repo "1.2.3")"
+"$REAL_GIT" -C "$REPO12" checkout -q -b main
+REPO12_HEAD_BEFORE="$("$REAL_GIT" -C "$REPO12" rev-parse HEAD)"
+run_bump "$REPO12" agile-workflow patch
+assert_eq "guard: bump on main exits 1" "1" "$BUMP_RC"
+assert_true "guard: refusal message printed" "grep -q 'Refusing to bump on main' '$BUMP_ERR'"
+assert_true "guard: working tree untouched" "[ -z \"\$('$REAL_GIT' -C '$REPO12' status --porcelain -- plugins)\" ]"
+assert_eq "guard: HEAD unchanged" "$REPO12_HEAD_BEFORE" "$("$REAL_GIT" -C "$REPO12" rev-parse HEAD)"
+rm -rf "$REPO12"
 
 # ---------------------------------------------------------------------------
 # Summary

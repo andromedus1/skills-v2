@@ -40,6 +40,12 @@ if [[ "$bump" != "major" && "$bump" != "minor" && "$bump" != "patch" ]]; then
   exit 1
 fi
 
+# Bumps commit and push; main is protected and changes land via PR.
+if [[ "$(git rev-parse --abbrev-ref HEAD)" == "main" ]]; then
+  echo "Refusing to bump on main: bump on the arc branch and merge via PR" >&2
+  exit 1
+fi
+
 # Refuse to run if the plugin directory has uncommitted changes. Bumping
 # before the feature commit produces a published "Bump to vN" commit that
 # doesn't actually contain the work, which is confusing on the remote.

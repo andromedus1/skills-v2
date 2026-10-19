@@ -4,7 +4,18 @@ set -eu
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 plugin_root=$(CDPATH= cd -- "$script_dir/../.." && pwd)
 
-python3 - "$plugin_root" <<'PY'
+# PyYAML: prefer an ephemeral uv environment; fall back to the system python3.
+if command -v uv >/dev/null 2>&1; then
+  set -- uv run --quiet --no-project --with pyyaml python
+else
+  set -- python3
+fi
+if ! "$@" -c 'import yaml' >/dev/null 2>&1; then
+  printf '%s\n' 'PyYAML required: install uv or pip install pyyaml' >&2
+  exit 2
+fi
+
+"$@" - "$plugin_root" <<'PY'
 from pathlib import Path
 import sys
 import yaml

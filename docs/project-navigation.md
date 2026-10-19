@@ -2,7 +2,7 @@
 title: Skills v2 fork navigation
 description: Start here to find this fork's current process, research ownership, methodology-review entrypoint and inherited upstream references.
 type: module-rules
-updated: 2026-10-18
+updated: 2026-10-19
 nav_priority: high
 summary: Maps the fork's authoritative instructions and plugin documentation, distinguishes upstream Workbench references, and explains how to regenerate the repository knowledge index.
 decisions:
@@ -66,6 +66,19 @@ recoverable without changing ARD's gate catalog, rigor, isolation or stop rules.
 The canonical `ard-core/` kernel, discipline, schemas and generated catalogs remain
 unchanged. Preserve these documented differences when comparing upstream trees;
 implementation and review history belongs to `.work/` and Git.
+
+## Agile Workflow fork patches
+
+Agile Workflow is upstream-owned; this fork patches its
+[`principles/references/models.md`](../plugins/agile-workflow/skills/principles/references/models.md).
+The patch adds Kimi (Moonshot) as a Pi-native driver class that is not a peeragent target,
+and Pi driver settings. It also adds a Kimi row to the host-to-peer and mechanism
+tables. The implementation-worker row names Luna only where available, else the
+host's strongest verified writing tier, with GLM-5.2 and Kimi as Pi drivers to
+evaluate. The fork's `scripts/bump-version.sh` refuses to bump on `main`, so
+[`bump-version.test.sh`](../plugins/agile-workflow/scripts/tests/bump-version.test.sh)
+seeds its scratch repository on a named branch and covers that guard. Preserve
+these additions when syncing upstream.
 
 ## Regenerate the knowledge index
 
