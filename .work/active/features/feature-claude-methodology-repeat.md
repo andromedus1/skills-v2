@@ -334,3 +334,26 @@ behavioral impact; local experiment (replay `6419b3bc` + seeded authority edit,
 author self-verification vs Codex delta confirmation).
 
 Child exit: **awaiting decision** — majors METH-001–003; evidence requests 1–3 pending.
+
+## Operator decision — intended-use weighting (2026-10-19)
+
+Andrew stated methodology-review's intended jobs: (1) review domain methods built
+with the research skills, over time — motivating case the data-science component
+of project-blueprint; (2) analyze a whole process suite and each component; (3)
+pair with `research-pipeline:scout` to surface alternatives and improvements.
+
+Root observation offered for context (not a child finding): program/component
+shape fits job 2; scout is positioned as a gap-filler rather than a discovery
+front end (job 3, untested); the skill models a convergent bounded loop with no
+longitudinal reopen or prior-review comparison guidance (job 1 — this QVC/QVE
+comparison had to invent its blind-then-compare method); all runs so far are
+skills-v2 reviewing itself.
+
+**Decision (Andrew, "i like option 1"):** keep QVC's scope to its three topics.
+Amend the charter criteria — before any root assessment — so the root
+integration, fresh assessor and decision packet weigh proposals by their effect
+on those three jobs (e.g. burden of evidence ceremony on a domain review).
+Child assessments predate this criterion and are not re-run. Follow-on: a pilot
+of methodology-review + scout on project-blueprint's data-science component,
+parked for later; it requires Andrew to place project-blueprint in scope and is
+not authorized by this decision.
