@@ -663,3 +663,34 @@ integration's research mapping (C2): the MT-bench "reference guidance" was the
 judge's own independently generated answer, not external ground truth, so it
 weakly supports "grounding" in recorded criteria or executable checks; that
 extension remains untested.
+
+## Experiment result — QVC-S/METH-001 citation matcher precision (2026-10-19)
+
+Scratch-only, as authorized; repo unmodified. Artifacts (temporary, not
+retained by the repo): `/private/tmp/claude-501/qvcs-exp/` — fixture builder,
+52 labeled lines (20 P / 29 N / 1 excluded / 2 scored both ways), scorer,
+variant diff, per-run outputs.
+
+| Run | Fixture precision | Fixture recall | Flags at `e3e2e070` | Flags at `f2fa9439` |
+| --- | --- | --- | --- | --- |
+| Current matcher | 0.40 | 0.90 | 10 | 174 (112 attestation) |
+| A: tier + any cited line suppressed | 0.77 | 0.50 | 1 | 59 |
+| B: tier + cited line suppressed only if the cited attestation contains the token | 0.84 | 0.80 | 1 | 60 |
+
+- Corpus noise grew 10 → 174 version flags with the new research attestations;
+  the real corpora contain no observed true positives, so field recall cost is
+  unmeasurable here. QVC-S/METH-001's "worsens as attestations accumulate" is
+  now demonstrated on this corpus.
+- Tier suppression removed 112/115 real suppressed flags with no observed
+  recall loss; A loses all cited-but-unsupported fabrications (8 fixtures); B
+  loses only coincident-token cases (2). All runs miss `Version 3` (case) and
+  dotless `vN` — matcher-shape gaps. Residual noise under A/B is mostly section
+  refs, arXiv IDs, percentages, decimals and model names (heuristic triage).
+- Conformance 57/57 for all variants; the suite cannot distinguish them (no
+  negative fixture).
+- Experimenter recommendation (synthetic fixtures; not field measurement):
+  tier suppression; if citation-line suppression, token-aware form B; ship any
+  proposal with positive/negative conformance fixtures.
+- Ownership: the kernel is agentic-research (upstream ARD); the fork policy keeps
+  the kernel unchanged. Any change is an upstream proposal or a documented
+  fork patch — a new operator decision for the round-2 packet. Not authorized.
