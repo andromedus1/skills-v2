@@ -1,11 +1,50 @@
 ---
-id: idea-claude-methodology-repeat
+id: feature-claude-methodology-repeat
+kind: feature
+stage: drafting
+tags: [methodology-review, research-pipeline, agentic-research]
+parent: null
+depends_on: []
+release_binding: null
+gate_origin: null
 created: 2026-10-18
 updated: 2026-10-18
-tags: [methodology-review, research-pipeline, agentic-research]
 ---
 
-# Next session: Claude-driven methodology review
+# Claude-driven methodology review repeat (QVC)
+
+## Brief
+
+This item is the root loop controller for review `QVC`: a Claude-driven repeat of
+the completed Codex-driven `QVE` methodology review on the same three topics. It
+owns the charter, component returns, operator decisions and dated assessments.
+Separately commissioned research owns its own engagements; their completion
+cannot close this controller.
+
+Invocation authorizes investigation and review artifacts only. Changes to project
+methods, skills, contracts or policy require Andrew's adjudication of a decision
+packet; publication, package merge, corpus migration and automatic adoption of
+findings remain out of scope.
+
+## Strategic decisions
+
+- **Settings**: mixed scope authority, standard research verification, whole-review
+  decomposition with adaptive research inside each part, five root rounds — carried
+  forward from QVE as established by the capture below.
+- **Independence from QVE findings**: Claude forms component findings from the
+  current baseline, its skills and the grounding research before reading QVE's
+  component returns, assessments and adjudications; comparison with QVE follows as
+  a separate step. Agreement is not a target. QVE's charter and topics are inputs.
+- **Fresh assessor**: Codex through `peeragent:peer`, per the project's cross-model
+  preference when Claude drives; fall back to a fresh-context Claude assessor and
+  record the limitation if Codex is unavailable.
+
+## Simplification opportunity
+
+None proposed at scope time. The review itself may identify checks, prose or
+duplicate review paths that QVE added and that do not earn their cost.
+
+## Original capture (historical context)
 
 Andrew requested a Claude-driven session to repeat the methodology-review exercise
 on the same topics as the completed Codex-driven run. Capture this for next session;
