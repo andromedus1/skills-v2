@@ -1,10 +1,10 @@
 {
   "name": "research-pipeline",
   "description": "Project-process and knowledge overlay for agile-workflow, using agentic-research as its authoritative grounded-research engine.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
-    "name": "andrewclark88"
+    "name": "andromedus1"
   },
-  "repository": "https://github.com/andrewclark88/skills-v2",
+  "repository": "https://github.com/andromedus1/skills-v2",
   "license": "MIT"
 }

@@ -1,11 +1,11 @@
 {
   "name": "research-pipeline",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Project-process and knowledge overlay for agile-workflow, using agentic-research as its authoritative grounded-research engine.",
   "author": {
-    "name": "andrewclark88"
+    "name": "andromedus1"
   },
-  "repository": "https://github.com/andrewclark88/skills-v2",
+  "repository": "https://github.com/andromedus1/skills-v2",
   "license": "MIT",
   "skills": "./skills/",
   "hooks": "./hooks/hooks.json",
@@ -13,7 +13,7 @@
     "displayName": "Research Pipeline",
     "shortDescription": "Project process and knowledge over grounded research",
     "longDescription": "Project-process overlay for agile-workflow with prior-art scouting, intent-based research entrypoints, architecture and design integration, a three-layer knowledge index and graph, cross-host context hooks, document review, and release quality orchestration. Requires agentic-research for grounded research execution and ARD verification.",
-    "developerName": "andrewclark88",
+    "developerName": "andromedus1",
     "category": "Productivity",
     "capabilities": [
       "Read",
@@ -24,6 +24,6 @@
     "defaultPrompt": [
       "Use research-pipeline to load the knowledge index and recommend the next research or design step."
     ],
-    "websiteURL": "https://github.com/andrewclark88/skills-v2"
+    "websiteURL": "https://github.com/andromedus1/skills-v2"
   }
 }
