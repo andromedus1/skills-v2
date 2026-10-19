@@ -2,10 +2,10 @@
 title: Adversarial-read verification checklist — qvc-review-evidence
 provenance: agent-verification
 gate: adversarial-read
-attempt: 2
+attempt: "2, re-read 3, targeted N1/N2, independent N3 (final)"
 updated: 2026-10-19
 target: parent.md (primary); specialists/reviewer-independence.md, specialists/warning-noise.md, acquisitions.md
-verdict: NEEDS-REVISION
+verdict: APPROVED  # final, independent N3 re-read 2026-10-19; earlier verdicts in body
 ---
 
 # Adversarial-read verification checklist — qvc-review-evidence

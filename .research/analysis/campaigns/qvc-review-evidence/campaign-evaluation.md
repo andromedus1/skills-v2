@@ -1,3 +1,12 @@
+---
+title: Campaign evaluation — qvc-review-evidence
+provenance: agent-verification
+gate: evaluate
+updated: 2026-10-19
+target: parent.md (after revision pass 1)
+verdict: APPROVED
+---
+
 # Campaign evaluation — qvc-review-evidence (2026-10-19)
 
 Isolated `evaluate` gate (ARD SPEC §7). Inputs: discipline bundle, evaluator

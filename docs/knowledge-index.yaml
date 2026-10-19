@@ -6,9 +6,9 @@
 #   2 = enforce (missing v2 fields are errors)
 # Set to 2 once the project's docs are fully backfilled to v2 frontmatter.
 schema_version: 1
-generated_at: 2026-10-19T03:24:30Z
+generated_at: 2026-10-19T14:54:56Z
 generated_from: frontmatter
-total_docs: 16
+total_docs: 22
 
 documents:
   # ── planning ──────────────────────────────────────────────────────────────
@@ -112,6 +112,48 @@ documents:
     kind: research
     updated: 2026-10-18
     consumer_hint: Read for the distribution rationale behind compiled substrate tools; runtime measurements are retained research rather than current benchmarks.
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/acquisitions.md
+    title: Acquisition manifest — qvc-review-evidence
+    type: campaign
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: "Agentic Research campaign: Acquisition manifest — qvc-review-evidence"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/campaign-evaluation.md
+    title: Campaign evaluation — qvc-review-evidence
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Campaign evaluation — qvc-review-evidence"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/parent.md
+    title: Evidence on reviewer independence and warning noise
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Evidence on reviewer independence and warning noise"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/specialists/reviewer-independence.md
+    title: Reviewer independence, reviewer count and re-review after changes
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Reviewer independence, reviewer count and re-review after changes"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/specialists/warning-noise.md
+    title: "Warning noise: how people respond to noisy advisory signals, and what keeps them actionable"
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Warning noise: how people respond to noisy advisory signals, and what keeps them actionable"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/verification-checklist.md
+    title: Adversarial-read verification checklist — qvc-review-evidence
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Adversarial-read verification checklist — qvc-review-evidence"
 
   # ── historical ──────────────────────────────────────────────────────────────
 
