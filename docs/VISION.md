@@ -40,13 +40,17 @@ harnesses unchanged; each harness can add native ergonomics around that shared
 core. Pi-native runtime packages live in the separate `nklisch/pi-extensions`
 repo.
 
-The catalog centers on **workbench**: requirements-first delivery driven by
-ordinary conversation, with grounded research as an integrated evidence layer.
+The catalog centers on **workbench**: requirements-first delivery and adaptive
+opportunity scanning driven by ordinary conversation, with optional
+project-defined release gates and grounded research as an integrated evidence
+layer.
 Around it sit standalone plugins — `ux-ui-design` (mockup-first UI design),
 `code-audit` (markdown audits), `nates-toolkit` (utilities),
 `agentic-research` (research discipline), `agent-coordination` (cross-agent
-ledger), `prose-craft` (prose craftsmanship) — a curated library of reference
-skills, and federated external plugins.
+ledger), `prose-craft` (prose craftsmanship), `sol-calibration` (agent
+working-posture calibration), and `declaudify` (a Claude
+Code-only writing-posture hook) — a curated library of reference skills, and
+federated external plugins.
 
 **agile-workflow**, the catalog's structured stage-and-gate work tracker,
 remains supported in maintenance mode: it receives bug fixes and
@@ -73,16 +77,18 @@ catalog, that is a signal worth catching before an adopter hits it.
 
 ## What success looks like
 
-- **Channel parity** — every supported plugin installs and behaves in Claude
-  Code, Codex, and Pi (through the bridge), with harness-native ergonomics
-  where each environment supports them.
+- **Channel parity where promised** — every cross-channel supported plugin
+  installs and behaves in Claude Code, Codex, and Pi (through the bridge), with
+  harness-native ergonomics where each environment supports them. Host-specific
+  plugins such as `declaudify` are clearly labeled, omitted from unsupported
+  native catalogs, and not claimed as supported by the bridge.
 - **Skills that trigger on intent** — they fire when they should and stay
   silent when they should not.
 - **A trustworthy ledger** — `.work/` is the single source of truth for this
   repo's work, and an agent reading it can answer "what can I do next?"
   correctly at any point, not just one.
-- **Lockstep metadata** — a plugin's Claude manifest and Codex manifest
-  never disagree about what it is.
+- **Lockstep metadata** — a cross-channel plugin's Claude manifest and Codex
+  manifest never disagree about what it is.
 
 ## Where the details live
 

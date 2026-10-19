@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
 import tempfile
@@ -8,8 +9,9 @@ from pathlib import Path
 
 
 SCRIPT = Path(__file__).parents[1] / "validate-workbench.py"
-
-
+INSTALLED_VERSION = json.loads(
+    (SCRIPT.parents[1] / "plugin.json").read_text(encoding="utf-8")
+)["version"]
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
@@ -17,10 +19,12 @@ def write(path: Path, content: str) -> None:
 
 class ValidateWorkbenchTests(unittest.TestCase):
     def make_project(self) -> Path:
-        root = Path(tempfile.mkdtemp())
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
         write(
             root / ".work/CONVENTIONS.md",
-            "---\nowner: workbench\nschema: 1\ncompleted_items: summarize\nreview_weight: standard\nautonomy: adaptive\n---\n",
+            f"---\nowner: workbench\nschema: 1\nworkbench_version: {INSTALLED_VERSION}\ncompleted_items: summarize\nreview_weight: standard\nsimplification_posture: balanced\nautonomy: adaptive\nexecution_posture: adaptive\ncommit_posture: adaptive\n---\n",
         )
         for directory in ("active", "backlog", "completed", "releases"):
             (root / ".work" / directory).mkdir(parents=True, exist_ok=True)
@@ -46,22 +50,388 @@ updated: 2026-07-24
 ---
 
 # Example
+
+Useful item body.
 """,
         )
         return root
 
-    def run_validator(self, root: Path) -> subprocess.CompletedProcess[str]:
+    def run_validator(self, root: Path, *args: str) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
-            [sys.executable, str(SCRIPT), str(root)],
+            [sys.executable, str(SCRIPT), str(root), *args],
             text=True,
             capture_output=True,
             check=False,
+        )
+
+    def write_active_item(
+        self,
+        root: Path,
+        item_id: str,
+        *,
+        kind: str = "feature",
+        status: str = "active",
+        parent: str = "null",
+        blocked_by: list[str] | None = None,
+        related_to: list[str] | None = None,
+        body: str | None = None,
+    ) -> None:
+        blocked = ", ".join(blocked_by or [])
+        related = ", ".join(related_to or [])
+        item_body = body if body is not None else f"# {item_id}\n\nUseful item body.\n"
+        write(
+            root / ".work/active" / f"{item_id}.md",
+            f"""---
+id: {item_id}
+kind: {kind}
+status: {status}
+tags: []
+parent: {parent}
+blocked_by: [{blocked}]
+related_to: [{related}]
+research_refs: []
+mock_refs: []
+created: 2026-07-24
+updated: 2026-07-24
+---
+{item_body}""",
         )
 
     def test_valid_project_passes(self) -> None:
         result = self.run_validator(self.make_project())
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("validation passed", result.stdout)
+
+    def set_validator_command(self, root: Path, value: str) -> None:
+        conventions = root / ".work/CONVENTIONS.md"
+        write(conventions, conventions.read_text().replace(
+            "\n---\n", f"\nvalidator_command: {value}\n---\n", 1,
+        ))
+
+    def test_project_validator_replaces_builtin_and_uses_project_root(self) -> None:
+        root = self.make_project()
+        # A project may intentionally support a layout rejected by bundled policy.
+        (root / ".work/bin").mkdir()
+        write(root / "scripts/validate project.py", """\
+from pathlib import Path
+import sys
+assert Path('.work/CONVENTIONS.md').is_file()
+assert sys.argv[1:] == ['argument with spaces', 'literal;not-a-shell-command', '']
+print('project policy passed')
+""")
+        self.set_validator_command(root, json.dumps([
+            sys.executable, "scripts/validate project.py", "argument with spaces",
+            "literal;not-a-shell-command", "",
+        ]))
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(result.stdout.strip(), "project policy passed")
+        builtin = self.run_validator(root, "--builtin")
+        self.assertNotEqual(builtin.returncode, 0)
+        self.assertIn("noncanonical work directory: .work/bin", builtin.stdout)
+
+    def test_project_validator_preserves_failure_and_output(self) -> None:
+        root = self.make_project()
+        self.set_validator_command(root, json.dumps([
+            sys.executable, "-c",
+            "import sys; print('check output'); print('policy failed', file=sys.stderr); sys.exit(7)",
+        ]))
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 7)
+        self.assertEqual(result.stdout.strip(), "check output")
+        self.assertEqual(result.stderr.strip(), "policy failed")
+
+    def test_project_validator_wrapper_can_run_builtin_without_recursion(self) -> None:
+        root = self.make_project()
+        write(root / "scripts/validate.py", """\
+import os
+import subprocess
+import sys
+print('wrapper', flush=True)
+sys.exit(subprocess.run([
+    sys.executable, os.environ['WORKBENCH_VALIDATOR'], '--builtin', '.',
+], check=False, timeout=5).returncode)
+""")
+        # Block-list YAML is supported as well as the compact argument-list form.
+        self.set_validator_command(root, f"\n  - {json.dumps(sys.executable)}\n  - scripts/validate.py")
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(result.stdout.count("wrapper"), 1)
+        self.assertIn("Workbench validation passed", result.stdout)
+        (root / ".work/active/example.md").write_text("invalid item\n")
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("Workbench validation failed", result.stdout)
+
+    def test_invalid_project_validator_does_not_fall_back_to_builtin(self) -> None:
+        for value in (
+            '[]', 'null', 'python3 script.py', '[42]', '[" "]', '["python3", 7]',
+            json.dumps(["bad\0command"]),
+        ):
+            with self.subTest(value=value):
+                root = self.make_project()
+                self.set_validator_command(root, value)
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("validator_command must be", result.stderr)
+                self.assertNotIn("validation passed", result.stdout)
+
+    def test_unlaunchable_project_validator_reports_actionable_error(self) -> None:
+        root = self.make_project()
+        self.set_validator_command(root, '["./missing-project-validator"]')
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("cannot run validator_command", result.stderr)
+        self.assertIn("missing-project-validator", result.stderr)
+        self.assertNotIn("validation passed", result.stdout)
+
+    def test_model_notes_are_optional_prose_not_work_items(self) -> None:
+        root = self.make_project()
+        notes = root / ".work/MODEL-NOTES.md"
+        for content in (
+            "# Model notes\n\n## Recent observations\n\nTentative local evidence.\n",
+            "# Model notes\n\n## Working guidance\n\nKeep only useful lessons.\n",
+        ):
+            write(notes, content)
+            result = self.run_validator(root)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        notes.unlink()
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_linked_design_attachment_passes_without_item_frontmatter(self) -> None:
+        root = self.make_project()
+        item = root / ".work/active/example.md"
+        write(item, item.read_text() + "\n[Contract](../attachments/example/contract.md)\n")
+        write(
+            root / ".work/attachments/example/contract.md",
+            "# Contract\n\n[Owner](../../active/example.md). Delete at completion.\n",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_backlog_attachment_survives_activation(self) -> None:
+        root = self.make_project()
+        backlog = root / ".work/backlog/parked.md"
+        write(
+            backlog,
+            "---\nid: parked\ntags: []\ncreated: 2026-09-09\nupdated: 2026-09-09\n---\n"
+            "# Parked idea\n\n[Context](../attachments/parked/context.md)\n",
+        )
+        attachment = root / ".work/attachments/parked/context.md"
+        write(attachment, "# Context\n\n[Owner](../../backlog/parked.md)\n")
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+        backlog.rename(root / ".work/active/parked.md")
+        self.write_active_item(
+            root, "parked", body="# Parked idea\n\n[Context](../attachments/parked/context.md)\n"
+        )
+        write(attachment, attachment.read_text().replace("../../backlog/", "../../active/"))
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+        (root / ".work/active/parked.md").unlink()
+        result = self.run_validator(root)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("attachment directory has no active or backlog owner", result.stdout)
+
+    def test_completion_requires_attachment_deletion_under_both_postures(self) -> None:
+        for posture in ("summarize", "discard"):
+            with self.subTest(posture=posture):
+                root = self.make_project()
+                conventions = root / ".work/CONVENTIONS.md"
+                write(
+                    conventions,
+                    conventions.read_text().replace(
+                        "completed_items: summarize", f"completed_items: {posture}"
+                    ),
+                )
+                attachment = root / ".work/attachments/example/contract.md"
+                write(attachment, "# Temporary contract\n")
+                (root / ".work/active/example.md").unlink()
+                if posture == "summarize":
+                    write(
+                        root / ".work/completed/example.md",
+                        "---\nid: example\ncompleted: 2026-09-07\n---\n# Delivered\n",
+                    )
+                result = self.run_validator(root)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("attachment directory has no active or backlog owner", result.stdout)
+                attachment.unlink()
+                attachment.parent.rmdir()
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_design_attachment_requires_item_directory(self) -> None:
+        root = self.make_project()
+        write(root / ".work/attachments/contract.md", "# Unowned contract\n")
+        result = self.run_validator(root)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("attachment must be inside an active or backlog item's directory", result.stdout)
+
+    def write_compact_item(self, root: Path, extra: str = "", body: str = "") -> None:
+        write(
+            root / ".work/active/example.md",
+            "---\nid: example\nkind: feature\nstatus: active\n"
+            "created: 2026-09-05\nupdated: 2026-09-05\n"
+            f"{extra}---\n# Example\n\nReturn no matches for an empty query.\n{body}",
+        )
+
+    def test_compact_item_passes_without_empty_metadata(self) -> None:
+        root = self.make_project()
+        self.write_compact_item(root)
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_compact_item_still_requires_identity_state_and_dates(self) -> None:
+        for field in ("id", "kind", "status", "created", "updated"):
+            with self.subTest(field=field):
+                root = self.make_project()
+                self.write_compact_item(root)
+                path = root / ".work/active/example.md"
+                lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+                path.write_text(
+                    "".join(line for line in lines if not line.startswith(f"{field}:")),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn(f"missing {field}", result.stdout)
+
+    def test_compact_item_validates_supplied_metadata(self) -> None:
+        cases = (
+            ("tags: wrong\n", "tags must be a list"),
+            ("parent: []\n", "parent must be an item id or null"),
+            ("parent: absent\n", "unresolved parent absent"),
+            ("blocked_by: [absent]\n", "unresolved blocked_by target absent"),
+            ("related_to: [absent]\n", "unresolved related_to target absent"),
+            ("research_refs: [.research/missing.md]\n", "unresolved research ref"),
+            ("mock_refs: [.mockups/missing.html]\n", "unresolved mock ref"),
+        )
+        for metadata, expected in cases:
+            with self.subTest(metadata=metadata):
+                root = self.make_project()
+                self.write_compact_item(root, metadata)
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertIn(expected, result.stdout)
+
+    def test_compact_item_preserves_blocker_readiness(self) -> None:
+        root = self.make_project()
+        self.write_compact_item(root, body="\n## Blocker\nWaiting for the test service.\n")
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("active status cannot have", result.stdout)
+        path = root / ".work/active/example.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("status: active", "status: blocked"),
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_repository_specific_conventions_body_remains_open(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8")
+            + "\n## Generated assets\n\nRegenerate committed assets before review.\n",
+            encoding="utf-8",
+        )
+
+        result = self.run_validator(root)
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_release_gates_accepts_absent_empty_and_named_lists(self) -> None:
+        valid_cases = (
+            "release_gates:\n",
+            "release_gates: []\n",
+            "release_gates:\n  - security\n  - test-quality\n  - compatibility\n",
+            "release_gates: ['project-specific', 'operations']\n",
+        )
+        for extra in valid_cases:
+            with self.subTest(extra=extra):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "autonomy: adaptive\n", f"autonomy: adaptive\n{extra}"
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout)
+
+    def test_release_gates_rejects_non_lists_bad_names_and_duplicates(self) -> None:
+        invalid_cases = {
+            "scalar": "release_gates: security\n",
+            "mapping-like entry": "release_gates:\n  - security: strict\n",
+            "uppercase": "release_gates:\n  - Security\n",
+            "trailing hyphen": "release_gates:\n  - security-\n",
+            "doubled hyphen": "release_gates:\n  - test--quality\n",
+            "duplicate": "release_gates:\n  - security\n  - security\n",
+        }
+        for label, extra in invalid_cases.items():
+            with self.subTest(label=label):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "autonomy: adaptive\n", f"autonomy: adaptive\n{extra}"
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn("release_gates", result.stdout)
+
+    def test_missing_workbench_version_warns_without_blocking(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                f"workbench_version: {INSTALLED_VERSION}\n", ""
+            ),
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("consider running setup", result.stdout)
+
+    def test_mismatched_workbench_version_warns_without_blocking(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        for mismatched in ("0.0.1", "999.0.0"):
+            with self.subTest(mismatched=mismatched):
+                text = path.read_text(encoding="utf-8")
+                path.write_text(
+                    text.replace(
+                        f"workbench_version: {INSTALLED_VERSION}",
+                        f"workbench_version: {mismatched}",
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout)
+                self.assertIn("differs from loaded Workbench", result.stdout)
+                self.assertIn("work may continue", result.stdout)
+                path.write_text(text, encoding="utf-8")
+
+    def test_malformed_workbench_version_warns_without_blocking(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                f"workbench_version: {INSTALLED_VERSION}",
+                "workbench_version: latest",
+            ),
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("not a semantic version", result.stdout)
 
     def test_missing_review_weight_defaults_to_standard(self) -> None:
         root = self.make_project()
@@ -86,6 +456,62 @@ updated: 2026-07-24
         self.assertEqual(result.returncode, 1)
         self.assertIn("review_weight must be", result.stdout)
 
+    def test_review_maximum_passes_is_unenforced_convention_metadata(self) -> None:
+        for maximum in ("1", "0", "-1", "true", "unlimited", "many", "[]", "{}"):
+            with self.subTest(maximum=maximum):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "review_weight: standard\n",
+                        f"review_weight: thorough\nreview_maximum_passes: {maximum}\n",
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_valid_simplification_postures_pass(self) -> None:
+        for posture in ("hygiene", "balanced", "structural"):
+            with self.subTest(posture=posture):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "simplification_posture: balanced",
+                        f"simplification_posture: {posture}",
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_missing_simplification_posture_defaults_to_balanced(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "simplification_posture: balanced\n", ""
+            ),
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_invalid_simplification_posture_fails(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "simplification_posture: balanced",
+                "simplification_posture: sweeping",
+            ),
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("simplification_posture must be", result.stdout)
+
     def test_missing_autonomy_defaults_to_adaptive(self) -> None:
         root = self.make_project()
         path = root / ".work/CONVENTIONS.md"
@@ -109,6 +535,126 @@ updated: 2026-07-24
         self.assertEqual(result.returncode, 1)
         self.assertIn("autonomy must be", result.stdout)
 
+    def test_valid_execution_postures_pass(self) -> None:
+        for posture in ("inline-first", "inline", "adaptive", "orchestrated"):
+            with self.subTest(posture=posture):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "execution_posture: adaptive",
+                        f"execution_posture: {posture}",
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_execution_posture_can_be_omitted(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "execution_posture: adaptive\n", ""
+            ),
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_invalid_execution_posture_fails_cleanly(self) -> None:
+        for value in ("parallel", "[inline]"):
+            with self.subTest(value=value):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "execution_posture: adaptive",
+                        f"execution_posture: {value}",
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn("execution_posture must be", result.stdout)
+                self.assertNotIn("Traceback", result.stderr)
+
+    def test_valid_commit_postures_pass(self) -> None:
+        for posture in ("adaptive", "feature", "checkpoint", "batch", "preserve"):
+            with self.subTest(posture=posture):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "commit_posture: adaptive", f"commit_posture: {posture}"
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_missing_commit_posture_defaults_to_adaptive(self) -> None:
+        root = self.make_project()
+        path = root / ".work/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("commit_posture: adaptive\n", ""),
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_invalid_commit_posture_fails_cleanly(self) -> None:
+        for value in ("per-item", "[feature]"):
+            with self.subTest(value=value):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "commit_posture: adaptive", f"commit_posture: {value}"
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn("commit_posture must be", result.stdout)
+                self.assertNotIn("Traceback", result.stderr)
+
+    def test_evidence_depth_is_optional_and_validated(self) -> None:
+        for depth in ("lean", "standard", "deep"):
+            with self.subTest(depth=depth):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "commit_posture: adaptive",
+                        f"commit_posture: adaptive\nevidence_depth: {depth}",
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+        root = self.make_project()
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_invalid_evidence_depth_fails_cleanly(self) -> None:
+        for value in ("rigorous", "[deep]"):
+            with self.subTest(value=value):
+                root = self.make_project()
+                path = root / ".work/CONVENTIONS.md"
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(
+                        "commit_posture: adaptive",
+                        f"commit_posture: adaptive\nevidence_depth: {value}",
+                    ),
+                    encoding="utf-8",
+                )
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn("evidence_depth must be", result.stdout)
+                self.assertNotIn("Traceback", result.stderr)
+
     def test_unresolved_dependency_fails(self) -> None:
         root = self.make_project()
         path = root / ".work/active/example.md"
@@ -126,7 +672,7 @@ updated: 2026-07-24
         root = self.make_project()
         write(
             root / ".work/completed/finished.md",
-            "---\nid: finished\ncompleted: 2026-07-24\n---\n",
+            "---\nid: finished\ncompleted: 2026-07-24\n---\n\n# Finished\n",
         )
         path = root / ".work/active/example.md"
         path.write_text(
@@ -143,7 +689,7 @@ updated: 2026-07-24
         root = self.make_project()
         write(
             root / ".work/backlog/example.md",
-            "---\nid: example\ntags: []\ncreated: 2026-07-24\nupdated: 2026-07-24\n---\n",
+            "---\nid: example\ntags: []\ncreated: 2026-07-24\nupdated: 2026-07-24\n---\n\n# Example backlog item\n",
         )
         result = self.run_validator(root)
         self.assertEqual(result.returncode, 1)
@@ -196,6 +742,24 @@ updated: 2026-07-24
         self.assertEqual(result.returncode, 1)
         self.assertIn("missing .work/backlog/.gitkeep", result.stdout)
 
+    def test_completion_directories_are_required_when_items_are_discarded(self) -> None:
+        for directory in ("completed", "releases"):
+            with self.subTest(directory=directory):
+                root = self.make_project()
+                conventions = root / ".work/CONVENTIONS.md"
+                conventions.write_text(
+                    conventions.read_text(encoding="utf-8").replace(
+                        "completed_items: summarize", "completed_items: discard"
+                    ),
+                    encoding="utf-8",
+                )
+                for child in (root / ".work" / directory).iterdir():
+                    child.unlink()
+                (root / ".work" / directory).rmdir()
+                result = self.run_validator(root)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn(f"missing .work/{directory}/", result.stdout)
+
     def test_blocked_item_requires_blocker_evidence(self) -> None:
         root = self.make_project()
         path = root / ".work/active/example.md"
@@ -222,12 +786,150 @@ updated: 2026-07-24
         result = self.run_validator(root)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_active_item_with_external_blocker_fails(self) -> None:
+        root = self.make_project()
+        path = root / ".work/active/example.md"
+        path.write_text(
+            path.read_text(encoding="utf-8")
+            + "\n## Blocker\n\nWaiting for vendor credentials.\n",
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("active status cannot have blocked_by or ## Blocker", result.stdout)
+
+    def test_special_headings_inside_code_fences_are_ignored(self) -> None:
+        root = self.make_project()
+        path = root / ".work/active/example.md"
+        path.write_text(
+            path.read_text(encoding="utf-8")
+            + "\n```markdown\n## Blocker\n```\n",
+            encoding="utf-8",
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_unrecognized_root_work_directory_fails(self) -> None:
         root = self.make_project()
         (root / ".work/planning").mkdir()
         result = self.run_validator(root)
         self.assertEqual(result.returncode, 1)
         self.assertIn("noncanonical work directory", result.stdout)
+
+    def test_exact_optional_depth_hierarchy_passes(self) -> None:
+        root = self.make_project()
+        self.write_active_item(root, "epic-parent", kind="epic")
+        self.write_active_item(
+            root, "feature-child", kind="feature", parent="epic-parent"
+        )
+        self.write_active_item(
+            root, "story-child", kind="story", parent="feature-child"
+        )
+        self.write_active_item(root, "story-standalone", kind="story")
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_skipped_hierarchy_tier_fails(self) -> None:
+        root = self.make_project()
+        self.write_active_item(root, "epic-parent", kind="epic")
+        self.write_active_item(
+            root, "story-child", kind="story", parent="epic-parent"
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("invalid hierarchy epic -> story", result.stdout)
+
+    def test_story_cannot_parent_an_item(self) -> None:
+        root = self.make_project()
+        self.write_active_item(root, "story-parent", kind="story")
+        self.write_active_item(
+            root, "feature-child", kind="feature", parent="story-parent"
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("invalid hierarchy story -> feature", result.stdout)
+
+    def test_parent_cycle_fails(self) -> None:
+        root = self.make_project()
+        self.write_active_item(root, "cycle-a", parent="cycle-b")
+        self.write_active_item(root, "cycle-b", parent="cycle-a")
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("parent cycle:", result.stdout)
+
+    def test_blocked_item_with_dependency_passes(self) -> None:
+        root = self.make_project()
+        self.write_active_item(root, "prerequisite")
+        self.write_active_item(
+            root,
+            "dependent",
+            status="blocked",
+            blocked_by=["prerequisite"],
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_active_item_with_blocked_by_fails(self) -> None:
+        root = self.make_project()
+        self.write_active_item(root, "prerequisite")
+        self.write_active_item(
+            root,
+            "dependent",
+            blocked_by=["prerequisite"],
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("active status cannot have blocked_by", result.stdout)
+
+    def test_duplicate_and_self_relationships_fail(self) -> None:
+        root = self.make_project()
+        self.write_active_item(
+            root,
+            "example",
+            related_to=["example", "example"],
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("related_to cannot target itself", result.stdout)
+        self.assertIn("duplicate related_to target example", result.stdout)
+
+    def test_reciprocal_related_to_is_valid(self) -> None:
+        root = self.make_project()
+        self.write_active_item(root, "related-a", related_to=["related-b"])
+        self.write_active_item(root, "related-b", related_to=["related-a"])
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_blocked_by_cycle_fails(self) -> None:
+        root = self.make_project()
+        self.write_active_item(
+            root,
+            "blocked-a",
+            status="blocked",
+            blocked_by=["blocked-b"],
+        )
+        self.write_active_item(
+            root,
+            "blocked-b",
+            status="blocked",
+            blocked_by=["blocked-a"],
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("blocked_by cycle:", result.stdout)
+
+    def test_item_requires_title_and_body_content(self) -> None:
+        root = self.make_project()
+        self.write_active_item(
+            root, "missing-title", body="Plain body.\n"
+        )
+        self.write_active_item(
+            root, "missing-content", body="# Title only\n"
+        )
+        result = self.run_validator(root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("first non-empty body line must be a Markdown title", result.stdout)
+        self.assertIn("item body needs content after its title", result.stdout)
 
 
 if __name__ == "__main__":

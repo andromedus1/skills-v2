@@ -1,28 +1,73 @@
 # Writing Style
 
-Plain technical English for durable prose, adapted from ASD-STE100 Simplified
-Technical English. Applies to docs, READMEs, item bodies, design sections,
-foundation assertions, release summaries, changelogs, error messages, and
-comments. Does not apply to code, identifiers, command syntax, or quoted
-output. Not for marketing copy or essays — the style strips voice on purpose.
+Adapt durable prose to its intended readers, domain, purpose, and venue. This
+applies to docs, READMEs, item bodies, designs, foundations, release notes,
+error messages, and comments. Code nearby does not imply a developer-docs
+register, and software domains do not share one vocabulary or voice.
 
 ## Contents
 
-1. [Modes](#modes)
-2. [Rules](#rules)
-3. [Self-lint](#self-lint)
-4. [Limits](#limits)
+- Choose language from context
+- Reference work by name
+- Keep meaning accessible
+- Reader check
 
-## Modes
+## Choose language from context
 
-- **Flavored (default)** — general prose such as docs, item bodies, design
-  sections, and release summaries. Apply the sentence, paragraph, and
-  active-voice discipline. Relax the fixed dictionary so the text keeps enough
-  range to read naturally.
-- **Strict** — procedures, runbooks, safety text, and error messages. Apply
-  every rule and both length caps.
+Use the user's direction and applicable project style guide first. Otherwise
+infer the audience and purpose from the request and existing material. Ask only
+when an unresolved audience or tone choice would materially change the result.
+Do not introduce a style interview for every ordinary edit.
 
-## Rules
+- Choose terminology, explanation depth, tone, rhythm, and examples for these
+  readers. Legibility means they can understand and use the text, not that every
+  reader in every field would find every word familiar.
+- Preserve precise domain terms and meaningful distinctions. Game-engine
+  developers may expect scenes, nodes, shaders, or frame budgets; web developers
+  may expect routes and requests; creative writers may discuss viewpoint and
+  narrative beats. Use the subject's vocabulary, not generic software substitutes.
+- Distinguish audiences within a domain. Clinical guidance for clinicians can
+  use established medical terminology; patient instructions need explanations
+  suited to patients without losing clinical meaning.
+- Match voice to purpose: a game devlog, a writing guide, an engine reference,
+  and a medical procedure need not sound alike. Warmth, metaphor, specialist
+  language, and creative voice are valid when they serve the reader.
+- Use controlled language or a strict procedural style when an actual audience,
+  task, or applicable standard calls for it, not because a document mentions code
+  or safety. Preserve required terminology and exact operational instructions.
+
+## Reference work by name
+
+Tracked work — items, epics, stories, features, backlog entries, delivery
+units, campaign targets — carries a name, and references keep that name
+visible. Violated, the reader cannot resolve "units 2 and 3" or "F3" without
+opening the ledger, and a summary written for one transcript misleads every
+later one.
+
+- Give new work a domain-native name at authoring time: game mechanics and
+  world terms, engine vocabulary, or the framework's own concepts — not
+  generic labels such as "feature 3" or "the refactor". The item's Markdown
+  title is its name for every future reference.
+- Pair a number or letter code with its name on first mention in conversation,
+  reports, summaries, and commit messages: "unit 2 (causal-order checkpoint)",
+  "c009 — ore-driven mine workings". Later mentions within the same exchange
+  may shorten to the name alone.
+- Restate the name when an ordinal recurs across item or section boundaries;
+  "Unit 2" alone is ambiguous when several items each carry a unit 2.
+- Restate what the work is when the transcript does not already carry it; a
+  summary after a gap names the outcome, not just its status.
+- Exempt from pairing: machine fields (frontmatter ids, `parent`,
+  `blocked_by`, attachment paths), dense intra-item tables, and existing
+  commit history. Tool-emitted labels such as profiler codes pair with their
+  meaning when narrated.
+
+## Keep meaning accessible
+
+Prefer clear relationships, concrete examples, and purposeful sentences. Use
+active voice when the actor matters; passive voice can be appropriate when the
+process or recipient matters more. Sentence length, contractions, punctuation,
+spelling convention, and figurative language follow context rather than universal
+bans or word-count caps. Remove empty hype and needless complexity, not voice.
 
 ### Document integrity
 
@@ -37,6 +82,25 @@ output. Not for marketing copy or essays — the style strips voice on purpose.
   process prose when it adds material value for future implementation, review,
   or operation. Discourage it otherwise. Prefer the resolved decision,
   constraint, or risk over its history.
+
+### Authority in retained summaries
+
+Use these terms when an item contains summaries or orientation prose whose
+authority could otherwise be ambiguous:
+
+- **Current** governs present work or status.
+- **Reference-only** retains context but does not govern status, decisions, or
+  remaining work. A reference-only summary contains no mutable pending or current
+  status and points readers to the authoritative current decision or remaining-work
+  section.
+- **Settled** is accepted and remains authoritative.
+- **Superseded** has been replaced and is no longer accurate; normally remove or
+  rewrite it instead of retaining it as orientation.
+
+Use `reference-only` as the primary label. Do not substitute `archival`,
+`historic`, or `preserved`: those words can imply unrelated lifecycle or authority
+semantics. Express the distinction in ordinary prose, not frontmatter, item state,
+queue state, or validator schema.
 
 ### Concept grounding
 
@@ -60,60 +124,35 @@ output. Not for marketing copy or essays — the style strips voice on purpose.
   audience. Assume ordinary knowledge and avoid turning the document into a
   dictionary.
 
-### Words
+### Failure-mode rationale
 
-- Use one name for one thing. Do not call the same item by two names.
-- Use the short common word: start (not begin, commence, or initiate), use
-  (not utilize or leverage), help (not facilitate), make sure (not ensure),
-  before (not prior to), after (not subsequent to), about (not regarding),
-  get (not obtain or acquire), show (not demonstrate), also (not additionally,
-  furthermore, or moreover).
-- Give each word one meaning.
-- No marketing adjectives: seamless, robust, powerful, cutting-edge,
-  effortless, world-class, next-generation, revolutionary.
-- American spelling.
+A prohibition or boundary assertion at foundation altitude names the failure it
+prevents, in the same sentence or the next. Name the mechanism of harm, not the
+value upheld: "do not X: violated, Y happens," not "do not X, because
+correctness matters." A rule tied to a failure extrapolates to cases the
+document did not enumerate. A rule tied to a value covers only the cases it
+lists.
 
-### Verbs
+- Append the rationale. Do not double the passage's length.
+- The failure names a visible victim: a user-visible behavior, a cost someone
+  pays, a decision corrupted, or a recovery path lost. "It becomes messy" is
+  not a failure mode.
+- Apply to prohibitions ("do not", "never", "must not"), boundary and
+  ownership assertions, and stated non-goals. Descriptive prose does not need
+  one.
+- Enforcement is review-time judgment. A mechanical check cannot distinguish a
+  mechanism from a platitude.
 
-- Active voice. Write "the parser reads the file", not "the file is read by
-  the parser".
-- Use a verb for an action. Write "analyze the log", not "perform an analysis
-  of the log".
-- No stacked auxiliaries. Not "it is important to note that this may help to
-  improve". Write "this improves X".
-- No "-ing" main verb where a simple tense works.
+## Reader check
 
-### Sentences
+Before finishing, read as the intended audience:
 
-- One instruction per sentence. Max 20 words for an instruction, 25 for a
-  descriptive sentence.
-- No contractions. Use articles: a, an, the, this, these.
+1. Does the vocabulary belong to their domain, with unfamiliar essential terms
+   explained where needed and familiar ones left unencumbered?
+2. Do the voice, examples, and level of detail fit their purpose and venue?
+3. Can they follow the meaning or act correctly without hidden project context?
+4. Did simplification lose precision, required language, or the author's voice?
+5. Are facts, commands, identifiers, and quoted output still accurate?
 
-### Punctuation
-
-- No semicolons. Write two sentences.
-
-### Structure
-
-- One topic per paragraph, max six sentences.
-- For steps, use a numbered vertical list. One action per item, imperative
-  form.
-- Put a condition before its command.
-
-## Self-lint
-
-Run before finishing the text:
-
-1. Any sentence over 20 words? Split it.
-2. Any semicolon? Replace it with a period.
-3. Any contraction? Expand it.
-4. Any passive voice with a known actor? Make it active.
-5. Any "-ing" main verb, nominalization ("perform an analysis"), or phrasal
-   verb ("spin up")? Replace it with a plain verb.
-6. Same thing named two ways? Pick one name.
-
-## Limits
-
-The mechanical rules fix the form of slop. They cannot make a hollow paragraph
-true. Choosing the right technical noun, and judging whether a sentence makes
-good sense, stays human work.
+Clarity is judged by reader understanding, not conformity to a single technical
+English style.

@@ -8,7 +8,8 @@ fewer defects in each.
 
 - **material**: a reader would be misled, blocked, or lose trust. In
   `prose-refine`, material-class rewrites keep the loop going.
-- **polish**: an improvement a reader wouldn't notice missing. Never blocks
+- **polish**: a worthwhile but nonblocking improvement — fixing it makes
+  the document better; not fixing it misleads no one. Never blocks
   convergence.
 
 Standard weight uses lenses 1–4 (audience, structure, clarity, accuracy).
@@ -28,30 +29,51 @@ Thorough weight uses all six.
 *Persona: the actual target reader, armed with only the knowledge the brief
 grants them.*
 
+- Hold the reader model explicitly: you know only what the brief grants
+  plus what the draft itself establishes. Reread as that reader, not as
+  yourself — the curse of knowledge hides exactly the gaps this lens exists
+  to find.
+- If the brief's confirmed audience looks wrong for the document that
+  actually got written, that mismatch is itself a finding — do not judge
+  against an audience the doc no longer serves.
 - Does the draft assume knowledge the audience doesn't have (undisclosed
   prerequisites)?
 - Is every piece of jargon defined on first use, or safe for this audience?
-- Does each load-bearing data object, domain model, interface, or object group
-  first say what it represents in the real world and why it matters?
-- Where provider vocabulary appears, does the document map provider terms
-  through project concepts to generic real-world terms before field details?
-- When relationships remain abstract, does a short real-world scenario establish
-  the mental model before diagrams or schemas?
-- Can the reader find their next action within the first screen?
+- Does each concept the workflow depends on first say what it represents
+  in the reader's world and why it matters, before its details?
+- When relationships stay abstract, does a short concrete scenario
+  establish the mental model before diagrams or schemas?
+- Can the reader find their next action within the first screen? (For
+  documents an agent reads as context rather than on a screen, tier 1
+  means: at the top of the file, before any detail.)
 - Does the entry path work? Whatever leads a reader here, does the doc
   catch them?
 - Are examples drawn from the reader's world, not the author's?
 
 ## 2. Structure
 
-*Persona: a developmental editor.*
+*Persona: a developmental editor holding the reader path.*
 
+- Trace the draft against the carried reader path: every beat lands
+  somewhere, each beat answers a question earlier beats actually raised,
+  definitions precede uses, tier-1 payload sits on the first screen. No
+  carried plan? Derive the draft's actual beats first and judge that
+  derived path on the same terms — and say the path was derived.
+- Merge fidelity (only when source drafts exist as scratch, per
+  `prose-draft`'s parallel-drafts mode): read the sources, and flag any
+  essential content present in a source but dropped by the merge. A
+  dropped idea that existed only in one source is still a drop — the
+  merge had access to it. Severity: material.
 - Is the document one Diátaxis mode, or does it mix modes (a tutorial that
   drifts into reference)?
 - Does the opening state purpose and reader payoff before details?
+- Answered-before-asked: does detail arrive before the reader holds the
+  question it answers?
+- Used-before-defined: does any essential term carry weight before the
+  reader's model contains it?
 - Are sections ordered by reader need, not by the system's internals?
 - Can readers follow the document collection in its intended order without
-  waiting for a later page to define an earlier load-bearing concept?
+  waiting for a later page to define an earlier essential concept?
 - Do headings carry information (not "Overview", "Misc")?
 - Is anything the brief promised missing? Anything present the brief
   excluded?
@@ -61,11 +83,14 @@ grants them.*
 
 *Persona: a line editor with the style contract in hand.*
 
-- Active voice unless the actor is genuinely unknown or irrelevant.
-- Sentences short on average; any sentence over ~30 words earns its length
-  or splits.
-- Concrete verbs over nominalizations ("decide", not "make a decision").
-- One idea per paragraph; the paragraph's point is its first sentence.
+- Judge clarity for the intended readers, domain, purpose, and chosen style,
+  not against a generic technical-English baseline. Code does not imply a
+  web-developer audience.
+- Do voice, sentence rhythm, and paragraph shape help these readers follow the
+  meaning? Active voice, short sentences, and point-first paragraphs are useful
+  tools, not universal requirements.
+- Prefer concrete wording where it improves understanding without replacing
+  precise domain terms or flattening deliberate creative voice.
 - No hedging pile-ups, throat-clearing openings, or double negatives.
 - Contrastive corrections such as “X, not Y” add a necessary distinction
   instead of repeating a rhetorical pattern.
@@ -87,8 +112,24 @@ grants them.*
 
 *Persona: a tone editor.*
 
-- Register matches the venue. A README, a foundation doc, and a web article
-  do not sound alike.
+- Register matches the chosen style profile and its recorded deltas — not
+  an assumed default. If the brief carries no style profile, flag that gap
+  instead of judging against one.
+- Model-family voice: does the prose read like one model family's default
+  output? Check word choice against
+  `../../prose-refine/references/model-voice/` signatures and
+  `../../prose-refine/references/llm-tells.md`.
+  Final prose should read as the document's own voice — not as any single
+  model family.
+- Voice fusion (only when source drafts exist as scratch, per
+  `prose-draft`'s parallel-drafts mode): with the sources in hand, compare
+  side by side. Trace sentence provenance where you can, and hunt seams
+  at contribution boundaries — register shifts, rhythm breaks,
+  terminology wobble between merged segments; seam quality findings are
+  polish. The three fusion failures are material: one source family's
+  signatures dominate; both survive in patches; seams align with merge
+  boundaries. Success reads as a third voice — neither source really
+  appears anywhere.
 - No marketing-speak or hype adjectives: "seamless", "powerful", "blazing",
   "simply", "just".
 - Confidence without arrogance; limitations stated plainly, not buried.
@@ -101,10 +142,11 @@ grants them.*
 
 ## 6. Accessibility
 
-*Persona: a plain-language and inclusion reviewer.*
+*Persona: an accessibility and inclusion reviewer for the intended audience.*
 
-- Reading level appropriate; long words only where precision requires them.
-- Idioms, culture-bound references, and wordplay don't carry load-bearing
+- Reading level and terminology suit these readers. Explain unfamiliar essential
+  language without treating specialist vocabulary or expressive prose as defects.
+- Idioms, culture-bound references, and wordplay don't carry essential
   meaning. The text survives translation.
 - Inclusive language: avoid ableist terms and gendered defaults.
 - Formatting aids meaning but never substitutes for it (nothing conveyed by
@@ -121,3 +163,8 @@ One finding per line:
 ```
 [material|polish] lens-name — §section or "quoted anchor": issue → suggested fix
 ```
+
+For a defect that spans several documents (a shared convention, a
+repeated cross-reference error), file one finding anchored to the
+convention and list the affected paths in it, rather than one finding per
+document.

@@ -1,205 +1,224 @@
 ---
 name: work
-description: Scope, clarify, build or evaluate a prototype, implement, fix, refactor, simplify, clean up, review, audit, continue, finish one epic, drive several epics to done, or complete ready work inside a named delivery boundary. Use in repositories that have adopted Workbench or may need to adopt it. Offer setup rather than acting when Workbench is absent or another workflow owns the repository. Gather consequential human requirements, route substantial design through design, coordinate execution, park out-of-scope findings, verify at the configured review weight, reconcile project truth, and continue until complete or genuinely blocked.
+description: >
+  Scope, implement, fix, simplify, groom, review, continue, or finish a concrete Workbench outcome,
+  from one change through several epics. Use only when .work/CONVENTIONS.md declares owner:
+  workbench. Own the continuous conversation, gather consequential requirements, draw on design
+  and delivery guidance when useful, and continue through verification and closure. Keep unrelated
+  requests outside Workbench and write-free exploration in ideate.
 ---
 
 # Work
 
-Carry the user's natural-language boundary to its requested finish line. Never
-require them to choose a phase, worker topology, or workflow skill.
+Carry the user's natural-language outcome to its requested finish line. Keep one
+continuous conversation and one outcome owner. Skills supply capabilities, not
+stages the user or agent must repeatedly enter and leave.
 
-## Routing sketch
+Epics coordinate and always have feature children. Features may stand alone;
+stories may also stand alone for small bugs or small items. Split large features
+into child stories during design, implementation, or review follow-up; keep work in
+those children, not one parent file. Completion cleanup is mandatory: summarize
+or discard per conventions and remove completed active files and attachments.
+See [lifecycle](references/lifecycle.md) for the full rules.
+
+## Start from current truth
+
+Confirm that an upward-found `.work/CONVENTIONS.md` declares `owner: workbench`.
+Otherwise handle the request without Workbench. Do not offer setup unless the
+user asks to adopt or initialize it.
+
+Read conventions, project instructions, relevant items, foundations, and affected
+code. Use `.knowledge/index.json` when present to discover relevant truth, not
+as a reason to read every indexed document. Root foundations own repository-wide
+truth; scope-owned foundations live at the repository's established location.
+
+Load guidance once while it remains available and unchanged in this context.
+A skill invocation is not a fresh session: carry forward scope, decisions,
+postures, and evidence without another activation or readiness ceremony.
+Fresh contexts load their own governing guidance. On resume, reconcile current
+items, Git, and affected code rather than trusting stale progress claims.
+
+## Keep the ordinary path continuous
+
+For a clear request:
+
+1. Settle the outcome, meaningful exclusions, and observable acceptance evidence.
+2. Create or reuse the smallest useful item, normally one feature.
+3. Resolve local choices and implement using [deliver](../deliver/SKILL.md).
+4. Verify behavior, reconcile affected truth, and review the coherent result.
+5. Close completed work and report the result in chat.
 
 ```mermaid
 flowchart TD
-    A["Natural-language outcome"] --> B["Inspect scope and repository truth"]
-    B --> C{"Scope coherent?"}
-    C -- "No, or coupled human decisions" --> D["Ideate"]
-    D --> E["User-selected handoff"]
-    C -- "Yes" --> F["Assess each item's design readiness"]
-    E --> F
-    F --> G{"Can evidence and brief reasoning settle the shape?"}
-    G -- "Yes" --> H["Execute directly or orchestrate units"]
-    G -- "No" --> I["Formal design; prefer a dedicated design agent"]
-    I --> J["Review at configured weight; prefer cross-model"]
-    J --> H
-    H --> K["Integrate, verify, review, reconcile, and close"]
+    A["Natural-language outcome"] --> B{"Outcome or scope still unformed?"}
+    B -- yes --> C["ideate, write-free"]
+    C --> D["Settle requirements; create or reuse the smallest item"]
+    B -- no --> D
+    D --> E{"Consequential implementation choice?"}
+    E -- yes --> F["design: author the decisions in the item"]
+    F --> G["deliver: implement and verify"]
+    E -- no --> G
+    G --> H["Integrate, review at the aligned boundary, reconcile truth"]
+    H --> I{"Requested boundary complete?"}
+    I -- no --> D
+    I -- yes --> J["Close items and report in chat"]
 ```
 
-Unless an instruction names a repository path or artifact, communicate with the
-user in the current conversation, including questions, offers, proposals,
-recommendations, explanations, summaries, and reports. Do not create report
-files or durable no-op records unless the user requests them.
+Read delivery guidance when implementation starts, then apply it across ready
+units without reloading or reenacting a handoff. For one item, its owner carries
+the whole path. For several items, retain wider integration and acceptance here.
+Do not repeat checks or review already satisfied at the right boundary.
+Apply [review boundaries](references/review-boundaries.md): align optional design
+review once for the run and choose adaptive implementation review checkpoints.
+Several features or deliveries may share one review-and-fix pass while each unit
+receives prompt verification. Keep pending review visible until closure.
 
-Read `.work/CONVENTIONS.md`, relevant work items, project instructions,
-foundation documents, `.knowledge/index.json` when present, and affected code
-before structural decisions. If the substrate is absent or owned by another
-system, stop and offer `setup`; do not invoke destructive conversion without
-the user's explicit choice.
+Choose contexts with [sub-agents](references/sub-agents.md#when-to-use-another-agent).
+Unstated execution preference means inline-first, not automatic orchestration.
+Respect explicit role assignments and plan-only topology requests; task size
+alone does not authorize delegation.
 
-Route through `ideate` when the intended outcome, ownership boundary, or basic
-success shape is too ambiguous to form coherent work. Also route there when an
-apparently clear request still depends on several coupled product, domain, or
-business decisions whose answers materially reshape one another or the scope.
-Do not create or reshape work items while ideating; resume `work` only after the
-user explicitly selects a Workbench handoff.
+## Resolve authority and uncertainty
 
-Load references only as needed:
+Read [autonomy](references/autonomy.md) to resolve decision authority from the
+request and conventions. Autonomy never expands scope, quality obligations,
+permissions, or authority over production, real data, irreversible, or external
+actions. Keep narrow requests narrow. Foundation aspirations are not new work.
 
-- every substantive request and continuation boundary →
-  [references/autonomy.md](references/autonomy.md);
-- requirements or consequential ambiguity →
-  [references/requirements.md](references/requirements.md);
-- item creation, relationships, blocking, completion, or summaries →
-  [references/lifecycle.md](references/lifecycle.md);
-- multi-unit or multi-epic execution →
-  [references/execution.md](references/execution.md);
-- nontrivial UI or journey uncertainty →
-  [references/ui-ux.md](references/ui-ux.md);
-- substantial implementation, refactoring, or recurrence →
-  [references/maintenance.md](references/maintenance.md);
-- implementation completion or review →
-  [references/verification.md](references/verification.md) and
-  [references/review.md](references/review.md);
-- durable project truth, foundation changes, or implementation completion →
-  [references/foundation-truth.md](references/foundation-truth.md);
-- durable prose in items, design sections, foundation docs, or release
-  summaries →
-  [references/writing-style.md](references/writing-style.md).
+Learn discoverable facts before asking the human. Use
+[requirements](references/requirements.md) for consequential ambiguity. Ask only
+for unsettled product direction, supported behavior, or consequential trade-offs
+that the user must decide. Do not ask again merely to enter another capability.
+Missing question tooling is not consent to guess.
 
-When substantive external investigation is necessary, use an available
-`research` skill. If none is available, explain the degraded mode and limit
-current-source lookup to conversational support. Do not create an ungrounded
-project note.
+During stateful work, a directly confirmed, evidence-backed calibration refinement
+may replace stale conventions prose. Loose requests only propose that edit unless
+the user explicitly authorizes it. Do not turn one incident into a standing rule.
 
-## Resolve the requested boundary
+Use [ideate](../ideate/SKILL.md) when the outcome cannot yet form coherent work,
+or valuable early exploration could materially reshape a substantial initiative.
+Skip that preflight for established mechanical work or explicit direct execution.
+Ideation remains write-free until a handoff is selected. For an existing end-to-end
+request, resolve bounded implementation uncertainty here rather than restarting
+exploration or asking for permission already granted.
 
-Read [references/autonomy.md](references/autonomy.md) and resolve the effective
-autonomy posture before deciding when to ask, act, or continue. Autonomy does
-not broaden the requested boundary or authorize production, real-data,
-irreversible, or external actions.
+Before implementation becomes costly to reverse, assess the unresolved choices:
 
-Keep narrow requests narrow. Treat “finish,” “drive to done,” and “handle end
-to end” as instructions to reach the requested finish line.
+- **Local implementation detail:** decide, verify, and continue.
+- **Changed technical assumption inside scope:** update the affected decision,
+  inspect its dependent contracts, and revise only the necessary work and checks.
+- **Consequential implementation shape:** use [design](../design/SKILL.md) for
+  discovery, alternatives, and any review selected for the run. Keep the same owner and
+  accepted context. Revisit the affected decision, not the whole design.
+- **Missing product requirement or changed authority:** ask about that commitment.
+  Continue independent authorized work when possible.
 
-A request to review, audit, explain, or diagnose remains read-only. Report the
-result in the current conversation and change nothing unless the user also asks
-for a change.
+An item's existence is not proof of design readiness. Conversely, a changed
+technical detail does not invalidate every settled decision. Report discoveries
+and consequences, not workflow transitions. A direct design or review request
+stops at that requested boundary; an end-to-end request continues through it.
 
-For an epic, include required children and integration. For several epics,
-resolve the complete named target set. For a delivery outcome, discover
-necessary work inside that boundary without silently draining unrelated queues.
-If the boundary is unclear, ask which items are in scope. A multi-epic request
-does not require a synthetic program item.
+## Keep durable work small
 
-Keep clarification inside `work` when the outcome is clear and only a small
-number of mostly local consequential requirements remain. Large or multi-epic
-work stays in `work` when it is already coherent. Use `ideate` when selecting
-the outcome or boundary requires collaborative exploration, or when competing
-directions or several coupled human-owned decisions materially reshape one
-another or the scope.
+Read [lifecycle](references/lifecycle.md) when creating, relating, blocking, or
+closing items. Temporary agent assignments do not become ledger items.
 
-## Gather requirements from the human
+Record the outcome, scope, acceptance evidence, and useful continuation context.
+The work item is the contract between design, review, and implementation. The
+assigned designer authors and revises its design directly. The outcome owner
+adjudicates scope and readiness, not a second design handoff. Before dependent
+implementation, check that accepted decisions and design corrections are in the
+item. Design-agent returns and onward dispatch pass item and attachment references
+plus brief supplementary details, not the full design or a reconstruction of it.
+The receiving agent reads the recorded contract directly.
+Use optional [design attachments](references/design-attachments.md) only when detailed
+specifications reduce ambiguity. They remain part of the item's contract.
+Omit empty optional metadata and unused sections. Add design, dependencies, or
+coordination detail only when the work needs them. Do not reformat existing items
+merely to make them shorter. Replace superseded decisions instead of keeping a
+conversation transcript.
 
-Learn discoverable facts from the repository and current sources. Gather human
-input for product direction, preferences, supported behavior, consequential
-trade-offs, or other choices only the user can settle. In collaborative work,
-surface ideal states and meaningful alternatives. In adaptive work, ask only
-when the answer materially affects the outcome. In autonomous work, treat
-settled request language and prior answers as requirements, but still pause for
-missing human-only direction. Never treat missing structured-question tooling
-as permission to guess or continue.
+Use `blocked_by` only for a real prerequisite or when serial work materially
+reduces rework, ambiguity, or integration risk. Independent work stays edge-free.
+Parentage and shared files do not themselves impose order.
 
-Record accepted outcomes, constraints, exclusions, and acceptance evidence in
-the relevant active item without manufacturing a large template.
+A cleanup or refactor is ordinary bounded work; behavior changes need explicit
+requirements. A prototype uses the `prototype` tag and records its question, representative
+surface, evidence, and disposition. Carry useful learning to its owning truth,
+remove code marked for discard, and treat revision or adoption as a next outcome.
 
-## Shape durable work
+## Coordinate only what needs coordination
 
-Use one active item for one coherent outcome. Create hierarchy only when
-independent status or cross-session relationships matter. Temporary agent units
-belong in an execution approach, not automatically in `.work/active/`.
+For multi-unit work, read [execution](references/execution.md) and
+[sub-agents](references/sub-agents.md). The outcome owner retains integration,
+acceptance, shared surfaces, and parent closure even when every unit runs inline.
+Delegate only independent work with clear ownership and an integration contract.
+Inspect returned changes and evidence; a worker's completion claim is not acceptance.
 
-Use `blocked_by` only when work would otherwise be invalid. Use `related_to` for
-useful context. A blocked item must name the concrete condition that unblocks
-it.
+Use [delivery topology](references/delivery-topology.md) when continuation or
+integration complexity needs durable coordination. Prefer an existing owning item
+rather than a wrapper. Update the approach when facts change, and keep unrelated
+ready work moving when one unit stalls.
 
-A standalone cleanup, simplification, or refactor is normal Workbench work when
-it has a coherent boundary and observable completion evidence. Use tags such as
-`cleanup` or `refactor`; do not add another item kind. Split independent
-subsystems only when their status or verification can meaningfully diverge.
+Agree models with the user before using several sub-agents, and sub-agents never
+spawn sub-agents ([sub-agents](references/sub-agents.md)).
+Follow [delivery's assignment and follow-up guidance](../deliver/SKILL.md#choose-implementation-and-follow-up),
+using [model notes](references/model-notes.md) for qualified local evidence. The outcome
+owner observes meaningful returns and prunes useful repository notes at integration,
+handoff, and completion. Notes inform proposals; they never grant model approval.
+Respect aligned resources and explicit preferences. Routine assignments within
+that agreement do not require repeated permission. New consequential commitments
+still do. Use [Git posture](references/git-posture.md) for commit boundaries.
 
-A prototype is normal Workbench work when its coherent outcome is learning.
-Record the decision or assumption it tests, the smallest representative surface,
-the evidence needed, and the expected disposition: discard, revise, or adopt.
-Tag it `prototype`; do not add another item kind or present exploratory output as
-production-ready behavior. Before closing, record what the prototype established
-and its disposition. Carry material learning into the foundation or active item
-whose future direction it changes. Remove prototype code marked for discard;
-revising or adopting it requires an explicit next outcome.
+## Finish the accepted boundary
 
-## Execute to the requested finish line
+Apply [deliver](../deliver/SKILL.md)'s verification, reconciliation, review, and
+closure rules. Features and standalone stories may share an integrated review
+checkpoint. Keep them active until their selected review and acceptance are
+satisfied. Nested stories return verified slice evidence to their feature.
+Review wider integration only for substantive behavior not already covered.
+Returning to the owner does not create another review budget.
 
-Order work from real prerequisites. For a multi-unit boundary, act as the
-outcome owner and orchestrator; for small coherent work, execute directly when
-delegation would add no value.
+Required cohesive cleanup remains in scope. Follow
+[maintenance](references/maintenance.md) when stale entries or pattern candidates
+arise. At an integration checkpoint, typically an epic or multi-feature review,
+run its catalog pass when candidates meet the bar, and list the catalog changes
+in the completion reply. Optional
+cleanup beyond the boundary requires a selected outcome and never delays closure.
+Orchestrated deliverers report shared pattern implications instead of editing
+the shared catalog.
 
-Before implementing or delegating each feature, story, or other coherent unit,
-read its current scope and assess design readiness against the repository. An
-item's existence, acceptance criteria, or place in an epic does not mean its
-implementation shape has been designed. Keep design inline when repository
-evidence and brief reasoning can confidently resolve local, reversible choices.
-Route through Workbench's `design` skill when meaningful discovery,
-alternatives, boundary definition, or adjudication must be settled first, and
-complete its required review before delegation or implementation. Do not use a
-size label alone as the gate. A direct user request to design stops after design,
-while an end-to-end delivery request resumes implementation afterward.
+Own ledger hygiene and close eligible items at each integration checkpoint under
+the [completion sweep](references/lifecycle.md#completion-sweep), including stale
+records encountered along the way. Continue until the full requested boundary is
+complete or a concrete external blocker prevents meaningful progress. Before
+interruption, preserve settled decisions, useful evidence, next actions, and
+blockers in the affected item. Reconcile them against the repository on resume.
 
-Research only to the depth needed. Parallelize only genuinely independent units
-with clear ownership and integration points.
+Before handing back, apply the [commit floor](references/git-posture.md#commit-before-handing-back),
+including continuation state or final cleanup. Report outcomes, meaningful decisions,
+verification, limitations, closure, and selected follow-ups in chat. Do not create report files or no-op records unless
+the user requests them. Keep questions, proposals, and progress out of foundations.
 
-Inspect actual changes and returned evidence. The orchestrating agent owns
-integration, acceptance, and the full requested scope. Do not stop because one
-child finished, implementation ended before review, a worker returned, or a
-former stage boundary was reached.
+## Draw on focused guidance
 
-Pause when discovered work materially exceeds the requested boundary, requires
-a new epic-sized outcome, or reaches an irreversible, production, or real-data
-action. Use `park` to capture useful findings outside the current scope with
-evidence instead of expanding silently.
+Load these only when relevant, reusing unchanged guidance already in context:
 
-Continue until every item in the requested boundary is complete or a concrete
-external blocker prevents meaningful progress.
+- runner choice, model proposals, and handoffs → [sub-agents](references/sub-agents.md);
+- any design, implementation, or Workbench review →
+  [simplification](references/simplification.md), including project calibration;
+- code shape, readability, or decomposition → [code craft](../code-craft/SKILL.md);
+- verification and review → [verification](references/verification.md) and
+  [review](references/review.md);
+- durable project truth → [foundation truth](references/foundation-truth.md);
+- durable prose → [writing style](references/writing-style.md);
+- backlog organization → [backlog grooming](references/backlog-grooming.md);
+- UI or journey uncertainty → [UI/UX](references/ui-ux.md);
+- opportunities without remediation → [scan](../scan/SKILL.md);
+- useful out-of-scope findings selected for retention → [park](../park/SKILL.md);
+- substantive external evidence → an available `research` skill. Without one,
+  disclose the limitation and keep ordinary source lookup conversational.
 
-## Verify, review, and close
-
-Verify behavior at stable interfaces, run required project checks, and exercise
-meaningful user journeys. Read [references/review.md](references/review.md),
-resolve the effective `review_weight`, and apply its implementation-review
-policy. An explicit user request overrides the repository default. Verify and
-adjudicate reviewer findings rather than accepting them blindly.
-
-Read [references/foundation-truth.md](references/foundation-truth.md).
-Reconcile affected foundation assertions against the integrated result before
-completion, rebuild `.knowledge/index.json` when indexed documentation changed,
-and include relevant reconciliation evidence in the user-facing completion
-reply. Close every completed item immediately:
-
-- `completed_items: summarize` → replace it with a compact completed stub;
-- `completed_items: discard` → remove it.
-
-Before closing, remove the completed id from remaining `blocked_by` and
-`related_to` lists; a parent cannot close while active children remain. Run
-`validate-workbench.py` after creating, reshaping, or closing ledger items.
-Resolve it from the loaded Workbench plugin package using setup's
-identity-verification rule; stop rather than guessing among ambiguous
-installations. Never leave completed items active.
-
-Before interruption, handoff, or context loss, update affected items with
-settled requirements, completed outcomes, current evidence, next actions, and
-blockers. On resume, reconcile that state against Git and code before acting.
-
-Reply to the user in the current conversation with a concise completion summary:
-completed outcomes, meaningful decisions, verification, closure disposition,
-blockers, and intentionally parked follow-ups. This reply is chat prose, not a
-repository artifact. Do not create a completion-report file or add reporting
-sections to work items or foundation documents unless the user requests them.
+Loose reviews and explanations stay read-only unless change is requested. Apply
+project calibration without ledger, review-weight, formal packet, or closure
+mechanics. Do not turn an adjacent idea into an acceptance requirement.

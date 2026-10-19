@@ -48,7 +48,7 @@
     {
       "name": "workbench",
       "source": "./plugins/workbench",
-      "description": "Requirements-first delivery with semantic autonomy, lens-driven design, weighted review, and externally grounded research.",
+      "description": "Requirements-first delivery with adaptive opportunity scanning, optional release gates, weighted review, and grounded research.",
       "category": "productivity",
       "policy": {
         "installation": "AVAILABLE",
@@ -58,7 +58,7 @@
     {
       "name": "ux-ui-design",
       "source": "./plugins/ux-ui-design",
-      "description": "HTML/CSS/JS mockup-first UI/UX design. Generate multi-option screen mockups, multi-page user flows, and design-system palettes as throwaway single-file mockups in .mockups/ for alignment before implementation. Loosely integrates with agile-workflow.",
+      "description": "Adaptive, interview-first UI/UX design. A concierge skill that aligns on goals, audience, usage, and visual direction through plain-language conversation, then produces whatever fits — mockups, journeys, token systems, component and motion showcases — capturing screenshots of its work as the committed visual record. Loosely integrates with agile-workflow.",
       "category": "productivity",
       "policy": {
         "installation": "AVAILABLE",
@@ -104,7 +104,7 @@
       },
       "description": "Control a local Chromium browser and inspect transient behavior with source-linked temporal visual evidence.",
       "category": "developer-tools",
-      "version": "1.6.2",
+      "version": "1.6.3",
       "tags": [
         "browser",
         "cdp",
@@ -124,10 +124,10 @@
         "url": "https://github.com/nklisch/peeragent",
         "path": "plugin"
       },
-      "description": "Delegate arbitrary task work between local coding agents — any host (Claude Code, Codex, or Pi) can call any peer (Codex, Claude Code, Gemini through Antigravity, or Z.AI GLM 5.2 through Pi). Ships the peer and peer-review skills.",
+      "description": "Delegate arbitrary task work between local coding agents — any host (Claude Code, Codex, or Pi) can call any peer (Codex, Claude Code, Gemini through Antigravity, or Z.AI GLM 5.2 through Pi). Ships the peer skill.",
       "category": "productivity",
       "tags": [
-        "peer-review",
+        "peer",
         "delegation",
         "codex",
         "gemini",

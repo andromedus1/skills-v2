@@ -20,7 +20,20 @@ def write(path: Path, content: str) -> None:
 
 class ResearchToolsTests(unittest.TestCase):
     def make_project(self) -> Path:
-        root = Path(tempfile.mkdtemp())
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        write(
+            root / ".research/CONVENTIONS.md",
+            """---
+owner: workbench-research
+schema: 1
+verification_rigor: adaptive
+---
+
+# Research Conventions
+""",
+        )
         write(root / ".research/attestations/.gitkeep", "")
         write(root / ".research/briefs/.gitkeep", "")
         write(
@@ -110,7 +123,7 @@ relationships: []
         payload = json.loads((root / ".knowledge/index.json").read_text(encoding="utf-8"))
         self.assertEqual(payload["schema"], 1)
         self.assertNotIn("generated_at", payload)
-        self.assertEqual(len(payload["entries"]), 4)
+        self.assertEqual(len(payload["entries"]), 5)
         architecture = next(
             entry for entry in payload["entries"] if entry["id"] == "architecture"
         )
@@ -128,6 +141,126 @@ relationships: []
         check = self.run_tool(INDEX, root, "--check")
         self.assertEqual(check.returncode, 0, check.stdout + check.stderr)
 
+    def test_generated_files_keep_lf_newlines_on_every_platform(self) -> None:
+        root = self.make_project()
+        index = self.run_tool(INDEX, root)
+        self.assertEqual(index.returncode, 0, index.stdout + index.stderr)
+        for relative in (".knowledge/index.json", ".research/bibliography.yaml"):
+            raw = (root / relative).read_bytes()
+            self.assertNotIn(b"\r", raw, f"{relative} must not contain CR bytes")
+
+    def test_work_items_are_excluded_and_old_entries_are_stripped(self) -> None:
+        root = self.make_project()
+        item_paths = [
+            ".work/active/empty-search.md",
+            ".work/backlog/next-search.md",
+            ".work/completed/old-search.md",
+        ]
+        for relative in item_paths:
+            write(root / relative, "# Search work item\n")
+        write(root / ".work/CONVENTIONS.md", "# Work conventions\n")
+        write(root / ".work/releases/search.md", "# Search release\n")
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        index_path = root / ".knowledge/index.json"
+        baseline = index_path.read_bytes()
+        payload = json.loads(baseline)
+        paths = {entry["path"] for entry in payload["entries"]}
+        self.assertTrue(set(item_paths).isdisjoint(paths))
+        self.assertIn(".work/CONVENTIONS.md", paths)
+        self.assertIn(".work/releases/search.md", paths)
+
+        payload["entries"].extend(
+            {"path": relative, "namespace": "work", "kind": "work-item"}
+            for relative in item_paths
+        )
+        index_path.write_text(json.dumps(payload), encoding="utf-8")
+        check = self.run_tool(INDEX, root, "--check")
+        self.assertEqual(check.returncode, 1)
+        self.assertIn("missing or stale", check.stdout)
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(index_path.read_bytes(), baseline)
+        for relative in item_paths:
+            write(root / relative, "# Changed work item\n")
+        check = self.run_tool(INDEX, root, "--check")
+        self.assertEqual(check.returncode, 0, check.stdout + check.stderr)
+
+    def test_design_attachment_is_indexed_as_temporary_design_not_an_item(self) -> None:
+        root = self.make_project()
+        relative = ".work/attachments/example/contract.md"
+        attachment = root / relative
+        write(attachment, "# Sync contract\n\nDelete when its owning item completes.\n")
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        index_path = root / ".knowledge/index.json"
+        entry = next(
+            entry for entry in json.loads(index_path.read_text())["entries"]
+            if entry["path"] == relative
+        )
+        self.assertEqual(entry["namespace"], "work")
+        self.assertEqual(entry["kind"], "design-attachment")
+        self.assertEqual(entry["id"], "attachments/example/contract")
+        attachment.unlink()
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertNotIn(
+            relative,
+            [entry["path"] for entry in json.loads(index_path.read_text())["entries"]],
+        )
+        self.assertEqual(self.run_tool(INDEX, root, "--check").returncode, 0)
+
+    def test_model_notes_do_not_enter_or_stale_the_knowledge_index(self) -> None:
+        root = self.make_project()
+        # Only the advisory scratch file is excluded outside the work-item trees.
+        write(root / "docs/MODEL-NOTES.md", "# Model interface documentation\n")
+        write(root / ".work/backlog/MODEL-NOTES.md", "# An ordinary backlog entry\n")
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        index_path = root / ".knowledge/index.json"
+        baseline = index_path.read_bytes()
+        paths = {entry["path"] for entry in json.loads(baseline)["entries"]}
+        self.assertIn("docs/MODEL-NOTES.md", paths)
+        self.assertNotIn(".work/backlog/MODEL-NOTES.md", paths)
+
+        notes = root / ".work/MODEL-NOTES.md"
+        for content in (
+            "# Model notes\n\n## Recent observations\n\nTentative local evidence.\n",
+            "# Model notes\n\n## Working guidance\n\nA distilled lesson.\n",
+        ):
+            write(notes, content)
+            check = self.run_tool(INDEX, root, "--check")
+            self.assertEqual(check.returncode, 0, check.stdout + check.stderr)
+            result = self.run_tool(INDEX, root)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertEqual(index_path.read_bytes(), baseline)
+        notes.unlink()
+        check = self.run_tool(INDEX, root, "--check")
+        self.assertEqual(check.returncode, 0, check.stdout + check.stderr)
+
+    def test_model_notes_cannot_be_durable_relationship_targets(self) -> None:
+        root = self.make_project()
+        write(root / ".work/MODEL-NOTES.md", "# Model notes\n")
+        path = root / "docs/ARCHITECTURE.md"
+        write(path, path.read_text().replace(
+            ".research/briefs/example.md", ".work/MODEL-NOTES.md"
+        ))
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("unresolved relationship target .work/MODEL-NOTES.md", result.stdout)
+
+    def test_work_items_cannot_be_knowledge_relationship_targets(self) -> None:
+        root = self.make_project()
+        relative = ".work/active/search.md"
+        write(root / relative, "# Search work item\n")
+        path = root / "docs/ARCHITECTURE.md"
+        write(path, path.read_text().replace(
+            ".research/briefs/example.md", relative
+        ))
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn(f"unresolved relationship target {relative}", result.stdout)
+
     def test_check_detects_stale_index(self) -> None:
         root = self.make_project()
         self.assertEqual(self.run_tool(INDEX, root).returncode, 0)
@@ -137,10 +270,133 @@ relationships: []
         self.assertEqual(result.returncode, 1)
         self.assertIn("missing or stale", result.stdout)
 
+    def test_tracked_path_prefix_excludes_companion_documentation(self) -> None:
+        root = self.make_project()
+        write(
+            root / "repo-ref/companion/docs/SPEC.md",
+            "# Companion specification\n",
+        )
+        write(
+            root / "repo-reference/docs/LOCAL.md",
+            "# Project-owned reference\n",
+        )
+        write(
+            root / ".knowledge/index-exclusions.txt",
+            "# Local companion repositories are not project knowledge.\nrepo-ref/\n",
+        )
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        payload = json.loads((root / ".knowledge/index.json").read_text(encoding="utf-8"))
+        paths = {entry["path"] for entry in payload["entries"]}
+        self.assertNotIn("repo-ref/companion/docs/SPEC.md", paths)
+        self.assertIn("repo-reference/docs/LOCAL.md", paths)
+        self.assertIn("docs/ARCHITECTURE.md", paths)
+        check = self.run_tool(INDEX, root, "--check")
+        self.assertEqual(check.returncode, 0, check.stdout + check.stderr)
+
+    def test_repeatable_cli_exclusions_are_applied(self) -> None:
+        root = self.make_project()
+        write(root / "generated/docs/A.md", "# Generated A\n")
+        write(root / "companion/docs/B.md", "# Companion B\n")
+        result = self.run_tool(
+            INDEX,
+            root,
+            "--exclude",
+            "generated",
+            "--exclude",
+            "companion/docs",
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        payload = json.loads((root / ".knowledge/index.json").read_text(encoding="utf-8"))
+        paths = {entry["path"] for entry in payload["entries"]}
+        self.assertNotIn("generated/docs/A.md", paths)
+        self.assertNotIn("companion/docs/B.md", paths)
+
+    def test_invalid_exclusion_fails_without_writing(self) -> None:
+        root = self.make_project()
+        write(root / ".knowledge/index-exclusions.txt", "../outside\n")
+        result = self.run_tool(INDEX, root)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("must stay within the project", result.stdout)
+        self.assertFalse((root / ".knowledge/index.json").exists())
+
+    def test_portable_absolute_exclusion_fails(self) -> None:
+        root = self.make_project()
+        result = self.run_tool(INDEX, root, "--exclude", "C:/outside")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("must stay within the project", result.stdout)
+
     def test_absent_research_is_not_an_error(self) -> None:
         root = Path(tempfile.mkdtemp())
         result = self.run_tool(LINT, root)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_missing_research_owner_fails(self) -> None:
+        root = self.make_project()
+        (root / ".research/CONVENTIONS.md").unlink()
+        lint = self.run_tool(LINT, root)
+        index = self.run_tool(INDEX, root)
+        self.assertEqual(lint.returncode, 1)
+        self.assertEqual(index.returncode, 1)
+        self.assertIn("missing .research/CONVENTIONS.md", lint.stdout)
+
+    def test_invalid_workbench_research_rigor_fails(self) -> None:
+        root = self.make_project()
+        path = root / ".research/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("adaptive", "ceremonial"),
+            encoding="utf-8",
+        )
+        lint = self.run_tool(LINT, root)
+        index = self.run_tool(INDEX, root)
+        self.assertEqual(lint.returncode, 1)
+        self.assertEqual(index.returncode, 1)
+        self.assertIn("verification_rigor", lint.stdout)
+
+    def test_invalid_workbench_research_schema_fails(self) -> None:
+        root = self.make_project()
+        path = root / ".research/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("schema: 1", "schema: 2"),
+            encoding="utf-8",
+        )
+        lint = self.run_tool(LINT, root)
+        index = self.run_tool(INDEX, root)
+        self.assertEqual(lint.returncode, 1)
+        self.assertEqual(index.returncode, 1)
+        self.assertIn("schema must be 1", lint.stdout)
+
+    def test_missing_rigor_defaults_to_adaptive(self) -> None:
+        root = self.make_project()
+        path = root / ".research/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "verification_rigor: adaptive\n", ""
+            ),
+            encoding="utf-8",
+        )
+        self.assertEqual(self.run_tool(LINT, root).returncode, 0)
+        self.assertEqual(self.run_tool(INDEX, root).returncode, 0)
+
+    def test_alternate_owner_declines_without_writing(self) -> None:
+        root = self.make_project()
+        write(root / ".knowledge/index.json", "sentinel\n")
+        path = root / ".research/CONVENTIONS.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "workbench-research", "ceremonial-research"
+            ),
+            encoding="utf-8",
+        )
+        lint = self.run_tool(LINT, root)
+        index = self.run_tool(INDEX, root)
+        self.assertEqual(lint.returncode, 2)
+        self.assertEqual(index.returncode, 2)
+        self.assertIn("owned by ceremonial-research", lint.stdout)
+        self.assertEqual(
+            (root / ".knowledge/index.json").read_text(encoding="utf-8"),
+            "sentinel\n",
+        )
 
     def test_research_gitkeep_is_required_for_clone_stability(self) -> None:
         root = self.make_project()
