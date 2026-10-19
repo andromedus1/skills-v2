@@ -60,3 +60,13 @@ comparison is a before/after deployment change, not a controlled experiment.
 - **"Impact" (RacerD paragraph):** "See Blackshear et al.2 for more discussion on fix rates."
 - **References, entry 2:** "Blackshear, S., Gorogiannis, N., Sergey, I. and O'Hearn, P. Racerd: Compositional
   static race detection. In Proceedings of OOPSLA, 2018."
+
+## Additional anchored details (re-fetched 2026-10-19, same source URL)
+- **"Funneled deployment" (Zoncolan diff analysis, target audiences):** the diff-analysis audience is "the author and
+  the reviewers of the diff (Facebook software engineers who are not security experts), and the security engineer in
+  the on-call rotation (who has a limited time budget)." Then:
+
+  > When appropriate, the on-call validates the alarm reported, blocks the diff, and provides support to write the code in a secure way.
+
+- **"People and deployments":** for security experts, "At “diff time,” security related issues are pushed to the
+  security engineer on-call, so she can comment on an in-progress code change when necessary."

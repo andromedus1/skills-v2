@@ -44,3 +44,16 @@ values were rendered as math and lost in extraction; only values present as text
   compromising independence and amplifying collective biases."
 - **Appendix B.6:** partial correlations between judge score and similarity, controlling for accuracy,
   are significant and positive for all judges.
+
+## Additional anchored details (re-fetched 2026-10-19, arXiv HTML v2)
+- **Section 3.1, "Experimental Setup" (judge access to references):** the judge makes a binary correct/wrong decision
+  on each free-text response:
+
+  > This is done based on its own internal knowledge without access to a ground-truth solution.
+
+  The parallel MCQ evaluation with ground-truth answers is used to compare judgment scores with verifiable accuracy.
+- **Appendix B.9, "Experimental Setup for LLM-as-a-Judge on Filtered MMLU-Pro":** "To mimic more common, but ungrounded
+  settings for automatic AI evaluation, such as Arena-hard-auto or AlpacaEval 2.0, we do not provide the judge with
+  access to ground-truth responses or MCQ answer options".
+- **Appendix B.3.2:** a separate ensemble of five judges "given access to the original MMLU-Pro reference answers" is
+  used only to validate response correctness, not as the affinity-bias condition.

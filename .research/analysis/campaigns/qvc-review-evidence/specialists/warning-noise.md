@@ -1,22 +1,24 @@
 ---
 title: "Warning noise: how people respond to noisy advisory signals, and what keeps them actionable"
 provenance: agent-synthesis
-updated: 2026-10-18
+updated: 2026-10-19
 summary: >
   Evidence from industrial static analysis (Google, Facebook, Coverity), developer interview and mining studies,
   operations paging guidance, security-operations alarm triage, and clinical decision-support alert overrides on
   how people respond to warnings with high false-positive rates, which numeric thresholds have been used and under
   what definitions, and which practices keep advisory signals acted on. The sources converge that noisy warnings
-  delivered outside the work context are ignored, but they also show non-blocking warnings being acted on at high
-  rates when they are delivered at review/diff time, curated by an action-rate feedback loop, and tiered by severity.
-  "Advisory" by itself is not what predicts decay; delivery point, curation, and volume/repetition are.
+  delivered outside the work context are ignored, but they also show non-blocking warnings acted on at high rates at
+  Facebook's diff time and drawing low not-useful click ratios (which undercount ignoring) at Google's review time,
+  where they are curated by an action-rate feedback loop and socially enforced before approval. As a composed reading,
+  delivery point, curation, and volume/repetition are more associated with decay than advisory status as such, though
+  one review found no volume-override relationship.
 key_findings:
   - "Same analysis, same estimated false-positive rate: Facebook reports a near-zero fix rate for a nightly batch bug list versus over 70% when reported at diff time (demonstrated, small uncontrolled batch sample)."
   - "Google's published thresholds are definition-specific: zero effective false positives for build-breaking checks, under 10% effective false positives for code-review checks, analyzer probation at a not-useful click rate of 10% or more and possible shut-off above 25% (designed)."
   - "Coverity's vendor experience: more than 30% false positives 'easily cause problems', aim below 20% for stable checkers; a not-understood true report is commonly labelled false (documented)."
-  - "Google found compiler warnings ignored and moved checks to errors or code review; yet non-blocking code-review findings run at about a 5% platform not-useful rate and are acted on thousands of times per day (documented and demonstrated)."
-  - "Clinical alerts are overridden in 49% to 96% of cases across studies, but about half of outpatient overrides were judged appropriate, so override rate is not a direct measure of degradation (independently measured; demonstrated)."
-  - "Severity tiering, with only higher-severity alerts interrupting and the lowest tier information-only, was associated with 29% vs 10% compliance and 100% vs 34% for the most severe tier (demonstrated, observational)."
+  - "Google found compiler warnings ignored and moved checks to errors or code review; yet non-blocking code-review findings run at about a 5% platform not-useful click ratio, which undercounts ignoring, with thousands of fix requests per day (documented and demonstrated)."
+  - "Clinical alerts are overridden in 49% to 96% of cases across studies, but about half of outpatient overrides were judged appropriate (12%-92% by alert type), so override rate is not a direct measure of degradation (independently measured; demonstrated)."
+  - "Severity tiering, with only higher-severity alerts interrupting and the lowest tier information-only, was associated with 29% vs 10% overall compliance and 29% vs 11% on the interruptive Level 2 tier; the most severe tier was 100% by hard-stop design vs 34%, and the information-only tier's response was not collected (demonstrated, observational)."
   - "Acceptance falls with alert volume and within-patient repeats (about 30% per extra reminder per encounter; 10% per 5-point rise in repeat share), but no desensitization over time was found for newly deployed alerts (independently measured)."
   - "Numeric thresholds are not commensurable across sources: 'effective false positive' (no action taken), 'false positive' (cannot happen), 'not-useful rate' (click ratio), and 'override rate' measure different things."
 ---
@@ -71,7 +73,7 @@ paper says the same: "we have found warnings shown when building are often ignor
 By January 2018 Google's C++ and Java builds had a "compiler warnings-free default", with results shown either as
 errors or in code review [google-static-analysis-lessons]{26}. *(Documented; no ignore rate is reported.)*
 
-**At Facebook, delivery point mattered more than false-positive rate.** Infer's first deployment was a nightly batch
+**At Facebook, moving the same analysis to diff time raised the fix rate at an unchanged estimated false-positive rate.** Infer's first deployment was a nightly batch
 run whose issues were hand-assigned to developers. "We assigned 20–30 issues to developers, and almost none of them
 were acted on", although the team believed the false positive rate was below 20%. Switched to diff time, "the fix
 rate rocketed to over 70%. The same program analysis, with same false positive rate, had much greater impact"
@@ -185,8 +187,8 @@ as composed.
    single-source evidence [facebook-infer-zoncolan-scaling]{28}. Google calls code review "a sweet spot" and shows
    results only "when a developer is changing the code in question, before the change is committed"
    [google-static-analysis-lessons]{26}. Tricorder shows most analyses "on changed lines by default"
-   [google-tricorder-icse2015]{27}. Issues on checked-in code are rated real less often (21% vs 74% at compile time)
-   [google-static-analysis-lessons]{26}. *(Demonstrated.)*
+   [google-tricorder-icse2015]{27}. Issues on checked-in code are rated real less often (21% vs 74% at compile time), which the authors attribute to a
+   "survivor effect", not to delivery-time receptivity [google-static-analysis-lessons]{26}. *(Demonstrated.)*
 2. **Measure action, not just correctness, and remove noisy checks.** Tricorder's not-useful rate drives probation at
    10% or more and possible shut-off above 25%. The analyzer contract allows disabling when "No one is fixing bugs filed
    against the analyzer" or results "are annoying developers" [google-tricorder-icse2015]{27}. In practice the team
@@ -206,8 +208,8 @@ as composed.
 4. **Tier by severity, and block only checks that cannot be wrong.** In the clinical tiering comparison, the tiered site
    kept Level 1 (hard stop) and Level 2 interactions interruptive and showed the least serious tier (71.4% of alerts)
    as information only.
-   Compliance was 29% vs 10% overall, and 100% vs 34% for the most severe tier, where a hard stop was enforced
-   [ddi-alert-tiering-compliance]{36}. Google requires "no effective false positives" before a check can break the
+   Compliance was 29% vs 10% overall, 29% vs 11% on the interruptive Level 2 tier, and 100% vs 34% for the most
+   severe tier, where a hard stop was enforced [ddi-alert-tiering-compliance]{36}. Google requires "no effective false positives" before a check can break the
    build. Teams that ask to block commits usually have "highly specific custom checks with no false positives"
    [google-static-analysis-lessons]{26}. Before enabling a check as an error, Google fixes all existing instances, which
    lets it "“ratchet” the quality" without regressions [google-static-analysis-lessons]{26}. SRE requires every page to be
@@ -257,7 +259,7 @@ as composed.
 | F13 | Severity tiering with information-only low tier: 29% vs 10% compliance; severe tier 100% (hard stop) vs 34% | demonstrated (observational) | [ddi-alert-tiering-compliance]{36} |
 | F14 | Acceptance falls with alert volume and repeats; no time-based desensitization for new alerts | independently measured | [cds-alert-fatigue-repeats]{37} |
 | F15 | Non-blocking review-time findings acted on at scale: over 5,000 "Please fix" clicks per day and about 3,000 applied fixes per day vs 250 "Not useful" per day (Jan 2018) | demonstrated | [google-static-analysis-lessons]{26} |
-| F16 | Zoncolan action rate above 80% across its funnelled deployment (which includes on-call diff blocking); RacerD fix rate about 50% and still valued for severity | demonstrated | [facebook-infer-zoncolan-scaling]{28} |
+| F16 | Zoncolan action rate above 80% across its funnelled deployment (in which the security on-call can validate an alarm and block the diff); RacerD fix rate about 50% and still valued for severity | demonstrated | [facebook-infer-zoncolan-scaling]{28} |
 
 ## Contradictions
 
@@ -311,8 +313,8 @@ does not say whether the policy changed between them.
 
 ## Disconfirming analysis
 
-The seed hypothesis was "advisory (non-blocking) warnings degrade". I searched the attested sources for cases where
-advisory signals are acted on, and for cases where an apparent degradation is something else.
+Disconfirming probe: do advisory (non-blocking) warnings degrade as such? I searched the attested sources for cases
+where advisory signals are acted on, and for cases where an apparent degradation is something else.
 
 - **Non-blocking review-time findings are acted on.** Tricorder code-review results do not block submission by
   default. Some teams want analyzers "to actually block commits, rather than just appear in the code-review tool",
@@ -326,13 +328,14 @@ advisory signals are acted on, and for cases where an apparent degradation is so
     [google-tricorder-icse2015]{27}.
   - These findings are non-blocking but socially enforced: "Reviewers typically withhold approval of a change until all
     their comments, manual and automated, have been addressed" [google-static-analysis-lessons]{26}.
-  - Zoncolan's action rate above 80% covers a funnel in which the security on-call can block a diff
-    [facebook-infer-zoncolan-scaling]{28}, so it is not evidence about purely advisory signals.
+  - Zoncolan's action rate above 80% covers a funnel in which the security on-call "validates the alarm reported,
+    blocks the diff" when appropriate [facebook-infer-zoncolan-scaling]{28}, so it is not evidence about purely
+    advisory signals.
 - **In long-running tool use, many alerts are acted on, just slowly.** A median 36.7% of Coverity alerts in long-running
   open-source projects were fixed by code change [coverity-alert-actionability-oss]{31} {confidence: abstract-only}.
   This is higher than the near-zero figures from batch deployments in the industrial reports
   {inferred: divergence}, though the definitions and time windows differ.
-- **Where degradation is reported, the shared condition is placement and volume, not advisory status.** Ignored
+- **Where degradation is reported, placement and volume recur more than advisory status** {inferred: aggregate}. Ignored
   advisories in this sample are build-time compiler warnings [google-static-analysis-lessons]{26}, dashboards and batch
   lists outside the workflow [google-static-analysis-lessons]{26}, [facebook-infer-zoncolan-scaling]{28}, high-volume
   email alerts [sre-monitoring-distributed-systems]{32}, and high-volume, repeated, interruptive clinical alerts
@@ -389,6 +392,12 @@ the sources suggest the question is less "advisory or blocking" and more about t
 - **Blocking.** Is blocking reserved for checks that are effectively never wrong?
 
 Thresholds such as 10% are only meaningful once the false-positive definition being used is stated.
+
+## Revisions
+
+- 2026-10-19 — Correction (position preserved): restored tiering, click-undercount and survivor-effect qualifiers,
+  softened the summary generalization, and extended the Zoncolan attestation with the on-call blocking passage; see
+  `../verification-checklist.md`, "Revision response (2026-10-19)".
 
 ## Sources (corpus numbering)
 

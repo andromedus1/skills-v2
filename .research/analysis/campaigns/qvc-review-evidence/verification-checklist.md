@@ -482,3 +482,101 @@ W3 (WN L188 survivor effect), W5 (WN L12 unmarked generalization).
 
 A8, A9, B3, D4 (check affinity-study judge setup and extend the attestation if the source says whether
 judges saw references), E8, E9, H1, H2, W6.
+
+## Revision response (2026-10-19)
+
+Mode: **correction** (discipline §8). Positions preserved; fixes made in place, with a `## Revisions` log in each
+edited artifact (parent L306, RI L299, WN L396). Line numbers below refer to the revised files. Attestations were
+extended additively from material re-fetched this session; no existing quote was altered:
+`facebook-infer-zoncolan-scaling.md` L64+ (Zoncolan on-call "blocks the diff", re-fetched from the CACM PDF) and
+`llm-judge-affinity-similarity.md` L48+ (§3.1 and Appendix B.9: judges graded "without access to a ground-truth
+solution", re-fetched from arXiv HTML v2).
+
+Lint after revision (`--no-url-check --format json`): 0 broken, 0 thin; parent 146 citations, RI 99, WN 144
+(acquisitions 0; this checklist 8); 9 `reduced-substrate-attestation` (`coverity-alert-actionability-oss`, as
+before); 1 `substrate_confidence_omitted` (`anthropic-agent-evals`, reused, unchanged). The one new pattern advisory
+from revision ("the only defect evidence", comparative-superlative) was reworded (parent L259).
+
+### Material
+
+- **A1** — parent L259-265: "zero or" dropped; `{18}` is the sole defect evidence, scoped to "in this sample… one
+  experiment"; `{19}` re-scoped to the descriptive median-of-two practice. Summary L5-13 no longer states the gain.
+  RI L290-293 (R8): `{19}` now cited as "Rigby and Bird attribute the two-reviewer optimum to Porter et al."
+- **A2 + E2** — parent L108-112: repair result restated with the Section 3.7 two-person qualifier ("viewed with
+  caution") and an `extends` note that both arms include a second inspection, so it does not measure changes after
+  review. Removed from the re-review Disconfirming bullet (L229-232), which now says it does not test that. RI L259
+  (R3) and F15 L204 likewise.
+- **A3 + R1** — parent L252-258: `{14}` moved to the "different model is not the active ingredient" clause (now
+  supported by the extended attestation: ungrounded judges); grounding clause restricted to reference guidance and
+  reference-based feedback `{11}` `{15}`; executable checks / recorded criteria stated as an untested extension.
+  RI key finding L9 ("No fetched study gave judges executable tests") and decision relevance L289-290.
+- **C1** — parent summary L5-13, key finding L18, body L88-92 (adds discontinued 1sX1p treatment and the Section 4
+  "does not always improve performance" line), Disconfirming L221-225, decision L259-261: the abstract's
+  no-significant-effect statement now travels with every one-to-two claim. RI summary L5 and Disconfirming L253.
+- **C2** — parent summary, key finding L16 (adopts the suggested wording), body L72-77 (chain-of-thought separated
+  from reference grounding, MT-bench CoT failure added), new `qualifies` Contradictions row L201. RI (R4): L60-62,
+  L114-116, new `qualifies` contradiction L230.
+- **C3** — parent new `tension` row L211 (warning-noise C6); Disconfirming L241-245 qualified with the 2006 null
+  `{34}` and the aggregate marked `{inferred: aggregate}`.
+- **C4 + E1 + D1** — parent L156-158 (Tricorder click-undercount caveat); summary L5-13 credits high action rates to
+  Facebook diff-time data and describes Google's as low not-useful click ratios; key finding L20 and body L131-133 add
+  the discontinued FindBugs review-comment integration; Disconfirming L233-240 carries undercount, social enforcement,
+  builder-reported and FindBugs caveats; decision "Citation advisories" L271-281 carries them too.
+- **E3 + W4** — parent table row L175: overall, Level 2, Level 1 (hard stop by design) and unmeasured Level 3 stated;
+  type label "advisory-tier effect indirect"; decision bullet repeats the indirectness. WN key finding L21 and
+  practice 4 L211.
+
+### Minor
+
+- **A4** — key finding L18 and body L97-100: "did not survive" replaced by "unstable … added no model fit"; C7 row adds
+  "similar to what McIntosh et al. found".
+- **A5 / R5** — parent L97-98 and RI F12 L201: "up to five additional post-release defects (per component) in the
+  studied Qt, VTK and ITK releases".
+- **A6 / W2** — parent key finding L20 ("At an unchanged estimated false-positive rate…"); WN heading L76 reworded;
+  no comparison of factor importance remains.
+- **A7** — parent L266-270: "the attested mechanism" replaced by two attested recording mechanisms (GitHub `{25}`,
+  Google `{24}`), use for reuse marked as an application under `extends`.
+- **B1 / R2** — parent summary no longer quantifies removal; RI key finding L8 ("does not remove") and Disconfirming
+  L242 ("does not remove the similarity component").
+- **B2** — parent L263-264: "reviewer count is commonly varied with perceived risk, complexity or change size
+  {19} {20}".
+- **C5** — parent Limits L288-289 adopts the RI wording (observational except one experiment measuring observed defect
+  density).
+- **C6** — parent new `qualifies` row L212 (batch/dashboard usefulness for specialist audiences, incl. SRE dashboard
+  `{32}`); decision bullet notes specialist queues as an attested alternative to suppression.
+- **C7** — parent L203: retyped `contradicts` → `tension`, "dispute is over explanatory power".
+- **D2** — parent body L102-104 (Microsoft "specific set of skills"; cite-through of Porter via `{22}`) and decision
+  L263-265.
+- **D3** — parent new bullet L50-52 (85% vs 81%; agreement lowest on close-quality answers).
+- **E4** — parent key finding L22 and body L162-164 (12%-92% range, renal and drug-drug interaction 12%); WN key
+  finding L20.
+- **E5 / R7** — parent L225-228 and RI L104-107: the two denominators stated; "versus" removed.
+- **E6** — parent L53-54: "In pairwise comparisons … (Llama not in individual scoring)".
+- **E7** — parent L69-70: "over-reasoning" attribution and prompt-change improvement added.
+- **E10** — parent L236: "delivery mode not stated" added to the Coverity OSS figure.
+- **R6** — RI L256: "foremost reason … 'to improve code understandability and' (continuation unread)".
+- **W1** — True against source: re-fetched the Facebook CACM PDF; the "Funneled deployment" section says the on-call
+  "validates the alarm reported, blocks the diff". Extended the attestation (L64+) per §8 direction and kept the claim,
+  now quoting the passage (WN L331-333, F16 L262).
+- **W3** — WN L191: survivor-effect attribution added.
+- **W5** — WN summary L9-13: marked as a composed reading, "predicts" softened to "associated with", 2006 null noted;
+  Disconfirming L338 marked `{inferred: aggregate}`.
+- **R3, R4, R8** — covered under A2, C2, A1 above.
+
+### Info only
+
+- **A8** — parent L77: calibration sentence now introduced as design guidance, separate from the demonstrated results.
+- **A9, H1, H2** — no change required.
+- **B3** — `{34}` "Alert overriding may often be justified" now cited beside the non-action sentence (L162).
+- **D4** — Resolved by re-fetch: the affinity judges graded without references (attestation L48+). This does not
+  qualify the grounding claims (similarity bias was measured under ungrounded judging); parent L62 and RI L66 now state
+  the condition.
+- **D5** — covered by C1.
+- **E8** — parent L143: "sweet spot for developer satisfaction" continuation added.
+- **E9** — parent L161: overdose-alert exception added.
+- **W6** — WN L316: "Disconfirming probe: do advisory (non-blocking) warnings degrade as such?"
+
+### Not resolved / residual
+
+- None of the listed findings was left unaddressed. Length: parent grew from about 2,900 to about 3,550 words because of
+  the restored qualifiers and three new Contradictions rows; the briefs changed by under 6%.

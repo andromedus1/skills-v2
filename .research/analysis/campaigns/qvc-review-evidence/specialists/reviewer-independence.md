@@ -1,12 +1,12 @@
 ---
 title: Reviewer independence, reviewer count and re-review after changes
 provenance: agent-synthesis
-updated: 2026-10-18
-summary: LLM judges measurably favour their own and similar models' outputs, but much of that preference tracks real quality and is reduced by grounding; diverse panels and human-plus-model teams show bounded gains in single-group studies. Human-review evidence finds one reviewer weaker than two, little gain from two to four, and weak or unstable links between review measures and later defects. No fetched source measures defects introduced by changes made after an approval; re-review rules found are documented or designed policies.
+updated: 2026-10-19
+summary: LLM judges measurably favour their own and similar models' outputs, but much of that preference tracks real quality, and reference-based feedback reduced it; diverse panels and human-plus-model teams show bounded gains in single-group studies. One randomized inspection experiment finds one reviewer weaker than two and little gain from two to four, though its abstract reports no significant treatment effect; links between review measures and later defects are weak or unstable. No fetched source measures defects introduced by changes made after an approval; re-review rules found are documented or designed policies.
 key_findings:
   - Judge favouritism toward a judge's own (and functionally similar) outputs is reported by several independent groups across tasks; a ground-truth study finds stronger models' self-preference mostly legitimate yet more harmful when they are wrong.
-  - Switching to a different model reduces, but does not remove, correlated-judgement risk; a similarity study finds judges favour similar models and model errors growing more alike with capability.
-  - Grounded checking (a reference answer, oracle feedback, executable tests) is the recurring condition under which judge errors fell in these studies; model identity alone was not the varied factor in most of them.
+  - Switching to a different model does not remove correlated-judgement risk; a similarity study finds judges grading without references favour functionally similar models, and model errors growing more alike with capability.
+  - Reference grounding (a reference answer or reference-based oracle feedback) is the condition under which judge errors fell most clearly; evidence on longer judge reasoning diverges, and model identity alone was not the varied factor in most studies. No fetched study gave judges executable tests.
   - A randomized inspection experiment found one-person teams poorer than two- or four-person teams and no difference between two and four, with effort rising with reviewer count; its abstract reports no significant treatment effects on effectiveness overall.
   - Practice data show a median of two reviewers in several organizations and a median of one at Google; observational links between review participation and post-release defects did not hold up robustly in an independent replication.
   - Re-review after changes is governed by documented policy (approval with comments for minor follow-ups; optional dismissal of stale approvals on any diff change), not by measured outcomes in the fetched sources.
@@ -57,12 +57,15 @@ models prefer themselves more: Qwen2.5-72B showed harmful self-preference propen
 versus an overall self-preference ratio of 55; on MBPP+ large models ranged from about 50 to 75 against
 overall ratios below 40 [llm-self-preference-legitimacy]{13}. Chain-of-thought judging lowered harmful
 self-preference, and long chain-of-thought reasoning models lowered it further, across the models tested
-[llm-self-preference-legitimacy]{13}.
+[llm-self-preference-legitimacy]{13}. In MT-bench math grading, by contrast, a chain-of-thought judge in many cases
+"makes exactly the same mistake as the given answers"; only the reference-guided judge cut failures
+[llm-judge-mt-bench]{11}.
 *(demonstrated; this study shares an author with the summarization study, so it is not fully
 independent of it.)*
 
-**Similarity, not only identity.** A 2025 study of nine open-weight judges found judge scores favour
-models whose mistakes resemble the judge's own, after controlling for accuracy; for example, a
+**Similarity, not only identity.** A 2025 study of nine open-weight judges, grading without access to
+ground-truth solutions, found judge scores favour models whose mistakes resemble the judge's own, after
+controlling for accuracy; for example, a
 Qwen2.5-72B judge scored Qwen2.5-7B 71% correct but the more accurate Llama-3.1-70B 67%
 [llm-judge-affinity-similarity]{14}. The authors argue it "is not sufficient to just use a held-out LM
 as the judge", report model mistakes becoming more similar as capability increases, and warn this could
@@ -98,17 +101,19 @@ human-inserted bugs than experienced contractors who spent a median of about fif
 and model critiques were preferred over human ones in 63% of cases on naturally occurring errors
 [llm-critics-catch-bugs]{17}. Models hallucinated bugs and nitpicked far more than humans;
 human-plus-critic teams hallucinated less than the critic alone but did not increase comprehensiveness
-over it [llm-critics-catch-bugs]{17}. On training data a first annotator had rated "flawless", a
-critic-assisted second review found a substantial problem in 24% of flagged cases, whereas an unassisted
-second human rated such items similarly poorly only 6% of the time [llm-critics-catch-bugs]{17}. The
+over it [llm-critics-catch-bugs]{17}. Among training completions a first annotator had rated "flawless"
+and a sampled critique flagged, critique-assisted contractors found a substantial problem in 24% of cases; in a
+separate replication without critiques, a second contractor rated "flawless" completions similarly poorly 6% of the
+time. The denominators differ [llm-critics-catch-bugs]{17}. The
 code was short and single-file, and inserted bugs differ from natural model errors
 [llm-critics-catch-bugs]{17}. *(demonstrated; single vendor.)*
 
 **What the independence evidence does and does not show.** The detection improvements in this sample
-came from adding a differently-informed check: a reference answer [llm-judge-mt-bench]{11}, oracle
-feedback [llm-self-bias-refinement]{15}, longer judge reasoning [llm-self-preference-legitimacy]{13},
-heterogeneous model families [llm-judge-panel-poll]{16}, or a trained critic plus a human
-[llm-critics-catch-bugs]{17} {inferred: aggregate}. No fetched study isolates "same model versus
+came from adding a differently-informed check: a reference answer [llm-judge-mt-bench]{11}, reference-based
+oracle feedback [llm-self-bias-refinement]{15}, heterogeneous model families [llm-judge-panel-poll]{16}, or a
+trained critic plus a human [llm-critics-catch-bugs]{17}; longer judge reasoning [llm-self-preference-legitimacy]{13}
+adds no external reference and did not stop a math judge repeating graded answers' mistakes [llm-judge-mt-bench]{11}
+{inferred: aggregate}. No fetched study isolates "same model versus
 different model" as the single varied factor on review of generated code; the panel study varies family
 and count together, and the critic study varies training and human assistance
 {inferred: aggregate}.
@@ -193,10 +198,10 @@ No fetched source measures how often post-approval edits introduce defects, or c
 | F9 | One-person inspection teams were poorer than two- or four-person teams; two and four did not differ; effort rose with team size. Abstract reports no significant treatment effect overall. | demonstrated (randomized field experiment) | [inspection-team-size-experiment]{18} |
 | F10 | Median active reviewers is two across several organizations; more reviewers added little discussion and no extra rounds there. | independently measured (practice, not effectiveness) | [convergent-peer-review-practices]{19} |
 | F11 | At Google the median is one reviewer, and more reviewers mean more comments. | documented (in-house log measurement) | [google-modern-code-review]{20} |
-| F12 | Low review participation is associated with more post-release defects in Qt-family projects. | demonstrated (observational) | [review-coverage-participation-defects]{21} |
+| F12 | Low review participation is associated with more post-release defects (up to five per component) in the studied Qt, VTK and ITK releases. | demonstrated (observational) | [review-coverage-participation-defects]{21} |
 | F13 | Review measures add little explanatory power for post-release defects once size, prior defects and authorship are modelled; effects are unstable. | independently measured (replication) | [review-measures-defects-replication]{22} |
 | F14 | A minority of review comments concern defects; reviewer familiarity with the code raises usefulness. | documented | [code-reviews-do-not-find-bugs]{23} |
-| F15 | Repairing between inspection sessions did not raise observed defect density and lengthened interval. | demonstrated (small cells) | [inspection-team-size-experiment]{18} |
+| F15 | Repairing between inspection sessions did not raise observed defect density overall (a cautioned small-cell gain for two-person teams) and lengthened interval; it does not test changes after review. | demonstrated (small cells) | [inspection-team-size-experiment]{18} |
 | F16 | Approval may be granted with unresolved minor or trusted follow-up comments. | documented | [google-review-speed-lgtm]{24} |
 | F17 | Approvals can be configured to lapse on any diff change, or to require a non-pusher approval of the latest push. | designed | [github-stale-review-dismissal]{25} |
 
@@ -222,6 +227,10 @@ No fetched source measures how often post-approval edits introduce defects, or c
 - **Inspection team size: effect versus no significant effect** — `tension` inside one source. The detailed
   analysis and main-results section report one-person teams poorer than two- or four-person teams; the abstract
   reports no significant influence of treatments on effectiveness [inspection-team-size-experiment]{18}.
+- **Chain-of-thought judging helps versus repeats errors** — `qualifies`. Chain-of-thought and long-reasoning judging
+  lowered harmful self-preference on verifiable tasks [llm-self-preference-legitimacy]{13}; a chain-of-thought math
+  judge in many cases repeated the graded answer's mistake, where a reference-guided judge did not
+  [llm-judge-mt-bench]{11}. Different tasks and metrics.
 
 ## Disconfirming analysis
 
@@ -230,7 +239,7 @@ No fetched source measures how often post-approval edits introduce defects, or c
   MT-bench authors could not confirm the bias [llm-judge-mt-bench]{11}; stronger models' self-preference is
   mostly legitimate on verifiable tasks [llm-self-preference-legitimacy]{13}; a held-out model still favours
   similar models [llm-judge-affinity-similarity]{14}. The claim therefore stands only in a weakened form:
-  self-review carries a measured bias, and a different model reduces only the identity component of it.
+  self-review carries a measured bias, and a different model does not remove the similarity component of it.
 - **Against "diverse panels beat single judges":** a single small judge beat the panel on one QA dataset, the
   study covers three settings, and the authors are an interested vendor [llm-judge-panel-poll]{16}.
 - **Against "LLM critics outperform humans":** human-only critiques had far fewer hallucinations and nitpicks,
@@ -241,13 +250,14 @@ No fetched source measures how often post-approval edits introduce defects, or c
   [convergent-peer-review-practices]{19}; review measures lost explanatory power in replication and five or more
   reviewers coincided with more defects [review-measures-defects-replication]{22}. Evidence for the opposite: one
   reviewer was poorer than two [inspection-team-size-experiment]{18}, and more reviewers meant more comments at
-  Google [google-modern-code-review]{20}. The supported reading is a gain from one to two, not beyond.
+  Google [google-modern-code-review]{20}. The supported reading, from one experiment whose abstract reports no
+  significant treatment effect, is a gain from one to two, not beyond.
 - **Against "review is mainly a defect filter":** most comments concern maintainability, not defects
-  [code-reviews-do-not-find-bugs]{23}; Google introduced review mainly for understandability
-  [google-modern-code-review]{20}.
-- **Against "re-review after every change is necessary":** repair followed by a second inspection did not raise
-  observed defect density [inspection-team-size-experiment]{18}; documented practice lets an approval stand over
-  minor or trusted follow-ups [google-review-speed-lgtm]{24}. For it: a platform designer offers stale-approval
+  [code-reviews-do-not-find-bugs]{23}; Google's foremost reason for introducing review was "to improve code
+  understandability and" (continuation unread) [google-modern-code-review]{20}.
+- **Against "re-review after every change is necessary":** documented practice lets an approval stand over
+  minor or trusted follow-ups [google-review-speed-lgtm]{24}. (The repair-between-sessions result is not evidence here;
+  see Re-review after changes.) For it: a platform designer offers stale-approval
   dismissal because unapproved content can be added after approval [github-stale-review-dismissal]{25}. Neither side
   is measured.
 
@@ -276,13 +286,20 @@ No fetched source measures how often post-approval edits introduce defects, or c
 
 For a workflow that prefers cross-model review of agent-generated work: the evidence supports keeping an
 independent check over pure self-review, but frames its value as reducing correlated judgement rather than
-guaranteeing detection; grounding checks in tests or references appears more consistently associated with error
-reduction than model identity alone {inferred: aggregate}. Human-review data suggest a second reviewer adds more than
-further reviewers [inspection-team-size-experiment]{18} [convergent-peer-review-practices]{19}, and that
+guaranteeing detection; grounding checks in references appears more consistently associated with error
+reduction than model identity alone {inferred: aggregate}, and extending that to tests is untested `extends`. One
+inspection experiment suggests a second reviewer adds more than further reviewers, though its abstract reports no
+significant effect [inspection-team-size-experiment]{18}; Rigby and Bird attribute the two-reviewer optimum to Porter
+et al. rather than measuring it [convergent-peer-review-practices]{19}. Human-review data also suggest that
 reviewer count is commonly scaled to perceived risk or change size [convergent-peer-review-practices]{19}
 [google-modern-code-review]{20}. Whether an earlier review "covers" later
 changes is a policy choice in the sources (approve-with-comments for minor follow-ups versus diff-tied approval),
 not an empirically settled question.
+
+## Revisions
+
+- 2026-10-19 — Correction (position preserved): restored qualifiers, separated chain-of-thought from reference
+  grounding, re-scoped citations; see `../verification-checklist.md`, "Revision response (2026-10-19)".
 
 ## Sources (corpus numbering)
 

@@ -1,24 +1,25 @@
 ---
 title: Evidence on reviewer independence and warning noise
 provenance: agent-synthesis
-updated: 2026-10-18
+updated: 2026-10-19
 summary: >
   Cross-facet synthesis on two questions about review and advisory controls for generated work. Same-model judging
-  carries a measured self-preference bias, but switching to a different model removes only part of it, and grounded
-  checks (references, oracle feedback, longer judge reasoning) are where judge errors fell. Human-review data
-  support a gain from one reviewer to two, not beyond, and no fetched source measures whether an earlier approval
-  safely covers later changes. Noisy warnings are ignored when delivered outside the work context, yet non-blocking
-  review-time findings are acted on at high rates when curated by an action-rate feedback loop, explained, tiered
-  and kept low in volume; false-positive thresholds are definition-specific.
+  carries a measured self-preference bias, and a different-model judge still favours similar models; judge errors fell
+  most clearly with reference grounding, while evidence on longer judge reasoning diverges. One randomized experiment
+  found one-person inspections poorer than two- or four-person ones, though its abstract reports no significant
+  treatment effect; no fetched source measures whether an earlier approval safely covers later changes. Noisy warnings
+  are ignored when delivered outside the work context. Facebook reports non-blocking diff-time findings acted on at high
+  rates; Google reports low not-useful click ratios, which undercount ignoring, for review-time findings that reviewers
+  typically enforce. False-positive thresholds are definition-specific.
 key_findings:
   - "Self-preference in LLM judges is reported by several groups; with ground truth, stronger models' self-preference is mostly legitimate, but more harmful when they are wrong."
-  - "A different-model judge still favours functionally similar models, so model identity is not independence; grounding is the recurring condition under which judge errors fell."
+  - "A different-model judge grading without references still favours functionally similar models, so model identity is not independence; reference grounding is the condition most often associated with reduced judge error, and panel diversity helped in one study."
   - "No fetched study isolates same-model versus different-model review of generated code as the single varied factor."
-  - "One inspector did worse than two or four; two and four did not differ; effort rose with reviewer count. Observational links between review participation and later defects did not survive independent replication."
+  - "In one randomized experiment one inspector did worse than two or four, which did not differ, though its abstract reports no significant treatment effect; effort rose with reviewer count. Links between review participation and later defects were unstable and added no model fit in an independent replication."
   - "Re-review after changes is governed by documented or designed policy (approve-with-comments; diff-tied approval dismissal); no fetched source measures post-approval defect introduction."
-  - "The same analysis with the same estimated false-positive rate went from near-zero action as a batch list to over 70% at diff time; delivery point mattered more than false-positive rate in that report."
+  - "At an unchanged estimated false-positive rate, moving one analysis from a nightly batch list to diff time moved its fix rate from near zero to over 70% (uncontrolled); a Google code-review integration of FindBugs was still discontinued over effective false positives."
   - "Published thresholds (zero effective false positives to block; under 10% for review-time checks; probation at a 10% not-useful rate) are defined by developer action, not report correctness, and were not validated against outcomes."
-  - "Override or non-action is not by itself degradation: about half of outpatient alert overrides were judged appropriate."
+  - "Override or non-action is not by itself degradation: on average about half of outpatient alert overrides were judged appropriate (12% to 92% by alert type)."
 ---
 
 # Evidence on reviewer independence and warning noise
@@ -32,82 +33,89 @@ Two questions:
 2. **Warning noise.** How do people respond to advisory warnings with high false-positive rates, and what keeps
    advisory signals actionable?
 
-The sample has 27 newly attested sources plus one reused attestation. Question 1 draws on seven LLM-evaluation
-papers (2023-2025), five empirical software-engineering studies of inspection and code review (1997-2020), one
-industry talk abstract and two practitioner documents. Question 2 draws on four industrial static-analysis
-experience reports, an interview study, an open-source mining study (abstract only), an operations paging chapter,
-a security-operations qualitative study and four clinical decision-support studies. Engagement depth is recorded
-per source in the bibliography; one source was read only as an abstract
-[coverity-alert-actionability-oss]{31} {confidence: abstract-only}, and many others were read as main text without
-appendices or figure values.
+The sample has 27 newly attested sources plus one reused attestation: for Question 1, seven LLM-evaluation papers
+(2023-2025), five inspection and code-review studies (1997-2020), a talk abstract and two practitioner documents; for
+Question 2, four industrial static-analysis reports, an interview study, a mining study read only as an abstract
+[coverity-alert-actionability-oss]{31} {confidence: abstract-only}, an SRE chapter, a SOC study and four clinical
+decision-support studies. Many were read as main text without appendices or figure values.
 
-Evidence-type labels follow the commissioning distinction: **designed** (intended or configurable behaviour),
-**documented** (an organization describes its practice), **demonstrated** (the authors' own experiment or deployment
-data), **independently measured** (replication, third-party measurement or aggregation of others' measurements).
+Evidence-type labels: **designed** (intended or configurable behaviour), **documented** (an organization describes
+its practice), **demonstrated** (the authors' own experiment or deployment data), **independently measured**
+(replication, third-party measurement or aggregation of others' measurements).
 
 ## Question 1 — reviewer independence
 
 ### Same-model versus different-model judging
 
-- **Self-preference is measured but its harm is conditional.** GPT-3.5, GPT-4 and Llama 2 favoured their own news
-  summaries, with preference strength tracking self-recognition; the authors say this supports, without validating,
-  a causal link, and they did not control for ground-truth quality [llm-self-recognition-preference]{12}. Self-bias
-  was present in all six models examined in a self-refinement study and amplified over iterations
-  [llm-self-bias-refinement]{15}. The MT-bench authors saw GPT-4 and Claude-v1 favour themselves but GPT-3.5 not,
-  and could not determine whether the bias exists [llm-judge-mt-bench]{11}. On verifiable tasks, stronger models'
-  self-preference mostly matched genuinely better outputs, but when the judge's own answer was wrong they preferred
-  themselves more: Qwen2.5-72B's harmful self-preference propensity was 86 on MATH500 against an overall
-  self-preference ratio of 55 [llm-self-preference-legitimacy]{13}. *(demonstrated in each study; convergent across
-  groups {inferred: convergence})*
-- **Model identity is not independence.** Judges also favoured models whose mistakes resemble their own after
-  controlling for accuracy, and the authors argue it "is not sufficient to just use a held-out LM as the judge";
-  they report model mistakes becoming more similar with capability [llm-judge-affinity-similarity]{14}.
+- **Agreement with humans is weakest on close calls.** GPT-4's non-tie agreement with expert humans was 85% against
+  81% among humans, rising from about 70% to nearly 100% as the quality gap between answers widened
+  [llm-judge-mt-bench]{11}. *(demonstrated)*
+- **Self-preference is measured but its harm is conditional.** In pairwise comparisons GPT-3.5, GPT-4 and Llama 2
+  favoured their own summaries (Llama not in individual scoring), tracking self-recognition; the authors claim
+  evidence toward, not validation of, a causal link, without ground-truth control
+  [llm-self-recognition-preference]{12}. Self-bias was present in all six models of a self-refinement study and
+  amplified over iterations [llm-self-bias-refinement]{15}. The MT-bench authors saw GPT-4 and Claude-v1, but not GPT-3.5,
+  favour themselves and could not determine whether the bias exists [llm-judge-mt-bench]{11}. On verifiable tasks, stronger models'
+  self-preference mostly matched better outputs, but rose when the judge was wrong: Qwen2.5-72B's harmful
+  self-preference propensity was 86 on MATH500 against an overall ratio of 55 [llm-self-preference-legitimacy]{13}.
+  *(demonstrated; convergent across groups {inferred: convergence})*
+- **Model identity is not independence.** Judges grading without ground-truth solutions favoured models whose mistakes
+  resemble their own after controlling for accuracy; the authors argue it "is not sufficient to just use a held-out LM
+  as the judge" and report mistakes becoming more similar with capability [llm-judge-affinity-similarity]{14}.
   *(demonstrated)*
 - **Diversity helped in one panel study.** A three-family panel agreed with human judgements better than a single
-  GPT-4 judge on QA (Cohen's kappa 0.763 vs 0.627 on NQ), at seven to eight times lower cost, and each judged model
-  received its largest favourable deviation when judged by itself; the panel did not beat every single judge on every
-  dataset, three settings were tested, and the authors work for the vendor of one panel member
-  [llm-judge-panel-poll]{16}. *(demonstrated, single group)*
-- **Grounding is where judge errors fell.** A reference-guided judge cut math-grading failures from 70% to 15%
-  [llm-judge-mt-bench]{11}; reference-based feedback the authors treat as oracle feedback reduced self-bias
-  [llm-self-bias-refinement]{15}; chain-of-thought and long-reasoning judging lowered harmful self-preference
-  [llm-self-preference-legitimacy]{13}. Model grading needs human calibration [anthropic-agent-evals]{7}.
+  GPT-4 judge on QA (Cohen's kappa 0.763 vs 0.627 on NQ) at seven to eight times lower cost, and each judged model
+  received its largest favourable deviation when judged by itself. The panel did not beat every single judge on every
+  dataset, three settings were tested, GPT-4's weakness is attributed partly to "over-reasoning" and improved with
+  prompt changes, and the authors work for the vendor of one panel member [llm-judge-panel-poll]{16}.
+  *(demonstrated, single group)*
+- **Reference grounding is where judge errors fell most clearly.** A reference-guided judge cut math-grading failures
+  from 70% to 15% [llm-judge-mt-bench]{11}; reference-based feedback the authors treat as oracle feedback reduced
+  self-bias [llm-self-bias-refinement]{15}. Longer judge reasoning adds no reference and the evidence diverges:
+  chain-of-thought and long-reasoning judging lowered harmful self-preference [llm-self-preference-legitimacy]{13}, but
+  a chain-of-thought math judge in many cases "makes exactly the same mistake as the given answers"
+  [llm-judge-mt-bench]{11}. *(demonstrated)* Design guidance adds that model grading needs human calibration
+  [anthropic-agent-evals]{7}.
 - **Critics trade recall for false alarms.** Trained LLM critics caught more inserted bugs in short code than paid
-  contractors, but hallucinated bugs and nitpicked far more; human-plus-critic teams hallucinated less than the
-  critic alone without increasing comprehensiveness over it [llm-critics-catch-bugs]{17}. The authors describe a
-  precision/recall tradeoff whose right balance "is not obvious" [llm-critics-catch-bugs]{17}. *(demonstrated, single
-  vendor; short single-file code)*
+  contractors but hallucinated and nitpicked far more; human-plus-critic teams hallucinated less than the critic alone
+  without being more comprehensive, and the right precision/recall balance "is not obvious"
+  [llm-critics-catch-bugs]{17}. *(demonstrated, single vendor; short single-file code)*
 - **Gap.** No fetched study isolates same-model versus different-model review of generated code, or of multi-file
   agent changes, as the single varied factor {inferred: aggregate}.
 
 ### One reviewer versus several
 
-- In a randomized field experiment of 88 inspections, one-person teams were poorer than two- or four-person teams,
-  two and four did not differ, and effort rose with total reviewers; the abstract nevertheless summarizes that the
-  treatments "did not significantly influence the defect detection effectiveness"
-  [inspection-team-size-experiment]{18}. *(demonstrated)*
+- In a randomized field experiment of 88 inspections, one-person teams were poorer than two- or four-person teams
+  (the one-person single-session treatment was discontinued as ineffective), two and four did not differ, and effort
+  rose with total reviewers; yet the abstract says the treatments "did not significantly influence the defect
+  detection effectiveness", and the summary list says "Increasing team size does not always improve performance"
+  [inspection-team-size-experiment]{18}. *(demonstrated; one experiment)*
 - Across several organizations the median number of active reviewers was two, with "only a minimal increase" in
   comments and no extra rounds when more were active; larger reviewer sets arose when a change was judged high-risk
   after a round of review [convergent-peer-review-practices]{19}. At Google the median was one reviewer and more
   reviewers meant more comments [google-modern-code-review]{20}. Neither measures defects found.
-- Low review participation was estimated to add up to five post-release defects in Qt-family projects
-  [review-coverage-participation-defects]{21}, but an independent replication found review-measure effects unstable
-  and models without review predictors fitting as well or better [review-measures-defects-replication]{22}.
-  *(original demonstrated; replication independently measured)*
-- Review finds more than defects: about 15% of review comments flag a possible defect, and comment usefulness rises
-  with the reviewer's prior exposure to the code [code-reviews-do-not-find-bugs]{23}. *(documented, no methods)*
+- Components with lax review participation were estimated to carry up to five additional post-release defects in the
+  studied Qt, VTK and ITK releases [review-coverage-participation-defects]{21}; a replication on the Qt data and Chrome
+  found review-measure effects unstable, with models without review predictors fitting as well or better
+  [review-measures-defects-replication]{22}. *(original demonstrated; replication independently measured)*
+- About 15% of review comments flag a possible defect, usefulness rises with the reviewer's prior exposure to the
+  code, and effective reviews are posited to need "people with specific set of skills"
+  [code-reviews-do-not-find-bugs]{23} *(documented, no methods)*; the replication attributes to Porter et al. that "the
+  best predictor was the level of expertise of the reviewers" [review-measures-defects-replication]{22}.
 
 ### Re-review after changes
 
 - Repairing defects between two inspection sessions "had no effect on observed defect density" but sometimes
-  lengthened the interval dramatically; very few inspections used that design [inspection-team-size-experiment]{18}.
-  Over 80% of Google changes involved at most one iteration of resolving comments [google-modern-code-review]{20}.
+  lengthened the interval dramatically; a section-level analysis found repair helped two-person but not one-person
+  teams, to be "viewed with caution" given few such inspections [inspection-team-size-experiment]{18}. Both arms
+  include a second inspection, so this does not measure defects introduced by changes after a review `extends`. Over
+  80% of Google changes involved at most one iteration of resolving comments [google-modern-code-review]{20}.
 - Google's reviewer guidance permits approval with unresolved comments when the reviewer is confident the author will
   address them, when the comments are optional, or when they are minor, and asks partial reviewers to say what they
   reviewed [google-review-speed-lgtm]{24}. *(documented)*
-- GitHub can record the diff at approval and dismiss the approval as stale on any later diff change, or alternatively
-  require the most recent push to be approved by someone other than its pusher; it calls dismissal safer against
-  unapproved content being added after approval [github-stale-review-dismissal]{25}. *(designed, optional)*
+- GitHub records the diff at approval and can dismiss the approval as stale on any later diff change, or instead
+  require the latest push to be approved by a non-pusher; it calls dismissal safer against unapproved content added
+  after approval [github-stale-review-dismissal]{25}. *(designed, optional)*
 - **Gap.** No fetched source measures defects introduced by post-approval edits, or compares re-review triggers
   {inferred: aggregate}.
 
@@ -120,18 +128,21 @@ data), **independently measured** (replication, third-party measurement or aggre
   [facebook-infer-zoncolan-scaling]{28}. *(demonstrated; before/after, uncontrolled)*
 - Google reports that warnings shown at build time were ignored and that bug dashboards outside the workflow saw
   little use; checks moved to compiler errors or code review [google-static-analysis-lessons]{26}
-  [google-tricorder-icse2015]{27}. *(documented)*
-- Coverity describes a cycle in which low trust leads to complex true bugs being labelled false positives, and reports
-  that "If people don't understand an error, they label it false" [coverity-billion-lines]{29}. Interviewed developers
-  named false positives and the way warnings are presented as barriers, and asked for explanations, quick fixes and
-  workflow integration [static-analysis-underuse-interviews]{30}. *(documented; independently measured perceptions)*
+  [google-tricorder-icse2015]{27}. An earlier FindBugs integration that posted review comments was discontinued because
+  "the presence of effective false positives caused developers to lose confidence in the tool" and per-user
+  customization gave inconsistent views [google-static-analysis-lessons]{26}. *(documented)*
+- Coverity reports that low trust gets complex true bugs labelled false positives: "If people don't understand an
+  error, they label it false" [coverity-billion-lines]{29}. Interviewed developers named false positives and warning
+  presentation as barriers and asked for explanations, quick fixes and workflow integration
+  [static-analysis-underuse-interviews]{30}. *(documented; independently measured perceptions)*
 
 ### Thresholds and definitions
 
 - Google requires zero effective false positives for build-breaking checks and under 10% for code-review checks,
   where an effective false positive is a report developers did not act on; the 10% figure was "initially chosen ...
-  somewhat arbitrarily" [google-static-analysis-lessons]{26}. Tricorder puts an analyzer on probation at a not-useful
-  click rate of 10% or more and may turn it off above 25% [google-tricorder-icse2015]{27}. *(designed)*
+  somewhat arbitrarily", though it "seems to be a sweet spot for developer satisfaction"
+  [google-static-analysis-lessons]{26}. Tricorder puts an analyzer on probation at a not-useful click rate of 10% or
+  more and may turn it off above 25% [google-tricorder-icse2015]{27}. *(designed)*
 - Coverity aims below 20% false positives for stable checkers and says more than 30% "easily cause problems"
   [coverity-billion-lines]{29}. Facebook defines a false positive as a report that "cannot happen" and tracks action
   rate instead [facebook-infer-zoncolan-scaling]{28}. A "99%" SOC false-positive figure turned out to be mostly benign
@@ -140,13 +151,16 @@ data), **independently measured** (replication, third-party measurement or aggre
 
 ### Non-blocking signals that are acted on
 
-- Google's non-blocking review-time findings ran at about a 5% not-useful rate platform-wide
+- Google's non-blocking review-time findings ran at about a 5% not-useful click ratio platform-wide
   [google-tricorder-icse2015]{27}, with over 5,000 "Please fix" clicks a day against 250 "Not useful" clicks
-  [google-static-analysis-lessons]{26}. They are socially enforced: "Reviewers typically withhold approval of a change
-  until all their comments, manual and automated, have been addressed" [google-static-analysis-lessons]{26}.
+  [google-static-analysis-lessons]{26}. The ratio undercounts both sides: fix clicks "are known to be low", "Developers
+  may ignore findings they do not plan to fix, rather than clicking NOT USEFUL", and views cannot be measured
+  [google-tricorder-icse2015]{27}. They are socially enforced: "Reviewers typically withhold approval of a change until
+  all their comments, manual and automated, have been addressed" [google-static-analysis-lessons]{26}.
   *(demonstrated, builder-reported)*
-- Clinical drug alerts are overridden in 49% to 96% of cases across studies [cpoe-alert-override-review]{34}, yet
-  about 53% of outpatient overrides were judged appropriate on chart review
+- Clinical drug alerts are overridden in 49% to 96% of cases across studies, apart from serious overdose alerts, and
+  "Alert overriding may often be justified" [cpoe-alert-override-review]{34}; on chart review an average of 53% of
+  outpatient overrides were appropriate, from 12% (renal, drug-drug interaction) to 92% (allergy)
   [cds-outpatient-override-appropriateness]{35}. Non-action alone does not show lost attention.
 
 ### Practices associated with actionable advisories
@@ -158,7 +172,7 @@ Each practice is attested in at least one source; cross-domain support is compos
 | Show findings on changed material at review time | [facebook-infer-zoncolan-scaling]{28} [google-static-analysis-lessons]{26} [google-tricorder-icse2015]{27} | demonstrated (builder) |
 | Measure per-check action or not-useful rate; probation and removal of noisy checks | [google-tricorder-icse2015]{27} [google-static-analysis-lessons]{26} [facebook-infer-zoncolan-scaling]{28} | designed |
 | Fix the message: 75% of bugs filed against one analyzer were wording misinterpretations | [google-tricorder-icse2015]{27} [coverity-billion-lines]{29} | demonstrated / documented |
-| Tier by severity; non-interruptive low tier (29% vs 10% compliance; 100% vs 34% for the hard-stop tier) | [ddi-alert-tiering-compliance]{36} | demonstrated (observational) |
+| Tier by severity, interrupting only for serious tiers (overall 29% vs 10%; interruptive Level 2 29% vs 11%; Level 1 100% by hard-stop design vs 34%; information-only tier not measured) | [ddi-alert-tiering-compliance]{36} | demonstrated (observational); advisory-tier effect indirect |
 | Block only checks with effectively no false positives | [google-static-analysis-lessons]{26} | designed |
 | Route lower-signal output to specialist queues | [facebook-infer-zoncolan-scaling]{28} [cpoe-alert-override-review]{34} | designed |
 | Project-level suppression with recorded reasoning | [google-static-analysis-lessons]{26} [static-analysis-underuse-interviews]{30} [cpoe-alert-override-review]{34} | documented / perceptions |
@@ -184,15 +198,18 @@ Each practice is attested in at least one source; cross-domain support is compos
 | Relationship | Positions retained |
 | --- | --- |
 | qualifies | Self-preference read as bias without ground truth [llm-self-recognition-preference]{12}; mostly legitimate yet harmful when wrong with ground truth [llm-self-preference-legitimacy]{13}; undetermined in the MT-bench data [llm-judge-mt-bench]{11}. |
+| qualifies | Chain-of-thought judging lowered harmful self-preference [llm-self-preference-legitimacy]{13}; a chain-of-thought math judge in many cases repeated the graded answer's mistake, and only reference guidance cut failures [llm-judge-mt-bench]{11}. Different tasks and metrics. |
 | tension | Disjoint-family panels reduce intra-model bias [llm-judge-panel-poll]{16}; rising error similarity could compromise jury independence [llm-judge-affinity-similarity]{14}. Neither tests the other's claim. |
-| contradicts | On the same Qt data, lax review participation explains extra defects [review-coverage-participation-defects]{21}; review predictors add no fit [review-measures-defects-replication]{22}. |
+| tension | On the same Qt data, lax participation is estimated to add defects [review-coverage-participation-defects]{21}; the replication finds Qt review measures "similar to what McIntosh et al. found" but unstable and adding no fit [review-measures-defects-replication]{22}. The dispute is over explanatory power. |
 | tension | Within one source, one-person inspections were poorer than two- or four-person ones, while the abstract reports no significant treatment effect [inspection-team-size-experiment]{18}. |
 | tension | Median of two active reviewers with minimal added discussion [convergent-peer-review-practices]{19}; median of one, and more comments with more reviewers, at Google [google-modern-code-review]{20}. |
-| tension | Google's static-analysis article says reviewers "typically withhold approval" until automated comments are addressed [google-static-analysis-lessons]{26}; Google's public reviewer guidance permits approval with unresolved comments under stated conditions [google-review-speed-lgtm]{24}. They may describe different comment kinds; the sources do not reconcile them. |
+| tension | Reviewers "typically withhold approval" until automated comments are addressed [google-static-analysis-lessons]{26}; Google's reviewer guidance permits approval with unresolved comments under stated conditions [google-review-speed-lgtm]{24}. Unreconciled; they may concern different comment kinds. |
 | tension | Tricorder: probation at a 10% not-useful rate, possible shut-off above 25% [google-tricorder-icse2015]{27}; the 2018 article: above 10% the analyzer is disabled until improved [google-static-analysis-lessons]{26}. |
 | tension | Tricorder says its 10% matches Coverity [google-tricorder-icse2015]{27}; Coverity aims below 20% and flags more than 30% [coverity-billion-lines]{29}. |
 | incommensurable | Effective false positive (no action) [google-static-analysis-lessons]{26}; "cannot happen" [facebook-infer-zoncolan-scaling]{28}; not-useful click ratio [google-tricorder-icse2015]{27}; override rate [cpoe-alert-override-review]{34}; benign triggers [soc-false-positive-alarms]{33}. |
 | tension | Practitioner reports of eventual alarm desensitization [soc-false-positive-alarms]{33}; no time-based decline for newly deployed clinical alerts, with volume and repeat effects instead [cds-alert-fatigue-repeats]{37}. |
+| tension | No relationship between relative alert amount and override percentage, possibly from few studies [cpoe-alert-override-review]{34}; acceptance falling with reminders per encounter, the cohort itself noting the earlier null [cds-alert-fatigue-repeats]{37}. |
+| qualifies | Batch lists and out-of-workflow dashboards went unused by general developers [facebook-infer-zoncolan-scaling]{28} [google-static-analysis-lessons]{26}; security engineers triage Zoncolan's master analysis by dashboard [facebook-infer-zoncolan-scaling]{28}, a code-search layer serves teams with "a dedicated cleanup team" [google-tricorder-icse2015]{27}, and SRE favours a dashboard for subcritical problems [sre-monitoring-distributed-systems]{32}. |
 
 ## Disconfirming analysis
 
@@ -200,59 +217,76 @@ Each practice is attested in at least one source; cross-domain support is compos
   model still favours similar models [llm-judge-affinity-similarity]{14}; stronger models' self-preference is mostly
   legitimate on verifiable tasks [llm-self-preference-legitimacy]{13}. Self-review is therefore not shown to be worse
   than cross-model review on generated code; what is shown is a measurable self-preference component and that
-  grounding reduced judge errors.
+  reference grounding reduced judge errors.
 - **Against heavier review:** two and four inspectors did not differ while effort rose
   [inspection-team-size-experiment]{18}; review measures lost explanatory power in replication
   [review-measures-defects-replication]{22}; critics with higher recall produced more false alarms
-  [llm-critics-catch-bugs]{17}. For: one reviewer did worse than two [inspection-team-size-experiment]{18}, and a
-  critic-assisted second review found substantial problems in 24% of flagged "flawless" items versus 6% unassisted
+  [llm-critics-catch-bugs]{17}. For: one reviewer did worse than two, though the abstract reports no significant
+  effect [inspection-team-size-experiment]{18}; and among "flawless"-rated completions where a critic flagged a
+  problem, critique-assisted contractors found a substantial problem in 24%, while in a separate replication without
+  critiques a second contractor rated "flawless" completions similarly poorly 6% of the time; the denominators differ
   [llm-critics-catch-bugs]{17}.
-- **Against mandatory re-review on every change:** repair between sessions did not raise observed defect density
-  [inspection-team-size-experiment]{18}, and documented practice lets approval stand over minor or trusted follow-ups
-  [google-review-speed-lgtm]{24}. For: diff-tied dismissal exists because unapproved content can be added after
-  approval [github-stale-review-dismissal]{25}. Neither side is measured.
-- **Against "advisory warnings degrade":** non-blocking review-time findings were acted on at scale
-  [google-static-analysis-lessons]{26} [google-tricorder-icse2015]{27}, and a median 36.7% of Coverity alerts in
-  long-running open-source projects were fixed by code change [coverity-alert-actionability-oss]{31}
-  {confidence: abstract-only}. Caveats: the Google findings are socially enforced at approval
-  [google-static-analysis-lessons]{26}, and the counter-evidence is builder-reported.
+- **Against mandatory re-review on every change:** documented practice lets approval stand over minor or trusted
+  follow-ups [google-review-speed-lgtm]{24}. For: diff-tied dismissal exists because unapproved content can be added
+  after approval [github-stale-review-dismissal]{25}. Neither side is measured; the repair-between-sessions result does
+  not test changes after approval (see Re-review after changes).
+- **Against "advisory warnings degrade":** Facebook's diff-time reports were fixed at over 70%
+  [facebook-infer-zoncolan-scaling]{28}; Google's review-time findings drew low not-useful click ratios and thousands
+  of fix requests a day [google-static-analysis-lessons]{26} [google-tricorder-icse2015]{27}; a median 36.7% of
+  Coverity alerts in long-running open-source projects were fixed by code change, delivery mode not stated
+  [coverity-alert-actionability-oss]{31} {confidence: abstract-only}. Caveats: the Google findings are socially
+  enforced at approval [google-static-analysis-lessons]{26} and their click ratios undercount ignoring
+  [google-tricorder-icse2015]{27}; the counter-evidence is builder-reported; and Google's earlier FindBugs review
+  integration was discontinued over effective false positives [google-static-analysis-lessons]{26}.
 - **For "noisy warnings get ignored":** build-time warnings and out-of-workflow dashboards were ignored
   [google-static-analysis-lessons]{26}; frequent pages lead to skimming and ignoring
-  [sre-monitoring-distributed-systems]{32}; acceptance fell with volume and repeats [cds-alert-fatigue-repeats]{37}.
-  The recurring condition is placement, volume and repetition rather than advisory status {inferred: aggregate}.
+  [sre-monitoring-distributed-systems]{32}; acceptance fell with volume and repeats [cds-alert-fatigue-repeats]{37},
+  though an earlier review found no volume-override relationship [cpoe-alert-override-review]{34}. Placement, volume and
+  repetition recur more than advisory status where degradation is reported {inferred: aggregate}; dashboards still
+  served specialist audiences (see Contradictions).
 
 ## Decision relevance
 
 These are implications for methodology revisers, not measured effects of any particular workflow.
 
 - **Cross-model review preference.** `extends`: the evidence supports keeping an independent check over pure
-  self-review, but does not show that a different model is the active ingredient; grounding the review in executable
-  checks, references or recorded criteria is more consistently associated with reduced judge error
-  [llm-judge-mt-bench]{11} [llm-self-bias-refinement]{15} [llm-judge-affinity-similarity]{14}. A preference for a
-  different model could be retained as a cheap reduction of the self-identity component while relying on grounded
-  evidence for correctness.
-- **Review weights.** `extends`: the human data support a step from zero or one reviewer to a second check more than
-  adding further reviewers [inspection-team-size-experiment]{18} [convergent-peer-review-practices]{19}; scaling review
-  to perceived risk is the documented practice [convergent-peer-review-practices]{19}. Reviewer false alarms have a
-  cost [llm-critics-catch-bugs]{17}.
+  self-review, but does not show that a different model is the active ingredient: a held-out judge grading without
+  references still favoured similar models [llm-judge-affinity-similarity]{14}. Reference guidance and reference-based
+  feedback are the attested conditions under which judge error fell [llm-judge-mt-bench]{11}
+  [llm-self-bias-refinement]{15}; extending this to executable checks or recorded criteria is untested. A
+  different-model preference could be retained to avoid self-judging, which gave each model its largest favourable
+  deviation in one panel study [llm-judge-panel-poll]{16}, while relying on grounded evidence for correctness.
+- **Review weights.** `extends`: in this sample, defect evidence on reviewer count comes from one experiment in which two
+  inspectors beat one and four added effort without gain, while its abstract reports no significant effect
+  [inspection-team-size-experiment]{18}; the median of two active reviewers is practice, not defect measurement
+  [convergent-peer-review-practices]{19}. Reviewer count is commonly varied with perceived risk, complexity or change
+  size [convergent-peer-review-practices]{19} [google-modern-code-review]{20}, and reviewer expertise and familiarity
+  are attested as mattering [review-measures-defects-replication]{22} [code-reviews-do-not-find-bugs]{23}. Reviewer
+  false alarms have a cost [llm-critics-catch-bugs]{17}.
 - **Covering-review reuse.** `extends`: whether an earlier review covers later changes is a policy choice in the
   sources — approval with explicit, bounded follow-ups [google-review-speed-lgtm]{24} versus diff-tied approval
-  [github-stale-review-dismissal]{25}. Recording what a review covered, as Google's guidance asks of partial reviewers
-  [google-review-speed-lgtm]{24}, is the attested mechanism that makes reuse checkable.
+  [github-stale-review-dismissal]{25}. Two recording mechanisms are attested — GitHub's recorded diff at approval
+  [github-stale-review-dismissal]{25} and Google's request that partial reviewers note what they reviewed
+  [google-review-speed-lgtm]{24}; using either to make reuse checkable is an application.
 - **Citation advisories.** `extends`: the sources favour keeping advisories that are shown on changed material,
   explained, and measured for action, and removing or tiering checks whose non-action rate is high
-  [google-tricorder-icse2015]{27} [facebook-infer-zoncolan-scaling]{28} [ddi-alert-tiering-compliance]{36}. Before a
-  threshold is applied, the false-positive definition must be stated [google-static-analysis-lessons]{26}. Blocking is
-  reserved for checks with effectively no false positives [google-static-analysis-lessons]{26}. A high dismissal rate
-  can reflect correct dismissal [cds-outpatient-override-appropriateness]{35}.
+  [google-tricorder-icse2015]{27} [facebook-infer-zoncolan-scaling]{28} [ddi-alert-tiering-compliance]{36}. That
+  evidence is builder-reported; Google's review-time findings are typically enforced before approval and measured by
+  click ratios that undercount ignoring [google-static-analysis-lessons]{26} [google-tricorder-icse2015]{27}; an earlier
+  review-time integration was discontinued over effective false positives [google-static-analysis-lessons]{26}; and the
+  tiering gain was measured on interruptive tiers, so the advisory-tier benefit is indirect
+  [ddi-alert-tiering-compliance]{36}. Before a threshold is applied, the false-positive definition must be stated
+  [google-static-analysis-lessons]{26}. Blocking is reserved for checks with effectively no false positives
+  [google-static-analysis-lessons]{26}. A high dismissal rate can reflect correct dismissal
+  [cds-outpatient-override-appropriateness]{35}, and specialist queues are an attested alternative to suppression.
 
 ## Limits
 
 - No fetched study evaluates agent-to-agent review of multi-file changes, or warnings consumed by an automated agent.
 - LLM-judge evidence concerns 2023-2025 models and short artifacts; the direction of change with newer models is
   uncertain [llm-judge-affinity-similarity]{14}.
-- Human-review evidence is 1997-2020 and mostly observational; it measures comments or post-release defect counts
-  rather than defects caught per review.
+- Human-review evidence is 1997-2020 and observational except for one inspection experiment measuring observed defect
+  density; the rest measures comments, practice or post-release defects, not defects caught per review.
 - Software warning evidence is mostly builder-reported; independent software evidence is one interview study and one
   abstract-only mining study. Clinical and SOC findings transfer only as analogy {inferred: aggregate}.
 - No source validates a numeric threshold against adoption or abandonment outcomes.
@@ -268,3 +302,9 @@ These are implications for methodology revisers, not measured effects of any par
   published.
 - The full text of the Coverity open-source mining study is read [coverity-alert-actionability-oss]{31}.
 - Evidence appears on advisories from documentation or prose linters.
+
+## Revisions
+
+- 2026-10-19 — Correction (position preserved) after adversarial read: restored stripped source qualifiers, separated
+  chain-of-thought from reference grounding, re-scoped decision-bullet citations, and added three Contradictions rows;
+  see `verification-checklist.md`, "Revision response (2026-10-19)".

@@ -160,3 +160,10 @@ after both return.
   E3+W4) plus minor findings. `parent.md` checked exhaustively; briefs ~80/96
   and ~110/144 citations; sources not re-fetched. Revision pass dispatched;
   then adversarial re-read. A second NEEDS-REVISION is surfaced to Andrew.
+- Revision pass 1 (2026-10-19): all material, minor and info findings
+  dispositioned in the checklist's `## Revision response`; two attestations
+  extended additively from re-fetched sources (W1, D4; lead verified zero removed
+  lines). Lead lint rerun: 0 broken, 0 thin, 0 high/medium. Parent grew ~22%
+  from restored qualifiers. Next: adversarial re-read (attempt 3; a further
+  NEEDS-REVISION is surfaced to Andrew) and `evaluate` (isolated: synthesis +
+  seed only), dispatched in parallel on the same revised synthesis.
