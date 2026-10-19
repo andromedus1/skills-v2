@@ -1,7 +1,7 @@
 ---
 id: feature-calibration-cuts
 kind: feature
-stage: drafting
+stage: implementing
 tags: [research-pipeline, methodology-review, process]
 parent: null
 depends_on: []
@@ -35,3 +35,29 @@ doc-review's loop) needs no change.
 ## Simplification opportunity
 
 This item is the simplification.
+
+## Design decisions
+All directional choices are Andrew's (Brief). C4 runs now rather than after the
+blueprint pilot (Andrew chose "C4 compress now").
+
+## Implementation Units
+1. **C1 + C2** — `.work/CONVENTIONS.md` `### Review receipts` (drop `Weight` line;
+   post-review block = exceptions or one "none" line; no closure anchor; keep the
+   exact enumeration command) and `quality-checkpoint/SKILL.md` §2 (classify only
+   exceptions; the receipt's fix commits and other tracked items' own commits need
+   no line).
+2. **C3** — `gate-citations/SKILL.md`: add `--no-pattern-check` to the gate
+   command; remove pattern-advisory handling/reporting that no longer applies;
+   keep warn-only counts and the exit-code/JSON rules. Check quality-checkpoint
+   and build-process for advisory wording that would now be false.
+3. **C4** — methodology-review SKILL + `references/review-record.md` +
+   `references/review-decomposition.md`: (a) inventory every operative rule in the
+   current text as a numbered list; (b) rewrite to ≤ ~3,700 words total, merging
+   restatements and moving outcome-precedence prose into the exit table; keep
+   frontmatter, section structure and any anchors linked from elsewhere; (c) map
+   each inventoried rule to its new location. A separate fresh-context agent then
+   checks the mapping against both texts before review.
+**Acceptance**: [ ] receipt template/rules match C1–C2 and the enumeration command
+still runs verbatim; [ ] gate command includes `--no-pattern-check` and the gate
+text has no orphaned advisory handling; [ ] methodology-review word count ≤ ~3,700
+with a complete rule mapping verified independently; [ ] RP portability passes.
