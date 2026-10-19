@@ -281,3 +281,56 @@ experiment (needs authorization): doc-review on a seeded-drift fixture.
 
 Child exit: **awaiting decision** (METH-001 experiment; METH-004 doc-review role);
 secondary awaiting evidence (ER-1–4). No remedies pending.
+
+### QVC-R — independent review routing, weights and reuse (returned 2026-10-18)
+
+Scope: agile `review` (+4 refs), principles Part IV, `advisory-review.md`,
+`models.md`, `subagents.md`; review steps in autopilot, implement-orchestrator,
+implement, fix, scope; hook capsule (`prompt-context.py:103-120`); CONVENTIONS;
+build-process Delivery/Completion; quality-checkpoint; RP feature/epic-design
+advisory text; user-level "Cross-model review" rule; grounding brief; git/PR state.
+Ownership diffed against upstream: review/principles/autopilot/scope/fix match
+upstream except fork additions in `models.md` (Kimi/Pi); CONVENTIONS,
+build-process, quality-checkpoint, RP design skills and user instructions are
+fork/Andrew-owned. Not read: gate internals, release-deploy, doc-review internals,
+Codex `openai.yaml`. No review, peeragent call or scenario test run — text, repo
+and git facts only. Enforcement: all in-scope rules are reader compliance; tests
+(`convert-review-weight.test.sh`, portability inventory) are structural.
+
+| ID | Sev. | Finding | Recommendation / would authorize | Owner |
+| --- | --- | --- | --- | --- |
+| QVC-R/METH-001 | **major** (conf. medium) | Independent-review routing is set by item kind, chosen by size/cohesion (`scope/SKILL.md:111-114`; `fix/SKILL.md:158-181`); standalone stories never get an independent reviewer (`review/SKILL.md:84-87,115-117`). The fork's consequence rule is conditional — "use the feature review boundary *when independence is warranted*" (`CONVENTIONS.md:27-30`), reworded at `build-process.md:119-122` and `quality-checkpoint/SKILL.md:81-84`. A one-line authority/stop-rule edit gets only the author's inline check. Counter: agents already scope such work as features; cheap standalone stories are deliberate; release checkpoints rare | (b) Fork-only operative list used at scope/fix time: authority, required checks, completion/stop criteria, grounding or cross-skill contract changes are scoped as a feature (possibly one-story) regardless of size. Authorizes rewriting `CONVENTIONS.md:26-36` only. (c) upstream scope-table criterion optional | fork (c: upstream) |
+| QVC-R/METH-002 | **major** (conf. medium-high) | Covering-review reuse is undecidable: upstream receipt template (`substrate-side-effects.md:81-91`; `review/SKILL.md:243-244`) lacks reviewed range, reviewer class and fix-verification fields that fork consumers require (`quality-checkpoint:86-90`; `CONVENTIONS:34-35`). "Stale evidence is not a pass" (`CONVENTIONS:35-36`; `build-process:184-187`; `quality-checkpoint:162`) vs "a changed hash alone does not require another pass" (`quality-checkpoint:92-93`; `build-process:120-121`), bridged only by author-judged "materially uncovered". Instance: `6419b3bc` after review record `c1827823` added new contract text (candidate eligibility, AR probe placement, research-tag exclusion, capped doc-review refresh) and closed on verification alone. Resume "from existing receipts" (`quality-checkpoint:96-97`) presumes fields the template lacks | (b) Fork receipts name `<base>..<head>`, reviewer class/path and fix commits; each post-review change to a consequential file gets a one-line coverage classification (pass / named-finding fix verification / uncovered → normal delivery); "stale" = unclassified post-review change. Authorizes CONVENTIONS and quality-checkpoint §2 receipt-field edits. (c) upstream template; (d) authorized experiment: same-reviewer delta confirmation on fix diffs that add normative text | fork (c: upstream) |
+| QVC-R/METH-003 | **major** (facts high; materiality medium) | The assumed human PR gate is not operating and changes go live before it: instructions require PRs and manual merge (`~/dev/CLAUDE.md`; `CONVENTIONS:26-27`), but `main`/`origin/main` last moved 2026-06-09 (`86204084`), HEAD is 63 first-parent commits ahead incl. every QVE-era contract change, no PR open; the marketplace source is the working tree, so commits are live pre-merge. The agent review lane is the only independent check. Counter: solo maintainer adjudicates packets in real time; branch may be intended as one later PR | Andrew chooses: (a) retain and document agent review as the gate; (b) PR per arc with Andrew reviewing consequential contract diffs; (c) point the marketplace at `main` or a release worktree | operator + fork |
+| QVC-R/METH-004 | minor | "Standard = one pass" restated ≈10 places (`review/SKILL.md:65-89,221-237,306-310`; `principles/SKILL.md:399-427,461-469`; `advisory-review.md:13-24`; `deep-review.md:15-27`; `substrate-side-effects.md:36-46`; `autopilot:330-347`; `implement-orchestrator:185-196`; `prompt-context.py:114-115`; fork `build-process:114-117`; user rule). Covering-review contract thrice in fork files with different triggers; CONVENTIONS forbids a "file-triggered peer pass" that no longer exists (removed `4575547d`) | One fork statement in build-process Delivery; quality-checkpoint keeps release reconciliation; CONVENTIONS keeps repo triggers + link; user rule shrinks to reviewer preference + "follow the workflow's weight". Authorizes those fork files and Andrew's instructions | fork / Andrew |
+| QVC-R/METH-005 | minor (uncertain) | Independence stops at detection: author adjudicates proposals (`principles/SKILL.md:471`; `review/SKILL.md:205-219`), verifies own fixes and judges materiality; rejected proposals never surfaced to Andrew; lenses are code-oriented (`review-lenses.md`; `deep-review.md:73-103`) with no prompt-ware lens (authority, stop rules, cross-skill conflicts, cross-host invocation, resume). Counter: receiver ownership prevents reviewer-driven over-engineering | Prompt-ware lens list in reviewer packet (CONVENTIONS or `.agents/rules`); list rejected/downgraded blockers in completion summary for consequential changes; scenario-walk fix verification as an experiment | fork |
+| QVC-R/METH-006 | minor | Duplicate passes: single-feature autopilot gets feature review + final completion review of the same bundle (`autopilot:313-318`; 10–30 min each, `models.md:50-52`); methodology controller as feature gets feature review + fresh assessor though methodology-review allows one pass to serve both (`SKILL.md:155-156,242-243`) | Upstream note, low priority | upstream |
+
+Incidental defects: fork `feature-design/SKILL.md:194` and `epic-design/SKILL.md:231`
+cite "Cross-Model Advisory Review policy (Part IV)" (actual title "Risk-Driven
+Advisory Review", `principles:388`), a non-existent `peer-review` loop (peeragent
+0.8.1 exposes `peer`), and skip rather than fall back to a fresh-context reviewer
+(`principles:450`); `models.md:202` Codex "model auto-selected" cannot honor
+`deep-review.md:43-47` precedence and receipts can't show the model (upstream);
+`docs/project-navigation.md:60-68` omits the fork's `models.md` additions (+22 lines
+vs `upstream/main`), against `AGENTS.md:25-26`.
+
+Scenario walk: small prompt edit → inline lane (METH-001); consequential contract
+change → sound once routed as feature; changed after review → author decides
+(METH-002); reviewer unavailable → consistent labeled fallback or block; Codex vs
+Claude driving symmetric except Codex model pinning; disputed findings → author
+adjudicates, no escalation (METH-005); resume → receipts lack baseline (METH-002).
+Simpler baseline differs mainly in who judges post-review materiality.
+
+Sibling implications: QVC-E — METH-002 instances the root's shared evidence
+question; check AR verification records and doc-review reports for baselines; one
+owner for "missing/stale ≠ pass". QVC-S — citation gate runs only in rare release
+checkpoints and PRs are inactive, so judge warnings inside engagements.
+Evidence requests: LLM-judge self-preference magnitude and extension to
+self-adjudication/self-verification; cross-model vs same-model fresh-context
+detection; human review practice (reviewer count; stale-approval dismissal,
+Gerrit copy rules; material vs trivial classification); prompt diff size vs
+behavioral impact; local experiment (replay `6419b3bc` + seeded authority edit,
+author self-verification vs Codex delta confirmation).
+
+Child exit: **awaiting decision** — majors METH-001–003; evidence requests 1–3 pending.
