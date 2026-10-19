@@ -31,10 +31,27 @@ history authoritative.
 
 Use [methodology-review](plugins/research-pipeline/skills/methodology-review/SKILL.md)
 to compare a project's methods with prior art, adjudicate proposed changes, and
-reassess outcomes after authorized work. It maps decisions to select a focused,
-coordinated or program review, with adaptive research inside each component.
-Parent assessment checks the combined effects; review records preserve decisions,
-coverage and shared stopping limits across interruptions.
+reassess outcomes after authorized work. It selects a focused, coordinated or
+program review from mapped decisions, while research adapts to evidence gaps
+within each component. Durable child and parent records preserve decisions,
+coverage, shared assessment rounds and resume state. A fresh whole-scope
+assessment determines the explicit exit status; child completion alone does not
+close the parent. See the skill's linked references for the review record and
+decomposition protocol.
+
+Use `.work/bin/work-view` to find current and backlog work; parked ideas are
+listed in the [backlog](.work/backlog/). Completed archive stubs retain a
+`git_ref` for recovering the full record at its original active path, as
+described by [Agile Workflow's archive guidance](plugins/agile-workflow/skills/review/references/substrate-side-effects.md).
+
+At release boundaries, [quality-checkpoint](plugins/research-pipeline/skills/quality-checkpoint/SKILL.md)
+uses configured gates and reconciles their actual outcomes, residual findings
+and covering delivery-review evidence. `--pending` is an owner-eligibility
+preflight only. Research, delivery review and other gate owners retain their
+own verification and correction rules; a completed standard review with
+verified accepted fixes remains covering evidence. The citation gate groups
+advisories to improve reporting signal while leaving Agentic Research's
+authoritative lint and semantic verification unchanged.
 
 See [build process](plugins/research-pipeline/docs/build-process.md) and
 [research composition](plugins/research-pipeline/docs/research-composition.md).
