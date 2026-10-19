@@ -71,7 +71,7 @@ A `[research]`-tagged work item carries the dials in a `research_dials:` frontma
 ```yaml
 research_dials:
   scope_authority: pre-registered        # pre-registered | mixed | in-engagement-judgment
-  verification_rigor: standard           # floor | standard | full
+  verification_rigor: standard           # floor | standard | full | adaptive
   intent: build-substrate                # the ARD intent (SPEC §9)
   output_kind: synthesis-brief           # expected output_kind (single value or a [list])
 ```
@@ -95,7 +95,7 @@ standalone-walk defaults:
 | dial (omitted) | ⇒ default |
 |---|---|
 | `scope_authority` | `in-engagement-judgment` (the standalone default) |
-| `verification_rigor` | inferred per the standalone inference rules; surfaced + confirmed at kickoff when interactive |
+| `verification_rigor` | `adaptive` — resolved at kickoff to the lowest credible level; the resolved level + rationale are stated, and asked only when the call is genuinely close |
 | `intent` | inferred from the commissioning item body |
 | `output_kind` | the orchestrator's default for the discovered engagement shape |
 
@@ -123,7 +123,7 @@ Consequences of the registration riding the work item:
 - **Gates run inline** in the orchestrator's verification stack (ARD SPEC §7). Research never reaches
   `release-deploy`, so its verification cannot defer to a release gate — it fires during the
   engagement.
-- **The orchestrator closes the item.** At engagement completion (gates passed at the dialed
+- **The orchestrator closes the item.** At engagement completion (gates passed at the resolved
   rigor, output persisted) the orchestrator advances the commissioning item with a short engagement
   record — it owns that transition, since the item never passes a review→bind *release* flow. *Where*
   it advances is **CONVENTIONS-configurable** via `research_completion` in `.work/CONVENTIONS.md`:

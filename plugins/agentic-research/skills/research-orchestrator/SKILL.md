@@ -56,9 +56,14 @@ discuss + settle), never silently.
 - **`scope_authority`** — `pre-registered` / `mixed` / `in-engagement-judgment` (default when
   the seed carries none). Governs whether `decompose` is emergent (you draft + confirm) or
   honored from a declared decomposition, and whether in-flight re-scoping is permissioned.
-- **`verification_rigor`** — `floor` / `standard` / `full`. Governs **which verification gates
-  fire** (see Verification depth) — *not* how wide the fan-out is. Infer from how much rigor
-  the output warrants; surface your inference at kickoff.
+- **`verification_rigor`** — `floor` / `standard` / `full` / `adaptive`. Governs **which
+  verification gates fire** (see Verification depth) — *not* how wide the fan-out is. An explicit
+  `floor`/`standard`/`full` wins. `adaptive` (also the resolution when the dial is omitted) selects
+  one of the three at kickoff: the lowest level that credibly fits the decision's consequence,
+  uncertainty, novelty, source disagreement, synthesis complexity and breadth — no fixed source- or
+  agent-count thresholds. State the resolved level and why at kickoff and in the engagement record
+  and report. Ask only when no default is set (the dial was omitted) and the call is genuinely
+  close. The hard floor and reachability rules apply to the resolved level (ARD SPEC §7).
 - **engagement-unit** is emergent (discovered at read-time — do not pre-commit it);
   **disconfirmation-mode** is derived from `scope_authority` (you don't set it). Per §8, the
   framework retires derivable fields rather than storing them.
@@ -161,12 +166,12 @@ deliberately absent from `allowed-tools`).
   **Under autonomous delegation** (an autopilot/queue-driver goal dispatched this engagement
   and its contract forbids mid-run questions): the registration-carrying item is the coherent
   case — the dials were user-confirmed at scope time, so kickoff confirmation is already
-  satisfied; state the read dials and proceed. The §9 depth gate still binds: extract an explicit
-  or clearly-stated `decision_relevance` (yield hypothesis) from the commissioning item's body,
-  state it, and proceed — but if none is present or it is ambiguous, **hard-halt** before setting
-  rigor or fan-out (same posture as the no-dials case below); do not infer a yield hypothesis to
-  manufacture depth. The checkpoints below then degrade to
-  **surface-and-proceed**: narrate the content, persist the durable half (Checkpoint A's
+  satisfied; state the read dials (with any `adaptive` rigor's resolved level) and proceed.
+  The §9 depth gate still binds: extract an explicit or clearly-stated `decision_relevance`
+  (yield hypothesis) from the commissioning item's body, state it, and proceed — but if none is
+  present or it is ambiguous, **hard-halt** before setting rigor or fan-out (same posture as the
+  no-dials case below); do not infer a yield hypothesis to manufacture depth. The checkpoints
+  below then degrade to **surface-and-proceed**: narrate the content, persist the durable half (Checkpoint A's
   decomposition rationale per §10.6; Checkpoint B's contradictions in the synthesis), and
   continue — judgment logged, never silently skipped. This degradation is a **deliberate
   choice**, not a loss of rigor: the durable half is always persisted and the dials were
@@ -196,7 +201,7 @@ field is not malformation — it takes its default, consistent with the standalo
 | dial (omitted) | ⇒ default |
 |---|---|
 | `scope_authority` | `in-engagement-judgment` (the standalone default) |
-| `verification_rigor` | inferred per the standalone inference rules (how much rigor the output warrants); surfaced + confirmed at kickoff when interactive |
+| `verification_rigor` | `adaptive` — resolved at kickoff per §Reading the dials; the resolved level + rationale are stated, and asked only when the call is genuinely close |
 | `intent` | inferred from the commissioning item body (its seed/intent prose) |
 | `output_kind` | the orchestrator's default for the discovered engagement shape (brief / campaign / position) |
 
@@ -216,6 +221,8 @@ A subset-select gate catalog with a hard-floor core, not a monolithic switch:
 | `standard` | ✓ floor | ✓ | — | ✓ floor |
 | `full` | ✓ floor | ✓ | ✓ | ✓ floor |
 
+`adaptive` has no row of its own: it resolves to one of these rows at kickoff (§Reading the dials).
+
 - **`lint` + `spot-check` are the hard floor** — they always fire. `adversarial-read` +
   `evaluate` are selectable; "go custom" (activate one independent of the profile) is
   first-class.
@@ -229,10 +236,12 @@ A subset-select gate catalog with a hard-floor core, not a monolithic switch:
 - **`evaluate`** — dispatch the [evaluator](references/evaluator.md) brief with **isolated context: ONLY the synthesis output + the seed.** Do not pass briefs, attestations, or the decomposition rationale — the isolation is the FR.1 fence, enforced by what you hand it.
 - **`spot-check`** — you (lead, full substrate access) sample across all lint pattern categories + load-bearing semantic claims, consuming lint + adversarial + evaluator findings. Corrections in place.
 
-A `NEEDS-REVISION` from either gate triggers a revision pass at the indicated scope — a revision
-dispatched to a sub-agent is composed per **Dispatch composition** (the discipline is inlined
-again, never skipped on a re-author). A second-pass `NEEDS-REVISION` is surfaced to the user, not
-looped silently.
+An accepted `NEEDS-REVISION` finding from either gate triggers a revision pass at the indicated
+scope — a revision dispatched to a sub-agent is composed per **Dispatch composition** (the
+discipline is inlined again, never skipped on a re-author). After the revision, rerun the
+deterministic checks (`lint`) and only the affected gate over the affected scope. **Stop rule:**
+surface to the user, rather than looping, when the same failure recurs twice without material
+progress, or when a revision introduces new material errors a second time.
 
 Before verification or resume, use [verification-record.md](references/verification-record.md)
 to retain the required gates, assessed inputs, actual results, corrections and next step in
@@ -350,9 +359,10 @@ A `.work/` item may commission an engagement and cite it back — two patterns, 
 
 **Engagement completion closes the commissioning item — this orchestrator owns that
 transition.** When the dialed gates have passed and the output is persisted, advance the
-commissioning `[research]` item and append a short engagement record to its body (fan-out, gate
-outcomes, output paths). **Where it advances to is CONVENTIONS-configurable** — read
-`research_completion` from `.work/CONVENTIONS.md` (like the agile-workflow keys):
+commissioning `[research]` item and append a short engagement record to its body (fan-out,
+resolved rigor, gate outcomes, output paths). **Where it advances to is
+CONVENTIONS-configurable** — read `research_completion` from `.work/CONVENTIONS.md` (like the
+agile-workflow keys):
 
 - **`close-to-done`** (default) — flip the item straight to `stage: done`. Verification ran inline
   in the orchestrator's stack (ARD SPEC §7), so review→bind adds nothing; closing to `done` is the
@@ -365,8 +375,8 @@ Either way the verification already ran inline, so the item never flows through 
 *release* path. Note that a `[research]` item left non-terminal blocks its `depends_on` consumers —
 but that is ordinary non-terminal-substrate behavior, true of any item, not a special hazard of this
 seam; `research_completion` just lets a deployment choose where the human sits. Never flip on
-unresolved gates: a second-pass `NEEDS-REVISION` leaves the item at its current stage with the
-blocker surfaced.
+unresolved gates: a gate surfaced under the stop rule (§Verification depth) leaves the item at its
+current stage with the blocker surfaced.
 
 **The registration carrier is feature/story-level — one `research_dials:` block = one
 engagement.** The positive pattern this implies is the **research program**: an *epic* whose

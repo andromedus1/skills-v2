@@ -1,7 +1,7 @@
 ---
 id: feature-ar-research-rigor-ideas
 kind: feature
-stage: implementing
+stage: review
 tags: [agentic-research]
 parent: null
 depends_on: []
@@ -56,3 +56,24 @@ An adaptive option may replace manual rigor selection at kickoff.
 [ ] the orchestrator states the resolved level; [ ] hybrid stop rule replaces the
 old sentence everywhere it appears; [ ] conformance 77/77, `gen-contract --check`,
 AR skill metadata, refresh tests pass; [ ] historical theory positions untouched.
+
+## Implementation notes
+- Execution capability: one worker; review weight standard (default).
+- `adaptive` added as a resolution mode (not a fourth gate set) in ARD SPEC §7,
+  CATALOGS table (+ regenerated `catalogs.json` enum), dispatch template,
+  orchestrator dials/defaults (omitted rigor → `adaptive`; ask only when the dial
+  was omitted and the call is close), refresh re-engagement, README, HANDOFF;
+  resolved level and rationale recorded in the engagement record.
+- Hybrid stop rule replaces the second-pass rule in the orchestrator (L239–244,
+  item-stage rule L378) and `verification-record.md` (outside the listed write
+  set, accepted: same rule).
+- `.research/CONVENTIONS.md` frontmatter `owner: agentic-research`; convert
+  bootstrap writes it; sync declines another provider's tree and reports a
+  missing marker as drift (small addition beyond the design).
+- Agile Workflow `convert`/`deep-code-scan` do not validate rigor values — no
+  patch. Theory positions untouched.
+- Verification: conformance 77/77; `gen-contract --check` in sync; AR metadata
+  ok; `test_refresh_scan.py` all pass; knowledge-index regen accepts the new
+  frontmatter.
+- Residue: RP `deep-research/SKILL.md:18` ("propose standard or full only when
+  consequence warrants") remains compatible with `adaptive`; left as is.

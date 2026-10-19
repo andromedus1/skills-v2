@@ -56,8 +56,10 @@ research, the **kind** (raw source vs claim-bearing synthesis). Propose-not-prun
 in silently. Pulling an ordinary doc into the durable tier is as costly as a tier misclassification.
 
 ### Phase 4 — Scaffold or sync the substrate
-Bootstrap: write the substrate layout + CONVENTIONS skeleton. Sync: validate + report drift, add
-only what's missing, never overwrite authored substrate. See the scaffold reference.
+Bootstrap: write the substrate layout + CONVENTIONS skeleton, whose frontmatter declares
+`owner: agentic-research`. Sync: validate + report drift, add only what's missing, never overwrite
+authored substrate; a tree owned by another provider is reported and left untouched. See the
+scaffold reference.
 
 ### Phase 5 — Route the material (the split is load-bearing)
 - **Raw sources / bibliography → `reference/<corpus>/` as-is.** They are substrate, NOT lenses —
