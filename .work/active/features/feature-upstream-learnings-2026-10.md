@@ -1,12 +1,13 @@
 ---
 id: feature-upstream-learnings-2026-10
 kind: feature
-stage: drafting
+stage: done
 tags: [research-pipeline, agentic-research, upstream]
 parent: null
 depends_on: []
 release_binding: null
 gate_origin: null
+research_refs: [upstream-learnings-2026-10-landscape]
 created: 2026-10-19
 updated: 2026-10-19
 ---
@@ -70,3 +71,18 @@ domain-review jobs.
 Host-added maintenance inside the sync (no decision needed): update Claude's
 cached peeragent to 0.8.3 and correct our catalog's peeragent description
 ("peer and peer-review" → "peer").
+
+## Delivery and closure (2026-10-19)
+
+| Decision | Item | Outcome |
+| --- | --- | --- |
+| Sync upstream-owned plugins; Workbench tree | `feature-upstream-sync-2026-10` | done — merge `422de5eb` with `638867b6`; callers `af5505c2`; review (env-only block) closed with receipt |
+| Overbuild calibration + delegation rule | `feature-overbuild-calibration` | done — 2 blockers, 2 important fixed `edd9573a`; cuts C1–C5 proposed for Andrew |
+| AR rigor ideas | `feature-ar-research-rigor-ideas` | done — `adaptive`, owner marker, hybrid stop rule; review env-only block |
+| Model notes (Workbench-style) | `feature-model-notes` | done — 2 evidence blockers fixed `edd9573a` |
+| New plugins/channels | — | declined |
+
+Research: `story-research-upstream-learnings` (floor rigor) — done. Pending for
+Andrew: proposed cuts C1–C5 in `feature-overbuild-calibration`; after merge,
+install updates (agile-workflow 0.16.16, ux-ui-design 1.0.0, peeragent 0.8.3 on
+Claude) and a `ux-ui` discovery smoke on both hosts.
