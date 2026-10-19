@@ -1,6 +1,6 @@
 # Auto-generated. DO NOT EDIT BY HAND.
 # On-demand layer — load when surfacing a specific doc's full context.
-generated_at: '2026-10-19T17:11:58Z'
+generated_at: '2026-10-19T19:01:04Z'
 generated_from: frontmatter
 schema_version: 1
 documents:
@@ -145,6 +145,24 @@ documents:
     - Claude documents dependency bundles; equivalent OpenAI installation behavior remains unverified.
     - 'Proposed: clarify methodology-review research-scale selection and preserve its existing decision
       loop.'
+  .research/analysis/briefs/upstream-learnings-2026-10-landscape.md:
+    summary: Breadth map of 224 upstream nklisch/skills commits (43f7f4bf..638867b6) and peeragent 0.8.2/0.8.3,
+      each mapped to this fork as already-have, conflicts, adopt, adapt or not-relevant, plus a Workbench
+      ideas pass with evidence for and against transfer.
+    key_findings:
+    - 'Upstream agile-workflow changes are compatibility work plus one behavioural addition: a fresh-context,
+      cross-model skeptic in bold-refactor (shared with code-audit).'
+    - ux-ui-design 1.0.0 removes the seven pipeline skills; adopting it also requires edits to fork-owned
+      research-pipeline epic-design and feature-design, which still invoke the removed names.
+    - prose-craft, sol-calibration and declaudify are additive and have no fork consumers; sol-calibration
+      overlaps agile-workflow principles and gate-cruft.
+    - Antigravity manifests are the whole change for agentic-research, agent-coordination, nates-toolkit
+      and workflow; adopting them adds a third parity channel.
+    - peeragent 0.8.2/0.8.3 change only Windows npm-shim launching; macOS behaviour and the peer skill
+      text are unchanged.
+    - Workbench's transferable ideas centre on costed machinery (overbuilding calibration, machinery forecast),
+      design-review priorities and local model notes; its rapid churn and add-then-remove history argue
+      for adopting ideas, not text.
   .research/analysis/campaigns/qvc-review-evidence/parent.md:
     summary: 'Cross-facet synthesis on two questions about review and advisory controls for generated
       work. Same-model judging carries a measured self-preference that, with ground truth, is mostly legitimate

@@ -6,9 +6,9 @@
 #   2 = enforce (missing v2 fields are errors)
 # Set to 2 once the project's docs are fully backfilled to v2 frontmatter.
 schema_version: 1
-generated_at: 2026-10-19T17:11:58Z
+generated_at: 2026-10-19T19:01:04Z
 generated_from: frontmatter
-total_docs: 22
+total_docs: 23
 
 documents:
   # ── planning ──────────────────────────────────────────────────────────────
@@ -84,6 +84,13 @@ documents:
     kind: research
     updated: 2026-10-18
     consumer_hint: "Agentic Research brief: Research package boundary and methodology review"
+
+  - path: .research/analysis/briefs/upstream-learnings-2026-10-landscape.md
+    title: Upstream learnings landscape — nklisch/skills since 2026-08-01 and peeragent 0.8.1 to 0.8.3
+    type: brief
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research brief: Upstream learnings landscape — nklisch/skills since 2026-08-01 and peeragent 0.8.1 to 0.8.3"
 
   - path: docs/research/codex-plugin-format.md
     title: "Research: Codex Plugin Format and Standards"
