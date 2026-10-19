@@ -85,7 +85,7 @@ narrow standalone fixes retain their existing verification/inline-review routes.
 
 Covering review evidence is a receipt, in the project's receipt convention when it
 defines one: reviewed `base..head`, reviewer path/class and whether it was
-independent, weight, finding counts and accepted-fix verification. A terminal stage,
+independent, finding counts and accepted-fix verification. A terminal stage,
 passing linter, design advisory or research verification is not a delivery-review
 receipt. Honor explicit none/light policies and record whether an independent pass
 actually ran. For a review without a receipt, reconstruct its range from git and
@@ -95,9 +95,9 @@ record the evidence as missing.
 
 A completed standard review plus verified accepted fixes remains valid; a changed
 hash alone does not require another pass. Enumerate commits after the reviewed
-head that touch the project's consequential paths; each needs a classification:
-covered by the pass, verified fix of a named finding, another tracked item's work, or
-uncovered. An unclassified commit makes that evidence stale; route uncovered
+head that touch the project's consequential paths. The receipt's verified fix commits
+and another tracked item's own commits need no classification; every other commit is
+covered by the pass or uncovered. An unclassified exception makes that evidence stale; route uncovered
 contracts through normal delivery/review and require that item's evidence. Do not
 describe the original reviewer as approving later corrections. Missing required
 review blocks readiness. Resume from existing receipts and pending fixes; never
@@ -132,8 +132,8 @@ In the existing record, capture for each required check:
 | Skill/command and applicable pass criterion | Revision/digests and files | Report path, verdict, counts, execution error or not run | Finding IDs, accepted fixes, unavailable coverage or next owner |
 
 For citation lint, inspect JSON: default exit zero is not proof of no broken
-chains. Separate broken chains, thin attestations and advisory pattern counts; apply the citation gate's
-severity policy. Advisory counts never prove semantic support or cause a new gate.
+chains. Separate broken chains, thin attestations and warn-only counts; apply the citation gate's
+severity policy. Warn-only counts never prove semantic support or cause a new gate.
 
 If a later action changes an earlier check's inputs, determine affected coverage
 and refresh that evidence under its owner's rules. Reuse unaffected evidence with

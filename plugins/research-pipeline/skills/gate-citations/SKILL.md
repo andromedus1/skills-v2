@@ -67,13 +67,14 @@ re-emitting these.
 ### Phase 3: Run the lint
 
 Resolve the companion plugin, then run its citation lint over the corpus in JSON mode (no network
-probe; exit non-zero at the gate's blocking threshold — high and medium block; low, thin and
-patterns do not):
+probe, no pattern advisories; exit non-zero at the gate's blocking threshold — high and medium
+block; low and thin do not):
 
 ```bash
 AGENTIC_RESEARCH_ROOT="$("${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/resolve-agentic-research.sh")"
 python3 "$AGENTIC_RESEARCH_ROOT/ard-core/kernel/lint-citations.py" .research/ \
-  --no-url-check --format json --exit-code-on medium > /tmp/citation-lint-<version>.json
+  --no-url-check --no-pattern-check --format json --exit-code-on medium \
+  > /tmp/citation-lint-<version>.json
 ```
 
 **Result interpretation.** Always confirm the output parses as JSON before reading findings:
@@ -110,11 +111,9 @@ collecting citations whose `severity` is not `none`; that count must equal
 low-severity findings. `substrate_confidence_omitted` and `campaign_unbound` are warn-only:
 count them for the report, emit no items.
 
-The lint's `patterns[]` are advisory spot-check signals, not broken chains: emit no items for
-them. `version-number` is suppressed in source-direct attestations and on lines whose cited
-attestation contains the token; residual flags are mostly section refs, arXiv IDs, decimals and
-model names in analytical prose. Preserve canonical matching and raw JSON. Group advisories for reporting; their count
-neither blocks this gate nor proves semantic support. Research's required semantic verification still applies.
+Pattern advisories are not run at this gate: research engagements lint and spot-check them
+when the analysis is written. A clean gate shows chain integrity only, not semantic support;
+research's required semantic verification still applies.
 
 ### Phase 4: Convert findings to items
 
@@ -186,8 +185,6 @@ git commit -m "gate-citations: <N> citation-chain findings for <version>"
 
 In conversation:
 - **Execution/evidence**: exit code, JSON validity and retained JSON path; report errors explicitly
-- **Advisory spot-checks**: counts by category, at most one representative file/line
-  example per category, and the raw output location; no emitted items from patterns
 - **Corpus**: lint ran over `.research/` — `<N>` files, `<M>` citations resolved
 - **Broken chains**: count by status, from `broken_chains`
 - **Thin attestations**: count
@@ -209,8 +206,7 @@ In conversation:
 - **Don't fix the chains here — produce items only.** Repairs (writing the missing attestation,
   reconciling a colliding handle) happen via `/agile-workflow:implement` on each item, or via
   re-running the producing research skill.
-- **Don't emit items for advisory pattern flags**, including neutral version mentions
-  in source titles. Only broken-status citations and thin attestations become items.
+- **Only broken-status citations and thin attestations become items.**
   Report separately whether checks ran, defects remain and semantic support was assessed.
 - **Idempotent.** Skip already-tracked `(file, handle, status)` findings on re-run, so a second
   `/quality-checkpoint` pass after a partial drain only emits net-new items.
