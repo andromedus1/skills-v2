@@ -46,17 +46,21 @@ See [docs/ADOPTION.md](docs/ADOPTION.md) for how the engagement engine maps onto
 
 ## Installation
 
+This fork maintains `agentic-research`; install it from the `andromedus1/skills-v2`
+marketplace (catalog name `andrewclark88-skills-v2`). A local checkout can be added
+as a directory marketplace instead of the GitHub source.
+
 ### Claude Code
 
 ```bash
-/plugin marketplace add nklisch/skills
-/plugin install agentic-research@nklisch-skills
+/plugin marketplace add andromedus1/skills-v2
+/plugin install agentic-research@andrewclark88-skills-v2
 ```
 
 ### OpenAI Codex
 
 ```bash
-codex plugin marketplace add https://github.com/nklisch/skills
+codex plugin marketplace add https://github.com/andromedus1/skills-v2
 codex plugin install agentic-research
 ```
 
@@ -65,8 +69,8 @@ codex plugin install agentic-research
 ```bash
 pi install npm:@nklisch/pi-plugins
 # then, inside Pi:
-/plugins marketplace add nklisch/skills
-/plugins add agentic-research@nklisch-skills --scope user
+/plugins marketplace add andromedus1/skills-v2
+/plugins add agentic-research@andrewclark88-skills-v2 --scope user
 ```
 
 All channels load the same shared `skills/` directory.
