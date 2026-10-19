@@ -39,14 +39,16 @@ assessment determines the explicit exit status; child completion alone does not
 close the parent. See the skill's linked references for the review record and
 decomposition protocol.
 
-Use `.work/bin/work-view` to find current and backlog work; parked ideas are
-listed in the [backlog](.work/backlog/). Completed archive stubs retain a
+Use `.work/bin/work-view` to find current work and
+`.work/bin/work-view --scope backlog` for parked work, also listed in the
+[backlog](.work/backlog/). Completed archive stubs retain a
 `git_ref` for recovering the full record at its original active path, as
 described by [Agile Workflow's archive guidance](plugins/agile-workflow/skills/review/references/substrate-side-effects.md).
 
 At release boundaries, [quality-checkpoint](plugins/research-pipeline/skills/quality-checkpoint/SKILL.md)
 uses configured gates and reconciles their actual outcomes, residual findings
-and covering delivery-review evidence. `--pending` is an owner-eligibility
+and covering delivery-review evidence. `--pending` applies
+`agile-workflow:release-deploy`'s eligibility rules to candidates and is
 preflight only. Research, delivery review and other gate owners retain their
 own verification and correction rules; a completed standard review with
 verified accepted fixes remains covering evidence. The citation gate groups

@@ -43,9 +43,10 @@ record and decomposition references.
 
 **Where we extend his skills**: our `quality-checkpoint` orchestrator invokes
 configured gates and reconciles actual outcomes, delivery-review evidence and
-doc-review residual findings. `--pending` is preflight only: it reports candidate
-scope and owner eligibility without dispatching release gates or claiming
-readiness. Each owner keeps its own verification and correction policy. A
+doc-review residual findings. `--pending` applies
+`agile-workflow:release-deploy`'s eligibility rules to candidates and is preflight
+only; it does not dispatch release gates or claim readiness. Each owner keeps
+its own verification and correction policy. A
 completed standard delivery review plus verified accepted fixes remains covering
 evidence; uncovered material contracts follow normal delivery review. No
 infrastructure gate is assumed. The release-time citation gate is an adapter over
