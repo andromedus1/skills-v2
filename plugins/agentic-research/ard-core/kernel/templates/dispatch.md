@@ -14,7 +14,7 @@ registration shape (a uniform shape prevents silent default drift).
 intent: <terminate-in-position | build-substrate | survey-landscape | validate-claim | calibrate-external>
 output_kind: <position | synthesis-brief | landscape-brief | attestation | corpus-piece | precis | hypothesis-capture | hypothesis-ledger | vocab-capture | adoption-recommendations | questions-list>   # single value, or a [list] for cascade-producing goals
 consumer: <future-agent | future-engagement | methodology-revisers | calibrated-work | ...>
-verification_rigor: <floor | standard | full>
+verification_rigor: <floor | standard | full | adaptive>   # adaptive: record the resolved level + rationale (SPEC §7)
 temporal_contract: <write-once-on-converge | extend-on-source-rev | supersedes-prior | ttl-bounded | re-engage-on-trigger>
 primitives_extends: []        # engagement-specific verb/primitive additions (verb names from ARD SPEC §6)
 primitives_opts_out: []       # engagement-specific omissions; each entry carries a one-line rationale
@@ -31,4 +31,5 @@ Brief statement of the engagement and its decomposition (if multi-specialist).
 Notes:
 - `engagement-unit` is **not** a field — it is discovered at read-time (emergent).
 - `disconfirmation-mode` is **not** a field — it derives from `scope_authority`.
+- `verification_rigor: adaptive` resolves to one of `floor` / `standard` / `full` at kickoff; state the resolved level and why in the engagement record. The hard floor and reachability rules apply to the resolved level.
 - The registration informs engagement (which gates fire, which decision-points activate); it is **not** carried into the output artifacts' frontmatter — artifacts stand on their own metadata.

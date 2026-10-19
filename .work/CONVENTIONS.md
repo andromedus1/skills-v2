@@ -79,6 +79,39 @@ reviewer's own report states it assessed and classifying every later commit as
 above; a reconstruction counts only when the record shows the review its effective
 weight required. If the assessed head cannot be recovered, the evidence is missing.
 
+## Overbuilding calibration
+
+skills-v2 ships prompt-ware plugins for one maintainer's projects on two hosts
+(Claude, Codex), with no CI and manual PR merges. Cost is felt as instruction
+volume an agent must load, review time, and drift between restated rules — not CPU.
+
+Likely overbuilding here: restating one rule in several skills or docs; receipts,
+ledgers or status fields that mainly police agent bookkeeping; extra review or
+research passes where one independent pass and an executable check would do; gate
+prose without a consumer; research ceremony for reversible, low-consequence choices.
+
+Justified complexity: conformance and parity tests at stable interfaces (ARD kernel,
+manifests, hooks); citation integrity checks; Andrew's authority over method,
+publication and migration; cross-host behavior.
+
+Revisit when a check catches nothing across several arcs, when a rule needs a third
+restatement, or when Andrew reports friction.
+
+Delegated agents edit only what their assignment covers. They never delete,
+revert or wholesale-replace files outside it, or discard others' uncommitted
+changes; they report such conflicts instead.
+
+## Model lineup
+
+Andrew's standing lineup (2026-10-19); concrete IDs resolve through peeragent's
+alias table. Claude host: the host model (Opus) designs, integrates and
+adjudicates, and host-class sub-agents implement and research; independent
+feature review is Codex `sol` medium; whole-scope methodology assessment is Codex
+`sol` high; quick scenario or smoke checks are Codex `luna` high. Codex host:
+independent review is Claude `opus` xhigh (`fable` high for the hardest reviews).
+If the other model is unavailable, use a fresh-context sub-agent of the host model
+and label it same-class. Qualified observations live in `.work/MODEL-NOTES.md`.
+
 ## Gates for release-deploy
 
 gates_for_release:

@@ -1,3 +1,7 @@
+---
+owner: agentic-research
+---
+
 # Research conventions
 
 ## Layout

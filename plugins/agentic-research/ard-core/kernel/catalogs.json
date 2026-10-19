@@ -454,7 +454,8 @@
     "verification_rigor": [
       "floor",
       "standard",
-      "full"
+      "full",
+      "adaptive"
     ]
   },
   "provenance_values": [

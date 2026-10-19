@@ -83,7 +83,7 @@ For each epic:
 1. Read the epic file; skip if `kind` is not `epic` or `stage` is not `drafting`
 2. Ground via Phases 0-2 (knowledge-index, research briefs, foundation docs + parent if any; AGENTS/CLAUDE canonical)
 3. Map the codebase lightly — one Task Explore over the epic's area (NOT three; lighter than default mode)
-4. **Run Phase 4.6 (UI surface alignment)** — `--only-questions` is the visual alignment gate, not just the textual one. When `ux-ui-design` is installed, run the full Phase 4.6 pass; reference resulting paths in the epic body's `## Mockups` section.
+4. **Run Phase 4.6 (UI surface alignment)** — `--only-questions` is the visual alignment gate, not just the textual one. When `ux-ui-design` is installed, run the Phase 4.6 offer; reference resulting paths in the epic body's `## Mockups` section when mocks are produced.
 5. Run Phase 4.7 (Surface high-level design ambiguities) in the interactive branch, always using `AskUserQuestion`
 6. Capture answers under `## Design decisions` in the epic body (merge with existing entries; don't overwrite without flagging)
 7. Do NOT decompose into child features or advance stage
@@ -200,16 +200,11 @@ For each candidate feature, ask:
 
 Cycle check: for every candidate `depends_on` edge, verify no cycle. Once the child files exist (Phase 6), you'll re-check via `work-view --blocking`. For now, sanity-check by hand.
 
-### Phase 4.6: UI surface alignment (PRIMARY mockup tier — runs when ux-ui-design is installed)
+### Phase 4.6: UI surface alignment (runs when ux-ui-design is installed)
 
-This is the primary mockup tier per `ux-ui-principles`. Run the full UI alignment pass against the candidate arcs from Phase 4. Err on mocking — `feature-design`'s Phase 4.6 is the fallback, not a planned second pass.
+When the epic carries net-new UI surfaces or multi-screen journeys, offer the `/ux-ui-design:ux-ui` concierge for visual alignment before child features are written. The concierge interviews the user and negotiates the artifact shape — a comprehensive mockup, per-surface option sets, journeys, or design-system standardization — rather than following a fixed pipeline; let it adapt. When mocks are produced, use the future child feature ids as surface ids where practical (e.g. `epic-auth-login`), and record the paths in the epic body's `## Mockups` section and the child feature briefs in Phase 6 so `feature-design` inherits direction by reference.
 
-1. **Palette** — if `.mockups/design-system/tokens.css` doesn't exist, invoke `/ux-ui-design:palette` first so subsequent mocks inherit tokens.
-2. **Screens** — for every candidate feature with a net-new screen/page/modal/major component, invoke `/ux-ui-design:screens <feature-id>` using the future child feature id (e.g. `epic-auth-login`).
-3. **Flows** — for every multi-screen journey within the epic, invoke `/ux-ui-design:flows <flow-name>`.
-4. **Existing-surface composition / no UI** — skip.
-
-The `screens`/`flows` skills write a `## Mockups` section into each item body automatically; reference those paths from the child feature briefs in Phase 6 so `feature-design` inherits direction by reference.
+Existing-surface composition with established mocks, or no UI — skip.
 
 **Caller awareness.** Under autopilot delegation, the mockup skills cannot run (they need interactive input). Append a `## UI alignment deferred` note to the epic body listing the surfaces, recommend the user run `/epic-design --only-questions <epic-id>`, and continue decomposition. Child briefs note "mockups pending — see parent epic" so `feature-design` knows to fall back.
 
@@ -245,7 +240,16 @@ The child feature briefs you write in Phase 6 should reference the relevant desi
 
 ### Phase 5: Pre-mortem
 
-Before writing files, attack the decomposition:
+Before writing files, attack the decomposition. Read the project's
+`## Overbuilding calibration` when present. If a feature would add a state owner,
+ledger, receipt or status record, validator, retry or correction loop, or a
+cross-host or cross-plugin boundary, forecast it before locking the decomposition:
+one user action and the failure it prevents; the new state and why the existing
+owner cannot handle it; the simplest working chain vs the proposed one and what each
+added link buys; a recommendation. Ask the user interactively when the choice changes
+behavior, contracts or durable state; under autopilot apply Phase 4.7's judgment
+rules. Reuse accepted decisions; record the result in the epic body.
+
 
 - What's the riskiest feature? Is it sized correctly?
 - What capability is least clearly assigned to a feature? Is there a gap?
@@ -377,7 +381,7 @@ In conversation:
 
 - **Phase 0 knowledge-index check is non-negotiable.** Designs that skip the brief corpus cause rewrites.
 - The decomposition lives in the epic's body. NEVER create `docs/designs/epic-<name>.md` — that's a workflow-plugin pattern; agile-workflow uses item-IS-the-work.
-- **Phase 4.6 is the primary UI/UX mockup tier.** Don't defer net-new surfaces to `feature-design` — its mockup phase is a fallback only.
+- **Phase 4.6 is where epic-level UI alignment happens.** Don't defer net-new surfaces to `feature-design` — its UI phase only catches surfaces this phase missed.
 - **`--only-questions` always runs the mockup pass** — that mode IS the visual alignment gate.
 - Child features are at `stage: drafting` — they get DESIGNED next, not implemented next. Don't pre-populate them at `implementing`.
 - Don't write feature-level design content (interfaces, signatures, tests) into the epic body or the child feature briefs. That belongs in each feature's own design pass.

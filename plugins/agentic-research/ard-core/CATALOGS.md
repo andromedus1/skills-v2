@@ -223,8 +223,9 @@ Value catalogs for the ten registration fields ([SPEC.md](SPEC.md) [§9](SPEC.md
 | `floor` | ∅ — hard floor only (`lint` + `spot-check`) |
 | `standard` | `{adversarial-read}` |
 | `full` | `{adversarial-read, evaluate}` |
+| `adaptive` | resolution mode — selects one of the three profiles above per engagement (lowest credible level; explicit profile wins); adds no gate set |
 
-These are named **subsets over the gate-catalog**, not a fixed magnitude enum: "go custom" (naming an explicit gate set) is first-class, and the catalog is closed-with-extension (a future gate may join). The three profiles form an ascending chain because reachability forecloses the off-chain config — `evaluate` is only reachable on a cross-specialist synthesis shape, and on those shapes `adversarial-read` is itself in-floor, so `{evaluate}` without `{adversarial-read}` has no shape where it is both legal and needed ([SPEC.md](SPEC.md) [§3.1](SPEC.md#31-the-floor--the-always-activated-core), §7).
+The first three are named **subsets over the gate-catalog**, not a fixed magnitude enum: "go custom" (naming an explicit gate set) is first-class, and the catalog is closed-with-extension (a future gate may join). The three profiles form an ascending chain because reachability forecloses the off-chain config — `evaluate` is only reachable on a cross-specialist synthesis shape, and on those shapes `adversarial-read` is itself in-floor, so `{evaluate}` without `{adversarial-read}` has no shape where it is both legal and needed ([SPEC.md](SPEC.md) [§3.1](SPEC.md#31-the-floor--the-always-activated-core), §7). `adaptive` records its resolved level and rationale in the engagement record; the hard floor and reachability rules apply to that resolved level ([SPEC.md](SPEC.md) §7).
 
 **`scope_authority`** (3): `pre-registered` · `mixed` · `in-engagement-judgment`. **`analytical_artifact_type`** (2): `per-campaign-brief` (converging) · `accumulative-ledger` (accumulating). **`consumer`**: free-text, common values `future-agent` / `future-engagement` / `methodology-revisers` / `calibrated-work`.
 

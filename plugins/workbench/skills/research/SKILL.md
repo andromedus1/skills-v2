@@ -1,6 +1,12 @@
 ---
 name: research
-description: Conduct and maintain source-grounded research for unstable, unfamiliar, contested, or decision-relevant questions. Use for prior-art analysis, technology or policy investigation, Workbench research commissions, reusable briefs, initializing .research, or rebuilding the unified knowledge index. Treat the user's prompt as scope authority and repository material as grounding; do not turn external research into an implementation audit unless requested. Attest fetched sources, seek disconfirming evidence, preserve contradictions, lint citations, and never place PII or PHI in research artifacts.
+description: >
+  Conduct and maintain source-grounded research for a concrete Workbench workflow. Use only when
+  .work/CONVENTIONS.md declares owner: workbench and the requested evidence should enter Workbench's
+  .research substrate owned by workbench-research or inform a tracked outcome. Ignore this skill in
+  uninitialized repositories, alternate-owned research substrates, and for loose lookups or unrelated research. Treat the user's prompt as scope authority, attest
+  fetched sources, seek disconfirming evidence, preserve contradictions, lint citations, and never
+  place PII or PHI in research artifacts.
 ---
 
 # Research
@@ -8,14 +14,36 @@ description: Conduct and maintain source-grounded research for unstable, unfamil
 Produce reusable research whose claims can be traced to sources fetched during
 the engagement.
 
+First confirm that an upward-found `.work/CONVENTIONS.md` declares
+`owner: workbench`. If it does not, ignore this skill and handle the request
+without Workbench; do not initialize `.research/`, rebuild Workbench's knowledge
+index, or offer setup. Even in an adopted
+repository, small conversational lookups and unrelated research stay outside
+this skill.
+
+If `.research/CONVENTIONS.md` exists, it must declare
+`owner: workbench-research`; otherwise defer to the named provider and do not
+interpret, lint, index, or modify its substrate. If an existing `.research/`
+tree has no owner declaration, stop and ask the user to resolve ownership rather
+than claiming it. A first durable Workbench Research engagement may initialize
+the missing tree with `owner: workbench-research`, `schema: 1`, and
+`verification_rigor: adaptive`.
+
 Read [references/discipline.md](references/discipline.md) completely before
 engaging sources. Its grounding floor is mandatory at every depth.
+Read [references/verification-rigor.md](references/verification-rigor.md) and
+resolve its verification gate independently from research scale and fan-out.
 Read [references/promotion.md](references/promotion.md) before offering to turn
 research method or domain guidance into a reusable project skill.
 
 Keep a small conversational lookup in the current conversation. Do not
 initialize `.research/` or write a brief unless the evidence must survive the
 conversation or inform a consequential decision.
+
+Use [sub-agents](../work/references/sub-agents.md) for dispatch; unset means
+inline-first, not automatic source-gathering fan-out. Selected research
+verification gates retain their independent-evaluator requirements. Agree models
+with the user before using several sub-agents, including source-gathering ones.
 
 ## Set the decision boundary
 
@@ -34,20 +62,25 @@ including it.
 Clarify the question, what downstream decision the answer may change, current
 knowledge, exclusions, and stopping condition. Inspect `.knowledge/index.json`
 and existing `.research/` artifacts before acquiring duplicate evidence.
+The knowledge index omits work items; inspect `.work/` directly when item state
+matters.
 If the requested research outcome is unclear, ask the user one concise
 load-bearing question before acquiring sources.
 
-Adapt depth from decision relevance, uncertainty, consequence, source
-disagreement, and corpus size. Use specialist fan-out, adversarial reading, or
-fresh-model review only when it improves evidence or judgment. Do not expose
-separate quick, deep, or program workflows to the user.
+Adapt depth and scale from decision relevance, uncertainty, consequence, source
+disagreement, and corpus size. Use specialist fan-out or adversarial reading
+only when it improves evidence or judgment. Research scale does not select or
+satisfy the verification-rigor gate. Do not expose separate quick, deep, or
+program workflows to the user.
 
 Prefer current primary sources for load-bearing claims. When consequences or
 uncertainty are high, corroborate those claims with an independent source or
 state why corroboration was unavailable in the research brief.
 
 When the engagement warrants a committed brief and
-`.research/CONVENTIONS.md` is absent, initialize
+`.research/CONVENTIONS.md` and `.research/` are absent, initialize the
+conventions with `owner: workbench-research`, `schema: 1`, and
+`verification_rigor: adaptive`, plus
 `.research/attestations/.gitkeep` and `.research/briefs/.gitkeep`. Write concise
 conventions for grounding, citation syntax, authority, and confirmed privacy
 requirements. Keep both `.gitkeep` files so empty tiers survive a fresh clone.
@@ -91,6 +124,22 @@ Use frontmatter `relationships` with `supports`, `contradicts`, `informs`, or
 
 ## Validate
 
+Apply the resolved verification-rigor gate from its reference. Project
+principles may guide product judgment but never count as cited evidence.
+
+Before rebuilding, inspect the intended documentation roots and
+`.knowledge/index-exclusions.txt` when present. If a repository-local companion
+checkout, generated documentation tree, or other unrelated subtree would make
+the index depend on local state or bury useful discovery, decide whether to
+exclude it from this project's index. Use repository context and the user's
+research boundary; do not infer exclusion from a directory name alone. Record
+recurring exclusions as repository-relative path prefixes in the tracked
+`.knowledge/index-exclusions.txt`, one per line with optional `#` comments.
+Use repeatable `--exclude <path>` arguments for temporary or caller-supplied
+exclusions, passing the same arguments to the rebuild and `--check` commands.
+Do not exclude intended project documentation, indexed `.work/` context, or
+`.research/` merely to silence metadata or relationship errors.
+
 Run:
 
 ```bash
@@ -105,7 +154,8 @@ ambiguous installations.
 
 Fix source-chain errors before calling the brief complete. Reply in the current
 conversation with the decision boundary, findings, contradictions, confidence
-limits, sources, and any research-handoff opportunity. This reply summarizes
+limits, sources, resolved verification rigor and evidence, and any
+research-handoff opportunity. This reply summarizes
 the durable brief; it is not a second research artifact.
 
 After an interactive research engagement, ask whether the user wants genuinely

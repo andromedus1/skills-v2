@@ -1,13 +1,19 @@
 ---
 name: park
-description: Capture useful context for later in a Workbench-owned project without expanding current scope. Use when the user says to park, defer, remember, backlog, or save an idea, bug, risk, or follow-up. Create the smallest useful .work/backlog item, preserving supplied context and evidence pointers without inventing requirements, priority, ownership, or design.
+description: >
+  Capture useful context for later without expanding current scope. Use only when
+  .work/CONVENTIONS.md declares owner: workbench and the user wants the finding in that project's
+  Workbench backlog; ignore this skill otherwise. Create the smallest useful .work/backlog item,
+  preserving supplied context and evidence pointers without inventing requirements, priority,
+  ownership, or design.
 ---
 
 # Park Work
 
-Confirm that `.work/CONVENTIONS.md` is owned by Workbench. If it is absent or
-another system owns it, stop and offer `setup`; do not invoke destructive
-conversion without the user's explicit choice.
+Confirm that an upward-found `.work/CONVENTIONS.md` declares
+`owner: workbench`. If it does not, ignore this skill and handle the user's
+request without Workbench; do not offer setup unless they explicitly ask to
+adopt or initialize Workbench.
 
 Create `.work/backlog/<id>.md` with:
 
@@ -20,9 +26,16 @@ updated: YYYY-MM-DD
 ---
 ```
 
-Preserve the user's useful context, why it may matter, known evidence, and any
+Start the body with a clear, domain-native title. Preserve the user's useful context, why it
+may matter, known evidence, and any
 relationship to current work. Do not invent priority, acceptance criteria,
 design, estimates, or assignment.
+
+When supplied context needs a separate file, link it under
+`.work/attachments/<id>/` using the shared
+[attachment rules](../work/references/design-attachments.md). Preserve existing
+attachments when parking active work; update their owner backlinks without
+turning tentative material into approved design.
 
 If equivalent backlog context already exists, update it instead of creating a
 duplicate. Run the Workbench validator after writing the item. Briefly identify

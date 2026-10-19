@@ -37,8 +37,14 @@ creates it only when an import run needs it.
 
 ## CONVENTIONS.md section skeleton
 
-Bootstrap writes a `CONVENTIONS.md` carrying these sections (mirror the canonical shape; an
-adopter edits the prose to their corpus):
+Bootstrap writes a `CONVENTIONS.md` that opens with the provider owner marker, then carries
+these sections (mirror the canonical shape; an adopter edits the prose to their corpus):
+
+```yaml
+---
+owner: agentic-research
+---
+```
 
 - **Layout** — the tier map above, with one-line per-tier purpose.
 - **Frontmatter contracts** — the required fields per artifact kind. **`provenance:` is required**
@@ -75,6 +81,9 @@ exists (that routes to sync).
 Triggered when `.research/` is present. Convert **validates + reports**, never overwrites authored
 substrate:
 
+- **Ownership first** — if `CONVENTIONS.md` declares an `owner:` other than
+  `agentic-research`, another provider owns the tree: report that and write nothing. A missing
+  `owner:` marker is reported as drift; add it only on operator confirmation.
 - **Validate** — the top-level tier dirs exist; `CONVENTIONS.md` carries the required section
   skeleton; per-corpus `BIBLIOGRAPHY.md` rows correspond to `reference/<corpus>/` contents; the citation
   surface passes `lint-citations.py` (delegated, not re-implemented).

@@ -23,10 +23,11 @@ Pi. Plugin behavior belongs to each plugin's own documentation.
 | --- | --- | --- |
 | Claude Code | `.claude-plugin/marketplace.json` | `plugins/<name>/.claude-plugin/plugin.json` |
 | OpenAI Codex | `.agents/plugins/marketplace.json` | `plugins/<name>/.codex-plugin/plugin.json` |
+| Antigravity | `.agents/plugins.json` | `plugins/<name>/plugin.json` |
 | Pi | The `@nklisch/pi-plugins` bridge registers both catalogs | The bridge consumes the catalog entries and plugin directory conventions |
 
 Claude Code uses `/plugin` commands. Codex uses `codex plugin marketplace`
-commands. Pi users install the bridge, add this marketplace, and then add a
+commands. Antigravity uses `.agents/plugins.json` entries. Pi users install the bridge, add this marketplace, and then add a
 plugin:
 
 ```text
@@ -42,16 +43,17 @@ plugins in this repository remains bridge-based.
 
 ## Plugin directory requirements
 
-Each local plugin in this repository distributed through the native catalogs has two channel manifests:
+Each cross-channel local plugin in this repository has three channel manifests. A host-specific plugin may intentionally provide only the manifest and catalog entry for its target host; `declaudify` is Claude Code-only.
 
 ```text
 plugins/<name>/
+├── plugin.json                  # Antigravity (cross-channel plugins)
 ├── .claude-plugin/plugin.json   # Claude Code
-├── .codex-plugin/plugin.json    # OpenAI Codex
-└── skills/                      # shared SKILL.md units
+├── .codex-plugin/plugin.json    # OpenAI Codex (cross-channel plugins)
+└── skills/                      # shared SKILL.md units (when present)
 ```
 
-Keep the two manifests aligned:
+Keep the manifests aligned:
 
 - They describe the same plugin identity.
 - They carry the **same `version`**. This is the load-bearing version
@@ -70,9 +72,13 @@ making another harness depend on an unsupported surface.
 
 ## Marketplace catalog rules
 
-The two native catalogs represent the same ordered set of plugin identities.
-They are maintained separately because each catalog has a different source
-shape. Neither catalog is generated from the other.
+The two native catalogs represent the same ordered set of cross-channel
+plugin identities. Host-specific plugins appear only in the catalogs for
+their target host; `declaudify` is intentionally absent from the Codex and
+Antigravity catalogs. Pi consumes the Claude catalog through its bridge, so a
+Claude-only entry may still be discoverable there without being supported. The
+catalogs are maintained separately because each has a different source shape.
+Neither catalog is generated from the other.
 
 ### Claude Code catalog
 
@@ -107,16 +113,20 @@ source object:
 }
 ```
 
-Codex uses its native category casing and source objects. For every entry,
-keep the plugin identity and source semantically equivalent to the Claude
-catalog entry at the same position. External `git-subdir` entries must point
-to the corresponding repository and subdirectory in both catalogs.
+Codex uses its native category casing and source objects. For every
+cross-channel entry, keep the plugin identity and source semantically
+equivalent to the Claude catalog entry at the same position. Host-specific
+entries are absent here by design. External `git-subdir` entries must point to the corresponding repository and
+plugin package in both catalogs. The package subdirectory may differ by host
+when each directory is self-contained and the two manifests retain the same
+public plugin identity and semantically equivalent behavior; otherwise use one
+shared subdirectory.
 
 ### Registering a plugin
 
-When adding a plugin, make all of these changes together:
+When adding a cross-channel plugin, make all of these changes together:
 
-1. Add both channel manifests under `plugins/<name>/`.
+1. Add the three channel manifests under `plugins/<name>/`.
 2. Declare the explicit `skills` path and Codex `interface` metadata.
 3. Add the entry to `.claude-plugin/marketplace.json` using Claude's source
    shape.
@@ -126,9 +136,10 @@ When adding a plugin, make all of these changes together:
    equivalence.
 6. Do not add npm packaging metadata to this repository.
 
-A missing catalog entry makes the plugin unavailable through that native
-marketplace. A reordered or semantically different entry makes the two
-catalogs drift.
+For a host-specific plugin, add only the target-host manifest, hook or other
+component, and catalog entry. A missing catalog entry makes the plugin
+unavailable through that native marketplace; omitting an unsupported host's
+entry is intentional.
 
 ## Shared and harness-specific surfaces
 
@@ -207,7 +218,8 @@ plugin before changing a skill or interpreting its behavior.
 | --- | --- |
 | Supported; centerpiece | `workbench` is the requirements-first delivery and grounded-research centerpiece. |
 | Supported; KTLO | `agile-workflow` is in keep-the-lights-on maintenance mode: bug fixes and compatibility work continue, but new workflow capability belongs in `workbench`. |
-| Supported | `ux-ui-design`, `code-audit`, `nates-toolkit`, `agentic-research`, `agent-coordination`, and `prose-craft`. |
+| Supported | `ux-ui-design`, `code-audit`, `nates-toolkit`, `agentic-research`, `agent-coordination`, `prose-craft`, and `sol-calibration`. |
+| Supported; Claude-only | `declaudify` provides an every-turn Claude Code writing-posture hook. It is absent from the Codex and Antigravity catalogs; Pi may discover the Claude catalog entry through its bridge, but Pi support is not claimed. |
 | Frozen | `workflow` is deprecated and frozen. It remains for existing installs, receives no new features or fixes, and must not be extended or cited as a sibling in new documentation. |
 
 ## Where internals live

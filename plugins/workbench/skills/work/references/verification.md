@@ -11,6 +11,38 @@ Verify the requested outcome at the most stable useful interface.
 5. Review proportionately to consequence, uncertainty, and reversibility.
 6. Reconcile affected foundation assertions.
 
+For ledger validation, use the installed `validate-workbench.py` entry point.
+It honors the optional `validator_command` in `.work/CONVENTIONS.md`; the project
+may replace bundled policy or wrap its checks. Follow [validation](validation.md)
+for the command contract. Do not impose bundled checks on top of a replacement
+or change validation policy just to get a green result. Other required checks
+remain in force.
+
+When several units, agents, or correction rounds deliver into one target, follow
+[verification cadence](verification-cadence.md) for which checks each boundary
+owes and when a check runs only once per batch or at the epic boundary.
+
+Resolve `evidence_depth` from explicit user direction, the optional project
+convention, then `standard`. `lean` proves the primary path for low-risk,
+reversible work; `standard` covers authoritative checks and important acceptance
+paths; `deep` extends evidence across journeys, states, viewports, and adjacent
+consumers. Depth changes breadth, not the rules: it never permits invented
+evidence, ignored failures, weakened tests, or unverified completion.
+
+Make consequential verification claims traceable to the actual command or
+operation, relevant checkout/commit and environment, observed result, and material
+limits. Distinguish passed, failed, blocked before reaching the target, and not run.
+A build stopped in a dependency did not check downstream code; a passing journey
+does not establish unexercised states. Preserve the checked command's exit status
+when filtering output (for example, use pipeline failure propagation or capture
+status before printing a tail). A successful output filter is not a successful check.
+
+The outcome owner spot-checks load-bearing returned claims against underlying
+output, code/dependency boundaries, or a reproduction before acceptance. An agent's
+summary and a reviewer's confidence are not substitute evidence. Investigate
+contradictions and correct unsupported claims, regardless of model capability.
+Use existing logs and work-item evidence pointers; do not add a receipt database.
+
 Prefer tests that prove externally meaningful behavior at stable interfaces.
 Avoid tautological mocks, implementation-detail assertions, and coverage-only
 tests that cannot catch a real regression. When durable behavior changes, add
@@ -28,6 +60,12 @@ or benchmark may be added when it is cheap, contained, and protects meaningful
 behavior. Remove temporary probes after they answer the uncertainty unless
 their ongoing signal earns maintenance.
 
+Apply [assurance-machinery.md](assurance-machinery.md) when verification would
+introduce durable state, ledgers, generated receipts, canonicalization, bespoke
+validators, or a new harness. Challenging that machinery never permits skipping
+required evidence: replace it with the smallest credible behavioral proof, or
+state the unresolved verification limit.
+
 Do not invent or materially expand a test framework, simulation platform,
 benchmark system, mock service, synthetic environment, or validation
 architecture merely to prove one change. Discuss that investment with the user
@@ -39,12 +77,29 @@ verified.
 
 Apply security, privacy, accessibility, performance, compatibility, data
 integrity, and operational-readiness lenses when the affected surface or
-discovered risk warrants them. These are lenses, not fixed gates.
+discovered risk warrants them. These are lenses, not fixed gates. For
+behavior-preserving simplification, also preserve measured performance
+constraints and check obvious plausible regressions such as worse algorithmic
+complexity, repeated work, or needless I/O; do not require speculative low-level
+optimization evidence.
 
-For reported defects, reproduce before correction whenever possible. Preserve a
-failing regression test or another repeatable before/after check, diagnose root
-cause, correct the smallest coherent boundary, and prove the original behavior
-now passes. Never weaken a test merely to obtain green output.
+For reported defects, reproduce before correction whenever possible. Keep a
+failing regression test or another repeatable before/after check, diagnose the
+root cause, correct the smallest coherent boundary, and prove the original
+behavior now passes. Run the evidence before fixing the defect, and confirm it
+fails for the expected reason rather than a broken fixture, environment, or
+assertion.
+
+An automated regression test is not always the right evidence. Use a small
+executable reproduction, browser walkthrough with captured state, protocol
+transcript, or deterministic log assertion when a test would mislead or cost
+too much. Record the evidence used and why.
+
+Never weaken, broadly skip, or delete a test just to obtain green output. If
+production behavior is correct and the test is wrong, repair the stale fixture,
+mock, or assertion and record that the test was at fault. If diagnosis shows the
+expected behavior is ambiguous or would change the product, return to
+requirements rather than settle a contract under the label of a bug fix.
 
 If a reported defect cannot be reproduced, do not make a speculative fix.
 Investigate environment, state, timing, versions, and observability; otherwise
@@ -52,6 +107,27 @@ record what was attempted in the relevant active item and leave it active or
 blocked. Fix incidental defects within scope only when they block or are caused
 by the delivery and the correction is cohesive. Park unrelated defects with
 reproduction evidence.
+
+## Agent-workflow changes
+
+For agent-workflow changes, check the instructions against representative tasks
+before adding more workflow machinery. Useful cases include a small fix, an
+ambiguous feature, multi-feature integration, and interrupted/resumed delivery.
+Choose cases affected by the change rather than imposing a fixed release suite.
+Inspect unnecessary questions, missing authority checks, restart effort, review
+value, and ledger clarity. Use existing runs where available. Label instruction
+walkthroughs as walkthroughs, not observed delivery results. Keep this evidence
+in the work record or chat, without new telemetry, counters, or a benchmark
+system. Prefer correcting observed friction over adding speculative controls.
+
+After an accepted or revised design-decision edit, perform a focused integrity
+self-check across the owning item: confirm the decision is recorded, every
+dependent statement agrees, the queue names only the residual delta, affected
+verification is updated, and unrelated settled or unresolved work is unchanged.
+This is acceptance-edit verification, not a separate design-review pass, and it
+remains required when no separate design review was selected. Use the
+[decision-reconciliation walkthrough](../../design/references/decision-reconciliation-walkthrough.md)
+for the known all-50 routing-default regression.
 
 Do not declare completion while required verification fails or a consequential
 blocker remains.

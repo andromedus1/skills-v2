@@ -14,20 +14,21 @@ related:
 # Architecture
 
 This is the meta map for the `nklisch/skills` repository. It explains how
-one git tree resolves into installable plugins for three agent harnesses
-— Claude Code, OpenAI Codex, and Pi — and where each concern lives.
+one git tree resolves into installable plugins for four agent harnesses
+— Claude Code, OpenAI Codex, Google Antigravity (AGY), and Pi — and where each concern lives.
 Plugin-internal architecture stays in each plugin's own `docs/`.
 
-The repo is built around one shape: a single source tree, three install
+The repo is built around one shape: a single source tree, four install
 pipelines. A few terms carry the rest of this document:
 
-- **Harness** — an agent runtime: Claude Code, Codex, or Pi.
+- **Harness** — an agent runtime: Claude Code, Codex, Antigravity, or Pi.
 - **Channel** — a harness's install pipeline. Each harness reads its own
-  catalog and resolves plugins to its own format.
-- **Catalog** — a JSON file listing installable plugins and their source.
-  Two native catalogs live in this repo; Pi reads them through a bridge.
+  catalog or manifest and resolves plugins to its own format.
+- **Catalog / Registry** — a JSON file listing installable plugins and their source.
+  Native catalogs live in this repo for Claude and Codex; Antigravity uses
+  `plugins.json`; Pi reads them through a bridge.
 - **Manifest** — a per-plugin JSON file declaring identity, version, and
-  surface to one channel.
+  surface to one channel (`plugin.json`, `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`).
 - **Substrate** — the plain-file state a workflow plugin reads and writes.
   agile-workflow uses `.work/`; agentic-research uses `.research/`.
 
@@ -44,14 +45,17 @@ pipelines. A few terms carry the rest of this document:
 │   ├── agentic-research/     # grounded research discipline + .research substrate
 │   ├── agent-coordination/   # sparse cross-agent coordination ledger
 │   ├── prose-craft/          # prose drafting, lens review, refine cycle
+│   ├── sol-calibration/      # agent working-posture calibration + proportionality
+│   ├── declaudify/           # Claude Code-only every-turn writing posture
 │   └── workflow/             # DEPRECATED, frozen, kept for existing installs
 ├── .agents/skills/          # standalone reference-skill library (non-plugin)
+├── .agents/plugins.json     # native Antigravity workspace plugin registry
 ├── .claude-plugin/
 │   └── marketplace.json     # native Claude Code install catalog
 ├── .agents/plugins/
 │   └── marketplace.json     # native Codex install catalog
 ├── scripts/
-│   └── bump-version.sh      # version gate — bumps both manifests in lockstep
+│   └── bump-version.sh      # version gate — bumps all three manifests in lockstep
 ├── docs/                    # this meta layer (VISION, SPEC, ARCHITECTURE) + guides
 └── README.md
 ```
@@ -68,11 +72,16 @@ reference skill that needs distribution is folded into a plugin.
 
 ## How a plugin is structured
 
-Each `plugins/<name>/` directory carries two channel manifests plus a mix
-of shared and harness-specific components:
+Each cross-channel `plugins/<name>/` directory carries three channel manifests
+plus a mix of shared and harness-specific components. A host-specific plugin
+may carry only the manifest and components for its target host; `declaudify`
+is the intentional Claude Code-only exception. Because Pi consumes the Claude
+catalog through its bridge, a Claude-only entry may still be discoverable in
+Pi; that does not make it a supported Pi plugin:
 
 ```
 plugins/<name>/
+├── plugin.json                  # Antigravity manifest
 ├── .claude-plugin/plugin.json   # Claude manifest
 ├── .codex-plugin/plugin.json    # Codex manifest
 ├── skills/                      # SKILL.md units  — shared
@@ -87,31 +96,36 @@ plugins/<name>/
 
 Two facts own the rest:
 
-- **Two manifests, no `package.json`.** Each plugin declares itself to
-  Claude Code and Codex through one manifest each. Pi packaging moved to
+- **Three manifests for cross-channel plugins, no `package.json`.** A
+  cross-channel plugin declares itself to Claude Code, Codex, and Antigravity
+  through one manifest each. Host-specific plugins may intentionally omit the
+  other manifests; `declaudify` declares only Claude Code metadata because its
+  hook has no supported equivalent in the other catalogs. Pi packaging moved to
   the `nklisch/pi-extensions` repo, so this tree carries no per-plugin
   `package.json`. `scripts/bump-version.sh` treats the Claude manifest as
   the canonical version source.
 - **Shared surface first, harness-specific after.** `skills/` is the bulk
-  of every plugin's durable value. It crosses all three harnesses through
+  of every plugin's durable value. It crosses all four harnesses through
   the open Agent Skills standard. Commands, hooks, and agent definitions
   are exposed only where the target harness supports them; in other
   harnesses they degrade to absent, never to broken. Pi-native runtime
   extensions belong in `nklisch/pi-extensions`, not here.
 
-## How plugins reach three harnesses
+## How plugins reach four harnesses
 
-Two native catalogs live in this repo. They carry the same ordered plugin
-identities and differ only in the source shape each harness expects:
+Native discovery configurations live in this repo:
 
-| Catalog | Read by | Local source shape |
+| Harness | Configuration / Manifest | Local source shape |
 |---|---|---|
-| `.claude-plugin/marketplace.json` | Claude Code | string path: `"./plugins/<name>"` |
-| `.agents/plugins/marketplace.json` | Codex | object: `{ "source": "local", "path": "./plugins/<name>" }` |
+| Claude Code | `.claude-plugin/marketplace.json` | string path: `"./plugins/<name>"` |
+| Codex | `.agents/plugins/marketplace.json` | object: `{ "source": "local", "path": "./plugins/<name>" }` |
+| Antigravity | `.agents/plugins.json` + `plugin.json` | entry path: `"plugins/<name>"` |
 
-Both catalogs also federate the same three external companions
-(`krometrail`, `peeragent`, `skilltap`) through `git-subdir` sources that
-point at their own repositories.
+Both catalogs also federate external companions through `git-subdir` sources
+that point at their own repositories. `krometrail`, `peeragent`, and `skilltap`
+use one shared plugin root per repository. `theatre-feedback` uses Theatre's
+separate self-contained Claude and Codex package roots; both roots carry the
+same public plugin identity and synchronized operating skills.
 
 Pi does not get a third catalog in this tree. It consumes the same two
 through the `@nklisch/pi-plugins` bridge, maintained in
@@ -161,8 +175,9 @@ shipped as prebuilt binaries, and evolved is owned by
 
 ## Where to read next
 
-- Requirements-first delivery, research evidence, and compact release
-  summaries → `plugins/workbench/docs/{VISION,SPEC}.md`.
+- Requirements-first delivery, opportunity scanning, optional release gates,
+  research evidence, and compact release summaries →
+  `plugins/workbench/docs/{VISION,SPEC}.md`.
 - Structured substrate lifecycle, gates, releases, and the work-view query
   model (maintenance mode) →
   `plugins/agile-workflow/docs/{ARCHITECTURE,SPEC,PRINCIPLES}.md`.

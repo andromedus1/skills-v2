@@ -1,7 +1,7 @@
 ---
 description: "Research Pipeline role vocabulary for host-aware model and effort selection."
 type: pattern
-updated: 2026-08-02
+updated: 2026-10-19
 ---
 
 # Host-aware model selection
@@ -61,3 +61,21 @@ target until peeragent provides a Kimi adapter.
 
 A same-lineage reviewer can still provide useful fresh context, but must not be
 reported as cross-model evidence.
+
+## Resolving concrete models
+
+Model names and rankings age quickly; prefer durable tendencies:
+
+- Strong reasoning models earn their cost on ambiguous requirements,
+  architecture, cross-cutting contracts, difficult diagnosis and adversarial review.
+- Faster capable models fit bounded work with clear acceptance and cheap verification.
+- Long context helps only when correctness depends on broad state; curate the brief.
+- A fresh context catches assumptions the working context has normalized;
+  independence matters more than reviewer count.
+- Different model families make different errors; cross-model coverage is evidence
+  diversity, not authority.
+
+Resolve concrete IDs and effort levels from the peeragent skill's alias table and
+the host's runtime offering, not from docs. A project may record the operator's
+standing lineup in `.work/CONVENTIONS.md` and qualified local observations in
+`.work/MODEL-NOTES.md`; both inform choices without granting authority.

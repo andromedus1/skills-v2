@@ -1,0 +1,52 @@
+# Backlog Grooming
+
+Use this reference when the user asks to walk through, groom, organize, deduplicate, clarify, or prioritize `.work/backlog/`. Grooming is a conversational `work` activity, not a separate audit, release gate, report, or recurring ceremony. Routine ledger hygiene also happens proactively during stateful work under [lifecycle](lifecycle.md); it does not require a grooming request.
+
+## Align the conversation
+
+Read relevant foundations, active work, roadmap when enabled, and the requested backlog surface. Resolve only the context needed to make useful choices:
+
+- whether the user wants the whole backlog or a bounded area;
+- current goals or constraints that should inform relative priority;
+- whether the conversation should emphasize hygiene, grouping, prioritization, activation, or a mixture.
+
+Do not make the user choose a scanner, workflow stage, or scoring system. If their request already settles the goal, begin the walkthrough.
+
+## Scale to the backlog
+
+For a small backlog, read it directly and walk through it casually. Group related items when that makes the conversation easier, but keep item
+names visible: pair each id with its title.
+
+For a large backlog, use a small number of cheap read-only sub-agents when available to summarize bounded slices. Give each agent the grooming goal and item bodies in its slice. Ask for:
+
+- one-line outcome summaries;
+- unclear or outdated premises;
+- grounded duplicate, overlap, supersession, or merge candidates;
+- useful thematic groups;
+- questions the user must answer.
+
+Every semantic claim cites the relevant item text. Helpers only propose; they do not assign priority or activate work ([sub-agents](sub-agents.md#what-each-agent-may-write)). The orchestrator verifies material claims and checks across slices because duplicate or related items may fall into different groups. Avoid one agent per item and disclose reduced breadth when the available context or tooling cannot cover the requested backlog credibly.
+
+## Walk through and prioritize
+
+Present a concise backlog map in conversation, then work through the useful decisions with the user. Prefer ordinary relative language—now, next, later, uncertain, no longer wanted—over invented numerical scores. Useful proposals include:
+
+- keep as-is;
+- clarify or update with newly confirmed context;
+- merge duplicate or overlapping items while preserving unique detail;
+- mark a premise as superseded or already delivered;
+- discard an item the user no longer wants;
+- activate a selected outcome through normal `work` or `design` routing;
+- offer to update `docs/ROADMAP.md` when `roadmap: true` and a confirmed
+  disposition would leave an explicit roadmap link misleading; make the change
+  only if the user confirms it.
+
+Apply evidence-backed hygiene directly: reconcile already-delivered work, merge clear duplicates, and remove superseded records while preserving unique requirements and useful context. Priority changes, cancellation of still-wanted outcomes, ambiguous supersession, and activation of new implementation remain user decisions unless already authorized. Age prompts investigation, not avoidance or automatic deletion; Workbench invents no staleness threshold. Respect live ownership, not historical authorship alone.
+
+Workbench has no priority frontmatter or mandatory total ordering. Do not create either during grooming. Preserve user-confirmed rationale in an item's body only when it will help a future decision; otherwise keep conversational ranking in the conversation. Activation is the durable signal that the user chose work now.
+
+## Apply selected changes
+
+Apply routine hygiene and authorized consequential dispositions. Use the [completion sweep](lifecycle.md#completion-sweep) for completion, removal, and destructive trimming. When merging, fold unique context and evidence into the retained item before removing the duplicate. Do not reconcile or rewrite `docs/ROADMAP.md` as a side effect of a merge, discard, or activation; update it only when the user confirmed that roadmap change. When activating, preserve settled outcome context and follow [lifecycle.md](lifecycle.md). Do not design or implement activated work inside grooming unless the user asks to continue into delivery.
+
+Write no grooming report and create no backlog item about grooming the backlog. Validate Workbench after mutations. A useful walkthrough with no file changes is a valid result.

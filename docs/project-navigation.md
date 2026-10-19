@@ -76,10 +76,19 @@ The patch adds Kimi (Moonshot) as a Pi-native driver class that is not a peerage
 and Pi driver settings. It also adds a Kimi row to the host-to-peer and mechanism
 tables. The implementation-worker row names Luna only where available, else the
 host's strongest verified writing tier, with GLM-5.2 and Kimi as Pi drivers to
-evaluate. The fork's `scripts/bump-version.sh` refuses to bump on `main`, so
+evaluate. A short note at the top of `models.md` sets this fork's resolution order:
+peeragent's alias table and runtime discovery for concrete IDs, the operator lineup in
+`.work/CONVENTIONS.md`, and local evidence in `.work/MODEL-NOTES.md`; upstream's model
+names are treated as dated examples. Three agile-workflow tests carry macOS fixes: `hooks/scripts/test_prompt_context.py`
+resolves `/private/var` paths, `scripts/tests/agent-metadata.test.sh` asserts the absent
+`package.json` instead of reading it, and `scripts/tests/convert-content-integrity.test.sh`
+replaces bash-4 `mapfile`. The fork's `scripts/bump-version.sh` refuses to bump on `main`
+and omits upstream's Workbench version stamping and Antigravity manifests, so
 [`bump-version.test.sh`](../plugins/agile-workflow/scripts/tests/bump-version.test.sh)
 seeds its scratch repository on a named branch and covers that guard. Preserve
-these additions when syncing upstream.
+these additions when syncing upstream. Upstream's Antigravity root `plugins/*/plugin.json`
+manifests and `.agents/plugins.json` are not carried, except `plugins/workbench/plugin.json`,
+which Workbench's own validator and tests read.
 
 ## Regenerate the knowledge index
 

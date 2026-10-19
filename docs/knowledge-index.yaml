@@ -6,9 +6,9 @@
 #   2 = enforce (missing v2 fields are errors)
 # Set to 2 once the project's docs are fully backfilled to v2 frontmatter.
 schema_version: 1
-generated_at: 2026-10-19T17:11:58Z
+generated_at: 2026-10-19T19:52:28Z
 generated_from: frontmatter
-total_docs: 22
+total_docs: 24
 
 documents:
   # ── planning ──────────────────────────────────────────────────────────────
@@ -26,6 +26,13 @@ documents:
     kind: planning
     updated: 2026-10-18
     consumer_hint: Read for the rationale and interaction design behind the knowledge graph renderer; verify implementation details against the current skill.
+
+  - path: docs/PRINCIPLES.md
+    title: Upstream engineering and testing principles
+    type: module-rules
+    kind: planning
+    updated: 2026-10-19
+    consumer_hint: Read for Nathan's binding engineering and testing rules for the upstream catalog; this fork's agent rules live in AGENTS.md and .work/CONVENTIONS.md.
 
   - path: docs/SPEC.md
     title: Upstream plugin distribution specification
@@ -84,6 +91,13 @@ documents:
     kind: research
     updated: 2026-10-18
     consumer_hint: "Agentic Research brief: Research package boundary and methodology review"
+
+  - path: .research/analysis/briefs/upstream-learnings-2026-10-landscape.md
+    title: Upstream learnings landscape — nklisch/skills since 2026-08-01 and peeragent 0.8.1 to 0.8.3
+    type: brief
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research brief: Upstream learnings landscape — nklisch/skills since 2026-08-01 and peeragent 0.8.1 to 0.8.3"
 
   - path: docs/research/codex-plugin-format.md
     title: "Research: Codex Plugin Format and Standards"

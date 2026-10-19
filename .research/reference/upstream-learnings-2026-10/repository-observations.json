@@ -1,0 +1,1260 @@
+{
+  "observed_at": "2026-10-19T18:53:30.391474+00:00",
+  "provenance": "generated-listing",
+  "generator": "scratch script; git log/diff/show/grep in this checkout plus public GitHub API reads for nklisch/peeragent",
+  "upstream_ref": "upstream/main",
+  "upstream_sha": "638867b65e35057518865e0ece29e980468b0a94",
+  "upstream_commit_date": "2026-10-02 18:13:07 -0600",
+  "merge_base": "43f7f4bf9d5d00acaa5692c3dc321583baae76a2",
+  "fork_head": "9500f8b009b5ab056a14aa3eaa66c8c1c6eaffcb",
+  "upstream_total_commits_since_base": 224,
+  "upstream_total_diff_shortstat": "226 files changed, 13842 insertions(+), 12470 deletions(-)",
+  "areas": {
+    "agile-workflow": {
+      "upstream_commit_count": 10,
+      "upstream_diff_shortstat": "15 files changed, 117 insertions(+), 74 deletions(-)",
+      "fork_commit_count_since_base": 5,
+      "fork_vs_upstream_shortstat": "19 files changed, 119 insertions(+), 118 deletions(-)",
+      "claude_manifest_version": {
+        "merge_base": "0.16.14",
+        "upstream": "0.16.16",
+        "fork_head": "0.16.14"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "ed45f6e24b3d50e51a860e88d207ace148cba876",
+          "date": "2026-08-25",
+          "author": "github-actions[bot]",
+          "subject": "chore: refresh work-view prebuilt binaries [skip ci]"
+        },
+        {
+          "sha": "4c0476d71de6e9a31ab93651f8b4bdeaf37ebd80",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Revert \"Bump agile-workflow plugin to v0.16.17\""
+        },
+        {
+          "sha": "f4fcf5bb860cd6181af0f7b022d2990c95097801",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Bump agile-workflow plugin to v0.16.17"
+        },
+        {
+          "sha": "8391fd035dc3c2ba041872cb48a74da398b482a8",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Bump agile-workflow plugin to v0.16.16"
+        },
+        {
+          "sha": "2e812a1c34279071381fe3395c2e747ef33dc26a",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "ux-ui-design: restructure as a single adaptive ux-ui concierge skill"
+        },
+        {
+          "sha": "52c1af443ab635919dd3b7b215d6e05b69dcbf72",
+          "date": "2026-08-22",
+          "author": "Nathan Klisch",
+          "subject": "Add configurable simplification and Workbench version guards"
+        },
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        },
+        {
+          "sha": "3f4a933ca6c025eb9ff2aa7455711c900ee32cfa",
+          "date": "2026-08-02",
+          "author": "github-actions[bot]",
+          "subject": "chore: refresh work-view prebuilt binaries [skip ci]"
+        },
+        {
+          "sha": "41e32e8663c0ed5fe19cdd7f071aac48cc24bce0",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "Bump agile-workflow plugin to v0.16.15"
+        },
+        {
+          "sha": "4cb428ae2480c480f5b9da0cab083d424d559117",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "bold-refactor family: refined provocation prose, open lens sets, skeptical review"
+        }
+      ]
+    },
+    "code-audit": {
+      "upstream_commit_count": 5,
+      "upstream_diff_shortstat": "4 files changed, 36 insertions(+), 2 deletions(-)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "4 files changed, 36 insertions(+), 2 deletions(-)",
+      "claude_manifest_version": {
+        "merge_base": "0.2.0",
+        "upstream": "0.2.2",
+        "fork_head": "0.2.0"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        },
+        {
+          "sha": "78bcb2a033093fdea098b06f824dec540283657f",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "Bump code-audit plugin to v0.2.2"
+        },
+        {
+          "sha": "4cb428ae2480c480f5b9da0cab083d424d559117",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "bold-refactor family: refined provocation prose, open lens sets, skeptical review"
+        },
+        {
+          "sha": "b62e6c681240a8e348441f6eb90f41c9f380aa1f",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "Bump code-audit plugin to v0.2.1"
+        },
+        {
+          "sha": "870c8ab9267d18a2990acbb703187a89f5f04fbb",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "workbench: add provocation lenses to ideate, adapted from bold-refactor"
+        }
+      ]
+    },
+    "ux-ui-design": {
+      "upstream_commit_count": 3,
+      "upstream_diff_shortstat": "49 files changed, 1311 insertions(+), 10008 deletions(-)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "49 files changed, 1311 insertions(+), 10008 deletions(-)",
+      "claude_manifest_version": {
+        "merge_base": "0.5.0",
+        "upstream": "1.0.0",
+        "fork_head": "0.5.0"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "3fd8f1838dc131b42aba950bafcee2abd4482619",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Bump ux-ui-design plugin to v1.0.0"
+        },
+        {
+          "sha": "2e812a1c34279071381fe3395c2e747ef33dc26a",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "ux-ui-design: restructure as a single adaptive ux-ui concierge skill"
+        },
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        }
+      ]
+    },
+    "prose-craft": {
+      "upstream_commit_count": 9,
+      "upstream_diff_shortstat": "23 files changed, 1252 insertions(+), 230 deletions(-)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "23 files changed, 1252 insertions(+), 230 deletions(-)",
+      "claude_manifest_version": {
+        "merge_base": "0.1.3",
+        "upstream": "0.3.1",
+        "fork_head": "0.1.3"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "f1717d160865792980a307f1bdb3310c3447c976",
+          "date": "2026-09-08",
+          "author": "Nathan Klisch",
+          "subject": "Bump prose-craft plugin to v0.3.1"
+        },
+        {
+          "sha": "97ba853717c8a24921db29e66d12de2cddca6355",
+          "date": "2026-09-08",
+          "author": "Nathan Klisch",
+          "subject": "Adapt prose-craft and Workbench language to audience and domain"
+        },
+        {
+          "sha": "6d2178c8c64840764110715375caba49db7f8aec",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "Bump prose-craft plugin to v0.3.0"
+        },
+        {
+          "sha": "b5e25118dca64cc78923b44875e6a5fe0edee382",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "prose-craft: optional parallel-drafts mode with beat-anchored fusion"
+        },
+        {
+          "sha": "655bb54f786d7f816de348765ecd9ea7449c3927",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "Bump prose-craft plugin to v0.2.1"
+        },
+        {
+          "sha": "e9132440ed188e659d890e32c513873912479d3c",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "prose-craft: dogfood pass \u2014 apply the plugin's own workflow to its docs"
+        },
+        {
+          "sha": "c190356d446849bd43648d6cce2aa3ed8959a7fb",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "Bump prose-craft plugin to v0.2.0"
+        },
+        {
+          "sha": "581ddf08a53a5a2267034ddac0aacf5285c7b7ee",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "prose-craft: reader-path planning, style selection, model-voice blending"
+        },
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        }
+      ]
+    },
+    "sol-calibration": {
+      "upstream_commit_count": 8,
+      "upstream_diff_shortstat": "13 files changed, 889 insertions(+)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "13 files changed, 889 insertions(+)",
+      "claude_manifest_version": {
+        "merge_base": null,
+        "upstream": "0.1.3",
+        "fork_head": null
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "dcfe6d26e287eb15a3255206ad40d06285101e88",
+          "date": "2026-08-29",
+          "author": "Nathan Klisch",
+          "subject": "Bump sol-calibration plugin to v0.1.3"
+        },
+        {
+          "sha": "a9b7f748e4344a2692da93f1f3b7ba8d247d6c4f",
+          "date": "2026-08-29",
+          "author": "Nathan Klisch",
+          "subject": "Add overbuilder-review skill to sol-calibration"
+        },
+        {
+          "sha": "30a27393d21919cb74dc4db1d61a55398d9088ea",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "sol-calibration: add per-channel install instructions to README"
+        },
+        {
+          "sha": "41e93734d78ec2a023034b75f4a9539aea9ff974",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "Bump sol-calibration plugin to v0.1.2"
+        },
+        {
+          "sha": "1b2723b9483c610ffac59feda719c405f19c9f17",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "sol-calibration: name context pulls during the posture interview"
+        },
+        {
+          "sha": "c6f324bb72376d782de1e34807550f73698fc298",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "Bump sol-calibration plugin to v0.1.1"
+        },
+        {
+          "sha": "cf123e25f465e1276a648dfc59dec1da94d3b6e5",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "sol-calibration: add optional stop-boundaries posture module"
+        },
+        {
+          "sha": "61e695bac2fb4bd8e3d0b4e5e31d86f0ea56c0b0",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "sol-calibration: add plugin with posture interview and proportionality check"
+        }
+      ]
+    },
+    "declaudify": {
+      "upstream_commit_count": 2,
+      "upstream_diff_shortstat": "5 files changed, 149 insertions(+)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "5 files changed, 149 insertions(+)",
+      "claude_manifest_version": {
+        "merge_base": null,
+        "upstream": "0.1.1",
+        "fork_head": null
+      },
+      "agy_root_manifest_present": {
+        "upstream": false,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "f881219609addffbd7a3c6143ed08df7b562feec",
+          "date": "2026-08-20",
+          "author": "Nathan Klisch",
+          "subject": "Bump declaudify plugin to v0.1.1"
+        },
+        {
+          "sha": "06aa9e556860de9232649ae0ae8977616dad72f4",
+          "date": "2026-08-20",
+          "author": "Nathan Klisch",
+          "subject": "Add declaudify Claude plugin"
+        }
+      ]
+    },
+    "agentic-research": {
+      "upstream_commit_count": 1,
+      "upstream_diff_shortstat": "1 file changed, 10 insertions(+)",
+      "fork_commit_count_since_base": 11,
+      "fork_vs_upstream_shortstat": "24 files changed, 31 insertions(+), 303 deletions(-)",
+      "claude_manifest_version": {
+        "merge_base": "0.6.5",
+        "upstream": "0.6.5",
+        "fork_head": "0.7.0"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        }
+      ]
+    },
+    "agent-coordination": {
+      "upstream_commit_count": 1,
+      "upstream_diff_shortstat": "1 file changed, 10 insertions(+)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "1 file changed, 10 insertions(+)",
+      "claude_manifest_version": {
+        "merge_base": "0.1.2",
+        "upstream": "0.1.2",
+        "fork_head": "0.1.2"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        }
+      ]
+    },
+    "nates-toolkit": {
+      "upstream_commit_count": 1,
+      "upstream_diff_shortstat": "1 file changed, 10 insertions(+)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "1 file changed, 10 insertions(+)",
+      "claude_manifest_version": {
+        "merge_base": "0.3.2",
+        "upstream": "0.3.2",
+        "fork_head": "0.3.2"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        }
+      ]
+    },
+    "workflow": {
+      "upstream_commit_count": 1,
+      "upstream_diff_shortstat": "1 file changed, 10 insertions(+)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "1 file changed, 10 insertions(+)",
+      "claude_manifest_version": {
+        "merge_base": "1.5.2",
+        "upstream": "1.5.2",
+        "fork_head": "1.5.2"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits": [
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        }
+      ]
+    },
+    "workbench": {
+      "upstream_commit_count": 159,
+      "upstream_diff_shortstat": "79 files changed, 8751 insertions(+), 1104 deletions(-)",
+      "fork_commit_count_since_base": 0,
+      "fork_vs_upstream_shortstat": "79 files changed, 8751 insertions(+), 1104 deletions(-)",
+      "claude_manifest_version": {
+        "merge_base": "0.5.0",
+        "upstream": "0.26.11",
+        "fork_head": "0.5.0"
+      },
+      "agy_root_manifest_present": {
+        "upstream": true,
+        "fork_head": false
+      },
+      "upstream_commits_excluding_version_bumps": [
+        {
+          "sha": "31641a959b431474c3a8d30cc55ae273989e72d6",
+          "date": "2026-10-02",
+          "author": "Nathan Klisch",
+          "subject": "Settle publishing, reverts and red heads under merge-first"
+        },
+        {
+          "sha": "ec0d4003f14cf8026408f95ecae0e7b1157da0d8",
+          "date": "2026-10-02",
+          "author": "Nathan Klisch",
+          "subject": "Leave publishing the integration branch to the gate runner"
+        },
+        {
+          "sha": "95fe1118122809d1ba06852638b2297ca7dd75c4",
+          "date": "2026-10-02",
+          "author": "Nathan Klisch",
+          "subject": "Merge into a local integration branch first and gate after"
+        },
+        {
+          "sha": "4e17182a74780140edcba3138b4674e80aa42fc4",
+          "date": "2026-10-02",
+          "author": "Nathan Klisch",
+          "subject": "Keep delegated jobs from deleting what they were given"
+        },
+        {
+          "sha": "0606c01f812081b04616a0b9d2a141ae55341841",
+          "date": "2026-10-01",
+          "author": "Nathan Klisch",
+          "subject": "Add a verification cadence for multi-agent runs"
+        },
+        {
+          "sha": "d05619d03a0b7e06556675e726e830f9ef850f99",
+          "date": "2026-10-01",
+          "author": "Nathan Klisch",
+          "subject": "Ask where hot-path data comes from and how it is shaped"
+        },
+        {
+          "sha": "42ac0799ad72f36b5211a7d63e4ca7500a5a6d29",
+          "date": "2026-10-01",
+          "author": "Nathan Klisch",
+          "subject": "workbench: reference work by name in user-facing communication"
+        },
+        {
+          "sha": "72d2a984a8d416fc628b9eceede7cdd6ad648477",
+          "date": "2026-09-29",
+          "author": "Nathan Klisch",
+          "subject": "Add conditional design notes for surface, refusals, and assumptions"
+        },
+        {
+          "sha": "bc53422cb5af926c7a95b049ec6aaeaff10bbdf6",
+          "date": "2026-09-29",
+          "author": "Nathan Klisch",
+          "subject": "Add design approach notes for hot paths and specialized techniques"
+        },
+        {
+          "sha": "d63fe59cfb58594c2279999e4cae0b22c3c82c54",
+          "date": "2026-09-26",
+          "author": "Nathan Klisch",
+          "subject": "Clarify research index omits work items"
+        },
+        {
+          "sha": "3cf6cbfa126ea57fa6739dc8e5855191b08e8167",
+          "date": "2026-09-26",
+          "author": "Nathan Klisch",
+          "subject": "Exclude Workbench items from knowledge index"
+        },
+        {
+          "sha": "40251d61454f922cbe735093472a932e5f59d2e4",
+          "date": "2026-09-25",
+          "author": "Nathan Klisch",
+          "subject": "Settle the proactive pattern threshold and point summaries at one rule"
+        },
+        {
+          "sha": "f46a00ff4f85912be16d947baaba94052f856384",
+          "date": "2026-09-25",
+          "author": "Nathan Klisch",
+          "subject": "Apply review corrections to code craft, sub-agents, and catalog timing"
+        },
+        {
+          "sha": "bda23eed210a27dd345cb64b7834cc0bacb7df43",
+          "date": "2026-09-25",
+          "author": "Nathan Klisch",
+          "subject": "Point work and deliver at code craft and keep the pathology catalog beside pattern references"
+        },
+        {
+          "sha": "1160aed24cf5a1048e6ca1a6d9c5ff669ed4e7e9",
+          "date": "2026-09-25",
+          "author": "Nathan Klisch",
+          "subject": "Make the machinery forecast a proactive design step"
+        },
+        {
+          "sha": "3b03b3888bd4ef04a6a18d643c74d01d1055c6cf",
+          "date": "2026-09-25",
+          "author": "Nathan Klisch",
+          "subject": "Keep the pattern catalog current at large review boundaries"
+        },
+        {
+          "sha": "6cf0e8c03456808fc2e6daaacfbbc663eb7fc4b3",
+          "date": "2026-09-25",
+          "author": "Nathan Klisch",
+          "subject": "Consolidate sub-agent guidance into one reference"
+        },
+        {
+          "sha": "7a22480521224f7d2e4d502ca9f5aa557e18b622",
+          "date": "2026-09-25",
+          "author": "Nathan Klisch",
+          "subject": "Add a code-craft skill with named readability pathologies"
+        },
+        {
+          "sha": "fb3e739d3100f3d7aec06938ecd65d8f699b3b57",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Clarify Claude-only skill migration and close verified guidance work"
+        },
+        {
+          "sha": "8721e942eb68076915e6232cbc4b0aeee02249c1",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Merge main and preserve the upstream context-scan removal"
+        },
+        {
+          "sha": "f95319fa04d04f9eb47096cbf5a554713adfff17",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Honor item ownership and expose the shared project skills directory"
+        },
+        {
+          "sha": "f03553cae282c1d451d54954b9378e626837348e",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Checkpoint Claude instruction guidance before PR feedback discussion"
+        },
+        {
+          "sha": "a77d895b5ee107325cb85c7a55a8989a08a3503f",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Respect contribution rules and finish committed-handoff cleanup"
+        },
+        {
+          "sha": "ce3eb3c7963853ba1e73a3f75e72e153f52be4be",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Require committed agent handoffs and review targets"
+        },
+        {
+          "sha": "fcf89d958a7c5f5a2f920b71aa4dc214b2b3380b",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Default Workbench to inline-first execution with upgrade alignment"
+        },
+        {
+          "sha": "e492d435bf30369b8d38d4dd59de0d06fcdd92cc",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Simplify Workbench activation and centralize lifecycle guidance"
+        },
+        {
+          "sha": "7610dfc3714a30a8a9e75d7e600ae0bbc6a82949",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Support project-owned Workbench validation commands"
+        },
+        {
+          "sha": "fe2c40cf37377124026fd7ff39c8a1c612ecf921",
+          "date": "2026-09-19",
+          "author": "Nathan Klisch",
+          "subject": "Make Workbench ledger closure proactive and preserve item history"
+        },
+        {
+          "sha": "3d48db4a1705477e3aff11b8626c2da033ff1543",
+          "date": "2026-09-19",
+          "author": "DavidCC00",
+          "subject": "Write knowledge index outputs with unchanged newlines"
+        },
+        {
+          "sha": "d1c1875f9f12bbfde535570ec2db1d848f51528d",
+          "date": "2026-09-16",
+          "author": "DavidCC00",
+          "subject": "Remove context-scan from Workbench"
+        },
+        {
+          "sha": "097fa9c89c9e9f4f46764624b90be2045646e036",
+          "date": "2026-09-13",
+          "author": "DavidCC00",
+          "subject": "Refine context scan delegation"
+        },
+        {
+          "sha": "51847b47e9e567d98ee0ce72c5eb906c789e0bdc",
+          "date": "2026-09-13",
+          "author": "Nathan Klisch",
+          "subject": "Move Workbench workflow mechanics to their owning skills"
+        },
+        {
+          "sha": "ed578f90f42a177aaa445444033e33f19754c930",
+          "date": "2026-09-13",
+          "author": "Nathan Klisch",
+          "subject": "Adapt Workbench model assignments from local delivery evidence"
+        },
+        {
+          "sha": "2d019709ad3e88043e9616773583f5d75e9dd308",
+          "date": "2026-09-12",
+          "author": "Nathan Klisch",
+          "subject": "Keep Workbench upgrade reminders in the validator"
+        },
+        {
+          "sha": "0be197f1caf7e7273fc6fd63b551a4f8eb936c2d",
+          "date": "2026-09-12",
+          "author": "Nathan Klisch",
+          "subject": "Merge remote-tracking branch 'origin/main'"
+        },
+        {
+          "sha": "27ab2924c7c1ce8bce3dc0c4a7603aafce5f542d",
+          "date": "2026-09-12",
+          "author": "Nathan Klisch",
+          "subject": "Allow Workbench backlog items to own attachments"
+        },
+        {
+          "sha": "cbb097092ebe65ad5d6adf6fd119147f3d175507",
+          "date": "2026-09-12",
+          "author": "DavidCC00",
+          "subject": "Merge branch 'main' into codex/workbench-context-scan"
+        },
+        {
+          "sha": "84dc4860c350347439b46e529b7487382a86af98",
+          "date": "2026-09-12",
+          "author": "Nathan Klisch",
+          "subject": "Merge main into Workbench release, retaining version 0.23.1"
+        },
+        {
+          "sha": "6cbb0306558ebfc7ae3ae55686d47d4409c412f0",
+          "date": "2026-09-12",
+          "author": "DavidCC00",
+          "subject": "Clarify context scan recovery without a work item"
+        },
+        {
+          "sha": "e02b010dcb984801bb4fcebd1562a7b39f1ebc16",
+          "date": "2026-09-11",
+          "author": "Nathan Klisch",
+          "subject": "Prioritize problem fit and solution quality in design review"
+        },
+        {
+          "sha": "6c82486b3ae9d45e3acab136dd9a41570c197ba1",
+          "date": "2026-09-10",
+          "author": "DavidCC00",
+          "subject": "Add Workbench context scanner with bounded remediation"
+        },
+        {
+          "sha": "3ba8c97bd958431febc4f1026054a6b4053ebcd1",
+          "date": "2026-09-09",
+          "author": "Nathan Klisch",
+          "subject": "Restore dropped Workbench guidance and add an evidence-depth dial"
+        },
+        {
+          "sha": "dc47b47ae052b4fb5f0dd13824a48bba93ced3e9",
+          "date": "2026-09-09",
+          "author": "DavidCC00",
+          "subject": "Improve Workbench decision reconciliation"
+        },
+        {
+          "sha": "98f636aefcb3c687437b976f6fcdda17faa7f167",
+          "date": "2026-09-08",
+          "author": "Nathan Klisch",
+          "subject": "Allow standalone stories for small bugs and items"
+        },
+        {
+          "sha": "13d406587ccd2c843c98e60bc8ba5561593d2150",
+          "date": "2026-09-08",
+          "author": "Nathan Klisch",
+          "subject": "Clarify Workbench hierarchy and consolidate lifecycle guidance"
+        },
+        {
+          "sha": "852617dac998d753d9974173fffde5b662c158ed",
+          "date": "2026-09-08",
+          "author": "Nathan Klisch",
+          "subject": "Clarify reference-first Workbench design handoffs"
+        },
+        {
+          "sha": "97ba853717c8a24921db29e66d12de2cddca6355",
+          "date": "2026-09-08",
+          "author": "Nathan Klisch",
+          "subject": "Adapt prose-craft and Workbench language to audience and domain"
+        },
+        {
+          "sha": "e6b339df81674dcc3cc57462230c9ca0a9ed9956",
+          "date": "2026-09-08",
+          "author": "Nathan Klisch",
+          "subject": "Make Workbench designs item-authored contracts with temporary specifications"
+        },
+        {
+          "sha": "9f31917ccbc0864af69e0dd7281a7163b46143e5",
+          "date": "2026-09-06",
+          "author": "Nathan Klisch",
+          "subject": "Adapt Workbench review boundaries across deliveries"
+        },
+        {
+          "sha": "363ed3ebfb8f01d20aada6403f941756c420372a",
+          "date": "2026-09-05",
+          "author": "Nathan Klisch",
+          "subject": "Make Workbench delivery continuous and proportionate"
+        },
+        {
+          "sha": "cdd7f238d2f226c3d9a34ff8dcda417c28a5a417",
+          "date": "2026-09-05",
+          "author": "Nathan Klisch",
+          "subject": "Align Workbench subagent models with users before execution"
+        },
+        {
+          "sha": "5db5f23b6f25430a77612431daa8c1717129c215",
+          "date": "2026-09-04",
+          "author": "Nathan Klisch",
+          "subject": "Simplify Workbench delivery and align model guidance"
+        },
+        {
+          "sha": "7a963fc98820c37b086c0d7dd0333a4aa204c2de",
+          "date": "2026-09-02",
+          "author": "Nathan Klisch",
+          "subject": "Add Workbench machinery forecast guidance"
+        },
+        {
+          "sha": "6e279c39d91544b81b75c2c8b6e1ab060c9d18e2",
+          "date": "2026-08-31",
+          "author": "Nathan Klisch",
+          "subject": "Add adaptive Workbench delivery topology"
+        },
+        {
+          "sha": "1e31aefe74525b06e25c5b7c19309ee5592eeb7d",
+          "date": "2026-08-29",
+          "author": "Nathan Klisch",
+          "subject": "Scope adopted-reference drift audits to changed guidance and fix style self-violations"
+        },
+        {
+          "sha": "88d01ccbbbd33075e3f4381da203652ec6f55123",
+          "date": "2026-08-29",
+          "author": "Nathan Klisch",
+          "subject": "Add failure-mode rationale rule to writing style and adopted-reference drift audit to setup"
+        },
+        {
+          "sha": "a543e82378f3cf1ecc16093110fbc36941259031",
+          "date": "2026-08-28",
+          "author": "Nathan Klisch",
+          "subject": "feat(workbench): define engineering foundations"
+        },
+        {
+          "sha": "4afa7917460740a48a0d12354dfb418ddd3536da",
+          "date": "2026-08-28",
+          "author": "Nathan Klisch",
+          "subject": "Use provisional spec terminology"
+        },
+        {
+          "sha": "47392c3a953f50cb0d4b48e9038342403609092a",
+          "date": "2026-08-28",
+          "author": "Nathan Klisch",
+          "subject": "Add project overbuilding calibration"
+        },
+        {
+          "sha": "cfe714bbc82cb39c9256e71c823e9555199b8dbf",
+          "date": "2026-08-26",
+          "author": "Nathan Klisch",
+          "subject": "Add provisional design spec lifecycle"
+        },
+        {
+          "sha": "f52377c8f22cc9070cc2a95449b4e37eb116b68f",
+          "date": "2026-08-26",
+          "author": "Nathan Klisch",
+          "subject": "feat(workbench): shape ideation solution complexity"
+        },
+        {
+          "sha": "60c6390d669a1b14fa4ef8aff3485b50e304f0e5",
+          "date": "2026-08-26",
+          "author": "Nathan Klisch",
+          "subject": "feat(workbench): add research rigor and ownership"
+        },
+        {
+          "sha": "702f8d7de133e5c3ecdfb973069e4bbce8f8097f",
+          "date": "2026-08-25",
+          "author": "Nathan Klisch",
+          "subject": "Add knowledge index exclusions"
+        },
+        {
+          "sha": "b7f11a8936ed2c5ac61b77a671053c7dc96157e6",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Add configurable Workbench execution posture"
+        },
+        {
+          "sha": "ef40c33229774ecd3c57d609f4936c1157351b5e",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Release Workbench 0.15.1"
+        },
+        {
+          "sha": "b9fe6e8e55026981fe9b1d30bf4e9e37665287a9",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Refine Workbench setup configuration"
+        },
+        {
+          "sha": "29eb790a8f4dad25f4004a788935cb30fce03162",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Calibrate Workbench review convergence"
+        },
+        {
+          "sha": "aa1172415510d80e80dbb558f1add7c42085bfed",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Clarify scan model routing"
+        },
+        {
+          "sha": "c61d39ae2067dd4d138231fd63d9c6ec46a23b3b",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Allow uncapped Workbench reviews"
+        },
+        {
+          "sha": "7a75fdb189e8137ff8eb5f1ec38c7d595fa35910",
+          "date": "2026-08-24",
+          "author": "Nathan Klisch",
+          "subject": "Relax Workbench roadmap convention"
+        },
+        {
+          "sha": "76fddf96988f80ed74fcb97790e00082a3b347dd",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "workbench: bound thorough review passes"
+        },
+        {
+          "sha": "51b67f663eddf5fbc4c9cea98438945845f63c43",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "workbench: clarify review pass budgets"
+        },
+        {
+          "sha": "adf207a0403845ae2e8a69dce290a41a1a9280d8",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "workbench: account for every conversion artifact"
+        },
+        {
+          "sha": "636ee86b543bb699f4e271b601bb3cff56944b9e",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "workbench: add conversational backlog grooming"
+        },
+        {
+          "sha": "4fb19158a088115d45a82bfb775593318b707099",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "workbench: add adaptive scans and release gates"
+        },
+        {
+          "sha": "89f696423fa3ac8908cc6c623c6078596b0c8b03",
+          "date": "2026-08-23",
+          "author": "Nathan Klisch",
+          "subject": "refine Workbench foundation and ledger boundaries"
+        },
+        {
+          "sha": "a94e8edbfb40310683e870734a3168dbd3ea1376",
+          "date": "2026-08-22",
+          "author": "Nathan Klisch",
+          "subject": "workbench: add structural-hygiene lens to design and review"
+        },
+        {
+          "sha": "b56b649a0bb2b74f60fb81d739c96b5dc6d1a920",
+          "date": "2026-08-22",
+          "author": "Nathan Klisch",
+          "subject": "Expand Workbench delivery and release workflows"
+        },
+        {
+          "sha": "52c1af443ab635919dd3b7b215d6e05b69dcbf72",
+          "date": "2026-08-22",
+          "author": "Nathan Klisch",
+          "subject": "Add configurable simplification and Workbench version guards"
+        },
+        {
+          "sha": "618d9c044fe5f527f8f607bfd3b2db1d46e474d8",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "fix workbench setup ownership guidance"
+        },
+        {
+          "sha": "07ea10870868f550894034521ad46665bceb07df",
+          "date": "2026-08-21",
+          "author": "Nathan Klisch",
+          "subject": "Add Workbench model role guidance"
+        },
+        {
+          "sha": "e6ab679a7370acf67e2e512c1fdf0f1051f2d80e",
+          "date": "2026-08-20",
+          "author": "Nathan Klisch",
+          "subject": "Expand ideate routing and require explicit setup"
+        },
+        {
+          "sha": "46801390ce6e6d834f4684e5116794cd722a9ba8",
+          "date": "2026-08-16",
+          "author": "Nathan Klisch",
+          "subject": "Scope Workbench routing to adopted workflows"
+        },
+        {
+          "sha": "3ed9c532fe1c48a123646d4d6fde206255daf7bb",
+          "date": "2026-08-15",
+          "author": "Nathan Klisch",
+          "subject": "Add Antigravity (AGY) plugin manifests and multi-channel support"
+        },
+        {
+          "sha": "a451311402d83ae17780ee939f77b5947d19869e",
+          "date": "2026-08-05",
+          "author": "Nathan Klisch",
+          "subject": "Clarify Workbench design and review scope"
+        },
+        {
+          "sha": "f8beea25478bc197ecc0c253f8768467842a3759",
+          "date": "2026-08-04",
+          "author": "Nathan Klisch",
+          "subject": "Add lightweight Workbench item hierarchy"
+        },
+        {
+          "sha": "072cb1f4d4c3351341c10f06ff4c4a3e7f63c8af",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "workbench: tiered principle candidates at setup and ideate bootstrap"
+        },
+        {
+          "sha": "cd487a50c24e0482abcd777e9d59475877458069",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "workbench: align doc conventions, contract truth ownership, and setup sync"
+        },
+        {
+          "sha": "4cb428ae2480c480f5b9da0cab083d424d559117",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "bold-refactor family: refined provocation prose, open lens sets, skeptical review"
+        },
+        {
+          "sha": "870c8ab9267d18a2990acbb703187a89f5f04fbb",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "workbench: add provocation lenses to ideate, adapted from bold-refactor"
+        },
+        {
+          "sha": "6eebf47372057bdc18946878ab59ef15b7e4dbb5",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "workbench: add lightweight SessionStart posture hook"
+        },
+        {
+          "sha": "d296b6f94afab0cbeab4bd11497abdbc8b51e47a",
+          "date": "2026-08-02",
+          "author": "Nathan Klisch",
+          "subject": "workbench: state where foundation documents live in work and design flows"
+        }
+      ],
+      "version_bump_commit_count": 67
+    },
+    "research-pipeline": {
+      "upstream_commit_count": 0,
+      "upstream_diff_shortstat": "",
+      "fork_commit_count_since_base": 70,
+      "fork_vs_upstream_shortstat": "106 files changed, 12500 deletions(-)",
+      "claude_manifest_version": {
+        "merge_base": null,
+        "upstream": null,
+        "fork_head": "0.3.0"
+      },
+      "agy_root_manifest_present": {
+        "upstream": false,
+        "fork_head": false
+      },
+      "upstream_commits": []
+    }
+  },
+  "workbench_add_then_remove": {
+    "context_scan_added": {
+      "sha": "6c82486b",
+      "subject": "2026-09-10 Add Workbench context scanner with bounded remediation",
+      "files": [
+        "A\tplugins/workbench/skills/context-scan/SKILL.md",
+        "A\tplugins/workbench/skills/context-scan/agents/openai.yaml",
+        "A\tplugins/workbench/skills/context-scan/references/instruction-proposals.md"
+      ]
+    },
+    "context_scan_removed": {
+      "sha": "d1c1875f",
+      "subject": "2026-09-16 Remove context-scan from Workbench",
+      "files": [
+        "D\tplugins/workbench/skills/context-scan/SKILL.md",
+        "D\tplugins/workbench/skills/context-scan/agents/openai.yaml",
+        "D\tplugins/workbench/skills/context-scan/references/instruction-proposals.md"
+      ]
+    },
+    "session_hook_added": {
+      "sha": "6eebf473",
+      "subject": "2026-08-02 workbench: add lightweight SessionStart posture hook",
+      "files": [
+        "A\tplugins/workbench/hooks/hooks.json",
+        "A\tplugins/workbench/hooks/scripts/session-context.py",
+        "A\tplugins/workbench/hooks/scripts/test_session_context.py"
+      ]
+    },
+    "session_hook_removed": {
+      "sha": "e492d435",
+      "subject": "2026-09-19 Simplify Workbench activation and centralize lifecycle guidance",
+      "files": [
+        "D\tplugins/workbench/hooks/hooks.json",
+        "D\tplugins/workbench/hooks/scripts/session-context.py",
+        "D\tplugins/workbench/hooks/scripts/test_session_context.py"
+      ]
+    },
+    "upstream_tree_has_workbench_hooks": false
+  },
+  "root_paths": {
+    ".claude-plugin/marketplace.json": {
+      "commits": [
+        "653a8472 2026-09-05 Update Krometrail marketplace entries to 1.6.3",
+        "e6634685 2026-09-05 Advertise Theatre as a repository-backed marketplace plugin",
+        "a9b7f748 2026-08-29 Add overbuilder-review skill to sol-calibration",
+        "2e812a1c 2026-08-24 ux-ui-design: restructure as a single adaptive ux-ui concierge skill",
+        "61e695ba 2026-08-23 sol-calibration: add plugin with posture interview and proportionality check",
+        "4fb19158 2026-08-23 workbench: add adaptive scans and release gates",
+        "06aa9e55 2026-08-20 Add declaudify Claude plugin",
+        "746d4ac2 2026-08-15 Update peeragent companion for v0.6.0"
+      ],
+      "shortstat": "1 file changed, 39 insertions(+), 5 deletions(-)"
+    },
+    ".agents/plugins/marketplace.json": {
+      "commits": [
+        "653a8472 2026-09-05 Update Krometrail marketplace entries to 1.6.3",
+        "e6634685 2026-09-05 Advertise Theatre as a repository-backed marketplace plugin",
+        "a9b7f748 2026-08-29 Add overbuilder-review skill to sol-calibration",
+        "2e812a1c 2026-08-24 ux-ui-design: restructure as a single adaptive ux-ui concierge skill",
+        "61e695ba 2026-08-23 sol-calibration: add plugin with posture interview and proportionality check",
+        "4fb19158 2026-08-23 workbench: add adaptive scans and release gates",
+        "746d4ac2 2026-08-15 Update peeragent companion for v0.6.0"
+      ],
+      "shortstat": "1 file changed, 31 insertions(+), 4 deletions(-)"
+    },
+    ".agents/plugins.json": {
+      "commits": [
+        "61e695ba 2026-08-23 sol-calibration: add plugin with posture interview and proportionality check",
+        "3ed9c532 2026-08-15 Add Antigravity (AGY) plugin manifests and multi-channel support"
+      ],
+      "shortstat": "1 file changed, 13 insertions(+)"
+    },
+    "docs/PRINCIPLES.md": {
+      "commits": [
+        "ac215270 2026-08-24 Reconcile Workbench setup with 0.15.1 contract"
+      ],
+      "shortstat": "1 file changed, 71 insertions(+)"
+    },
+    ".research/CONVENTIONS.md": {
+      "commits": [
+        "60c6390d 2026-08-26 feat(workbench): add research rigor and ownership"
+      ],
+      "shortstat": "1 file changed, 10 insertions(+), 2 deletions(-)"
+    },
+    ".work/CONVENTIONS.md": {
+      "commits": [
+        "638867b6 2026-10-02 Bump workbench plugin to v0.26.11",
+        "c7d2861f 2026-10-02 Bump workbench plugin to v0.26.10",
+        "4125cade 2026-10-02 Bump workbench plugin to v0.26.9",
+        "21c4d2e1 2026-10-02 Bump workbench plugin to v0.26.8",
+        "79146d16 2026-10-01 Bump workbench plugin to v0.26.7",
+        "0dc585fb 2026-10-01 Bump workbench plugin to v0.26.6",
+        "ff937295 2026-10-01 Bump workbench plugin to v0.26.5",
+        "01655e7f 2026-09-29 Bump workbench plugin to v0.26.4",
+        "7458fc43 2026-09-29 Bump workbench plugin to v0.26.3",
+        "f9469aad 2026-09-26 Bump workbench plugin to v0.26.2",
+        "84d83d25 2026-09-26 Bump workbench plugin to v0.26.1",
+        "e3f646a2 2026-09-25 Bump workbench plugin to v0.26.0"
+      ],
+      "shortstat": "1 file changed, 56 insertions(+)"
+    },
+    "scripts/bump-version.sh": {
+      "commits": [
+        "2d019709 2026-09-12 Keep Workbench upgrade reminders in the validator",
+        "52c1af44 2026-08-22 Add configurable simplification and Workbench version guards",
+        "3ed9c532 2026-08-15 Add Antigravity (AGY) plugin manifests and multi-channel support"
+      ],
+      "shortstat": "1 file changed, 56 insertions(+), 6 deletions(-)"
+    }
+  },
+  "claude_marketplace_names_added_upstream": [
+    "sol-calibration",
+    "theatre-feedback",
+    "declaudify"
+  ],
+  "fork_refs_to_removed_ux_ui_skill_names": [
+    "HEAD:plugins/agile-workflow/skills/epic-design/SKILL.md:236:This is the primary mockup tier per `ux-ui-principles`. Run the full UI",
+    "HEAD:plugins/agile-workflow/skills/epic-design/SKILL.md:241:   invoke `/ux-ui-design:palette` first so subsequent mocks inherit tokens.",
+    "HEAD:plugins/agile-workflow/skills/epic-design/SKILL.md:243:   modal, or major component, invoke `/ux-ui-design:screens <feature-id>`",
+    "HEAD:plugins/agile-workflow/skills/epic-design/SKILL.md:246:   `/ux-ui-design:flows <flow-name>`.",
+    "HEAD:plugins/agile-workflow/skills/feature-design/SKILL.md:230:This is the **fallback** mockup tier per `ux-ui-principles`. Epic-design",
+    "HEAD:plugins/agile-workflow/skills/feature-design/SKILL.md:243:- **Net-new screen** \u2192 `/ux-ui-design:screens <feature-id>`.",
+    "HEAD:plugins/agile-workflow/skills/feature-design/SKILL.md:244:- **Multi-screen flow tighter than the feature** \u2192 `/ux-ui-design:flows",
+    "HEAD:plugins/agile-workflow/skills/ideate/SKILL.md:110:  `/ux-ui-design:screens` / `:flows` / `:palette`). For UI-bearing projects,",
+    "HEAD:plugins/agile-workflow/skills/ideate/SKILL.md:111:  recommend running `/ux-ui-design:palette` after the foundation docs are",
+    "HEAD:plugins/agile-workflow/skills/scope/SKILL.md:289:Per the tier rule in `ux-ui-principles` (mock at the highest tier where it",
+    "HEAD:plugins/agile-workflow/skills/scope/SKILL.md:295:     `/ux-ui-design:palette` during the Phase 4 roll-forward.",
+    "HEAD:plugins/agile-workflow/skills/scope/SKILL.md:297:     onboarding, checkout, recovery), invoke `/ux-ui-design:flows",
+    "HEAD:plugins/agile-workflow/skills/scope/SKILL.md:391:palette or a flow, invoke `/ux-ui-design:palette` and/or",
+    "HEAD:plugins/agile-workflow/skills/scope/SKILL.md:392:`/ux-ui-design:flows <flow-name>` here. The locked mocks ship in the same",
+    "HEAD:plugins/research-pipeline/skills/epic-design/SKILL.md:205:This is the primary mockup tier per `ux-ui-principles`. Run the full UI alignment pass against the candidate arcs from Phase 4. Err on mocking \u2014 `feature-design`'s Phase 4.6 is the fallback, not a planned second pass.",
+    "HEAD:plugins/research-pipeline/skills/epic-design/SKILL.md:207:1. **Palette** \u2014 if `.mockups/design-system/tokens.css` doesn't exist, invoke `/ux-ui-design:palette` first so subsequent mocks inherit tokens.",
+    "HEAD:plugins/research-pipeline/skills/epic-design/SKILL.md:208:2. **Screens** \u2014 for every candidate feature with a net-new screen/page/modal/major component, invoke `/ux-ui-design:screens <feature-id>` using the future child feature id (e.g. `epic-auth-login`).",
+    "HEAD:plugins/research-pipeline/skills/epic-design/SKILL.md:209:3. **Flows** \u2014 for every multi-screen journey within the epic, invoke `/ux-ui-design:flows <flow-name>`.",
+    "HEAD:plugins/research-pipeline/skills/feature-design/SKILL.md:208:3. If mocking: invoke `/ux-ui-design:screens <feature-id>` for net-new surfaces."
+  ],
+  "bump_version_test": {
+    "fork_has_refuse_on_main_guard_using_REPO12": true,
+    "upstream_has_group9_workbench_stamp_using_REPO12": true
+  },
+  "fork_marketplace_peeragent_entry": {
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/nklisch/peeragent",
+      "path": "plugin"
+    },
+    "description": "Delegate arbitrary task work between local coding agents \u2014 any host (Claude Code, Codex, or Pi) can call any peer (Codex, Claude Code, Gemini through Antigravity, or Z.AI GLM 5.2 through Pi). Ships the peer and peer-review skills."
+  },
+  "local_peeragent_cache_versions": {
+    "claude": [
+      "0.8.1"
+    ],
+    "codex": [
+      "0.8.3"
+    ]
+  },
+  "local_peeragent_skills_dir_identical_0.8.1_vs_0.8.3": true,
+  "peeragent_public": {
+    "releases": [
+      "v0.8.3 2026-10-11T19:01:22Z 1bb09448ad2df00bf857c437d3c87a3ee5986db8",
+      "v0.8.2 2026-10-11T18:51:09Z dbbe38c7d34e2a75021d1311507992e77491d841",
+      "v0.8.1 2026-09-29T20:19:51Z f81ce9dff17a2634e49d6e7c8dfeb1ea0547e03f",
+      "v0.8.0 2026-09-26T19:11:17Z 5669123e29d7d4244f766c8cc458adbf22738850",
+      "v0.7.0 2026-09-08T23:43:29Z ee7d3328c18961513dea3b2ddde534fe691383bd",
+      "v0.6.0 2026-08-15T16:30:48Z main"
+    ],
+    "compare_v0.8.1_v0.8.3_commits": [
+      "fae254ed3cf28d6055a8d7eb8828ee504178561b 2026-09-29T20:19:18Z chore: refresh committed peeragent binaries [skip ci]",
+      "a6aeebe252d16a62a76a741b3d3a5ab7f49cc533 2026-10-11T18:46:52Z Fix Windows npm shim launches and release v0.8.2",
+      "dbbe38c7d34e2a75021d1311507992e77491d841 2026-10-11T18:47:53Z chore: refresh committed peeragent binaries [skip ci]",
+      "1bb09448ad2df00bf857c437d3c87a3ee5986db8 2026-10-11T18:58:34Z Preserve multiline Windows shim tasks and release v0.8.3"
+    ],
+    "compare_v0.8.1_v0.8.3_files": [
+      "modified .claude-plugin/plugin.json +1 -1",
+      "modified .codex-plugin/plugin.json +1 -1",
+      "added .github/workflows/test.yml +37 -0",
+      "modified .gitignore +3 -0",
+      "modified README.md +18 -7",
+      "modified cmd/peeragent/main_async_test.go +0 -125",
+      "added cmd/peeragent/main_async_unix_test.go +135 -0",
+      "added cmd/peeragent/main_windows_test.go +92 -0",
+      "added internal/executil/batch.go +51 -0",
+      "added internal/executil/batch_test.go +45 -0",
+      "modified internal/executil/exec.go +5 -2",
+      "added internal/executil/exec_other.go +12 -0",
+      "added internal/executil/exec_test.go +47 -0",
+      "added internal/executil/exec_windows.go +48 -0",
+      "added internal/executil/exec_windows_test.go +65 -0",
+      "added internal/jobs/launch_unix_test.go +30 -0",
+      "modified internal/jobs/store_test.go +0 -30",
+      "modified package.json +1 -1",
+      "modified plugin/.claude-plugin/plugin.json +1 -1",
+      "modified plugin/.codex-plugin/plugin.json +1 -1",
+      "modified plugin/bin/darwin-amd64/peeragent +0 -0",
+      "modified plugin/bin/darwin-arm64/peeragent +0 -0",
+      "modified plugin/bin/linux-amd64/peeragent +0 -0",
+      "modified plugin/bin/linux-arm64/peeragent +0 -0",
+      "modified plugin/plugin.json +1 -1"
+    ],
+    "compare_v0.8.3_main_commits": [
+      "de88d8dc7c51a837157a732134b12079e1d6c5b3 2026-10-11T18:59:11Z chore: refresh committed peeragent binaries [skip ci]"
+    ],
+    "plugin_skills_v0.8.1": [
+      "peer"
+    ],
+    "plugin_skills_v0.8.3": [
+      "peer"
+    ]
+  },
+  "fork_files_at_head": {
+    "marketplace_plugin_names": [
+      "nates-toolkit",
+      "code-audit",
+      "agile-workflow",
+      "research-pipeline",
+      "workbench",
+      "ux-ui-design",
+      "agentic-research",
+      "agent-coordination",
+      "prose-craft",
+      "krometrail",
+      "peeragent",
+      "skilltap"
+    ],
+    "research_conventions_has_owner_frontmatter": false,
+    "work_conventions_mentions_overbuilding_calibration": false,
+    "work_conventions_has_review_receipt_template": true,
+    "work_conventions_states_no_ci": true,
+    "workbench_ideate_provocation_reference_present": false,
+    "refs_to_prose_craft_outside_its_plugin": [],
+    "agile_workflow_principles_phrases": {
+      "Never game": false,
+      "xfail": false,
+      "File real bugs": false,
+      "Leave It Simpler": true,
+      "Compatibility Is Earned": true,
+      "Tests Earn Their Keep": true,
+      "Review proportionality": true
+    },
+    "agents_md_two_channel_validation_rule": true,
+    "bump_version_sh_fork_commits_since_base": [
+      "5212d934 implement: feature-qvc-minor-remedies-hygiene"
+    ]
+  }
+}

@@ -2,7 +2,11 @@
 
 Choose one primary lens and only the overlays that affect the decision. Every
 design still states the outcome, constraints, boundaries, verification, risks,
-and simplest coherent implementation shape.
+and simplest coherent implementation shape. Apply the effective simplification
+posture from Workbench conventions across every primary lens. Also apply the
+shared [assurance-machinery lens](../../work/references/assurance-machinery.md)
+whenever correctness, accounting, verification, state, or determinism machinery
+is proposed; risk overlays do not make that machinery automatically necessary.
 
 ## New work
 
@@ -11,6 +15,8 @@ and simplest coherent implementation shape.
 - Choose explicitly and explain the trade-off.
 - Design the riskiest or least-known unit first.
 - Define contracts, ownership, state flow, failure behavior, and integration.
+- Record the [design notes](design-notes.md) whose triggers apply: approach,
+  adds and retires, refusals and hard stops, and load-bearing assumptions.
 - Run a pre-mortem: identify the weakest assumption, likely production failure,
   and fallback.
 - Eliminate unnecessary concepts, layers, options, compatibility paths, and
@@ -38,15 +44,33 @@ and simplest coherent implementation shape.
 
 ## Refactor or cleanup
 
+- Read confirmed coding rules, structural foundations, and relevant
+  `.agents/skills/patterns/` references as project-specific evidence. They
+  extend this lens but do not make every deviation worth changing.
+- Shape the target decomposition with the
+  [structure lens](../../code-craft/references/structure.md) from code craft:
+  apply its calibration protocol and diagnostic questions so the intended
+  structure is judged against codebase norms and language idioms, and record
+  the chosen decomposition and its payoff for the review pass. When the target
+  unifies near-copies or sets a shape several consumers will share, name the
+  pattern it establishes so the catalog pass can record it.
 - Apply the black-box test: a refactor preserves observable behavior. Route
-  intended behavior change through the new-work lens with explicit requirements.
+  intended behavior change through the new-work lens with explicit
+  requirements. The one exception is a provocation-driven bold refactor whose
+  behavior deltas the human explicitly accepted during ideation — record those
+  deltas here as explicit requirements (see ideate's
+  [../../ideate/references/provocation.md](../../ideate/references/provocation.md)).
 - Describe the actual current state and the costly or unsafe property.
 - Eliminate, inline, merge, or delete before extracting new abstractions.
-- State invariants and contracts that must remain unchanged.
+- State behavioral invariants, measured performance constraints, and other
+  contracts that must remain unchanged. Avoid obvious plausible performance
+  regressions without manufacturing speculative optimization work.
 - Make steps independently understandable and verifiable when practical.
 - Include rollback or migration handling where a step is not trivially
   reversible.
-- Drop aesthetic churn whose payoff cannot be stated.
+- Drop aesthetic or conformity churn whose payoff cannot be stated in clearer
+  ownership, less duplication, easier navigation, lower coordination cost, or
+  another concrete project benefit.
 
 ## Performance
 

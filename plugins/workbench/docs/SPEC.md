@@ -5,8 +5,10 @@
 ```text
 .work/
 ├── CONVENTIONS.md
+├── MODEL-NOTES.md               # optional, pruned model observations
 ├── active/.gitkeep
 ├── active/<id>.md
+├── attachments/<id>/contract.md  # optional, deleted at item completion
 ├── backlog/.gitkeep
 ├── backlog/<id>.md
 ├── completed/.gitkeep
@@ -23,20 +25,49 @@
 └── bibliography.yaml
 
 .knowledge/index.json
+.knowledge/index-exclusions.txt  # optional tracked path-prefix exclusions
 .mockups/<item-id>/index.html
 docs/<repository-wide foundations>
 docs/<sub-project>/<scope-owned foundations>
 <sub-project>/docs/<scope-owned foundations>
+.agents/skills/patterns/  # canonical pattern index and references
+.agents/skills/scan-*/    # optional reusable project scan lenses
+.claude/skills          # relative symlink to ../.agents/skills
 AGENTS.md
 ```
 
 - `.work/` records outcomes the project may decide and deliver.
 - `.research/` records externally fetched evidence and grounded synthesis.
-- Foundation documents record current or explicitly intended project truth.
+- Foundation documents record durable current or explicitly intended project
+  truth, not delivery tracking or implementation machinery.
+- `.agents/skills/patterns/` records detailed recurring implementation shapes
+  when the project has patterns worth teaching to future agents.
+- `.agents/skills/scan-*/` optionally records reusable project-specific scan
+  lenses; natural-language one-off concerns need no catalog entry.
 - `.knowledge/index.json` is committed discovery metadata with no independent
   authority.
 
 Workbench and agile-workflow are mutually exclusive `.work/` owners.
+
+## Activation and routing
+
+Workbench's stateful workflow is active only when an upward-found
+`.work/CONVENTIONS.md` declares `owner: workbench`. Every stateful skill checks
+that boundary and is ignored when it is absent or another system owns `.work/`.
+`setup` is the sole pre-adoption mutation route and runs only when the user
+explicitly invokes it or states that they want to initialize, adopt, migrate,
+upgrade, refresh, or reconcile Workbench. The same explicit-request requirement
+applies to already-owned repositories; detection, drift, or another skill's
+recommendation never invokes setup. `ideate` may run before adoption because it
+is conversational and write-free; it must not create Workbench or research
+state without an explicit adoption and handoff choice.
+
+Ownership activates the stateful capabilities, not universal routing. Those
+skills engage only for concrete Workbench workflows whose outcome, evidence,
+backlog capture, or release state belongs in Workbench. Ideate may support
+exploratory conversation without implying adoption. Conversational lookups,
+general explanations, unrelated reviews and audits, and other requests that do
+not need Workbench state remain ordinary requests.
 
 ## Communication and durable state
 
@@ -46,9 +77,29 @@ current conversation. These replies are chat prose, not repository artifacts.
 Workbench does not create report files or durable no-op records unless the user
 requests them.
 
-Durable state is limited to explicitly named work items, foundations, research
-artifacts, mockups, generated indexes, completion stubs, release summaries, and
-repository conventions.
+Retained state is limited to explicitly named work items and their optional design
+attachments, provisional repository model notes, foundations, project pattern catalogs,
+user-confirmed project scan-lens skills, research artifacts,
+mockups, generated indexes, completion stubs, release summaries, and repository
+conventions.
+
+## Agent instruction boundary
+
+The canonical root `AGENTS.md` is a compact, high-salience cross-agent operating
+contract. Its Workbench block holds the information an agent needs before a
+stateful skill takes over: ownership and activation, skill routing, human scope
+authority, the boundary between chat and durable output, the basic work-unit
+model, and the requirement to verify, reconcile, review, and close delivery.
+Confirmed repository-specific coding or operating invariants may join it when
+they must bind every agent.
+
+`AGENTS.md` does not mirror the Workbench specification. Conditional workflow
+mechanics, schemas, review-pass convergence, roadmap handling, pattern promotion,
+release cleanup, and other capability-specific rules remain in
+`.work/CONVENTIONS.md` or the skill and reference that owns them. Foundation
+documents retain durable project truth; tool configuration retains mechanical
+rules. This separation keeps the always-loaded contract short enough to remain
+salient while preserving precise behavior at the point of use.
 
 ## Work conventions
 
@@ -58,18 +109,87 @@ repository conventions.
 ---
 owner: workbench
 schema: 1
+workbench_version: <exact-loaded-plugin-semver>
 completed_items: summarize|discard
 review_weight: none|light|standard|thorough|maximum
+simplification_posture: hygiene|balanced|structural
 autonomy: adaptive|collaborative|autonomous
+execution_posture: inline-first|inline|adaptive|orchestrated  # optional; missing means inline-first
+commit_posture: adaptive|feature|checkpoint|batch|preserve  # optional; missing means adaptive
+evidence_depth: lean|standard|deep  # optional; missing means standard
+validator_command: [python3, scripts/validate-work.py]  # optional replacement policy
+roadmap: true|false  # optional; missing means false
+release_gates:       # optional; missing or empty means disabled
+  - compatibility
+  - test-quality
 ---
 ```
 
-Setup always asks the user how completed items should be retained and aligns
-repository-specific conventions, including review weight and autonomy. It may recommend
-conventions from repository evidence, including parking useful out-of-scope
-findings and behavior-focused testing, but writes no new convention without
-confirmation. A missing `review_weight` resolves to `standard`; missing
-`autonomy` resolves to `adaptive`.
+`release_gates` is a simple list of unique lowercase kebab-case scan-lens names.
+Absent or empty means Workbench adds no release gates. A project defines or
+narrows a configured gate with a concise `### <gate-name>` stance under
+`## Release gates` in the conventions body. When a project-specific lens is
+reused or needs detailed method and references, the user may explicitly approve
+`.agents/skills/scan-<gate-name>/SKILL.md`; Workbench never generates or promotes
+one by default. Bundled scan lenses are adaptive starting points, not a closed
+registry. At release, each configured lens is
+applied to the release boundary; only unresolved findings that materially
+violate that project's stated expectation block summary and cleanup. Preferred
+tool unavailability triggers a credible fallback or an explicit evidence limit,
+not an automatic failure.
+
+Setup presents one repository-grounded recommended working agreement. It covers
+completion retention, review weight, simplification, autonomy, documentation
+layout and truth ownership, project calibration, and principles. The user may
+accept the agreement together or adjust individual choices. Only consequential
+unresolved decisions need separate questions; the option catalog is not an interview
+sequence. Existing evidence informs recommendations, not silent adoption.
+
+Optional execution posture, commit posture, evidence depth, prose preferences for
+review boundaries and optional design review, release gates, and roadmap recognition
+remain visible opt-in, decline, or defer choices.
+Each proposed adoption or deferral is explicit in the agreement. A refresh retains
+confirmed choices and surfaces meaningful differences, rather than repeating
+unchanged options. Declined or deferred options remain absent or unmanaged.
+Missing commit posture means adaptive Git behavior; missing release gates adds
+no Workbench gates. A gate change still requires confirmation, because it changes
+what can prevent release. Destructive conversion retains its separate recovery
+and exact-removal consent requirements.
+
+Repository evidence is an open-ended search for unique, project-specific
+conventions, not a filter limited to Workbench's predefined configuration.
+Setup may propose operating agreements that have no Workbench field when
+concrete practice, friction, risk, or an existing rule supports them — including
+parking useful out-of-scope findings and behavior-focused testing. It does not
+invent ungrounded coding, structural, or pattern preferences. It routes
+mechanical rules to tool configuration, concise operating rules to `AGENTS.md`,
+architecture and principles to foundations, and proven recurring implementation
+shapes to `.agents/skills/patterns/`. It writes no new convention without
+confirmation. A missing `review_weight`
+resolves to `standard`; missing `simplification_posture` resolves to `balanced`;
+missing `autonomy` resolves to
+`adaptive`; missing `commit_posture` resolves to
+`adaptive`; missing `execution_posture` resolves to `inline-first`; missing
+`evidence_depth` resolves to `standard`; missing `roadmap` resolves to `false`.
+`workbench_version` has no fallback: setup stamps it from the verified loaded
+plugin after successful reconciliation. The frontmatter schema is closed.
+Confirmed repository-specific delivery rules that have no narrower authority
+belong as named prose in the conventions body, not as invented configuration
+keys or forced matches to a Workbench category.
+
+An adopted repository may also keep one concise `## Overbuilding calibration`
+section in the conventions body. Its evidence-backed prose describes project
+context, likely overbuilding shapes, justified complexity, optionally where cost
+is felt, and evidence for revisiting the guidance; it has no required count or checklist semantics and is
+not validated as an enum. The calibration applies to every design and review,
+including loose requests. Missing guidance falls back to repository evidence.
+Setup establishes or reconciles it with confirmation, does not ritually re-ask
+an existing setting, and replaces stale guidance rather than appending incident
+history. Ideate remains write-free until a user selects a narrowly scoped
+calibration handoff. An active stateful workflow may apply a directly confirmed
+refinement; a loose request proposes one unless the user explicitly asks to edit
+conventions. Loose work does not acquire Workbench ledger, review-weight,
+convergence, formal review packet, or closure mechanics.
 
 ## Active items
 
@@ -78,20 +198,40 @@ confirmation. A missing `review_weight` resolves to `standard`; missing
 id: <stable-kebab-id>
 kind: epic|feature|story
 status: active|blocked
-tags: []
-parent: null
-blocked_by: []
-related_to: []
-research_refs: []
-mock_refs: []
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
 ```
 
-Hierarchy expresses durable outcome structure. `blocked_by` names active
-prerequisites; `related_to` carries non-blocking context. An external blocker
-uses an exact `## Blocker` section naming the condition and how it clears.
+Empty metadata need not be written. Optional `tags`, `blocked_by`, `related_to`,
+`research_refs`, and `mock_refs` default to empty lists. Optional `parent` defaults
+to no parent. Supplied values retain their type, hierarchy, readiness, and reference
+rules. Full-form records remain valid; existing items need no migration or
+cosmetic rewriting. The body communicates outcome, boundary, and acceptance
+without required section furniture. Decisions and next actions appear only when
+useful for continuation.
+
+A feature is the default delivery unit, not a mandatory review unit. The
+[lifecycle reference](../skills/work/references/lifecycle.md) owns item tiers,
+decomposition, and mandatory completion cleanup. The validator checks structural
+parent-kind pairs when items nest.
+
+`blocked_by` records deliberate queue order. Use an edge for a hard prerequisite
+or when serial work materially reduces rework, ambiguity, or integration risk.
+Leave independent work edge-free for parallel execution. Parentage and shared
+files do not imply order. The item may explain non-obvious ordering where that
+context is useful, but `blocked_by` is itself the machine-readable order and no
+fixed prose section is required. An item is `blocked` when it has `blocked_by`
+edges or an exact `## Blocker` section
+that names an external condition and how it clears. Otherwise it is `active`.
+`related_to` carries non-ordering context and may be reciprocal.
+
+The first non-empty active-item body line is a Markdown title. Each active item
+then communicates its outcome, scope, and observable acceptance evidence, but
+the headings may fit the work. Version compatibility is checked once from
+`.work/CONVENTIONS.md` and reported by the bundled validator; it is
+not duplicated into every item.
+
 Focused audits, cleanup, and refactors use tags rather than new item kinds.
 Prototype items use the `prototype` tag. They name the question, representative
 surface, evidence, and expected disposition: discard, revise, or adopt. Closure
@@ -99,26 +239,148 @@ records what was learned, carries material learning into the affected
 foundation or active item, and removes code marked for discard. Revision or
 adoption is an explicit next outcome.
 
+An epic or a boundary across many features may keep one `## Delivery topology`
+when durable continuation or integration complexity earns it. Item tier and
+count are signals, not gates. The active epic or integration-owning feature
+carries the section.
+
+When several top-level outcomes produce one observable integrated result,
+Workbench may create a top-level feature tagged `coordination`. Use it only when
+no existing item owns that result. Cross-session persistence alone does not
+earn the item. It is an ordinary feature, not a parent above epics. Temporary
+agent assignments remain inside the topology because child items represent
+independently meaningful outcomes.
+
 ## Completion
 
-Completed work never remains active.
+`.work/` is agent-maintained working state. During stateful work, agents resolve
+encountered stale records against repository evidence rather than avoiding them:
+close delivered outcomes, clear obsolete blockers, merge duplicates, and trim
+superseded records while retaining unmet requirements and useful context. Routine
+hygiene needs no separate approval; age alone proves neither completion nor
+abandonment. Cancellation of still-wanted scope and product priority changes
+remain consequential decisions. Project-defined ownership governs cleanup of
+another owner's items, and merged code does not replace required human acceptance.
+Splitting partial delivery preserves its accepted commitment: required remainder
+keeps the owning outcome open. Only an explicitly agreed scope change permits a
+smaller delivered boundary to close with its remainder tracked separately;
+inactivity alone never authorizes deferral.
 
-- `completed_items: summarize` replaces an active item with a compact
-  `.work/completed/<id>.md` outcome stub.
-- `completed_items: discard` removes the active item after verification.
+Completed work never remains active. Implementation alone is not completion:
+features and standalone stories remain active while their chosen shared review
+is pending. The outcome owner closes them after that review, corrections,
+affected verification, and foundation reconciliation are satisfied. Nested
+stories may close after slice verification; their owning feature remains open
+for review. Deliveries leave concise result and verification pointers in their
+items, including pending acceptance and its owner when applicable. Integration
+checkpoints close eligible units promptly, not only at the end of a campaign;
+resumed work can recover missed closure. No additional status or batch object is
+needed.
 
-Before closure, remaining active relationships are reconciled and active
-children are completed. `release` may collapse selected completion stubs into
-one `.work/releases/<version>.md`; it does not tag, publish, or deploy.
+The [completion sweep](../skills/work/references/lifecycle.md#completion-sweep)
+owns closure order, including Git history preservation before destructive trimming.
+
+- `completed_items: summarize` replaces an active item with a temporary compact
+  `.work/completed/<id>.md` outcome stub for the next release.
+- `completed_items: discard` removes the active item after verification and
+  leaves release to summarize from Git history.
+
+Both postures always delete the completed item's entire
+`.work/attachments/<item-id>/` directory. Attachments are not archived or retained
+with summaries, because expired specifications can misdirect later implementation.
+Reconcile needed durable truth and references from remaining work before deletion.
+Refresh an existing knowledge index so it no longer points to deleted attachments.
+
+Both postures preserve `.work/completed/.gitkeep` and
+`.work/releases/.gitkeep`. Before closure, active children are completed and
+relationships and remaining ledger prose/links are reconciled, including backlog
+claims about a retired current owner. `release` writes one version summary from stubs or
+ordinary Git history, then removes every completed outcome file after successful
+checks. It does not tag, publish, or deploy.
 
 ## Design behavior
 
-Design reasoning is always required. Repository evidence and brief reasoning
+Design reasoning is always required. Before formal design, `ideate` is preferred
+when initial exploration of substantial, cross-cutting, or early-stage work
+could materially change what should be designed, unless the user explicitly
+requests direct design. Size alone does not decide the route. Repository evidence
+and brief reasoning
 may resolve local, reversible choices inline. `design` is callable directly or
 from `work` when implementation shape needs meaningful discovery, alternatives,
 boundary definition, or adjudication. This is conditional routing, not a size
-threshold or required lifecycle stage. It keeps outcome-specific design in the
-active item and uses one primary lens:
+threshold or required lifecycle stage.
+
+During ideation, proposed solution shapes are grounded in repository
+conventions, principles, foundations, architecture, and reusable mechanisms.
+When materially distinct, the agent contrasts a minimum coherent solution, a
+repository-fit recommendation, and an expanded or ideal option without treating
+three choices as a fixed template. Each serious option distinguishes necessary
+from avoidable complexity and accounts for its full durable footprint, including
+state, copied or generated artifacts, hooks, configuration, tests, validation,
+and operations. A system-level simplification outside the initial scope may be
+offered with explicit trade-offs and scope labeling, but it cannot silently
+enter the selected handoff. Machinery for correctness, accounting,
+verification, state management, or determinism is evaluated as a costed choice:
+it must protect a concrete product risk or durable invariant strongly enough to
+earn its synchronization, constraint, migration, and recovery burden. This
+shared lens follows the choice through formal design, implementation,
+behavioral verification, and review. It seeks the smallest durable protection;
+it does not waive accepted guarantees or evidence.
+
+When a proposal adds or materially changes a component that owns changing
+state, publishes results others read, records history, recovers from failure,
+keeps unfinished work alive across calls, or spans layers, hosts, or providers,
+design raises a machinery forecast with the user before the design is settled,
+without waiting to be asked. It starts from one
+user action and the failure to prevent, asks what new state the proposal adds,
+why the existing owner cannot handle it, and what changes for the user, contrasts
+the simplest working chain with the proposed one, and ends with a recommendation
+and a question. Routine types and local choices inside an accepted boundary stay
+autonomous.
+
+The work item is the contract between design, review, and implementation. The
+assigned designer authors and revises its design directly, including any linked
+specification. The outcome owner adjudicates scope, readiness, and acceptance.
+Implementers read the recorded contract rather than an orchestrator's reconstruction,
+which can lose decisions or preserve stale assumptions. Reviewers remain proposal-only.
+Accepted design corrections reach the item before dependent implementation.
+Dispatch messages point to the contract and add assignment-specific details.
+Inline execution follows the same contract without requiring another agent.
+
+Design keeps outcome-specific reasoning in the active item. An optional Markdown
+specification may hold dense interfaces, state transitions, error behavior, and
+examples under `.work/attachments/<item-id>/`, usually in `contract.md`. The item
+links to it as part of the design, not as an independent authority. No new
+frontmatter, status, or mandatory template is needed. Durable machine-consumed
+contracts stay in their normal source location, linked rather than copied.
+[Design attachments](../skills/work/references/design-attachments.md) defines
+ownership and unconditional deletion at item completion. Unlike bootstrap
+provisional specs, these attachments need no setup opt-in. Backlog items may also
+own attachments to preserve context and tentative specifications without implying
+design approval. Attachments stay with the same item across backlog and active
+states and are removed when the owner completes or is discarded.
+
+New technical evidence revises the affected decision and its dependent contracts
+and checks, not every settled part of the plan. Local implementation details remain in
+normal delivery. Consequential new choices receive design reasoning before
+expensive implementation; changed product requirements or authority still need
+human direction. Separate design review is independently optional. Align once
+per run with the user on skipping it, reviewing focused decisions, or reviewing
+a broader design. An explicit request or confirmed standing preference supplies
+alignment without a repeated question; revisit it when material change affects
+the choice. A shared design review may span related feature decisions before
+expensive dependent implementation. Corrections do not create extra review passes.
+
+Design review primarily judges whether the design solves the right problem with
+the best justified approach for the project, accounts for consequential details,
+and reuses the appropriate repository systems. Correctness is a necessary baseline,
+not the review's main purpose: a feasible design can still deliver the wrong outcome
+or duplicate a better existing mechanism. Reviewers challenge choices against user
+intent, credible alternatives, and repository evidence without inventing requirements
+or expanding scope. The shared [design review priorities](../skills/work/references/design-review.md)
+define this lens.
+
+Design uses one primary lens:
 
 - new work;
 - prototype or feasibility;
@@ -129,10 +391,19 @@ active item and uses one primary lens:
 - data, migration, or integration.
 
 Security, privacy, accessibility, operations, compatibility, and testing are
-conditional overlays. Designs separate requirements, facts, assumptions, and
+risk overlays. Designs separate requirements, facts, assumptions, and
 decisions; state meaningful alternatives only where choice matters; identify
-boundaries, verification, risk, and recovery; and prefer the simplest coherent
-maintainable shape rather than the smallest diff.
+boundaries, verification, risk, and recovery; record conditional notes only
+where their triggers apply (the approach where cost or technique carries the
+risk, what the change adds and retires, the threat and degraded path behind a
+refusal, and load-bearing assumptions to check first); and prefer the simplest coherent
+maintainable shape rather than the smallest diff. They may resolve necessary
+implementation detail but never invent product requirements or expand the
+accepted outcome. The user's original intent, accepted item, and applicable
+foundation truth bound the design; foundation aspirations outside that outcome
+do not silently enter scope. Design judgment is calibrated to the project's
+actual type, maturity, audience, deployment context, and stated risks so an
+agent's preferred ideal architecture cannot justify overbuilding.
 
 Effective autonomy resolves from explicit request language, repository
 conventions, then `adaptive`:
@@ -147,42 +418,286 @@ Autonomy never expands scope, authority, safety boundaries, or quality
 obligations. Workarounds require a real constraint and retain the constraint,
 consequence, and better future direction.
 
-The effective `review_weight` resolves from explicit user direction,
-`.work/CONVENTIONS.md`, then `standard`:
+The effective `execution_posture` resolves from explicit user direction, the
+optional project convention and confirmed role exceptions, then `inline-first`.
+Ordinary work honors existing explicit settings. Setup's upgrade alignment explains
+the changed default and offers to retain, replace, or rework older adaptive or
+orchestrated choices; it never silently rewrites them or repeatedly reopens a
+confirmed agreement. The prior `workbench_version` identifies this upgrade:
+0.25.0 introduces inline-first, and a stamp at or beyond it means the change has
+been considered. Successful setup advances the loaded-version stamp only after
+alignment and validation. The shared
+[sub-agents reference](../skills/work/references/sub-agents.md) owns dispatch,
+model agreement, handoff, write-authority, nesting, and fallback rules:
 
-- `none` uses self-review only while preserving verification;
-- `light` permits at most one risk-warranted fresh-context pass;
-- `standard` gives substantive designs and completed changes one balanced
-  fresh-context pass;
-- `thorough` repeats review and correction until no confirmed material issue
-  remains;
-- `maximum` adds complementary, adversarial, and cross-model coverage when
-  available.
+- `inline-first` keeps design, implementation, corrections, integration, and
+  supporting discovery inline, with an external-context implementation review at
+  the coherent checkpoint under `standard`. Other review weights and selected
+  design review retain their own obligations; this does not mandate a role pipeline.
+- `inline` keeps all delivery roles, including review, in the current context.
+- `adaptive` permits agent-selected context splits when their value earns the cost.
+- `orchestrated` prefers dedicated roles while retaining one outcome owner.
 
-Review implementation-shaping designs before implementation becomes expensive
-to reverse. Review completed implementation at its integrated contract
-boundary. Only `thorough` and `maximum` repeat independent passes.
+Task size alone never opts work into orchestration. “Orchestrate this” overrides
+execution for the current outcome; named roles override those roles only. A request
+to propose a topology is plan-only, not authorization to dispatch. Scope, model
+alignment, and resource authority remain unchanged. Scan and research dispatch
+also follows the execution preference without weakening their verification gates.
+A user or project rule that forbids spawning is treated like an unavailable
+reviewer: the pass runs inline and discloses that it was not independent.
+
+For a concrete Workbench design or delivery workflow, the effective
+`review_weight` resolves from explicit user direction, `.work/CONVENTIONS.md`,
+then `standard`. It controls the depth of selected design and implementation
+review targets, not whether design review is selected or how many deliveries a
+review covers. It does not govern general reviews, audits, planning,
+explanations, or unrelated requests made in the repository:
+
+- `none` adds no distinct review pass while preserving verification;
+- `light` permits at most one risk-warranted pass;
+- `standard` gives each selected target exactly one balanced pass, then batches
+  corrections and affected verification and self-reviews the fixes without
+  re-reviewing that target;
+- `thorough` uses distinct passes, correcting and verifying between them
+  until no unresolved blocking finding remains; material, minor, and nit
+  findings may be parked, accepted, or rejected through outcome-owner
+  adjudication;
+- `maximum` uses thorough convergence with complementary, adversarial, and
+  cross-model coverage when the execution posture permits and it is available
+  until no unresolved material or blocking finding remains; minor and nit
+  findings may remain.
+
+When design review is selected, review the chosen decisions before their
+implementation becomes expensive to reverse. Review completed implementation
+at a coherent integrated contract boundary, which may span features and
+deliveries. For any task requiring multiple sub-agents, Workbench discovers actual
+model availability and aligns the lineup with the user in chat before execution.
+This applies to exploration, scanning, research, and sequential assignments as
+well as delivery. Explicit choices or user-confirmed standing preferences can
+supply alignment without repeated approval. Unapproved substitutions require
+renewed alignment so execution does not silently change cost or capability.
+Workbench does not prescribe named model rankings or thinking defaults.
+Reviewer confidence never replaces the owner's evidence checks.
+
+A review pass is a deliberate inspection, not a required agent assignment or
+report template. Effort scales to the target's consequence, uncertainty, breadth,
+and reversibility within the configured weight. Inline review applies the same
+scope and evidence standards without claiming fresh-context independence.
+Report what was checked, actionable findings with evidence, and material limits.
+Use fuller analysis only when it helps the owner adjudicate a consequential
+finding. Explicit reviewer preferences and review pass obligations still apply.
+
+Every reviewer is instructed not to invent requirements or expand scope, to
+flag overbuilding, and to judge against the rational expectations of the actual
+project type. Before each formal design or implementation review, the reviewer
+reads `.work/CONVENTIONS.md`, repository-wide principles, and applicable
+scope-owned principles and uses them as lenses inside the authorized outcome.
+They do not create requirements or enlarge scope. Missing or contradicted
+authorized requirements may be blocking findings; adjacent improvements are
+non-blocking follow-ups and may be parked.
+A correction and its verification are not another distinct pass. Only
+`thorough`, `maximum`, or explicit user direction repeat distinct passes over
+the same target. Thorough review converges when no unresolved blocking finding
+remains; maximum review converges when no unresolved material finding remains.
+Minor and nit findings are non-blocking. For complex targets warranting repeated
+review, Workbench proposes a bounded plan rather than endless retries. Explicit
+user direction or user-confirmed convention prose supplies any round limit;
+there is no universal numeric cap. A limit does not add rounds to `standard`
+without authorization for repeated review. Stop early when convergence is met;
+at the limit or when corrective progress stalls, report remaining findings for
+user disposition. Limits bound effort, not acceptance: unresolved required
+corrections or failed verification prevent closure unless the user explicitly
+revises the accepted scope or requirements. The shared [review policy](../skills/work/references/review.md)
+owns round planning and convergence.
+
+Refactor and cleanup work — and any change that makes decomposition
+decisions — additionally applies a shared structural-hygiene lens at
+`standard` weight and above, in both the refactor design lens and the
+implementation-review pass. The lens judges structure, conditionals,
+decomposition, and hygiene against the repository's own conventions and
+language idioms rather than absolute thresholds, and its findings follow the
+same scope disposition: material inside the authorized boundary, parked
+outside it. See the
+[structural-hygiene reference](../skills/code-craft/references/structure.md).
+
+The `code-craft` skill owns general code quality in an adopted repository:
+finding the repository's existing model before inventing one, designing an
+abstraction with its first consumer, and a shared vocabulary of named
+[readability pathologies](../skills/code-craft/references/pathologies.md) that
+reviews cite instead of "too complex". The structural-hygiene lens is part of
+that skill. Each repository records where pathologies occur, and where the good
+model lives, in a `pathologies.md` reference inside its patterns skill; the skill
+owns that file's entry shape and limits, and project pattern maintenance owns
+when it is written.
+
+The effective `simplification_posture` separately resolves from explicit user
+direction, `.work/CONVENTIONS.md`, then `balanced`. It governs design,
+implementation, and each applicable review pass:
+
+- `hygiene` prevents or removes obvious local clutter and accidental complexity
+  in the touched area without broadening the boundary to hunt for refactors;
+- `balanced` actively seeks cohesive behavior-preserving simplification across
+  the affected contract boundary;
+- `structural` challenges the decomposition of the full authorized outcome
+  boundary and permits cohesive file breakouts, consolidation, and substantial
+  restructuring when the result is demonstrably simpler and verifiable.
+
+Every posture retains the hygiene floor, preserves observable behavior and
+measured performance constraints, and avoids obvious plausible performance
+regressions in affected code. It does not require speculative profiling,
+benchmarking, or low-level optimization without a constraint or credible risk.
+The posture controls simplification emphasis, while `review_weight` controls
+review depth and repetition and execution posture controls runner topology. It never makes unrelated cleanup part
+of acceptance.
+
+## Model assignments and observations
+
+Workbench prefers capable economical implementation of settled contracts and
+mechanical corrections, with selective stronger reasoning for difficult diagnosis,
+missed invariants, or structural improvement. These are assignments, not mandatory
+agents or fixed model tiers. Designers explain implementation difficulty separately
+from failure consequence where it affects delivery choices, naming likely mistakes
+and useful follow-up. Precise attachments clarify consequential boundaries rather
+than pre-write the implementation. Difficulty remains a revisable assessment, not
+an automatic review-weight or spending decision.
+
+A stronger follow-up may improve clarity and decomposition within the owned scope
+and simplification posture. It remains implementation; the author's self-check is
+not independent review. Planned cleanup precedes the selected review where useful;
+corrections after review retain the configured pass budget. Current availability,
+supported effort settings, user preferences, and evidence govern the actual lineup.
+One model or inline execution can cover multiple assignments without pretending
+to provide model diversity. Explicit unavailable-reviewer requirements still need
+user disposition. [Design](../skills/design/SKILL.md#assess-implementation-difficulty)
+owns difficulty assessment; [delivery](../skills/deliver/SKILL.md#choose-implementation-and-follow-up)
+owns correction and cleanup mechanics. The
+[model tendencies](../skills/work/references/sub-agents.md#choose-models) inform
+capability and context trade-offs; they do not own workflow procedures.
+
+Optional `.work/MODEL-NOTES.md` retains qualified observations from models used in
+this repository. Working guidance and recent observations distinguish verified,
+user-reported, and tentative evidence, including strengths and counterexamples.
+The outcome owner consults applicable notes when proposing assignments and prunes
+them at integration, replanning, handoff, and completion. Useful distilled lessons
+may survive runs; redundant, superseded, or irrelevant material and empty files do
+not. Delegates return candidate observations rather than competing edits.
+
+These notes have no frontmatter schema, scores, availability authority, or user
+approval authority. They are excluded from the knowledge index so provisional
+observations cannot masquerade as durable project truth. Setup recognizes an
+existing file but never seeds model beliefs. Missing notes do not block execution.
+[Model notes](../skills/work/references/model-notes.md) owns evidence qualification,
+concurrent editing, and aggressive pruning without a separate tracking service.
 
 ## Work behavior
 
-`work` keeps a clear request in one workflow even when it requires requirements,
-design, implementation, review, integration, or several epics. It resolves
-autonomy from the request and conventions, gathers human input for
-consequential human-owned choices, and continues until the full named boundary
+`work` keeps one continuous outcome owner even when a request spans several epics.
+The ordinary path uses the smallest useful item, implementation, verification
+and reconciliation, proportionate review, and closure. Design and delivery are
+capabilities inside that flow, not lifecycle stages. Review receives coherent code
+and affected foundations. Exploration, topology, research, and maintenance engage
+only when they add value to the outcome.
+
+An agent reuses unchanged guidance, settled scope, decisions, and evidence across
+capabilities in the same context. It does not repeat activation, posture selection,
+or readiness ceremonies merely because a different skill supplies the next step.
+Fresh contexts load governing guidance. Resumed work reconciles selected items,
+Git, and affected code; it does not sweep unrelated active work. This preserves
+continuity without treating old state as current.
+
+`work` resolves autonomy from the request and conventions. It gathers human input
+for consequential human-owned choices and continues until the named boundary
 is complete or externally blocked.
 
+Before broad dispatch on a topology-owned run, the outcome owner validates
+tracked premises against current code, foundations, and relevant Git history.
+It records the current roles, waves, ownership, gates, evidence, and next
+integration point. When Workbench builds a topology, the owner explains the
+execution model in chat before implementation or broad dispatch. It includes
+the proposed models and thinking levels. Explicit user choices and confirmed
+project preferences provide standing alignment. Otherwise the owner asks once
+about the lineup before dispatch. Plugin recommendations alone are not user
+confirmation. Departures require alignment unless the fallback is already authorized.
+
+Collaborative work waits for plan alignment. Adaptive and autonomous work
+announce routine choices within the granted authority and aligned model/effort
+choices. Settled assignments do not require repeated approval.
+
+A plan or replan requires a decision when it introduces an unauthorized
+consequential commitment: material cost, changed isolation or data exposure,
+external actions, requirements, or scope. An explicit request for plan approval
+also applies. Ordinary agent assignments within agreed resources and local
+write boundaries do not themselves require approval. The owner asks about the
+unsettled commitment and may continue independent authorized work. This boundary
+prevents unexpected costs without requiring users to manage routine execution.
+
+The operational hypothesis changes when repository state, agent returns,
+design, verification, review, or integration disproves an assumption. An epic
+or broad feature set needs no topology when one context can finish it safely.
+Unrelated ready work continues when one agent stalls.
+
 If the outcome, ownership boundary, or success shape cannot yet form coherent
-work, `work` routes through `ideate`. Ideate preserves a no-write boundary until
-the user selects a Workbench, backlog, research, or foundation handoff.
+work, `work` routes through `ideate`. It also prefers ideation for valuable
+initial exploration of substantial or cross-cutting work when that pass could
+materially improve what gets designed. Established mechanical work and explicit
+requests for direct design or execution bypass the preflight. Ideate preserves
+a no-write boundary until the user selects a handoff.
 
 Standalone cleanup, simplification, and refactoring are ordinary bounded work.
 Behavior-preserving cleanup may travel with a delivery when cohesive; intended
 behavior changes require explicit requirements.
 
+Ready features and stories use `deliver`'s implementation and completion contract.
+The current owner reads that guidance when implementation starts and reuses it
+across ready units; no repeated invocation or context transfer is required.
+Direct `deliver` remains an entry point for one named ready item and owns its
+implementation, review, reconciliation, pattern decisions, and closure. For
+assigned delivery, `work` points to the recorded item and linked design contracts.
+It supplies the parent outcome, owned surface, chosen review boundary, Git posture,
+and return evidence rather than carrying missing design in the briefing. An assigned
+deliverer does not write the shared pattern catalog or close the parent, because
+the owner must integrate all contributing work first.
+
+Implementation units need not equal review units. Adaptive coherent review
+batches across related features and deliveries are the default. A project may
+state a review-boundary preference in convention prose, and explicit user
+direction overrides it for the run. The owner chooses useful checkpoints from
+coupling, consequence, and available context budget, not a fixed feature count
+or `review_weight`. Shared context setup can reduce repeated briefing and expose
+integration behavior that separate reviews miss, but larger targets are not
+universally better for every model. Keep the boundary small enough to inspect
+credibly. No schema key, batch object, or separate ledger is introduced.
+
+Verify each implementation unit promptly. Features and standalone stories stay
+active pending their chosen shared review; the outcome owner closes them after
+review, corrections, affected verification, and reconciliation. A story nested
+under a feature remains the exception: `deliver` verifies and closes the slice,
+then returns evidence while its feature stays open for review. `work` retains
+scoping, requirements, design routing, multi-unit orchestration, wider
+integration, and parent closure. A completed batch review is not followed by
+per-feature review of the same work; later integration review covers only new
+behavior not already reviewed.
+
 Verification targets stable interfaces and meaningful user journeys. A test
 must protect enough behavior, contract, boundary, risk, or regression to justify
 its maintenance cost. Review follows the effective weight, and findings are
 verified before acceptance.
+
+Writing agents commit owned changes before handoff, planned pause, or final report;
+this also covers loose repository edits without adding Workbench tracking. Reviews
+use identified committed targets, not working-tree diffs. Read-only work creates
+no empty commits. Explicit prohibitions or concrete commit/ownership failures are
+disclosed exceptions, not silent dirty handoffs or acceptance claims.
+
+Effective `commit_posture` shapes history above that floor and resolves from explicit user direction,
+the optional project convention, then `adaptive`: `feature` prefers one coherent
+feature commit when safe; `checkpoint` retains meaningful verified slices;
+`batch` groups closely related outcomes at an integration boundary; `preserve`
+retains natural history; and `adaptive` follows repository practice, ownership,
+change shape, and concurrency. Each writing worker commits before returning even
+when a batch owner will consolidate later. Squashing is advisory, not required
+for acceptance, and never substitutes for a committed handoff. The [Git posture reference](../skills/work/references/git-posture.md)
+owns preservation and consolidation constraints across all postures.
 
 Verification reuses existing tests, fixtures, commands, environments,
 observability, and benchmark machinery first. Small, cheap, contained evidence
@@ -190,23 +705,198 @@ may be added directly. A new or materially expanded test framework, simulation
 platform, benchmark system, mock service, synthetic environment, or validation
 architecture requires user discussion.
 
+## Project pattern maintenance
+
+Setup always creates a portable `.agents/skills/patterns/SKILL.md` navigation
+index. It may remain an empty stub. Focused Markdown references own confirmed
+pattern details, and a `pathologies.md` reference holds the repository's
+pathology examples in the shape the `code-craft` skill defines; the index links
+them without duplicating their rule bodies.
+
+Ordinary delivery repairs an existing entry made stale by current work but adds
+no new entry. Deliverers report candidate evidence, and during a multi-unit
+boundary the active parent retains it under `## Maintenance evidence`: completed
+item ids, real consumers or examples, recurrence, the emerging preferred shape,
+and expected maintenance value.
+
+An integration checkpoint the outcome owner controls includes a catalog pass
+when candidates meet the recurrence bar (three genuine occurrences of the same
+shape for the same underlying reason); epic and multi-feature reviews are
+typically the most useful points. The owner adds or updates patterns, adds or
+replaces pathology examples within code craft's limits, consolidates before
+adding, removes entries the work made false, and lists the catalog changes in
+the completion reply so the user can revert them. The pass needs no separate
+extraction outcome and never extends the checkpoint beyond its own entries.
+When a refactor, rewrite, or simplification lands, the owner checks
+proactively for catalog effects in the same pass: a unification or better model
+updates an existing entry without a recurrence count, while a new pattern still
+needs three consumers sharing the shape. An
+explicit user request to detect or extract patterns runs the same pass as an
+ordinary feature tagged `pattern`.
+
+At integration or planning, `work` separates required cleanup from optional
+cleanup using the [maintenance guidance](../skills/work/references/maintenance.md).
+Required cleanup names the accepted requirement or affected contract it serves
+and remains inside delivery. Optional cleanup or refactoring beyond the boundary
+requires a user-selected outcome or an accepted scope that already includes it,
+belongs under an epic only when that epic owns its outcome, and never blocks
+closure. Coincidence is discarded. No fixed count, schedule, or
+evidence-disposition ceremony creates a maintenance gate.
+
+Only the outcome owner writes the catalog. Nested stories and orchestrated
+delivery never write it. Generic stack advice, one-off choices, formatter rules,
+and aesthetic coincidence are not project patterns.
+
 ## Foundation reconciliation
 
-Foundation documents contain durable current behavior or explicitly intended
-project truth, not progress narration. Design rolls them forward only after
-durable truth is settled. Implementation closure reconciles affected assertions
-against the integrated result, reporting updated foundations, or—where an update
-was reasonably expected—why existing assertions remain accurate.
+Foundation documents contain durable, high-level current behavior or explicitly
+intended project truth, not progress narration, delivery tracking, or
+item-specific implementation and qualification machinery. They describe the
+repository or a scope-owned sub-project through purpose, boundaries, principles,
+high-level architecture, observable behavior, guarantees, and intended
+direction. Work-item ids and status, delivery-unit numbering, implementation
+plans, qualification commands or runners, receipt paths, and evidence history
+belong in Workbench items or their owning code, scripts, tests, and focused
+references. Workbench items remain the work record.
+
+Here, high-level means repository or sub-project altitude rather than
+conceptual-only prose. A bootstrapped software project explicitly covers its
+durable engineering shape: selected stack and framework roles; repository,
+solution, and project topology; component ownership and dependency direction;
+runtime, host, deployment, and CI/CD composition; API, OpenAPI, schema, and
+generated-code authority; persistence and migration ownership; testing layers;
+and formatting, linting, compiler, or analyzer gates. Framework-wide rules that
+materially shape composition, messaging, lifecycle, or failure behavior also
+belong when they remain useful beyond one item.
+
+The coverage may share `ARCHITECTURE.md` in a small cohesive project or use a
+focused `ENGINEERING.md`, `TECHNICAL-FOUNDATION.md`, or repository-native
+equivalent. This is a content contract, not a fixed document bundle or heading
+checklist. Mechanical style stays authoritative in tool configuration, concise
+cross-agent rules in `AGENTS.md`, and detailed proven recurring implementation
+shapes in `.agents/skills/patterns/`.
+
+Durable prose adapts to the intended audience, domain, purpose, and venue.
+Code-related subjects do not imply a generic technical-English register or a
+web-development vocabulary. Preserve accurate specialist terms and appropriate
+voice; explain concepts the intended readers may not know. Writing guidance
+lives in [writing style](../skills/work/references/writing-style.md).
+
+Foundation presentation follows the relationship being explained: repository
+trees for solution shape, tables for ownership and authority, dependency or
+data-flow graphs, deployment topologies, and pipeline diagrams. Markdown with
+Mermaid is the portable default, not a mandate. Another source-controlled
+diagram format is valid when the repository maintains it; a discoverable
+Markdown foundation defines its meaning and links to its source. Workbench does
+not add a diagram toolchain merely to satisfy this contract.
+
+`docs/ROADMAP.md` is not a foundation document; it is an optional, user-owned
+planning document for projects that want a longer-horizon view. Its structure,
+level of detail, and voice are the user's choice: narrative, metadata, horizon
+or milestone grouping, status
+language, and links to other material are all valid. A small, dense set of
+links to `.work/backlog/` items is the recommended standard when it fits,
+because the ledger retains the operational detail; it is not a required schema.
+
+`.work/` remains the operational work record. Agents determine item state from
+it rather than roadmap prose, and must not normalize, remove, or rewrite roadmap
+content as an incidental effect of a work-item transition.
+
+Setup always offers Workbench recognition of this convention as an optional
+configuration, but creates or adopts the file and records `roadmap: true` only
+after explicit user approval. Repository evidence may recommend it but never
+implies consent; project size and an existing roadmap-like file do not either.
+A roadmap that exists while `roadmap` is missing or `false` remains an unmanaged
+user document rather than a setup-migration target. In that state, Workbench
+neither treats it as workflow context nor changes it.
+
+Design rolls foundations forward only after durable project-level truth is
+settled. Implementation closure reconciles affected assertions against the
+integrated result, reporting updated foundations, or—where an update was
+reasonably expected—why existing assertions remain accurate.
+
+A greenfield repository may explicitly opt into provisional `docs/spec/`
+artifacts as an optional bootstrap convention. These temporary design contracts
+may describe intended interfaces,
+schemas, protocols, or flows before their implementation exists. They are not
+foundation truth. Each identifies its owning Workbench outcome, the code or
+behavior that will replace it as structural authority, and its deletion
+condition. Design creates one only when it materially improves coordination or
+implementation clarity. Delivery deletes it when its scope is implemented, or
+narrows it to unresolved scope; durable semantics and invariants may move into
+the owning foundation, but duplicated structure may not remain. No registry,
+status schema, or dedicated validator governs this lifecycle.
+After bootstrap, new implementation-shaping design stays in Workbench active
+items; the convention authorizes reconciliation of surviving bootstrap specs,
+not creation of new feature design documents.
+
+Foundation names follow the repository's confirmed documentation conventions;
+`VISION.md`, `ARCHITECTURE.md`, `ENGINEERING.md`, `PRINCIPLES.md`, `SPEC.md`,
+`JOURNEYS.md`, and `WORKFLOWS.md` are examples, not a required set. A contract,
+schema, or protocol has one structural authority: code owns structure for
+repository-internal contracts while documents hold semantics, invariants,
+conformance rules, and rationale; a contract consumed beyond the repository may
+warrant a standalone or generated document spec, or a mix. No structural
+definition is maintained by hand in two places.
 
 Affected foundations are discovered from requirements, design, the final diff,
 and the knowledge index. Reconciliation replaces stale assertions in place,
-removes false claims, follows root or sub-project ownership, and links rather
-than duplicates cross-scope contracts. Git carries history.
+removes false claims, follows root or sub-project ownership, links rather than
+duplicates cross-scope contracts, and removes delivery-specific detail that
+belongs in the work record or executable surfaces. Git carries history.
 
-Independent design and implementation review check foundation alignment when
-the work affects durable project truth. When indexed documentation changes,
+Selected design and implementation reviews check foundation alignment and
+altitude when the work affects durable project truth. When indexed documentation changes,
 the agent rebuilds `.knowledge/index.json` and verifies committed freshness with
 `--check`.
+
+## Scan behavior
+
+`scan` is Workbench's opportunity-discovery capability. It activates for a
+bounded request to look for problems, investigate a quality concern, or propose
+improvements in an adopted project; ordinary lookup, explanation, and delivery
+of accepted work remain outside it. Before substantial inspection or fan-out,
+it reflects the proposed goal, boundary, result posture, constraints, and
+materiality threshold. It asks the user to confirm any consequential choice not
+already explicit; a broad request never silently becomes a general-purpose
+campaign. The request and repository determine the lenses, which may come from
+bundled references, project `scan-*` skills, `CONVENTIONS.md`, or a one-off user
+concern. The bundled lenses are not a closed catalog. Scan is the adopted
+project's normal conversation-first route for these requests, but an
+explicitly invoked standalone audit skill, or an explicit request for its
+standalone report artifact, is honored on its own terms.
+
+Scan scales from focused inline inspection through a few complementary
+fresh-context passes to a decomposed campaign. Scan depth follows the confirmed
+scope, consequence, uncertainty, and expected value; `review_weight` does not
+govern it. It distinguishes verified defects and drift from evidence gaps,
+hypotheses, evaluations, and architectural provocations; an evaluation reports
+verified strengths and weaknesses, and only its actionable weaknesses or
+opportunities take a disposition. Relevant backlog entries and prior or active
+scan items are read before scanning, so already-tracked opportunities are
+identified as such and are not updated without a user-selected disposition. It
+verifies material claims, deduplicates root causes, clusters findings into
+coherent opportunities, challenges high-cost, architectural, or weakly
+evidenced proposals — inline or through a proportionate fresh-context pass — on
+whether they are real in context, respect documented project intent, and still
+earn action over doing nothing, and preserves coverage limits. Sub-agents are
+source-read-only and return proposals rather than artifacts or state.
+
+Results appear first as a concise opportunity deck in conversation. The user
+chooses whether each cluster is discarded, investigated further, parked,
+activated through work/design, or accepted in a location or authority the
+project has designated for such decisions.
+Only selected handoffs are written. Backlog stubs remain product-level outcomes
+with evidence, not one item per warning, and scan never starts remediation by
+itself. A multi-session campaign may temporarily track its discovery outcome as
+one active feature tagged `scan`; raw scanner packets and standalone reports are
+not durable state by default, and a standalone report is written only where the
+project's conventions designate a durable location for one.
+
+Release may invoke scan in release-bounded mode for optional `release_gates`.
+The configured lens defines the expectation, release defines the scope, and only
+unresolved material violations block completion. Ambient improvements follow
+normal scan disposition rather than silently entering release scope.
 
 ## Research
 
@@ -219,6 +909,21 @@ acquisition when it cannot state the requested outcome clearly.
 Small conversational lookups remain in chat. The agent initializes `.research/`
 and writes a brief only when evidence must survive the conversation or inform a
 consequential decision.
+
+When `.research/` exists, `.research/CONVENTIONS.md` declares its provider
+owner. The bundled contract is:
+
+```yaml
+---
+owner: workbench-research
+schema: 1
+verification_rigor: adaptive|floor|standard|full
+---
+```
+
+Missing rigor means `adaptive`. Another provider owns its own schema, artifact
+shape, verification, index maintenance, and handoff. Core Workbench preserves
+that boundary, and Workbench Research scripts decline an alternate-owned tree.
 
 An attestation uses:
 
@@ -261,6 +966,17 @@ Research may use specialist fan-out only when every specialist receives the
 full discipline, owns and lints its evidence, and the lead owns cross-source
 synthesis.
 
+Verification rigor is independent from source count, breadth, duration, and
+fan-out. `floor` applies grounding discipline, deterministic validation, and a
+lead spot-check of load-bearing conclusions. `standard` adds a semantic
+source-support pass over the final brief and its evidence chain. `full` adds an
+isolated evaluator that receives the accepted question and boundary, declared
+product constraints, and final synthesis—but not sources or research history—
+to detect coverage, framing, scope, contradiction, and groundedness drift.
+`adaptive` chooses the lowest credible level from consequence, uncertainty,
+novelty, disagreement, synthesis complexity, and corpus breadth. Project
+principles guide judgment but never count as external evidence.
+
 After interactive research, the skill may ask whether genuinely reusable
 guidance should become a project skill. It never promotes a skill autonomously
 or without explicit approval.
@@ -268,9 +984,20 @@ or without explicit approval.
 ## Knowledge index
 
 `build-knowledge-index.py` indexes root and sub-project documentation,
-`.research/**/*.md`, and `.work/**/*.md`. It emits byte-stable JSON, rejects
+`.research/**/*.md`, and `.work/` conventions, release summaries, and design
+attachments. It excludes `.work/active/`, `.work/backlog/`, and
+`.work/completed/` work items and the provisional scratch file
+`.work/MODEL-NOTES.md`. Those paths are not durable relationship targets;
+editing or deleting them does not stale the index. A normal rebuild removes
+work-item entries from an older index. The builder emits byte-stable JSON, rejects
 duplicate namespace/id pairs and unresolved relationships, generates the
-bibliography, and checks committed freshness with `--check`.
+bibliography, and checks committed freshness with `--check`. Projects may
+track `.knowledge/index-exclusions.txt` with one repository-relative path
+prefix per line; the builder prunes those trees before traversal. Repeatable
+`--exclude <path>` arguments add invocation-scoped exclusions. Exclusions are
+selected from repository context when companion checkouts, generated docs, or
+other irrelevant trees would undermine useful deterministic discovery; they
+must not conceal errors in intended indexed material.
 
 Allowed knowledge relationships are `supports`, `contradicts`, `informs`, and
 `supersedes`. Work hierarchy and scheduling continue to use `parent`,
@@ -280,8 +1007,38 @@ Allowed knowledge relationships are `supports`, `contradicts`, `informs`, and
 
 Setup inventories any existing workflow semantically, aligns conventions with
 the user, maps useful truth to the canonical destinations, validates retained
-content block by block, rewrites inbound references, and only then removes
-superseded artifacts.
+content block by block, rewrites inbound references, and only then
+removes superseded artifacts. Legacy convention and pattern catalogs are split
+by meaning: mechanical rules move to tool configuration, concise operating
+rules to `AGENTS.md`, structural and principle truth to foundations, and proven
+recurring shapes to `.agents/skills/patterns/`. Reusable evidence-based scan
+lenses may move to `.agents/skills/scan-<name>/`; generated wrappers, reports,
+digests, and workflow-specific scanner orchestration are removed after
+migration. Setup creates or
+reconciles the canonical portable pattern index, validates its references, and
+does not manufacture entries or audit every retained pattern against code.
+
+Setup does not propose a `CLAUDE.md` projection for project instructions. Existing
+files and links are preserved unless their reconciliation is part of the agreed
+migration. The independent `.claude/skills` directory link points to
+`../.agents/skills`, exposing all canonical project skills, not only patterns.
+[Skill reconciliation](../skills/setup/references/project-patterns.md#claude-skill-discovery)
+preserves unique and divergent Claude skills before replacing the old container;
+destructive inspection never follows a link to its target.
+
+Its canonical-layout reference owns the shared foundation
+document contract: scope, durable-truth rules, authority, and the purpose of
+common foundation types.
+
+After a greenfield bootstrap establishes Workbench ownership and conventions but
+no code or foundation establishes coherent project direction, setup routes
+directly into `ideate` in the same engagement. It passes the confirmed
+documentation conventions and links ideation to the shared foundation contract and
+principle candidates. It also passes the user's provisional-spec choice.
+Ideation does not re-ask settled setup choices or duplicate the format; it
+clarifies project intent and writes the smallest useful initial foundation set,
+or a useful provisional contract, only after the user selects that explicit
+handoff.
 
 Every removal target is classified as clean tracked, modified tracked,
 untracked, ignored, or otherwise unrecoverable. Clean tracked content is
@@ -291,13 +1048,53 @@ user's exact-list confirmation.
 Setup removes repository-scoped competing workflow plugins after conversion and
 reports user- or machine-scoped competing installs for the user to uninstall.
 It creates no migration archives, compatibility copies, `.bak` files, or legacy
-folders. A second run produces no material change.
+folders. Immediately before final validation it stages the exact loaded plugin
+version in conventions; if validation or cleanup fails, it restores the prior
+stamp so incomplete reconciliation cannot claim compatibility. A second run
+produces no material change.
+
+For a repository already owned by Workbench, setup runs as an upgrade and sync.
+It detects missing conventions, malformed hierarchy, inconsistent readiness,
+unexplained sequencing, and superseded layout. Setup normalizes facts it can
+recover without invention. For legacy ordering edges without recoverable
+reasons, it recommends removal and asks once about the ambiguous edge set. It
+does not grandfather invalid structure or fabricate meaning. A second run
+remains idempotent.
+
+## Activation and project instructions
+
+Skill descriptions expose entry points; each stateful skill checks Workbench
+ownership. Adopted-project operating instructions live in the managed root
+`AGENTS.md` block, not a session hook. Workbench ships no runtime instruction
+injection. The host's project-instruction loading supplies that block; skill
+discovery alone does not guarantee always-loaded project rules. Workbench does
+not claim that every host handles compaction identically.
 
 ## Deterministic validation
 
-`validate-workbench.py` checks ownership, canonical directories and clone-stable
-markers, item schemas, globally unique ids, active relationships, blocker
-evidence, research and mock references, and superseded substrate paths.
+`validate-workbench.py <project-root>` is the project-aware validation entry point.
+By default, or with `--builtin`, it runs the bundled structural policy described
+below. A project's optional `validator_command` argument list in conventions
+replaces that policy: it runs from the project root without shell expansion or
+implicit arguments, inherits standard streams, and returns the command's exit
+status (signals become `128 + signal`). Configuration or launch errors return 2,
+not a fallback pass. `WORKBENCH_VALIDATOR` exposes the absolute entry script path
+so a wrapper can call it with `--builtin` without recursion. A custom success
+means that project's policy passed; it does not imply bundled checks ran.
+This override does not replace other required tests, review, research checks, or
+index maintenance. See the [validation policy reference](../skills/work/references/validation.md)
+for configuration and wrapper examples. Only explicit validator invocation executes
+the command; reading conventions does not.
+
+The bundled policy checks ownership, reports plugin-version drift as an
+advisory warning, and checks canonical directories and clone-stable markers,
+item schemas, globally unique ids, title and body presence, parent-kind
+pairs, parent and dependency cycles, relationship integrity, readiness state,
+blocker evidence, research and mock references, superseded substrate paths,
+the optional `execution_posture` and `commit_posture` enums, and the shape of a declared `release_gates`
+list (unique lowercase kebab-case names). Semantic tier fit, roadmap authority
+boundaries, gate-definition quality, and the value of ordering edges remain
+review judgments.
 
 `lint-research.py` checks attestation metadata, sensitive markers, mandatory
 attested-detail and disconfirming sections, and citation resolution. Reference

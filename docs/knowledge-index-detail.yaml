@@ -1,6 +1,6 @@
 # Auto-generated. DO NOT EDIT BY HAND.
 # On-demand layer — load when surfacing a specific doc's full context.
-generated_at: '2026-10-19T17:11:58Z'
+generated_at: '2026-10-19T19:52:28Z'
 generated_from: frontmatter
 schema_version: 1
 documents:
@@ -11,6 +11,14 @@ documents:
     decisions:
     - Shared skill sources are distributed through host-specific manifests and catalogs.
     - Plugin-internal architecture belongs in each plugin's documentation.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/PRINCIPLES.md:
+    summary: Inherited upstream engineering and testing decision rules, including filing real bugs, fixing
+      bad tests and never gaming a test.
+    decisions:
+    - Upstream principles are retained context; the fork's process rules remain in AGENTS.md and .work/CONVENTIONS.md.
     related:
     - slug: docs/project-navigation.md
       relationship: parallel-to
@@ -107,11 +115,11 @@ documents:
     - The research selected Rust on binary distribution grounds despite Bun's web-development advantages.
     - It proposed prebuilt platform binaries with a shell fallback to avoid requiring a user toolchain.
   docs/ux-ui-design-guide.md:
-    summary: Human-facing guide to palettes, components, screens, flows and motion using disposable HTML
-      mockups. Covers standalone use and integration with Agile Workflow and Workbench.
+    summary: Human-facing guide to the ux-ui-design 1.0 interview-first concierge (`/ux-ui-design:ux-ui`)
+      and its disposable HTML mockups. Covers standalone use and integration with Agile Workflow and Workbench.
     decisions:
     - Explore and align UI designs with mockups before production implementation.
-    - Use the design skill matching the scope of the visual decision.
+    - Start UI design through the single ux-ui concierge, which interviews before producing mockups.
   docs/workbench-guide.md:
     summary: Upstream usage guide covering Workbench adoption, ordinary-language delivery, autonomy, research
       and release summaries. Retained as a reference for a separate workflow that this fork does not run.
@@ -145,6 +153,24 @@ documents:
     - Claude documents dependency bundles; equivalent OpenAI installation behavior remains unverified.
     - 'Proposed: clarify methodology-review research-scale selection and preserve its existing decision
       loop.'
+  .research/analysis/briefs/upstream-learnings-2026-10-landscape.md:
+    summary: Breadth map of 224 upstream nklisch/skills commits (43f7f4bf..638867b6) and peeragent 0.8.2/0.8.3,
+      each mapped to this fork as already-have, conflicts, adopt, adapt or not-relevant, plus a Workbench
+      ideas pass with evidence for and against transfer.
+    key_findings:
+    - 'Upstream agile-workflow changes are compatibility work plus one behavioural addition: a fresh-context,
+      cross-model skeptic in bold-refactor (shared with code-audit).'
+    - ux-ui-design 1.0.0 removes the seven pipeline skills; adopting it also requires edits to fork-owned
+      research-pipeline epic-design and feature-design, which still invoke the removed names.
+    - prose-craft, sol-calibration and declaudify are additive and have no fork consumers; sol-calibration
+      overlaps agile-workflow principles and gate-cruft.
+    - Antigravity manifests are the whole change for agentic-research, agent-coordination, nates-toolkit
+      and workflow; adopting them adds a third parity channel.
+    - peeragent 0.8.2/0.8.3 change only Windows npm-shim launching; macOS behaviour and the peer skill
+      text are unchanged.
+    - Workbench's transferable ideas centre on costed machinery (overbuilding calibration, machinery forecast),
+      design-review priorities and local model notes; its rapid churn and add-then-remove history argue
+      for adopting ideas, not text.
   .research/analysis/campaigns/qvc-review-evidence/parent.md:
     summary: 'Cross-facet synthesis on two questions about review and advisory controls for generated
       work. Same-model judging carries a measured self-preference that, with ground truth, is mostly legitimate

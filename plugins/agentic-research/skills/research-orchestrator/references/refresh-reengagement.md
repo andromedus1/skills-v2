@@ -145,7 +145,8 @@ it as legacy; the attested claims simply get re-validated rather than rebuilt), 
 ## The re-authoring walk
 
 After the pre-flight check and the start-state branch, the **normal orchestrator walk resumes**
-over the *current* substrate, at the dialed `verification_rigor`:
+over the *current* substrate, at the dialed `verification_rigor` (an `adaptive` dial resolves at
+KICKOFF to one level, stated with its rationale; the floor and reachability rules apply to it):
 
 1. **KICKOFF** registered the full ten-field registration (ARD SPEC §9). Refresh is **not** a new
    `intent` enum — it is the **re-engagement recipe over existing fields** (SPEC §4.8):
@@ -160,7 +161,7 @@ over the *current* substrate, at the dialed `verification_rigor`:
    handle to the prior analytical-tier artifact resolves `intra-program-resolved` (clean); the
    pre-flight exclusion is what prevents that, not the lint.
 5. **verify** — adversarial-read (rigor ≥ standard) / evaluate (rigor = full) / spot-check
-   (always), at the dialed rigor. **Incremental re-verification, recorded (ARD SPEC §221).** The
+   (always), at the resolved rigor. **Incremental re-verification, recorded (ARD SPEC §221).** The
    stack re-runs over the **delta** — the changed or added substrate (the new/revised citation
    range) — not the whole artifact; the prior-verified set is **grandfathered**. The hard-floor
    gates (lint + spot-check) still fire, **over the delta**. The prior artifact's old verdicts do

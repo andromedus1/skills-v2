@@ -103,7 +103,7 @@ For each feature in the target set:
 1. **Read the feature item** at `.work/active/features/<id>.md`. Skip if `kind` is not `feature`, if `stage` is not `drafting`, or if `tags` contains `refactor` or `perf`.
 2. **Ground yourself lightly** — Phase 0 (knowledge-index nav scan) + Phase 2 minimal pass (parent epic body, foundation docs, AGENTS/CLAUDE). Skim, don't exhaustively re-read across iterations.
 3. **Map the codebase lightly** — one Task Explore sub-agent (not three). You're not designing units.
-4. **Run Phase 4.6 (UI surface fallback)** when `ux-ui-design` is installed — same rules as default mode (inheritance check, mock only when upstream coverage is missing).
+4. **Run Phase 4.6 (UI surface alignment)** when `ux-ui-design` is installed — same rules as default mode (inheritance check, offer only when coverage is missing).
 5. **Surface ambiguities** — run Phase 4.5 as written below, but always in the interactive branch (use `AskUserQuestion`). Do not resolve with judgment — the whole point of this mode is to capture user answers.
 6. **Capture answers** — append (or merge into existing) `## Design decisions` in the feature body. If section exists, merge — don't duplicate previously answered questions, and don't overwrite prior answers without flagging.
 7. **Do NOT** spawn child stories, write the design body, or advance the stage.
@@ -199,19 +199,21 @@ In every other invocation — including direct user invocation under harness aut
 
 **The exception under autopilot:** a 50/50 between two large irreversible choices. Append a `## Blocker` section and return without advancing — autopilot will skip and surface the blocker.
 
-### Phase 4.6: UI surface fallback (FALLBACK tier when ux-ui-design is installed)
+### Phase 4.6: UI surface alignment (runs when ux-ui-design is installed)
 
-This is the fallback mockup tier. Mocks should primarily come from the parent epic's `/epic-design --only-questions` pass.
+UI alignment inherits from the parent epic's `/epic-design --only-questions` pass; this phase only catches surfaces it didn't cover.
 
-1. **Check the parent epic body** for `## Mockups` first; if covered, reference and skip.
-2. **Only mock at this tier for genuinely-new surfaces** the parent epic didn't cover (rare).
-3. If mocking: invoke `/ux-ui-design:screens <feature-id>` for net-new surfaces.
+1. **Check the parent epic body** for `## Mockups` and `.mockups/` for existing mocks covering this feature first; if covered, copy those paths into this feature's `## Mockups` section and skip. Do not re-mock.
+2. **Only when coverage is missing** — no parent epic, a `## UI alignment deferred` note on the epic, or a genuinely-new surface the parent epic didn't cover — offer `/ux-ui-design:ux-ui` for the uncovered surface; the concierge negotiates the artifact shape with the user. Record mock paths only when mocks are produced, and flag the upstream gap rather than silently back-filling.
+3. **Minor composition reusing existing patterns, or no UI surface** — skip; note the feature inherits from the parent epic's mocks where applicable.
 
 Skip entirely if `ux-ui-design` is not installed.
 
 ### Phase 5: Design implementation units
 
 **Phase 5a — Enumerate 2-3 architectural options.** For the feature's core architectural shape, name 2-3 plausible approaches with tradeoffs. Pick one and document why. (Don't skip — this catches premature commitment to the first idea.)
+
+**Machinery forecast.** Read the project's `## Overbuilding calibration` when present. If an option adds a state owner, a ledger, receipt or status record, a validator, a retry or correction loop, or crosses hosts or plugins, forecast it before settling: start from one user action and the failure it prevents; name the new state and why the existing owner cannot handle it; contrast the simplest working chain with the proposed one and what each added link buys; end with a recommendation. Interactively, ask the user when the choice changes product behavior, workflow, contracts or durable state; under autopilot, apply the Phase 4.5 judgment rules instead. Reuse accepted decisions. Keep it conversational — no new artifact, template or gate — and record the choice under `## Design decisions`.
 
 **Phase 5b — Identify the trickiest unit.** Name the one with highest unknowns or most novel logic. **Design it first and most carefully — the rest hangs on whether this is feasible.** If the trickiest unit's design reveals a fundamental issue, revisit the architectural choice from 5a.
 
