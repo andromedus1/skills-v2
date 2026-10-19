@@ -35,21 +35,20 @@ decision.
 
 `methodology-review` maps methodological decisions before selecting its review
 shape. A child can repeat the same comparison/adjudication/reassessment protocol
-within a smaller scope, with research depth chosen separately. The parent assesses
-combined effects against its original outcomes; child completion is not parent
-convergence. Research execution and cross-source synthesis remain with Agentic
-Research. Approved changes use the normal handoff/delivery routes. See
+within a smaller scope, with research depth chosen separately. Research execution
+and cross-source synthesis remain with Agentic Research. Approved changes use the
+normal handoff/delivery routes. See
 [the skill](../skills/methodology-review/SKILL.md) and its linked decomposition
 reference for selection, child reporting, shared round limits and resume rules.
 
 ## Verification ownership
 
-Research records retain AR's required gates, actual results and outstanding
-corrections. Methodology-review consumes that evidence and separately requires its
+Agentic Research owns research gates and their records. Methodology-review owns its
 whole-scope assessment; Agile Workflow owns delivery-review evidence and weights.
 Quality-checkpoint reconciles these records for its scope without creating a second
-engine or extra standard pass. Missing results and worker exit success are distinct
-from approval. See the owning skills for their criteria, limits and resume rules.
+engine or extra standard pass. Evidence rules are in
+[build process §Completion](build-process.md#completion); the owning skills define
+their criteria, limits and resume rules.
 
 ## Corpora and migration
 

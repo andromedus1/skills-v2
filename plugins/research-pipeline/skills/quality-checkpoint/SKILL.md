@@ -122,8 +122,7 @@ For tests and docs, read and append the relevant policy to the invocation:
 
 Use public skill namespaces and the host's normal skill invocation mechanism.
 Wait for each result. Continue independent checks after an error where their
-prerequisites still hold, recording any checks that could not run. Missing tools,
-failed processes, missing reports or incomplete coverage cannot count as passes.
+prerequisites still hold, recording any checks that could not run.
 The checkpoint does not implement emitted findings; normal delivery owns them.
 
 In the existing record, capture for each required check:
@@ -132,9 +131,8 @@ In the existing record, capture for each required check:
 |---|---|---|---|
 | Skill/command and applicable pass criterion | Revision/digests and files | Report path, verdict, counts, execution error or not run | Finding IDs, accepted fixes, unavailable coverage or next owner |
 
-Distinguish successful execution from an approving result. For citation lint,
-inspect JSON: default exit zero is not proof of no broken chains. Separate broken
-chains, thin attestations and advisory pattern counts; apply the citation gate's
+For citation lint, inspect JSON: default exit zero is not proof of no broken
+chains. Separate broken chains, thin attestations and advisory pattern counts; apply the citation gate's
 severity policy. Advisory counts never prove semantic support or cause a new gate.
 
 If a later action changes an earlier check's inputs, determine affected coverage
@@ -177,7 +175,8 @@ Use this precedence:
 
 When several conditions apply, list every outstanding obligation even though the
 primary label follows this precedence. Zero newly emitted items, zero advisories,
-or process completion alone can never establish readiness.
+or process completion alone can never establish readiness
+([build process §Completion](../../docs/build-process.md#completion)).
 
 ## 5. Report and hand off
 

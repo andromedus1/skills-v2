@@ -54,7 +54,8 @@ scenarios, included/excluded scope, research settings, completed assessment roun
 and round limit. Link the latest verified research artifact and next required step.
 List required checks and owners with their actual result, assessed scope/baseline,
 evidence location and remaining obligation. Mark absent, errored or stale evidence
-explicitly; a tool's completion or a persisted artifact is not a successful verdict.
+explicitly; a tool's completion or a persisted artifact is not a successful verdict
+([build process §Completion](../../../docs/build-process.md#completion)).
 On correction/resume, preserve earlier reports and explain which coverage remains
 valid or needs renewal under the owning workflow. Delivery's standard accepted-fix
 verification and this review's fresh whole-scope assessment are distinct obligations.
@@ -79,8 +80,7 @@ Keep the completed-root-round count, current round and shared limit at the root.
 Research engagement counts and child completion counts are different quantities.
 Link child outcomes and unresolved obligations without copying another work item's
 stages or delivery decomposition. Record parent integration findings and the fresh
-whole-scope assessment alongside the child links. A root checkpoint may remain
-incomplete or awaiting decisions even when its children have returned reports.
+whole-scope assessment alongside the child links.
 
 On a new cut or resumed review, retain prior IDs/assessments and record the coverage
 mapping to current children, changed baselines and next unfulfilled steps. The
@@ -161,8 +161,7 @@ records. End with one exit outcome from the skill and its reason.
 
 For a parent report, include actual child coverage, conflicts and cross-component
 scenarios checked. Explain reuse of prior assessments and any unresolved dependency.
-State the root round/checkpoint and next step; do not derive the parent's verdict
-from child verdict counts.
+State the root round/checkpoint and next step.
 
 A useful final assessment can say “no new major findings; two previously identified
 risks remain by operator decision.” It must not turn that into “zero major findings.”

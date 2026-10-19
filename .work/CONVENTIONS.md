@@ -29,10 +29,10 @@ required checks, grounding, completion or cross-skill contracts use the feature
 review boundary when independence is warranted. Narrow standalone fixes keep
 their bounded inline lane; child stories close on verification.
 
-Use `agile-workflow:review` and its effective weight. A completed standard review
-plus verified accepted fixes supplies the covering evidence; do not add a separate
-file-triggered peer pass. Missing, failed or stale required evidence is not a pass,
-including on this repository's normal path without a formal release checkpoint.
+Use `agile-workflow:review` and its effective weight; the receipt below records
+covering evidence. Missing, failed or stale required evidence is not a pass,
+including on this repository's normal path without a formal release checkpoint
+([build-process §Completion](../plugins/research-pipeline/docs/build-process.md#completion)).
 
 ### Review receipts
 

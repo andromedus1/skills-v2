@@ -74,7 +74,8 @@ and current delivery state. Record:
 
 Name the required research and delivery checks, their owners and the evidence that
 will establish each result. Record actual outcomes and assessed inputs in the existing
-loop record; missing reports or successful worker execution alone cannot satisfy a check.
+loop record; missing reports or successful worker execution alone cannot satisfy a check
+([build process §Completion](../../docs/build-process.md#completion)).
 Preserve each owner's correction rules and limits rather than creating a common retry loop.
 
 Use existing answers and authorization; do not repeat settled kickoff questions.
@@ -175,7 +176,6 @@ For a split review, integrate child results before claiming a parent outcome.
 Reconcile overlapping findings while retaining each original identity; expose conflicts, missing
 coverage and cross-component effects. Route new cross-source analytical synthesis
 through Agentic Research; child reports are comparison lenses, not source evidence.
-A child may finish its assessment while the parent still awaits decisions or evidence.
 
 ## 5. Operator adjudication and authorized action
 

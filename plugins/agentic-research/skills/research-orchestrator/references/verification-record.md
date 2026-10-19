@@ -8,7 +8,7 @@ rigor dial, iteration allowance or research schema.
 Keep the record with the engagement: the commissioning item body, a standalone
 campaign's existing verification artifacts, or the transcript for standalone light
 research. Do not create `.work/` just to record a standalone result. A transcript
-that cannot be recovered on resume is missing evidence, not an assumed pass.
+that cannot be recovered on resume is missing evidence.
 
 Before checking, record the output paths and assessed revision/digests, effective
 rigor, reachable required gates and any legitimate reachability prune. For each
@@ -18,11 +18,11 @@ required gate, retain:
 |---|---|
 | Scope and inputs | Output snapshot and evidence visible to this verifier; preserve evaluator isolation |
 | Actual result | Verdict/checklist, lint findings, lead spot-check findings, error or not run |
-| Evidence | Report or captured output location; a successful process alone is insufficient |
+| Evidence | Report or captured output location |
 | Correction | Finding, affected claims, remedy and verification still required at that scope |
 
 Do not claim engagement completion while a required result is missing, failed,
-stale or unresolved. Successful worker exit without its required verdict is not
+stale or unresolved; successful worker exit without its required verdict is not
 approval. Read lint's structured findings rather than treating its default zero
 exit as a clean bill of health. Report broken chains, thin attestations and advisory
 patterns separately. Group advisories by category with representative file/line
@@ -43,5 +43,4 @@ as a fresh engagement.
 On resume, restore the last assessed output, applicable gates, returned reports,
 corrections and pending next step before commissioning more work. A gate already
 satisfied on unchanged inputs needs no duplicate run. Report an explicit unresolved
-outcome when required coverage or correction cannot be completed. Commissioning
-completion follows actual gate outcomes, not artifact existence or elapsed effort.
+outcome when required coverage or correction cannot be completed.

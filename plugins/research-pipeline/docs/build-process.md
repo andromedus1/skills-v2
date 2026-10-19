@@ -73,9 +73,8 @@ decomposition, attestations, synthesis, current output paths, and verification.
 
 `methodology-review` also coordinates the surrounding review: it maps decisions,
 selects a shape, and integrates component assessments where needed. Review scope
-and research depth are separate choices. Its parent assessment checks combined
-effects, with child work sharing the root's round limit and recorded decisions.
-See [methodology-review](../skills/methodology-review/SKILL.md) for the protocol.
+and research depth are separate choices. See
+[methodology-review](../skills/methodology-review/SKILL.md) for the protocol.
 
 Use `[research]` work items with `research_dials:` when durable commissioning is
 useful. Cite completed results through `research_refs:`. Emit actionable work
@@ -117,9 +116,9 @@ add passes. Standard is one independent pass followed by adjudication and verifi
 fixes. Child and standalone-story exceptions remain with that skill.
 
 Consequential executable-instruction or foundation changes use the feature review
-boundary when independence is warranted. Reuse a covering review and its accepted-fix
-verification; a filename or later hash alone is not a reason for another peer pass.
-Identify materially uncovered contracts and route them through normal delivery.
+boundary when independence is warranted. Covering-review reuse follows the
+project's review-receipt convention and
+[quality-checkpoint §2](../skills/quality-checkpoint/SKILL.md#2-reconcile-delivery-review-evidence).
 
 ## Knowledge layer
 
@@ -148,13 +147,13 @@ is an unbound preflight, not a release sweep or readiness verdict.
 
 The checkpoint records actual results and reconciles covering delivery review.
 Gate findings become `.work/` items; doc-review keeps its own report and residual
-counts. Zero newly emitted items cannot establish that either kind of check passed.
+counts.
 
 The citation gate is a thin release adapter over Agentic Research's canonical
 lint. Semantic source support and isolated evaluation run inside research
 engagements; the release gate does not duplicate them.
 
-Required missing, failed, stale or uncovered checks prevent readiness. So do
+Required checks that fail [Completion](#completion) prevent readiness. So do
 unresolved blocking findings, including residual Critical/High doc-review findings.
 Drain work through normal implementation/review; refresh affected checks under
 their owners' rules. Preserve each owner's limits and avoid duplicate standard
