@@ -1,12 +1,13 @@
 ---
 id: feature-claude-methodology-repeat
 kind: feature
-stage: drafting
+stage: done
 tags: [methodology-review, research-pipeline, agentic-research]
 parent: null
 depends_on: []
 release_binding: null
 gate_origin: null
+research_refs: [qvc-review-evidence]
 created: 2026-10-18
 updated: 2026-10-18
 ---
@@ -884,3 +885,82 @@ product-equivalent to the allocated baseline `c6c2b6fb`. Report preserved verbat
   Fresh assessor: Codex via peeragent, reusing round-2 coverage for unchanged
   scope and checking R/METH-003 completion, the post-round-2 fix and any
   regression. Records continue on branch `chore/qvc-close`.
+
+## QVC parent assessment 3 (2026-10-19)
+
+Codex `gpt-6.1-sol` medium, peeragent job `20261019T170959Z-36bd2fb9`, terminal
+`success`. Assessed product baseline `faa24449` (HEAD `bfeec124`, record-only
+delta). Report preserved verbatim:
+
+> **QVC root round 3 assessment — 2026-10-19**
+> 
+> Assessed product baseline: `faa24449`. Current HEAD `bfeec124` adds only the round-3 allocation record. No files were changed, staged or committed; working tree remains clean.
+> 
+> **Coverage and independence.** I read the full [root record](/Users/andromedus/dev/skills-v2/.work/active/features/feature-claude-methodology-repeat.md), methodology-review protocol and assessment-report requirements. I explicitly reuse round 2’s coverage at `10ce06bb` for unchanged scope: all three children, seven scenarios, cross-component interactions, intended-use weighting, research verification and delivery receipts. I independently checked the complete subsequent product delta, archive recovery, corrected receipt anchors and PR-remedy evidence.
+> 
+> This is fresh-context assessment with limited independence: Codex reviewed all delivered features, assessed rounds 1–2 and drove QVE.
+> 
+> **Checks run**
+> 
+> | Check | Result |
+> |---|---|
+> | Product diff `10ce06bb..faa24449`, with specified exclusions | Only doc-review archive-path correction and its regression guard |
+> | Product diff `faa24449..HEAD` | Empty |
+> | Required RP portability suite | Passed using Python fallback and cached PyYAML copied under `/tmp/qvc-r3-checks` |
+> | ARD conformance | **77/77 passed** |
+> | Archive recovery | All **7 bodies** recovered: 4 features, 3 stories |
+> | Regression discrimination | Old `storys` path fails; corrected path succeeds; guard detects old text and accepts fixed text |
+> | Corrected receipt closure anchors | Both concrete ranges present |
+> | Product whitespace check | Passed |
+> | GitHub PR query | Unavailable: API connection failed |
+> | Authorized local Git fallback | PR #1 merge `faa24449` is `andromedus1/main` |
+> 
+> The direct `uv` command could not access its default cache; system Python lacked PyYAML. The supported fallback completed successfully. A broader whitespace check reported quoted blank-line whitespace in the preserved round-2 report, outside product files.
+> 
+> **Findings**
+> 
+> | ID | Status | Assessment |
+> |---|---|---|
+> | QVC-R/METH-003 | **Verified resolved** | Local Git confirms [PR #1](https://github.com/andromedus1/skills-v2/pull/1) merged. Andrew’s recorded statement, “i have merged the PR after review,” supplies review evidence. |
+> | QVC/METH-001 | **Verified resolved** | Explicit directory mapping fixes story recovery; regression check discriminates the defect. No regression found. |
+> | QVC-R/METH-002, alias QVC-E/METH-005 | **Verified resolved** | Previously verified coverage remains applicable; both closure placeholders are now concrete ranges. Counted once. |
+> | QVC-E/METH-002–004; QVC-R/METH-004; QVC-S/METH-001–003 | **Verified resolutions retained** | Seven unchanged remedies inherit round-2 verification. |
+> | QVC-E/METH-001; QVC-R/METH-001; QVC-R/METH-005; QVC-S/METH-004 | **Retained minor findings** | Operator-unselected observations remain open, not resolved. |
+> | QVC-E/METH-006 | **Partially resolved; minor residual retained** | Branch guard remains delivered; automatic review/test enforcement remains absent and unauthorized. |
+> | QVC-R/METH-006 | **Evidence-based withdrawal retained** | Distinct assessment contracts continue to support withdrawal. |
+> 
+> The PR target was explicitly selected by Andrew; using `andromedus1/skills-v2` therefore does not violate the accepted remedy. This does not establish delivery to another fork. The session-only review evidence lacks a diff-bound GitHub review object: a **minor auditability limitation**, not evidence that review was omitted or a material threat under the protocol’s strict major definition. Future PR-per-arc compliance remains prospective.
+> 
+> Across the seven scenarios, only archive recovery and arc-close review evidence changed. The fix improves interrupted/resumed recovery while preserving incomplete-coverage handling. Unchanged evidence, correction-limit, review-routing and citation contracts retain round-2 coverage. No new major finding or consequential provisional concern was established.
+> 
+> **Counts:** 0 unresolved majors; 0 accepted-pending remedies; 0 retained/deferred major risks; 10 verified resolutions; 5 retained minor findings, including E/METH-006’s partial remedy; 1 carried withdrawal. Additionally, one minor auditability limitation is recorded above.
+> 
+> Coverage limits remain: no live doc-review/resume, checkpoint emission, release, publication or adopter pilot; no source refresh. Research and verification evidence remains linked through the root record, including the supplementary synthesis, final N3 approval and campaign evaluation.
+> 
+> Root checkpoint: assessment round **3 of 5** completed; the host should preserve this report in the controller.
+> 
+> **Exit: Clean within reviewed scope.** The sole pending major remedy is now evidenced, required checks pass through permitted fallbacks, and no unresolved major remains. Retained minors and effectiveness limits remain explicit.
+> 
+
+## Review closure (2026-10-19)
+
+**Root round 3 complete: 3 of 5. Outcome: Clean within reviewed scope.**
+
+- Unresolved majors: 0. Verified resolutions: 10 (QVC-R/METH-002 with alias
+  QVC-E/METH-005; QVC-R/METH-003; QVC-E/METH-002–004; QVC-R/METH-004;
+  QVC-S/METH-001–003; QVC/METH-001). Withdrawn: QVC-R/METH-006.
+- Operator-retained minors (not resolved): QVC-E/METH-001, QVC-R/METH-001,
+  QVC-R/METH-005, QVC-S/METH-004; QVC-E/METH-006 partial (guard only).
+- Recorded limitation: PR #1 review evidence is Andrew's in-session statement,
+  with no diff-bound GitHub review object (minor auditability).
+- Comparison with QVE is recorded under "Root integration — round 1". This is a
+  bounded result within the charter, not a claim of universal methodological
+  quality; the intended-use effects remain provisional pending
+  `idea-blueprint-methodology-pilot`.
+- Delivered items: `feature-qvc-review-receipts`, `feature-qvc-minor-remedies`
+  (+4 checkpoints), `feature-ar-fork-citation-matcher`,
+  `story-fix-doc-review-archive-path`; research
+  `story-research-qvc-review-evidence`. All done; archived with this record.
+
+Advance drafting → done (loop controller closed). Parked follow-ups remain in
+`.work/backlog/`.
