@@ -490,3 +490,149 @@ earlier remedies.
 Fresh assessor dispatched 2026-10-19: Codex `gpt-6.1-sol` high via peeragent,
 job `20261019T144048Z-e4a7e91b`, read-only, prompt does not prescribe a verdict.
 Job success will mean only that the worker finished.
+
+## QVC parent assessment 1 (2026-10-19)
+
+Codex `gpt-6.1-sol` high, peeragent job `20261019T144048Z-e4a7e91b`, terminal
+`success` (worker finished; the substantive outcome is below). Assessed HEAD
+`b875b48e`; product content unchanged from `e3e2e070`. Report preserved verbatim:
+
+> **QVC root round 1 assessment — 2026-10-19**
+> 
+> **Outcome: Awaiting decision.** Two distinct major findings remain unresolved: QVC-R/METH-002 is supported; QVC-R/METH-003 requires evidence. No remedies were authorized or applied. No repository files were changed, staged or committed.
+> 
+> Assessed baseline and coverage
+> 
+> HEAD was `b875b48ea2b1e1acad16b3110846531c214521e5`. Product files are unchanged from the children’s `e3e2e070` baseline, identified by the charter as product-equivalent to `a36137fa`.
+> 
+> I assessed all three topics, their interactions and all seven charter scenarios. I applied Andrew’s intended-use weighting: reviewing domain methods over time, reviewing suites and components, and pairing methodology-review with Scout. The first and third jobs remain untested outside this repository; that limits effectiveness claims without establishing a methodological defect.
+> 
+> I read the [root record](/Users/andromedus/dev/skills-v2/.work/active/features/feature-claude-methodology-repeat.md), methodology-review protocol and both references; build-process and research-composition; quality-checkpoint, gate-citations, doc-review and gate-docs extension; review routing, weights, receipt template and review lenses; relevant scope, fix, autopilot and release-deploy sections; verification-record and relevant AR orchestrator sections; scripts, workflows and selected Codex metadata.
+> 
+> Research inputs were the [supplementary synthesis](/Users/andromedus/dev/skills-v2/.research/analysis/campaigns/qvc-review-evidence/parent.md), its engagement record, evaluation and verification conclusions, selected load-bearing attestations, and `quality-feedback-loops.md`. I recovered QVE’s full controller through Git, including its final assessment and the `6419b3bc` correction diff.
+> 
+> **Independence limitation:** Codex drove QVE. This assessment therefore challenges some rules adopted under my model’s earlier direction. I judged those rules from current evidence; QVE’s prior acceptance supplies neither a presumption of correctness nor a reason to reject QVC.
+> 
+> Checks run
+> 
+> | Check | Result |
+> |---|---|
+> | ARD conformance | **57/57 passed** |
+> | Companion resolver test | Passed |
+> | RP portability and AR metadata tests, default Python | Both failed: missing PyYAML |
+> | Same tests using the existing scratch PyYAML environment | Both passed; no installation required |
+> | Current corpus lint, without URL checks | 51 files, 443 citations, **0 broken, 0 thin** |
+> | Lint severity thresholds: high, medium, low | All exited 0 |
+> | Advisory output | 273 patterns; 5 omitted-confidence notices; no unbound campaigns |
+> | Product diff since child baseline | Empty |
+> | Working tree and `git diff --check` | Clean when checked |
+> | Git state | Local `main` and `origin/main` remain `86204084`; HEAD is 77 first-parent commits ahead |
+> | Live GitHub PR query | **Blocked:** could not connect to `api.github.com` |
+> 
+> The current advisory total includes newly added research and verification records. It cannot be compared directly with the child’s historical 13-warning sample as a precision measurement.
+> 
+> An attempted scratch replay of the historical corpus stopped at its extraction-path guard before extraction or lint execution. I therefore **did not independently reproduce** the historical 0/13 true-defect classification. I did inspect the matcher, suppression rules, canonical status handling and conformance checks.
+> 
+> Findings
+> 
+> “Persistent” below means carried from the child returns; this is the first parent assessment. Major counts deduplicate QVC-E/METH-005 into QVC-R/METH-002.
+> 
+> | ID | Evidence status | My severity | Rationale |
+> |---|---|---|---|
+> | **QVC-E/METH-001** | Supported, narrowed | **Minor** | A rerunnable behavioral regression suite is absent, but QVE retains behavioral results and QVC’s research loop supplies operational evidence; lack of automation alone does not establish material failure or justify a mandatory harness. |
+> | QVC-E/METH-002 | Supported | Minor | Repeated contracts are directly observable; consequential maintenance or operator burden has not been demonstrated. |
+> | QVC-E/METH-003 | Supported, narrowed | Minor | Doc-review’s report omits baseline and iteration state, weakening resume; resetting the cap is a risk rather than observed behavior, and adjustable/default iteration counts need not have universally measured optimal values. |
+> | QVC-E/METH-004 | Supported | Minor | Doc-review combines autonomous contradiction repair with an outdated planning model; unintended changes to intent are plausible, but no such correction was demonstrated and higher-level authority constraints still apply. |
+> | **QVC-E/METH-005** | Supported | **Major; alias R/METH-002** | Missing review-input anchors are the same evidence-reconstruction problem as R/METH-002, counted once. |
+> | QVC-E/METH-006 | Supported, narrowed | Minor | `bump-version.sh` contains no review/test gate or branch guard; this does not erase the applicable delivery obligations or establish that installed hosts consume every edit immediately. |
+> | **QVC-R/METH-001** | Supported, narrowed | **Minor** | Kind-based routing leaves consequentiality to judgment, but the proposed universal trigger list is an alternative policy; the actual invocation-policy fix had reproduction and regression evidence, with no demonstrated need for another reviewer. |
+> | **QVC-R/METH-002** | Supported, narrowed | **Major** | Required reuse evidence is not captured by the generic receipt template, making reliable scope reconstruction depend on exceptional record keeping; this materially threatens current-evidence decisions during ordinary resume. |
+> | **QVC-R/METH-003** | **Uncertain—needs evidence** | **Major uncertainty** | The review/publication boundary remains consequential, but stale local refs do not prove current PR absence, and installed-cache evidence contradicts the claimed automatic exposure of every working-tree commit. |
+> | QVC-R/METH-004 | Supported, narrowed | Minor | Duplication exists; measured burden does not. Keeping an explicit prohibition against duplicate file-triggered passes is not necessarily stale merely because the old trigger was removed. |
+> | QVC-R/METH-005 | Uncertain—needs evidence | Minor | Author adjudication is explicit and rejected proposals have a durable receipt field; evidence does not establish that this allocation of authority causes material failures. |
+> | **QVC-R/METH-006** | **Withdrawn with evidence reason** | None | Feature, aggregate-completion and methodology assessments have different contracts, and methodology-review expressly permits combined coverage; overlapping inputs do not establish redundant assessment. |
+> | QVC-S/METH-001 | Supported, narrowed | Minor | The matcher ignores same-line anchors and source-direct status; its exact historical false-positive rate and the recall cost of suppression remain unverified here. |
+> | QVC-S/METH-002 | Supported | Minor | Default exit zero requires JSON interpretation, but parsing is already an explicit adapter duty; an exit threshold would supplement that duty rather than enforce the whole gate. |
+> | QVC-S/METH-003 | Supported | Minor | The consumer reporting contract omits warn-only lists; current exposure is five confidence omissions and zero unbound campaigns. |
+> | QVC-S/METH-004 | Supported, narrowed | Minor | Gate advisories lack a required disposition consumer, but post-engagement edits remain a credible use; removing the signal is not yet justified. |
+> 
+> **Counts:** two unresolved distinct majors—one supported, one uncertain. Zero new independent major findings; zero accepted-pending remedies; zero verified resolutions; zero operator-retained or deferred major risks. Twelve additional findings remain minor. One finding is withdrawn.
+> 
+> Evidence-based corrections and withdrawals
+> 
+> - **R/METH-002’s alleged QVE escape is refuted.** QVE’s final assessor explicitly read the `4575547d→6419b3bc` correction diff. This instance does not demonstrate unreviewed closure. The general receipt gap remains supported.
+> - **“Every commit is live” is refuted as a blanket claim.** Claude’s installed-plugin registry identifies cached copies from `c7d0de75`; its Research Pipeline cache lacks methodology-review. A directory marketplace identifies a source, not sufficient proof of immediate installed-host execution.
+> - **“Checkpoint unreachable” is rejected.** The build process explicitly places quality-checkpoint before release-deploy. It is operator-sequenced.
+> - **R/METH-006 is withdrawn** for the distinct-contract reason above.
+> 
+> On the QVE covering-review rule, I retain the distinction between verified accepted fixes and newly uncovered contracts. Research does not establish that every changed hash requires another review. **R/METH-002 supports better evidence receipts, not mandatory re-review of all fixes.**
+> 
+> Seven-scenario assessment
+> 
+> | Scenario | Assessment |
+> |---|---|
+> | 1. Research, delivery and checkpoint succeed | Contracts compose coherently; the current research engagement itself has not fully satisfied verification. No live release was exercised. |
+> | 2. Required check fails or is missing | Consumers explicitly prohibit treating execution, artifacts or zero items as approval; the current engagement visibly preserves its failed verification state. |
+> | 3. Output changes after review | Reuse can be legitimate, but ordinary receipts inadequately anchor assessed inputs and subsequent corrections: R/METH-002. |
+> | 4. Correction limit exhausted | AR and methodology-review expose unresolved exits; doc-review has a cap but weak durable iteration state; thorough delivery review has no numeric cap. |
+> | 5. Interrupted or cross-host resume | Root and research records support reconstruction; doc-review loop state and generic delivery receipts are weaker. Installed/source divergence also limits assumptions about active instructions. |
+> | 6. Small versus consequential prompt edit | Judgment-based escalation exists; size alone is insufficient, but evidence does not justify requiring independent review for every listed contract edit. |
+> | 7. Real and spurious citation warnings | Integrity checks and advisory patterns are mechanically separate; no broken/thin findings appeared. Warning precision and fabricated-claim recall remain unmeasured here. |
+> 
+> Cross-child interactions
+> 
+> - **Confirmed:** weak receipt capture combines with changed-input checks to make resume costly or uncertain. A small receipt improvement serves longitudinal and component reviews more directly than additional repeated policy prose.
+> - **Confirmed:** this research engagement shows corrections can introduce new errors, including verifier-originated wording. Independent rereads detected them. This supports explicit correction evidence; it does not prove a universal need for repeated delivery review.
+> - **Rejected as overstated:** R/METH-003 does not establish immediate publication, so it cannot remove every counterargument to E/METH-001 or prove that reader compliance is the sole operating control.
+> - **Confirmed, bounded:** doc-review’s autonomous edits can invalidate earlier scans and create delivery-review obligations. No unauthorized intent change was observed.
+> - **Confirmed:** engagement lint is a practical advisory consumer. Rare release checkpoints reduce the observed value of gate-level reporting without proving it useless.
+> - **Not established:** more automation, more reviewers or fewer warnings would improve domain-review outcomes enough to earn their cost.
+> 
+> Minor observations and intended-use weighting
+> 
+> The strongest low-cost candidate is a compact review receipt containing assessed base/head, reviewer path/class, weight, findings and accepted-fix verification. Adding another review loop is not supported by the available evidence.
+> 
+> Doc-review’s report-state omissions and stale discovery assumptions deserve bounded attention. Its ownership needs clarification before broad autonomous foundation corrections are relied upon.
+> 
+> Keep the cross-model preference as a preference. The supplied research does not establish cross-model superiority for this workflow. Likewise, external warning thresholds should not be imported into citation lint without matching definitions and local measurements.
+> 
+> The root’s longitudinal and Scout-pairing observations remain pilot questions. The protocol already has resume and changed-evidence rules; absent dedicated longitudinal wording is not itself a major defect.
+> 
+> Coverage limits and required next step
+> 
+> I did not run live doc-review, quality-checkpoint, release-deploy, model-based scenario evaluations, publication, or an adopter-project pilot. I did not inspect every gate, hook, metadata file, research source or specialist passage, and did not re-fetch sources. No new external claims are introduced.
+> 
+> The [research engagement](/Users/andromedus/dev/skills-v2/.work/active/stories/story-research-qvc-review-evidence.md) remains **verification incomplete**: its final targeted adversarial check returned NEEDS-REVISION; the lead corrected N3 without an independent reread. This assessment does not close that owner-controlled obligation.
+> 
+> The GitHub connection failure prevented current PR-state verification. I stopped further checks as instructed; the child/root assertion that no PR is open remains unverified.
+> 
+> **Exit: Awaiting decision.** Andrew must adjudicate the supported receipt gap and clarify the intended review/publication boundary. Recommended packet: authorize compact receipt fields without adding a review pass; clarify the operating boundary after PR evidence is available; defer broader harness and policy expansion pending measured need.
+> 
+> **Next required step:** the root driver records this report as completed assessment round **1 of 5**, then presents that decision packet while preserving the GitHub blocker and outstanding N3 verification obligation.
+
+### Host adjudication
+
+- **Accepted** the assessor's severity calls as the round-1 parent result: two
+  distinct unresolved majors — QVC-R/METH-002 (supported; alias QVC-E/METH-005)
+  and QVC-R/METH-003 (uncertain, needs evidence). QVC-E/METH-001 and
+  QVC-R/METH-001 reclassified minor with evidence rationale; QVC-R/METH-006
+  withdrawn (distinct review contracts). The root does not override these.
+- **Evidence supplied for QVC-R/METH-003 after the assessment** (local, not
+  external): `gh pr list --state open` on `andrewclark88/skills-v2` returns 0;
+  the newest PR is #48, merged 2026-06-09. Exposure: the registry pins user-scope
+  installs to cache `c7d0de75` (the assessor's point stands for the registry),
+  but in this repository's Claude Code sessions skills execute from the working
+  tree — `agile-workflow:scope`/`park` launched from `plugins/…` in the checkout,
+  and `research-pipeline:methodology-review` is available although absent from
+  the cached 0.2.0. So the documented PR gate is not operating, and working-tree
+  edits are live at least for sessions in this repo; behavior in other projects
+  is unverified. Presented to Andrew as decision-relevant evidence; the
+  assessor's classification is not rewritten.
+- **Incidental (outside charter):** `.claude/settings.json` enables
+  `workbench@nklisch-skills`, while `AGENTS.md`/`.claude/CLAUDE.md` say not to
+  activate Workbench here. Noted for Andrew; no action taken.
+- Research obligation unchanged: `story-research-qvc-review-evidence` is
+  verification incomplete (N3 lead-corrected, not independently re-read).
+
+**Root round 1 complete: 1 of 5.** Outcome: **Awaiting decision.** Next: one
+decision packet to Andrew, majors first.
