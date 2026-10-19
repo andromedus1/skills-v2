@@ -1,7 +1,7 @@
 ---
 id: feature-qvc-review-receipts
 kind: feature
-stage: review
+stage: done
 tags: [methodology-review, research-pipeline, review]
 parent: null
 depends_on: []
@@ -239,3 +239,38 @@ changed files; expected outcomes not supplied.
 Both hosts agree on all outcomes; the run predates the ambiguity fixes, which
 address the Claude reader's A–F. No re-run after the fixes (they narrow, not
 change, the scenario outcomes).
+
+## Review (2026-10-19)
+
+**Verdict**: Approve with comments (after receiver adjudication; reviewer verdict
+was Request changes)
+
+**Blockers**: none remaining. Reviewer blocker accepted and fixed: reconstructed
+head defined as "last product commit before the review record" could absorb
+post-review corrections into the reviewed range → now the head the reviewer's
+report states it assessed, otherwise missing (`7eb12d33`).
+**Important**: accepted and fixed in `7eb12d33`: reconstruction required "an
+independent pass", conflicting with valid none/light policies → "the review its
+effective weight required".
+**Nits**: subsection exceeds the ≤35-line criterion — accepted as documented
+deviation (verbatim command and code fences); criterion superseded.
+**Rejected**: none.
+
+**Notes**: feature substrate review, standard weight, one independent pass; no
+re-review per standard. Fix verification by host: diff re-read, `git diff
+--check` clean, skill-portability ok (PyYAML via uv; the reviewer's own run was
+blocked by network), and the reconstruction rule applied to QVE's real legacy
+record (reviewer-stated scope `70348687..13711e20` → head `13711e20`; later
+`6419b3bc` classifiable as fix-of I-1/I-2). Forward scenarios predate the final
+two wording changes; outcomes for scenarios 1, 2 and 4 are unaffected and
+scenario 3 now has a deterministic head.
+
+**Receipt**
+- Reviewed: `6669a54a..a27d41d3` — `.work/CONVENTIONS.md`, `plugins/research-pipeline/skills/quality-checkpoint/SKILL.md`; work-record files excluded
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T153332Z-4db66a16`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: default)
+- Findings: blockers 1, important 1, nits 1, rejected 0
+- Accepted-fix verification: `7eb12d33` verified by host (checks in Notes)
+
+**Post-review changes** (`a27d41d3..7eb12d33`)
+- `7eb12d33` fix(review receipts): anchor reconstruction on assessed head; honor none/light (.work/CONVENTIONS.md, quality-checkpoint/SKILL.md) — fix-of:blocker-1 and important-1 verified by host checks above
