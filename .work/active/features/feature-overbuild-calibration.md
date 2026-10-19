@@ -58,16 +58,16 @@ portability passes; [ ] cuts list present with per-item guarantee; nothing remov
 
 ## Proposed cuts (for Andrew; nothing removed)
 
-Calibration applied to this fork's recent receipts and checks. Each row names the
-guarantee that must survive.
+Calibration applied to this fork's recent receipts and checks (evidence refreshed
+2026-10-19 after review). Each row names the guarantee that must survive.
 
 | # | Target | Evidence | Proposed trim | Guarantee preserved |
 | --- | --- | --- | --- | --- |
 | C1 | Review receipt `**Post-review changes**` block (`.work/CONVENTIONS.md` receipts; quality-checkpoint §2) | Four receipted reviews: every enumerated commit was the review's own fix commit; round 2's only receipt finding was two unfilled `<closure>` placeholders — bookkeeping about bookkeeping | Keep `Reviewed`, `Reviewer`/independence and `Accepted-fix verification`. Require the post-review block only when a consequential commit after the reviewed head is *not* a listed fix commit; drop the closure-range anchor (git computes it) | Unreviewed consequential changes stay visible; reuse stays checkable |
-| C2 | Receipt `Weight` and `Findings` count lines | Weight is resolved by the review skill and recorded in its Notes; counts duplicate the review block above the receipt | Drop both lines from the receipt template | Same facts remain in the upstream review record |
+| C2 | Receipt `Weight` line | The review skill already requires the review record to state the effective weight, pass count and closure reason | Drop only the receipt `Weight` line; keep `Findings` counts (the upstream record lists findings but not counts) | Weight stays in the review record; counts stay in the receipt |
 | C3 | gate-citations pattern-advisory reporting (QVC-S/METH-004, retained) | Release gate prescribes no action for advisories; engagements already lint and spot-check patterns; releases are rare here | Run the gate with `--no-pattern-check`, keeping integrity and warn-only counts | Broken-chain integrity and warn-only visibility unchanged; pattern review stays inside engagements |
-| C4 | methodology-review SKILL (~5,300 words, ~108 negations; QVC-E/METH-002 deferred) | The calibration names instruction volume as this repo's main cost; QVC showed the protocol works but is long | One compression pass targeting −30% words: merge restated authority/stop rules, move the outcome-precedence prose into the table | Same steps, authority boundary, round limit and exit table |
-| C5 | doc-review 5-iteration loop with a full dispatched re-audit each iteration | No doc-review run on record; cost unknown | No trim now — needs evidence. Revisit after its first real run on a project | — |
+| C4 | methodology-review instruction volume: SKILL 2,641 words + references 2,661 = 5,302 (QVC-E/METH-002 consolidation removed only duplicated completion rules) | The calibration names instruction volume as this repo's main cost; QVC showed the protocol works but is long | One compression pass targeting −30% across SKILL + references: merge restated authority/stop rules, move outcome-precedence prose into the table | Same steps, authority boundary, round limit and exit table |
+| C5 | doc-review 5-iteration loop with a full dispatched re-audit each iteration | Only a read-only fresh-context dry run exists (feature-qvc-minor-remedies review, `64bf8ae2`); no correction loop has run, so its cost is unmeasured | No trim now — needs evidence. Revisit after its first real correction run | — |
 
 Not proposed: research rigor dials (today's floor-rigor scout was proportionate),
 conformance/parity tests (justified complexity), operator authority rules.

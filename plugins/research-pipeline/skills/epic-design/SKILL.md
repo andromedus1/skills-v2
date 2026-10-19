@@ -241,11 +241,14 @@ The child feature briefs you write in Phase 6 should reference the relevant desi
 ### Phase 5: Pre-mortem
 
 Before writing files, attack the decomposition. Read the project's
-`## Overbuilding calibration` when present; if a feature would add a state owner,
-ledger, receipt or status record, validator, correction loop, or a cross-host or
-cross-plugin boundary, raise a machinery forecast with the user (simplest working
-chain vs proposed, what each added link buys, recommendation and question) before
-locking the decomposition. Keep it conversational; record the answer in the epic body.
+`## Overbuilding calibration` when present. If a feature would add a state owner,
+ledger, receipt or status record, validator, retry or correction loop, or a
+cross-host or cross-plugin boundary, forecast it before locking the decomposition:
+one user action and the failure it prevents; the new state and why the existing
+owner cannot handle it; the simplest working chain vs the proposed one and what each
+added link buys; a recommendation. Ask the user interactively when the choice changes
+behavior, contracts or durable state; under autopilot apply Phase 4.7's judgment
+rules. Reuse accepted decisions; record the result in the epic body.
 
 
 - What's the riskiest feature? Is it sized correctly?

@@ -97,8 +97,9 @@ publication and migration; cross-host behavior.
 Revisit when a check catches nothing across several arcs, when a rule needs a third
 restatement, or when Andrew reports friction.
 
-Delegated agents never delete, revert or overwrite files they did not create in
-that job; they report the conflict instead.
+Delegated agents edit only what their assignment covers. They never delete,
+revert or wholesale-replace files outside it, or discard others' uncommitted
+changes; they report such conflicts instead.
 
 ## Model lineup
 
