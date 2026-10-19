@@ -42,3 +42,31 @@ plugin update is authorized by this item.
 
 Upstream's ux-ui-design slim-down (−10k lines) and any upstream removals may let
 the fork drop content it still carries.
+
+## Research
+
+Scout landscape `.research/analysis/briefs/upstream-learnings-2026-10-landscape.md`
+(floor rigor: lint pass; lead spot-check by the engagement worker; host
+re-checked the decision-bearing claims — agile-workflow 0.16.14 → 0.16.16;
+ux-ui-design 1.0.0 is a single `ux-ui` skill; 15 `ux-ui-design:*` calls in our
+design skills; sol-calibration writes an AGENTS.md block; declaudify injects
+"You are not Claude" each turn). Cross-cutting theme: upstream's direction is
+anti-overbuilding (sol-calibration; Workbench overbuilding calibration and
+machinery forecast; "receipts and counters" named as likely overbuilding) — in
+tension with QVC's receipts and aligned with QVC-E/METH-002 and Andrew's
+domain-review jobs.
+
+## Operator decisions (Andrew, 2026-10-19)
+
+| Question | Decision | Item |
+| --- | --- | --- |
+| Sync upstream-owned plugins | **Sync all, keep patches**: agile-workflow 0.16.16, ux-ui-design 1.0.0, prose-craft, code-audit, small manifest touches; update RP design skills to the `ux-ui` concierge; preserve fork patches; skip upstream's Workbench-only bump test group; smoke-check UI triggers on both hosts | `feature-upstream-sync-2026-10` |
+| Workbench | **Sync tree, keep disabled** (0.5.0 → 0.26.11; prior art only) | `feature-upstream-sync-2026-10` |
+| Adapt ideas | **Overbuild calibration** (CONVENTIONS section + machinery forecast in RP feature/epic-design; re-examine receipts against it) and **delegation safety rule** | `feature-overbuild-calibration` |
+| | **AR research rigor ideas** (adaptive rigor option, `owner:` in `.research/CONVENTIONS.md`, stop after the same failure twice) | `feature-ar-research-rigor-ideas` |
+| | **Model notes file** (`.work/MODEL-NOTES.md`, pruned and evidence-graded) | `feature-model-notes` |
+| New plugins / channels | **None**: skip sol-calibration, declaudify and Antigravity manifests | — |
+
+Host-added maintenance inside the sync (no decision needed): update Claude's
+cached peeragent to 0.8.3 and correct our catalog's peeragent description
+("peer and peer-review" → "peer").
