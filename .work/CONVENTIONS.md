@@ -31,9 +31,53 @@ their bounded inline lane; child stories close on verification.
 
 Use `agile-workflow:review` and its effective weight. A completed standard review
 plus verified accepted fixes supplies the covering evidence; do not add a separate
-file-triggered peer pass. Record the reviewed scope, actual outcome and correction
-verification. Missing, failed or stale required evidence is not a pass, including
-on this repository's normal path without a formal release checkpoint.
+file-triggered peer pass. Missing, failed or stale required evidence is not a pass,
+including on this repository's normal path without a formal release checkpoint.
+
+### Review receipts
+
+Feature and epic review records carry a receipt directly after the
+`## Review (YYYY-MM-DD)` block that `agile-workflow:review` writes:
+
+```markdown
+**Receipt**
+- Reviewed: `<base>..<head>` — product scope, with any excluded paths
+- Reviewer: <model/class> via <peeragent job id | fresh-context sub-agent>; independent: yes|no
+- Weight: <none|light|standard|thorough|maximum> (source: caller|convention|default)
+- Findings: blockers N, important N, nits N, rejected N
+- Accepted-fix verification: <commit(s)> verified by <who/how> | none required
+```
+
+`<head>` is a commit; a review of uncommitted work records its base commit plus
+"working tree" and classifies the resulting commits at closure. At closure, list
+every later commit that touches a consequential path:
+
+```markdown
+**Post-review changes** (`<head>..<closure>`)
+- `<sha>` <subject> (<files>) — covered-by-pass | fix-of:<finding> verified <how> | other:<item id> | uncovered → <item id>
+```
+
+`covered-by-pass` means the change was in the reviewed working tree; `other` marks
+another tracked item's work, which that item's own evidence covers.
+
+Consequential paths are plugin skills, docs, ARD core, hooks and manifests plus the
+root instruction and convention files. Enumerate them with exactly:
+
+```bash
+git log --format='%h %s' <head>..<closure> -- 'plugins/*/skills/*' \
+  'plugins/*/docs/*' 'plugins/*/ard-core/*' 'plugins/*/hooks/*' \
+  'plugins/*/.claude-plugin/*' 'plugins/*/.codex-plugin/*' \
+  AGENTS.md .claude/CLAUDE.md .work/CONVENTIONS.md README.md
+```
+
+An enumerated commit without a line makes the evidence stale; `uncovered` routes
+through normal delivery and review, and readiness then also needs that item's
+evidence. A changed hash alone does not require another pass. Standalone-story
+inline reviews keep the existing record. Reviews recorded before this convention
+may be reconstructed from git and labeled `reconstructed` (head: the last product
+commit before the review record); a reconstruction counts only when the review
+record shows an independent pass at the required weight. Otherwise the evidence
+is missing.
 
 ## Gates for release-deploy
 

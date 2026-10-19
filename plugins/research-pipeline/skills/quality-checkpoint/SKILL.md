@@ -83,18 +83,24 @@ lane. Consequential changes to executable instructions or foundational contracts
 use the feature boundary when independence is warranted. Child checkpoints and
 narrow standalone fixes retain their existing verification/inline-review routes.
 
-For covering review evidence, retain the assessed scope/baseline, reviewer path,
-weight, findings, adjudication and accepted-fix verification. A terminal stage,
+Covering review evidence is a receipt, in the project's receipt convention when it
+defines one: reviewed `base..head`, reviewer path/class and whether it was
+independent, weight, finding counts and accepted-fix verification. A terminal stage,
 passing linter, design advisory or research verification is not a delivery-review
 receipt. Honor explicit none/light policies and record whether an independent pass
-actually ran.
+actually ran. For a review without a receipt, reconstruct its range from git and
+label it `reconstructed` only when the record shows the required independent pass;
+otherwise record the evidence as missing.
 
 A completed standard review plus verified accepted fixes remains valid; a changed
-hash alone does not require another pass. Do not describe the original reviewer
-as approving later corrections. If a later change introduces a materially uncovered
-contract, name that gap and route it through normal delivery/review. Missing
-required review blocks readiness. Resume from existing receipts and pending fixes;
-never restart a completed standard pass merely because context was lost.
+hash alone does not require another pass. Enumerate commits after the reviewed
+head that touch the project's consequential paths; each needs a classification:
+covered by the pass, verified fix of a named finding, another tracked item's work, or
+uncovered. An unclassified commit makes that evidence stale; route uncovered
+contracts through normal delivery/review and require that item's evidence. Do not
+describe the original reviewer as approving later corrections. Missing required
+review blocks readiness. Resume from existing receipts and pending fixes; never
+restart a completed standard pass merely because context was lost.
 
 ## 3. Execute the declared checks sequentially
 

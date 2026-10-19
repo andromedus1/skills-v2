@@ -1,7 +1,7 @@
 ---
 id: feature-qvc-review-receipts
 kind: feature
-stage: implementing
+stage: review
 tags: [methodology-review, research-pipeline, review]
 parent: null
 depends_on: []
@@ -191,3 +191,51 @@ record carries the new receipt.
   a review spans uncommitted fixes. Mitigation: the receipt's `head` must be a
   commit; reviews of dirty trees record the base commit plus "working tree" and
   are classified at closure.
+
+## Implementation notes
+- Execution capability: inline, host (Claude Opus); two-file cohesive prose
+  contract change, no coordination needed.
+- Review weight: standard (default; no caller or project override).
+- Files changed: `.work/CONVENTIONS.md` (new `### Review receipts` subsection;
+  removed the superseded "Record the reviewed scope…" sentence);
+  `plugins/research-pipeline/skills/quality-checkpoint/SKILL.md` §2 (receipt
+  consumption, enumeration/classification, reconstruction rule).
+- Tests added/removed: none in-repo (no stable executable interface changed).
+  Structural: skill-portability passes (with PyYAML). Behavioral: Unit 3
+  forward scenarios on both hosts, below.
+- Simplification: the author-judged "materially uncovered" bridge is replaced by
+  per-commit classification; the redundant scope-recording sentence removed.
+- Discrepancies from design:
+  - **Pathspec bug caught in verification.** The designed command with
+    directory pathspecs (`'plugins/*/skills/'`) matched nothing; git glob
+    pathspecs need a trailing `*`. The convention now gives the exact command
+    verbatim, verified on QVE's `c1827823..a2f03eaa` (returns `6419b3bc`) and
+    `70348687..a2f03eaa` (returns `6419b3bc`, `4575547d`).
+  - Subsection is 45 lines vs the ≤35 target: code fences, the verbatim command
+    and the ambiguity fixes below.
+  - **Ambiguity fixes from the Claude scenario reader** (all consistent with the
+    design's intent): added `other:<item id>` classification (path-wide
+    enumeration otherwise makes every receipt stale on a long branch);
+    `covered-by-pass` defined as "in the reviewed working tree"; `uncovered`
+    readiness also needs the routed item's evidence; reconstruction counts only
+    when the old record shows an independent pass at the required weight, with
+    head = last product commit before the review record. QC §2 mirrors the
+    generic parts. Reader's ambiguity G (QC §2 lacks "stale blocks readiness")
+    is already covered by QC §4 line 168.
+- Adjacent issues parked: none.
+
+### Unit 3 forward scenarios (2026-10-19)
+
+Same packet (`receipt-scenarios.md`, scratch) to two hosts, reading only the two
+changed files; expected outcomes not supplied.
+
+| Scenario | Codex `gpt-6-luna` high (job `20261019T153136Z-177a08ef`) | Claude fresh sub-agent |
+| --- | --- | --- |
+| 1 covered_fix | current; pass | current; pass |
+| 2 unclassified `eee5555` | stale; not pass; classify, route if uncovered | stale; not pass; likely `uncovered → item` |
+| 3 legacy, range recoverable | reconstructable; record label before pass | reconstructed; pass rule unclear (ambiguity B) |
+| 4 standalone story | rule does not apply | rule does not apply |
+
+Both hosts agree on all outcomes; the run predates the ambiguity fixes, which
+address the Claude reader's A–F. No re-run after the fixes (they narrow, not
+change, the scenario outcomes).
