@@ -1,6 +1,6 @@
 # Auto-generated. DO NOT EDIT BY HAND.
 # On-demand layer — load when surfacing a specific doc's full context.
-generated_at: '2026-10-19T19:01:04Z'
+generated_at: '2026-10-19T19:33:03Z'
 generated_from: frontmatter
 schema_version: 1
 documents:
@@ -11,6 +11,14 @@ documents:
     decisions:
     - Shared skill sources are distributed through host-specific manifests and catalogs.
     - Plugin-internal architecture belongs in each plugin's documentation.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/PRINCIPLES.md:
+    summary: Inherited upstream engineering and testing decision rules, including filing real bugs, fixing
+      bad tests and never gaming a test.
+    decisions:
+    - Upstream principles are retained context; the fork's process rules remain in AGENTS.md and .work/CONVENTIONS.md.
     related:
     - slug: docs/project-navigation.md
       relationship: parallel-to
@@ -107,11 +115,11 @@ documents:
     - The research selected Rust on binary distribution grounds despite Bun's web-development advantages.
     - It proposed prebuilt platform binaries with a shell fallback to avoid requiring a user toolchain.
   docs/ux-ui-design-guide.md:
-    summary: Human-facing guide to palettes, components, screens, flows and motion using disposable HTML
-      mockups. Covers standalone use and integration with Agile Workflow and Workbench.
+    summary: Human-facing guide to the ux-ui-design 1.0 interview-first concierge (`/ux-ui-design:ux-ui`)
+      and its disposable HTML mockups. Covers standalone use and integration with Agile Workflow and Workbench.
     decisions:
     - Explore and align UI designs with mockups before production implementation.
-    - Use the design skill matching the scope of the visual decision.
+    - Start UI design through the single ux-ui concierge, which interviews before producing mockups.
   docs/workbench-guide.md:
     summary: Upstream usage guide covering Workbench adoption, ordinary-language delivery, autonomy, research
       and release summaries. Retained as a reference for a separate workflow that this fork does not run.

@@ -2,10 +2,10 @@
 description: Read when choosing UI mockup skills or connecting visual design to a delivery workflow.
 type: module-rules
 updated: 2026-10-18
-summary: Human-facing guide to palettes, components, screens, flows and motion using disposable HTML mockups. Covers standalone use and integration with Agile Workflow and Workbench.
+summary: Human-facing guide to the ux-ui-design 1.0 interview-first concierge (`/ux-ui-design:ux-ui`) and its disposable HTML mockups. Covers standalone use and integration with Agile Workflow and Workbench.
 decisions:
   - Explore and align UI designs with mockups before production implementation.
-  - Use the design skill matching the scope of the visual decision.
+  - Start UI design through the single ux-ui concierge, which interviews before producing mockups.
 ---
 
 # UX/UI Design Guide

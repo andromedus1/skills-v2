@@ -1,3 +1,15 @@
+---
+title: Upstream engineering and testing principles
+description: Read for Nathan's binding engineering and testing rules for the upstream catalog; this fork's agent rules live in AGENTS.md and .work/CONVENTIONS.md.
+type: module-rules
+updated: 2026-10-19
+summary: Inherited upstream engineering and testing decision rules, including filing real bugs, fixing bad tests and never gaming a test.
+decisions:
+  - Upstream principles are retained context; the fork's process rules remain in AGENTS.md and .work/CONVENTIONS.md.
+related:
+  - {slug: project-navigation.md, relationship: parallel-to}
+---
+
 # Principles
 
 Binding engineering and testing decision rules for this repository. Each

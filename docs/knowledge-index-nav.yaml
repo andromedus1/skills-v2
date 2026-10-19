@@ -3,12 +3,12 @@
 # Provides corpus situational awareness only. Read knowledge-index.yaml for full index.
 
 schema_version: 3
-generated_at: 2026-10-19T19:01:04Z
+generated_at: 2026-10-19T19:33:03Z
 generated_from: frontmatter
-total_docs: 23
+total_docs: 24
 
 by_kind:
-  planning: 8
+  planning: 9
   research: 13
   historical: 2
 
@@ -16,7 +16,7 @@ by_kind:
 substrate_summary:
   active:
     epic: 1
-    feature: 6
+    feature: 10
     story: 3
     release: 0
   backlog: 6
@@ -25,6 +25,10 @@ substrate_summary:
 
 # Top 15 most-recently-updated docs (planning + research only).
 recent:
+  - path: docs/PRINCIPLES.md
+    title: "Upstream engineering and testing principles"
+    kind: planning
+    updated: 2026-10-19
   - path: docs/project-navigation.md
     title: "Skills v2 fork navigation"
     kind: planning
