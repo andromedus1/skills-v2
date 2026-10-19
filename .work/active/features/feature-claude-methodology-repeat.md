@@ -846,3 +846,15 @@ product-equivalent to the allocated baseline `c6c2b6fb`. Report preserved verbat
 - Next: fix QVC/METH-001; then open the arc PR with Andrew's confirmation;
   after the PR exists, a short fresh check of the remedy can close round 3
   if the outcome warrants.
+
+## QVC/METH-001 fix and PR target decision (2026-10-19)
+
+- QVC/METH-001 fixed through the standalone lane:
+  `story-fix-doc-review-archive-path` (`cc4fec42`, inline review `2591b783`);
+  upstream shorthand parked as `idea-kind-plural-shorthand`.
+- PR target (Andrew, 2026-10-19): **"PR on andromedus1"** — open the arc PR inside
+  `andromedus1/skills-v2` against its `main` (`ec94cd04`, 2026-05-30), because the
+  current credentials (`gh` account `andromedus1`) cannot push to
+  `andrewclark88/skills-v2`. The PR therefore also carries the 19 first-parent
+  commits merged to `andrewclark88` main by 2026-06-09 (PRs #29–#48). This
+  choice is the operator's confirmation to push and open the PR.
