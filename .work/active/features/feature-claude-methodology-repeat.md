@@ -873,3 +873,14 @@ product-equivalent to the allocated baseline `c6c2b6fb`. Report preserved verbat
   whole-scope check of R/METH-003's completion; expected exit if nothing else
   changes is clean within reviewed scope with the recorded minor retentions.
 - Current primary outcome: **Awaiting change or evidence** (operator PR review).
+
+## Root round 3 allocation (2026-10-19)
+
+- PR https://github.com/andromedus1/skills-v2/pull/1 **merged** 2026-10-19T17:08Z
+  (merge `faa24449`). Andrew: "i have merged the PR after review." GitHub records
+  no review object; the review evidence is Andrew's statement in session.
+- Product baseline: `faa24449` (product delta since round 2's `10ce06bb`:
+  `story-fix-doc-review-archive-path` only). Round 3 of 5 allocated; 2 complete.
+  Fresh assessor: Codex via peeragent, reusing round-2 coverage for unchanged
+  scope and checking R/METH-003 completion, the post-round-2 fix and any
+  regression. Records continue on branch `chore/qvc-close`.
