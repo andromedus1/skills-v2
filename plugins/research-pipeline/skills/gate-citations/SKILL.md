@@ -67,55 +67,65 @@ re-emitting these.
 ### Phase 3: Run the lint
 
 Resolve the companion plugin, then run its citation lint over the corpus in JSON mode (no network
-probe; surface everything, let severity drive staging):
+probe; exit non-zero at the gate's blocking threshold — high and medium block; low, thin and
+patterns do not):
 
 ```bash
 AGENTIC_RESEARCH_ROOT="$("${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/resolve-agentic-research.sh")"
 python3 "$AGENTIC_RESEARCH_ROOT/ard-core/kernel/lint-citations.py" .research/ \
-  --no-url-check --format json > /tmp/citation-lint-<version>.json
+  --no-url-check --format json --exit-code-on medium > /tmp/citation-lint-<version>.json
 ```
+
+**Result interpretation.** Always confirm the output parses as JSON before reading findings:
+
+| Exit | Valid JSON | Meaning |
+|---|---|---|
+| 0 | yes | no blocking chains (low/thin findings may still exist) |
+| 1 | yes | blocking (high/medium) findings present |
+| 1 | no | lint execution failure — blocking gate error |
+| other non-zero | any | lint execution failure — blocking gate error |
 
 The JSON shape is:
 
 ```json
 {
   "results": [
-    { "file": ".research/briefs/<slug>/parent.md",
+    { "file": ".research/analysis/briefs/<slug>.md",
       "citations": [ {"status": "unresolved-handle", "severity": "high",
                       "handle": "rfc6749", "n": 3, "line": 42}, ... ],
       "patterns": [...], "thin": [...] }
   ],
   "broken_chains": [...],
-  "thin_attestations": [ [".research/briefs/<slug>/parent.md", {"handle": "...", "line": 9}] ]
+  "thin_attestations": [ [".research/analysis/briefs/<slug>.md", {"handle": "...", "line": 9}] ],
+  "substrate_confidence_omitted": ["<handle>", ...],
+  "campaign_unbound": ["<handle>", ...]
 }
 ```
 
-A citation is **broken** when its `status` is not one of the non-broken statuses
-(`resolved`, `reduced-substrate-attestation`, `intra-program-resolved`). Iterate
-`results[]` (the `file` lives on the result, not on the citation) and collect, per file, every
-citation whose `severity` is `high`/`medium`/`low`. Also collect `thin_attestations` (GR.5
-thin-attestation flags) as low-severity findings.
+The lint owns brokenness: `broken_chains` is its catalog-driven set of broken citations, and
+each carries a non-`none` severity (non-broken statuses such as `acquisition-candidate` carry
+`none`). `broken_chains` entries have no `file`, so locate them by iterating `results[]` and
+collecting citations whose `severity` is not `none`; that count must equal
+`len(broken_chains)`. Also collect `thin_attestations` (GR.5 thin-attestation flags) as
+low-severity findings. `substrate_confidence_omitted` and `campaign_unbound` are warn-only:
+count them for the report, emit no items.
 
-**Result interpretation.** Confirm execution and valid JSON before reading findings;
-an error or missing output is a gate failure. Default exit zero does not mean no
-broken chains. The lint's `patterns[]` are advisory spot-check signals, not broken
-chains: emit no items for them. `version-number` can flag neutral version mentions,
-source titles, decimals or dotted labels such as `1.1`; ordinary `1.`/`2.` Sources
-numbering alone does not trigger it. Preserve canonical matching and raw JSON.
-Only broken-status citations and thin-attestation findings become items. Group
-advisories for reporting; their count neither blocks this gate nor proves semantic
-support. Research's required semantic verification still applies.
+The lint's `patterns[]` are advisory spot-check signals, not broken chains: emit no items for
+them. Until `feature-ar-fork-citation-matcher` lands, `version-number` flags any dotted number or
+"version N" phrase in neutral text, including arXiv IDs, `§x.y` references, decimals and source
+titles. Preserve canonical matching and raw JSON. Group advisories for reporting; their count
+neither blocks this gate nor proves semantic support. Research's required semantic verification still applies.
 
 ### Phase 4: Convert findings to items
 
-Map the lint's severity to stage exactly as the other gates do:
+Map the lint's severity to stage exactly as the other gates do (the lint assigns severity per
+status; do not remap it):
 
-| Lint status | Severity | Stage | Location |
-|---|---|---|---|
-| `unresolved-handle`, `colliding-handle`, `mismatched-source-handle` | high | `implementing` | `.work/active/stories/` (blocks) |
-| `unreachable-source` (source_path missing) | medium | `drafting` | `.work/active/stories/` (blocks) |
-| `unreachable-source` (URL), `missing-provenance` | low | backlog | `.work/backlog/` (no binding; non-blocking) |
-| thin-attestation (GR.5) | low | backlog | `.work/backlog/` (non-blocking) |
+| Severity | Stage | Location |
+|---|---|---|
+| high | `implementing` | `.work/active/stories/` (blocks) |
+| medium | `drafting` | `.work/active/stories/` (blocks) |
+| low, including thin-attestation (GR.5) | backlog | `.work/backlog/` (no binding; non-blocking) |
 
 For each finding not already tracked, write an item:
 
@@ -138,7 +148,7 @@ updated: YYYY-MM-DD
 # <one-line: which brief, which handle, what's broken>
 
 ## Finding
-- **Status**: <unresolved-handle | colliding-handle | mismatched-source-handle | unreachable-source | missing-provenance | thin-attestation>
+- **Status**: <the lint's `status`, or `thin-attestation`>
 - **Severity**: <high | medium | low>
 - **Citation**: `[<handle>]{<N>}`
 - **Location**: `<file>:<line>`
@@ -147,6 +157,9 @@ updated: YYYY-MM-DD
 <plain-language explanation. Examples:
 - unresolved-handle: the brief cites [<handle>]{N} but no attestation exists at
   .research/attestation/<handle>.md — write the attestation, fix the handle, or drop the claim.
+- non-canonical-handle: the handle is not ASCII-lowercase (uppercase or homoglyph) — use the
+  canonical handle.
+- duplicate-frontmatter-key: the attestation repeats a frontmatter key (split-brain) — keep one.
 - colliding-handle: two attestation files declare source_handle: <handle> for different
   sources — rename one source's handle (and its citations) so each handle names one source.
 - mismatched-source-handle: the attestation's source_handle field ≠ its filename/cited handle.
@@ -156,8 +169,8 @@ updated: YYYY-MM-DD
 
 ## Required fix
 <the specific repair. The finding must clear at its severity before this item moves to done —
-for a high finding the chain must lint clean at `--exit-code-on high`; for a medium
-(unreachable-source) it must clear at `--exit-code-on medium`. Re-run the lint to confirm.>
+for a high finding the chain must lint clean at `--exit-code-on high`; for a medium one it must
+clear at `--exit-code-on medium`. Re-run the lint to confirm.>
 ```
 
 Use a short, stable slug derived from `(handle, status)` so re-runs match (`gate-citations-rfc6749-unresolved`).
@@ -172,12 +185,13 @@ git commit -m "gate-citations: <N> citation-chain findings for <version>"
 ## Output
 
 In conversation:
-- **Execution/evidence**: command outcome and retained JSON path; report errors explicitly
+- **Execution/evidence**: exit code, JSON validity and retained JSON path; report errors explicitly
 - **Advisory spot-checks**: counts by category, at most one representative file/line
   example per category, and the raw output location; no emitted items from patterns
 - **Corpus**: lint ran over `.research/` — `<N>` files, `<M>` citations resolved
-- **Broken chains**: count by status (unresolved / colliding / mismatched / unreachable / missing-provenance)
+- **Broken chains**: count by status, from `broken_chains`
 - **Thin attestations**: count
+- `Warn-only: campaign_unbound N, substrate_confidence_omitted N` (no items, no threshold)
 - **Items created**: count by severity, with new ids
 - **Goal reminder**: every `[handle]{N}` must resolve to a real attestation. high/medium items
   block release until they reach `stage: done`; low items live in the backlog. This gate is
