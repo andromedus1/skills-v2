@@ -1,7 +1,7 @@
 ---
 id: feature-qvc-minor-remedies
 kind: feature
-stage: review
+stage: done
 tags: [methodology-review, research-pipeline, cleanup]
 parent: null
 depends_on: [feature-qvc-review-receipts]
@@ -212,3 +212,45 @@ RP skill portability ok; AR skill metadata ok; resolver test ok; bump-version
 70/70; ARD conformance 57/57; gate lint command (`--exit-code-on medium`) on
 this repo exit 0 with valid JSON. Owed at review: a fresh-context doc-review
 dry run (the worker's was in-context).
+
+## Review (2026-10-19)
+
+**Verdict**: Approve with comments (after receiver adjudication; reviewer verdict
+was Request changes)
+
+**Blockers**: none remaining. Accepted and fixed in `3b1a9b6a`:
+- B1 — doc-review 2d silently skipped archived delivery claims (archive stubs are
+  bodyless) → recover bodies via `git show <git_ref>:…`; unrecoverable items are
+  listed as incomplete coverage, never clean.
+- B2 — Phase 5 permitted fixes outside the capped loop → Phase 5 now regenerates
+  and reports residual lint issues only (Medium frontmatter findings are never
+  auto-fixed by the loop either).
+**Important**: accepted and fixed in `3b1a9b6a`: explicit `--scope active` on the
+active-item query (verified working); research provenance classification keyed to
+the index's `kind: research` rather than legacy type names.
+**Nits**: none.
+**Rejected**: none.
+
+**Notes**: feature substrate review, standard weight, one independent pass, no
+re-review. Reviewer ran bump-version 70/70, RP portability and AR metadata (via
+python3 fallback; both missing-yaml paths exit 2 with hint), citation lint exit
+semantics on committed snapshot and a broken-chain fixture, knowledge lint 0/0;
+the uv path was blocked in its sandbox (network). Fresh-context doc-review dry run
+(owed from implementation) completed by the reviewer's sub-agent at `64bf8ae2`:
+13 system docs, 38 module docs, 5 modules; 2a Medium (`docs/designs/knowledge-graph-v2.md`
+holds implementation units), 2b Info (AR ownership pending roll-forward by
+`feature-ar-fork-citation-matcher`), 2c clean, 2d clean after manual archive
+recovery (now in the instructions), 2f stale generated index metadata, 2h
+knowledge-graph design baseline differs from the current skill, 2i provenance
+metadata gaps. Host fix verification: diff re-read, `git diff --check` clean,
+RP portability ok, `work-view --scope active --kind feature --paths` runs.
+
+**Receipt**
+- Reviewed: `1854e072..64bf8ae2` — product files of the four units; `.work/` excluded
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T155054Z-296054ff`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: default)
+- Findings: blockers 2, important 2, nits 0, rejected 0
+- Accepted-fix verification: `3b1a9b6a` verified by host (checks in Notes)
+
+**Post-review changes** (`64bf8ae2..<closure>`)
+- `3b1a9b6a` fix(doc-review): recover archived bodies; no post-loop fixes; scope active items (doc-review/SKILL.md) — fix-of:B1, B2, important-1, important-2 verified by host checks above
