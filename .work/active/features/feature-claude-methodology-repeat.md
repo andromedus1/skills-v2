@@ -694,3 +694,19 @@ variant diff, per-run outputs.
 - Ownership: the kernel is agentic-research (upstream ARD); the fork policy keeps
   the kernel unchanged. Any change is an upstream proposal or a documented
   fork patch — a new operator decision for the round-2 packet. Not authorized.
+
+## Operator decisions — follow-ups (Andrew, 2026-10-19)
+
+- **Matcher ownership:** "let's grab our own version — nathan hasn't been as
+  focused on this stuff anymore, so it's probably best we just own it
+  ourselves." The fork takes ownership of `agentic-research`, beginning with the
+  citation matcher (tier suppression + token-aware cited-line suppression,
+  variant B) shipped with positive/negative conformance fixtures; ownership
+  statements in `AGENTS.md` and `docs/project-navigation.md` roll forward.
+  Scoped as `feature-ar-fork-citation-matcher`. Interpretation (whole plugin vs
+  lint only) stated to Andrew for correction.
+- **Experiment artifacts:** not retained as an archive (Andrew: "we don't need
+  them"). Their durable value is carried as conformance fixtures in the matcher
+  feature; the summary above remains the record.
+- **Proceed:** design `feature-qvc-review-receipts` now and work toward this
+  branch's PR (push/PR still confirmed at the time).
