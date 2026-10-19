@@ -34,15 +34,15 @@
   "campaign_unbound": ["c1-f1-real", "c1-parent", "c1-f2-cross", "c9-f1-real"],
   "campaign_unbound_excluded": ["a-position", "c9-f1-totally-fabricated", "c9-position-fake"],
   "version_anchor": {
-    "_comment": "version-number anchor rule (CATALOGS §3 item 2), by fixture line. 'suppressed' lines must not fire version-number: the source-direct attestation tier, and cited lines whose resolved or reduced-substrate attestation contains the matched token. 'flagged' lines must fire: uncited; cited attestation lacks the token (incl. a prefix such as 3.1 vs 3.12, or a different 'version N'); a non-anchor citation status (intra-program, acquisition-candidate); one unanchored token among anchored ones.",
+    "_comment": "version-number anchor rule (CATALOGS §3 item 2), by fixture line. 'suppressed' lines must not fire version-number: the source-direct attestation tier, and cited lines whose resolved or reduced-substrate attestation contains the matched token. 'flagged' lines must fire: uncited; cited attestation lacks the token (incl. a prefix such as 3.1 vs 3.12, or a different 'version N'); a non-anchor citation status (intra-program, acquisition-candidate); one unanchored token among anchored ones. Dotted 'version N.M' is keyed on the whole dotted token: 'version 3.9' is not anchored by an attestation that only contains 'Version 3'.",
     "suppressed": {
       "attestation/version-anchor-src.md": [16, 17, 18, 22],
       "attestation/version-anchor-reduced-src.md": [12],
       "attestation/version-anchor-candidate-src.md": [13],
-      "briefs/version-anchor-brief.md": [13, 14, 15, 16, 17]
+      "briefs/version-anchor-brief.md": [13, 14, 15, 16, 17, 31]
     },
     "flagged": {
-      "briefs/version-anchor-brief.md": [21, 22, 23, 24, 25, 26, 27]
+      "briefs/version-anchor-brief.md": [21, 22, 23, 24, 25, 26, 27, 32]
     }
   }
 }

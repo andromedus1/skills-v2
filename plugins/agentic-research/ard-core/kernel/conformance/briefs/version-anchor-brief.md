@@ -25,3 +25,8 @@ The Orbit client moved to version 4. [version-anchor-src]{1}
 Lattice 4.0 is the recommended target. [a-position]{3}
 Kestrel 8.0 dropped Windows support. [version-anchor-candidate-src]{4}
 Orbit 5.2 and Lattice 2.4.0 were compared head to head. [version-anchor-reduced-src]{2} [version-anchor-src]{1}
+
+## Dotted "version N.M" — the whole dotted token is the anchor key
+
+Lattice version 2.3.0 remains a supported line. [version-anchor-src]{1}
+The Lattice wire protocol moved to version 3.9. [version-anchor-src]{1}
