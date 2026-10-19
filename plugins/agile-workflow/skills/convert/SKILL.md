@@ -1,20 +1,16 @@
 ---
 name: convert
 description: >
-  Bootstrap or sync the agile-workflow substrate. Auto-detects repo state:
-  bootstrap creates .work/, CONVENTIONS.md, the canonical AGENTS.md section,
-  Claude compatibility, work-view, and migrated items; sync refreshes
-  plugin-owned artifacts plus optional skill catalog mirrors while preserving
-  user-owned CONVENTIONS.md, refactor rules, and substrate state. `convert
-  --update` performs one-pass artifact alignment. Discovery-driven: sweeps both
-  skill roots to detect bespoke DIY skills that overlap plugin-owned concepts
-  (patterns, refactor conventions, plan-doc generators) and offers to converge
-  them to the canonical layout, deferring to the owning skill for placement.
-  Checks inbound references before moving any path and rewrites or shims them.
-  Always asks whether destructive cleanup is in scope before deleting, moving,
-  or replacing legacy artifacts; preserve-only is the default.
-user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
+  Bootstrap or sync the agile-workflow substrate. Auto-detects repo state: bootstrap creates .work/,
+  CONVENTIONS.md, the canonical AGENTS.md section, Claude compatibility, work-view, and migrated
+  items; sync refreshes plugin-owned artifacts plus optional skill catalog mirrors while preserving
+  user-owned CONVENTIONS.md, refactor rules, and substrate state. `convert --update` performs one-pass
+  artifact alignment. Discovery-driven: sweeps both skill roots to detect bespoke DIY skills that
+  overlap plugin-owned concepts (patterns, refactor conventions, plan-doc generators) and offers to
+  converge them to the canonical layout, deferring to the owning skill for placement. Checks inbound
+  references before moving any path and rewrites or shims them. Always asks whether destructive
+  cleanup is in scope before deleting, moving, or replacing legacy artifacts; preserve-only is the
+  default.
 ---
 
 # Convert
@@ -49,11 +45,14 @@ Convert distinguishes **alignment** from **cleanup**:
   generated plan files. Cleanup is opt-in and path-specific.
 
 **Convert places content; the owning skill defines where it lives.** For any
-plugin-owned concept, defer to its owner's canonical location instead of
-carrying a divergent rule: reusable patterns → `gate-patterns` Phase 1
-(`.agents/skills/patterns/`); refactor conventions →
-`refactor-conventions-creator` Phase 1/5 (AGENTS style section +
-`.agents/skills/refactor-conventions/`). See the single-owner deferral table in
+plugin-owned concept, defer to its owner's canonical *location and format*
+instead of carrying a divergent rule: reusable patterns live in
+`.agents/skills/patterns/` in the `gate-patterns` file/index format; refactor
+conventions → `refactor-conventions-creator` Phase 1/5 (AGENTS style section +
+`.agents/skills/refactor-conventions/`). One nuance for patterns: convert
+*imports* existing legacy patterns there **verbatim and losslessly** (Phase 7),
+whereas `gate-patterns` *discovers* new ones with its 3+-occurrence filter — same
+location and format, different entry path. See the single-owner deferral table in
 the reference.
 
 ## Arguments
@@ -88,7 +87,7 @@ Compute substrate health by checking these markers:
 | `conventions` | `.work/CONVENTIONS.md` exists |
 | `managed_section` | Some root instruction file (`AGENTS.md` or `CLAUDE.md`) contains `<!-- agile-workflow:start -->`. Whichever holds it is the detected canonical instruction file for this repo — direction-agnostic, since `entrypoint_model` isn't decided until Phase 1.8 |
 | `entrypoint_compat` | The *other* root entrypoint (the one without the managed section) is a symlink/shim to the canonical instruction file, OR itself contains the section for legacy installs |
-| `work_view` | `.work/bin/work-view` exists and is executable |
+| `work_view` | `.work/bin/work-view` exists, is executable, and reports the current plugin version via `--version` |
 
 Route on the result:
 
@@ -212,14 +211,128 @@ exists).**
 Record as `cleanup_scope: preserve-only | generated-only | legacy-cleanup`
 (`legacy-cleanup` includes generated cleanup).
 
-**Reference integrity is mandatory regardless of `cleanup_scope`.** Before any
-`git mv` / `git rm` / replace-with-symlink / replace-with-shim, follow the
+**Content integrity is mandatory regardless of `cleanup_scope` — and runs
+BEFORE reference integrity.** This is the central data-loss gate. It is
+*distinct* from reference integrity: reference integrity preserves *pointers*
+(no inbound link dangles); content integrity preserves *content* (no block of a
+legacy artifact disappears without a verified home). A pointer can be cleanly
+repointed while the content it pointed at is silently dropped — content
+integrity closes that hole.
+
+> **Content-integrity gate (before any destructive op).** A *destructive op* is
+> any of: `git rm` / delete, `git mv` / move, replace-with-symlink,
+> replace-with-shim, copy-over (overwriting a file's bytes), managed-section
+> overwrite (rewriting content between `<!-- ...:start/end -->` markers), or
+> mirror replacement (overwriting/symlinking a `.claude` mirror). Before
+> performing a destructive op on a legacy artifact, build the **block-level
+> preservation manifest** (below), then apply the rule for the op's kind:
+> - **Source-eliminating ops** (delete, move, replace-with-shim,
+>   replace-with-symlink — anything that removes the legacy file as a place its
+>   content lives): permitted ONLY when **every** user block is `landed_existing`
+>   or `landed_this_run`. A block still `preserved_in_place` means the source file
+>   is its ONLY home, so the op **does NOT run** — leave the artifact exactly where
+>   it is. `ambiguous` likewise blocks.
+> - **Regenerable-copy ops** (managed-section overwrite of plugin markers, or
+>   `.claude` mirror replacement where the `.agents` canonical is the home):
+>   permitted only after the manifest confirms the canonical home already holds the
+>   content — never overwrite the copy while the home is unverified.
+>
+> The gate is a hard precondition, not advice. `preserved_in_place` satisfies the
+> *content-safety* check (the content still exists, in the source) but NEVER
+> licenses removing that source. A manifest with any unaccounted-for block runs no
+> destructive op; the artifact is reported as preserved-pending-review.
+
+**Content inside plugin-managed markers is NEVER counted as preserved
+user-content.** Blocks between `<!-- agile-workflow:start/end -->` or
+`<!-- agile-workflow:rules:start/end -->` are plugin-owned and regenerated from
+the template; they neither need preservation nor satisfy the gate for any
+*user* block. Only user/legacy content blocks are subjects of the manifest.
+
+#### Block-level preservation manifest
+
+Before touching any legacy or split-destination artifact (notably a
+`.claude/rules/*.md` that mixes structural patterns and prose), parse it into
+**Markdown-aware blocks** and classify, route, and verify each:
+
+1. **Block boundaries** (so a block is never split mid-thought):
+   - YAML frontmatter, if present, is one block.
+   - Each Markdown heading starts a new block; a heading section runs to the
+     next heading of the same or higher level.
+   - Fenced code blocks, tables, and lists are **atomic** — never split one
+     across blocks; keep an introductory sentence with the fence/table/list it
+     introduces.
+   - HTML marker regions (`<!-- x:start -->` … `<!-- x:end -->`) are atomic.
+   - If the file has no headings at all, group by blank-line-separated
+     paragraphs, again keeping an intro line attached to a fence it introduces.
+2. **Classify** each block as exactly one of:
+   - `structural-pattern` — a reusable code shape with concrete examples
+     (routes to `.agents/skills/patterns/`, see Phase 7's verbatim importer).
+   - `rule-prose` — project style or agent-rule prose (routes to
+     `.agents/rules/<name>.md`, e.g. `project.md`).
+   - `ambiguous` — cannot be confidently classified, or has no trustworthy
+     destination (preserve in place; never destroy).
+3. **Route** per classification (patterns → `.agents/skills/patterns/`;
+   rule-prose → `.agents/rules/<name>.md`; ambiguous → leave in source).
+4. **Record a terminal state** per block, idempotently — re-running convert
+   must never duplicate a block already landed:
+   - `landed_existing` — the block's content is already present at its
+     canonical destination (a prior run, or the user, put it there). No write.
+   - `landed_this_run` — convert wrote it to the destination this run.
+   - `preserved_in_place` — intentionally kept in the source file (ambiguous
+     blocks, or blocks the user chose not to migrate). This block is content-safe
+     (it still exists in the source) but pins the source in place: it makes the
+     source NOT a candidate for any source-eliminating op (delete / move / shim /
+     symlink), which require **every** block `landed_*`.
+   - `ambiguous` — not yet resolved; blocks the destructive op until it becomes
+     `preserved_in_place` or lands.
+5. **Provenance verification (content-equality, not weak anchors).** A digest
+   comment plus a matching heading does NOT prove the block's body landed — a
+   destination could carry the marker and the slug while dropping the rationale,
+   examples, or prose. Verification must prove the *content* is present while
+   still tolerating pure *layout* reformatting. Per source block:
+   - Compute `sha256` of the **normalized** source block (trim trailing
+     whitespace per line, collapse runs of blank lines to one, strip the trailing
+     newline). Write it into the destination region that holds the block as a
+     trailing marker, e.g. `<!-- agile-workflow:provenance src-sha256=<digest> -->`.
+     Locate that region by the block's semantic anchors (pattern name / slug, or
+     heading text + fenced payload).
+   - **Verify by recomputing**: normalize the destination region the same way
+     (excluding the provenance marker) and confirm its `sha256` **equals** the
+     recorded `src-sha256`. Presence of the marker or an anchor alone is never
+     sufficient — the recomputed destination hash must match.
+   - If the hashes cannot be made equal (the destination genuinely reworded the
+     content rather than just re-laying-it-out), or no trustworthy region can be
+     located, the block does **not** count as landed — mark it `preserved_in_place`
+     and keep the source. The convert-owned importer (Phase 7) writes blocks
+     **verbatim**, so its imports hash-match and become `landed_this_run`; only a
+     pre-existing hand-edited destination risks a mismatch, and there the safe
+     answer is to keep the source. Keeping a duplicate is always preferable to a
+     deletion you cannot prove safe.
+
+**Reference integrity is mandatory regardless of `cleanup_scope`, and runs
+AFTER content integrity passes.** Before any `git mv` / `git rm` /
+replace-with-symlink / replace-with-shim, follow the
 reference-integrity-on-move procedure in the reference: grep the repo for
 inbound references (especially `.work/` items and `docs/`), then rewrite them or
 leave a redirect shim, and report which. Never strand a live pointer. Every
 destructive action still needs an exact path list in the plan; prefer `git mv`
 to a clearly named legacy location for retention, `git rm` only for paths the
 user explicitly chose to delete, and never broad globs.
+
+#### Manifest edge cases
+
+- **Empty file** — manifest state `empty`. Still run reference integrity and
+  confirm (no inbound references would dangle), but there is no content to
+  migrate; a shim/removal is safe once references are handled.
+- **Already-shimmed file** — if the file is already a redirect shim/symlink to
+  the canonical destination, verify the target exists and is non-dangling, then
+  leave it; do NOT treat the shim's own pointer text as content to migrate.
+- **Symlink loop / dangling symlink** — classify `unsafe` and leave it in
+  place; never follow into a loop or migrate a dangling target. Report it.
+- **Partial prior migration** — some blocks already landed (a previous
+  interrupted run): the manifest is idempotent, so already-present blocks are
+  `landed_existing` and are not rewritten or duplicated; only unaccounted blocks
+  are routed this run.
 
 ### Phase 2: Detect project shape
 
@@ -246,8 +359,11 @@ directories. Detect all of these before writing:
 **The "canonical instruction file" is set by `entrypoint_model` (Phase 1.8).**
 Everywhere this skill says "the selected AGENTS target," read it as "the
 canonical instruction file" resolved here. The managed agile-workflow section,
-the conventions, and all imported content go into the canonical instruction
-file; the *other* entrypoint becomes a pointer to it (Phase 7).
+the conventions, and imported content go into the canonical instruction file —
+**except** legacy rule-prose blocks, which route to `.agents/rules/<name>.md`
+(e.g. `project.md`) per the Phase 1.8 content-integrity routing, never into the
+canonical instruction file. The *other* entrypoint becomes a pointer to it
+(Phase 7).
 
 - **`entrypoint_model: agents-canonical`** (default) — the canonical instruction
   file is an AGENTS target, chosen by this precedence:
@@ -271,28 +387,34 @@ configured that fallback.
 
 Legacy `.claude/rules/*.md` files (e.g. `patterns.md`) are not separate
 canonical rules targets, and `patterns.md` in particular is **not** a
-single-destination file. When any such file exists, classify its *content* and
-route each part to its canonical owner (per the DIY→canonical mapping in the
-reference):
+single-destination file. When any such file exists, build the **Phase 1.8
+block-level preservation manifest** for it and route each block to its canonical
+owner (per the DIY→canonical mapping in the reference):
 
-- **Structural-pattern definitions** (recurring code shapes with examples) →
-  `.agents/skills/patterns/`, deferring to `gate-patterns` Phase 1 for layout.
-  Do not paste these into AGENTS.
-- **Project style / agent-rule prose** → the selected AGENTS target.
+- **Structural-pattern blocks** (recurring code shapes with examples) →
+  `.agents/skills/patterns/`, via convert's **verbatim legacy-pattern importer**
+  (Phase 7) — every legacy pattern lands losslessly, with NO 3+-occurrence
+  discovery filter. `gate-patterns` Phase 4-5 defines the file/index *format*;
+  convert does the importing. Do not paste these into AGENTS.
+- **Rule-prose blocks** (project style / agent-rule prose) →
+  `.agents/rules/<name>.md` (e.g. `project.md`), the user-owned rules file the
+  hook force-loads — NOT the AGENTS canonical file and NOT inside the plugin
+  `agile-workflow:rules` markers.
+- **Ambiguous blocks** → preserve in place; never destroy.
 
 Never dump a whole rules file into AGENTS under a generic heading — that
-contradicts the canonical layout convert advertises in Phase 6. Non-pattern
-`.claude/rules/*.md` files are project style/agent rules: route their prose to
-the canonical instruction file. Preserve only non-duplicate content. Replace any
-`.claude/rules/*.md` with a short shim only when `cleanup_scope` allows generated
-cleanup or the user confirms that exact path, and only after the
-reference-integrity check (Phase 1.8) clears the move; otherwise leave it in
-place and report it as legacy content that was imported. Do not create
-`.claude/rules/*.md` files that don't already exist.
+contradicts the canonical layout convert advertises in Phase 6, and rule prose's
+canonical home is now `.agents/rules/<name>.md`. Preserve only non-duplicate
+content (idempotent per the manifest). Replace any `.claude/rules/*.md` with a
+short shim only when `cleanup_scope` allows generated cleanup or the user
+confirms that exact path, and only after the **content-integrity gate** passes
+(every block terminal) AND the reference-integrity check (both Phase 1.8) clears
+the move; otherwise leave it in place and report it as legacy content that was
+imported. Do not create `.claude/rules/*.md` files that don't already exist.
 
 ### Phase 3: Conventions interview
 
-Run an interactive interview via AskUserQuestion. Five questions, in order:
+Run an interactive interview via structured question tool. Six questions, in order:
 
 1. **Release mapping** — `branch-held | tag-based | release-branch | none`. Default
    offered: `tag-based`. Always asked.
@@ -302,12 +424,31 @@ Run an interactive interview via AskUserQuestion. Five questions, in order:
 3. **Slug conventions** — defaults to kebab-case with parent-prefix for children.
 4. **Stage overrides** — none by default. Discouraged.
 5. **Gate config** — defaults to
-   `gates_for_release: [security, tests, cruft, docs, patterns, infra]`. User can
-   reorder or omit.
-6. **Design-skill routing** — if the `research-pipeline` plugin is installed, set
-   `design_skill_routing: { epic_design: research-pipeline:epic-design, feature_design: research-pipeline:feature-design }`
-   so autopilot dispatches the research-grounded (`[needs-brief]`-gated) design
-   skills. Otherwise omit it (autopilot uses the base `epic-design`/`feature-design`).
+   `gates_for_release: [security, tests, cruft, docs, patterns]` plus the
+   default `gate_finding_routing` map (`critical/high -> implementing`,
+   `medium -> drafting`, `low -> backlog`, `info -> skip`). User can reorder
+   or omit gates and can override finding routing for the project. `gate-refactor`
+   is an **opt-in gate** (not in the default list) — add it when the project has
+   scan-rule libraries under `gate_refactor_scan_library_roots` (default:
+   `.agents/skills`, `.claude/skills`). `binding_guard` sets the Phase 3.5
+   binding-consistency check behavior: `warn` (default — surfaces findings without
+   halting), `halt` (for projects that hold the no-cross-version-drift invariant), or
+   `off` (skip). `epic_cohesion` sets how an unbound child of a bound parent is
+   scored: `phased` (default — informational, an epic may ship across releases) or
+   `total` (treated as a mismatch, "epics ship whole").
+6. **Terminal-tier retention** — `delete-refs | retain-bodies`. This is the ONE merged terminal
+   convention (archival + `archived_atop` late-binding + one-summary release), not just byte
+   retention. Default offered: `delete-refs` — archiving a done item leaves a **bodyless stub**
+   carrying `archived_atop` (the immutable release baseline it was done atop, kept as provenance) +
+   `git_ref`; a release **late-binds all unbound archived stubs** (re-gated during the release —
+   gates recover changed files by item id and hydrate pruned bodies from `git_ref`)
+   and **collapses** all bound items into one `.work/releases/<version>/release-<version>.md` summary (id,
+   title, kind, `archived_atop`, git ref); full bodies live in git history, so terminal prose cannot
+   leak to future agents. Offer `retain-bodies` only for projects that deliberately keep full terminal
+   bodies on disk (same `archived_atop`/late-binding semantics, bodies just not pruned).
+
+Review weight is deliberately not another interview question. Bootstrap writes the balanced default
+in Phase 5; callers can change the project convention later or override it per invocation.
 
 ### Phase 4: Create substrate skeleton
 
@@ -316,11 +457,12 @@ mkdir -p .work/active/epics .work/active/features .work/active/stories
 mkdir -p .work/backlog .work/releases .work/archive .work/bin
 ```
 
-Copy `work-view` from the plugin to the project:
+Install `work-view` from the plugin to the project. On supported platforms this
+installs the version-verified prebuilt Rust binary, including `work-view board`;
+only unsupported platforms receive the version-stamped Bash fallback:
 
 ```bash
-cp "${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT:-.}}/scripts/work-view.sh" .work/bin/work-view
-chmod +x .work/bin/work-view
+bash "${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/install-work-view.sh"
 ```
 
 (If neither `PLUGIN_ROOT` nor `CLAUDE_PLUGIN_ROOT` is exposed in the agent's shell
@@ -328,7 +470,23 @@ environment, locate the plugin source via the active skill/plugin path or manife
 
 ### Phase 5: Write CONVENTIONS.md
 
-Write `.work/CONVENTIONS.md` from the interview answers, following the format in SPEC.md.
+Write `.work/CONVENTIONS.md` from the interview answers, following the format in SPEC.md. Also add
+this non-interactive project default:
+
+```markdown
+## Review weight
+review_weight: standard
+```
+
+Allowed values are `none | light | standard | thorough | maximum`. The setting is optional: when it
+is absent, review and autopilot resolve it to `standard`. Keep the level semantics and selection
+policy in `principles/SKILL.md` Part IV and `review/SKILL.md`; do not duplicate their review matrix or
+model guidance here.
+
+The `## Terminal-tier retention` section is **value-only** — write the bare
+`delete-refs`/`retain-bodies` value the user chose, not the merged prose (the prose lives in SPEC.md,
+never duplicated per project). This bare-value form is exactly what a later sync classifies as
+`match`, so a freshly bootstrapped repo never self-reports terminal-retention drift.
 
 ### Phase 6: Write the canonical AGENTS.md section
 
@@ -348,18 +506,31 @@ Layout: `.work/active/{epics,features,stories}/`, `.work/backlog/`,
 **Primary query tool:** `.work/bin/work-view` filters by stage, tag, kind,
 parent, and dependency. Common patterns:
 - `work-view --ready` — items ready to work (deps satisfied)
-- `work-view --stage review` — items waiting on user
+- `work-view --stage review` — items awaiting an agent review pass (`/agile-workflow:review`)
 - `work-view --parent <id>` / `--blocking <id>` — hierarchy / sequencing
+- `work-view --scope all` — include terminal tiers: `releases/` (one summary doc per version) and
+  `archive/` (bodyless ref stubs). Full bodies live in git history. By default work-view shows only
+  active + backlog; `--release` / `--gate` auto-widen to all tiers.
 - `work-view --help` for the full flag set
 
-Foundation docs in `docs/` describe the system NOW — never add legacy notes;
-git history is the audit trail. Item files are the durable state: update the
-body with implementation discoveries, review findings, blockers, and decisions
-instead of relying on chat history.
+Foundation docs in `docs/` describe the system's current state or intended
+future state, never the past; git history is the audit trail. Review existing
+assertions only: missing coverage and unimplemented future intent are not drift;
+flag only false, stale, or contradictory claims. Item files are
+the durable state: update the body with implementation discoveries, review
+findings, blockers, and decisions instead of relying on chat history.
 
-Project-level agent rules live in this file (the canonical agent instruction
-file). Do not create or maintain `.claude/rules/*.md` as a source of truth;
-reusable structural patterns belong in `.agents/skills/patterns/`.
+Reusable code patterns live in `.agents/skills/patterns/` (load the `patterns`
+skill for detail). Project agent rules live in `.agents/rules/*.md`
+(plugin-managed rules in `.agents/rules/agile-workflow.md`); do not maintain
+`.claude/rules/*.md` as a source of truth.
+
+**Before designing, implementing, or reviewing, read `.agents/rules/*.md`** —
+the project's force-loaded agent rules (tag semantics, test integrity, review
+policy). The agile-workflow hook auto-loads these at session start and after
+compaction; read them directly when working without the hook. Do not rely on
+UserPromptSubmit for rules or queue snapshots; query `work-view` when queue
+state is needed.
 
 Project-specific refactor style conventions belong in this file under
 `## Refactor Style Conventions`. Detailed refactor convention references belong
@@ -367,64 +538,210 @@ in `.agents/skills/refactor-conventions/` and extend `refactor-design`'s
 defaults; they do not replace the built-in scan and they do not create
 standalone plan docs.
 
-### Tag semantics
-
-The `tags` field on items routes them to the right design skill. One tag has
-load-bearing semantics — get this one right:
-
-- **`[refactor]`** — behavior-preserving structural change ONLY. Apply the
-  black-box test: would any observable behavior change for a caller of the
-  public surface? If yes, this is NOT a refactor — drop the tag and let the
-  item route through `feature-design`.
-  - Counts as refactor: extract a helper to dedupe, split a god file, rename
-    for clarity, remove dead code, inline a one-call abstraction.
-  - Does NOT count as refactor (even if it feels "structural"): change an API
-    signature, swap a storage backend with different consistency guarantees,
-    replace a silent failure with an explicit error, split a function in a
-    way that changes call-site contracts, "major rework of X."
-- **`[perf]`** — performance work. Routes to `perf-design`.
-
-All other tags are project-specific (see `.work/CONVENTIONS.md`) and do not
-affect skill routing.
-
-### Test integrity
-
-When running, writing, or modifying tests:
-
-- **File real production bugs as backlog items.** When a test failure
-  surfaces an actual product bug (not a stale fixture, drifted assertion,
-  or broken mock), park it via `/agile-workflow:park` instead of silently
-  fixing it inline mid-test-pass. The backlog item is the audit trail.
-- **Fix bad tests in-session.** Stale fixtures, drifted assertions, broken
-  mocks, and outdated snapshots are test debt, not product bugs. Repair
-  them as you go so the suite stays meaningful.
-- **Then drain small backlog bugs with a full pass.** Once tests are
-  green again, if a parked production bug is small enough for a single
-  stride, pick it up immediately as `/agile-workflow:scope` → design →
-  implement. Larger bugs stay in backlog for prioritization.
-- **NEVER game a test to make it pass.** A failing test that documents
-  *why* it fails — an inline comment naming the bug, a `skip` linked to a
-  backlog id, an `xfail` with a reason — is more honest than a green test
-  that lies. No `expect(true).toBe(true)`, no asserting on whatever the
-  code happens to return, no deleting a test as "flaky" without
-  root-causing first.
-
-Cross-model advisory review: explicit user/project review instructions
-override agile-workflow defaults. When peeragent is available with a different
-model class, large/risky autopilot design decisions may use one advisory pass;
-small/low-risk work skips it. Autopilot also runs a final peer-review loop
-before reporting completion and fixes or files accepted findings first.
-Same-model peers fall back to local sub-agents instead.
-
-Broad entry points:
-`/agile-workflow:ideate`, `/agile-workflow:epicize`,
-autopilot goals such as "Use agile-workflow autopilot to drain --all",
-and `/agile-workflow:release-deploy`.
 <!-- agile-workflow:end -->
 ```
 
 Preserve all content outside the markers. If the selected AGENTS target does
-not exist, create it with this section as the whole body.
+not exist, create it with this section as the whole body. The dense behavioral
+rules (tag semantics, test integrity, advisory review, entry points) no longer
+live here — Phase 6.5 writes them to `.agents/rules/agile-workflow.md`, and the
+slim section above points agents at `.agents/rules/*.md`.
+
+**Research-substrate fields are conditional on the `agentic-research` plugin.**
+The frontmatter field list above is agile-workflow's own. Only when the
+`agentic-research` plugin is installed in the target project — its
+`research-orchestrator` / `research-handoff` skills are available, or a
+`.research/` tier already exists — extend the field list to
+`(`kind, stage, tags, parent, depends_on, release_binding, research_refs, research_origin`)`
+and add a one-line pointer to the `.work/` ↔ `.research/` handoff
+(`plugins/agentic-research/docs/HANDOFF.md`). Without that plugin, omit
+`research_refs` / `research_origin` and do not scaffold `.research/` or any
+research docs — they are an optional agentic-research extension. (`work-view`
+parses both fields harmlessly when unset, so an existing `.work/` substrate is
+never broken by their absence; convert simply does not advertise them.)
+
+**The `[research]` routing tag + `research_dials:` block are also conditional on
+`agentic-research`.** When that plugin is present (same detection as above), two
+more things land — both **omitted** when it is absent (agile-workflow's core stays
+agentic-research-agnostic):
+
+1. **Schema** — also advertise the `research_dials:` block in the field list note: a
+   `[research]` item carries the **commissioning subset** of its engagement
+   registration in a `research_dials:` nested frontmatter block (the four scoping
+   fields: `scope_authority`, `verification_rigor`, `intent`, `output_kind`) read by
+   the orchestrator at dispatch, which settles the remaining registration fields then.
+   (`work-view` parses only its own known fields and ignores the block harmlessly; it
+   is orchestrator-read, not a `work-view` filter dimension.)
+2. **Tag semantics** — append a `[research]` entry to the Phase 6.5 `### Tag
+   semantics` section (and pluralize its intro to "A few tags carry load-bearing
+   routing semantics — get these right:"), using this block:
+
+   ```markdown
+   - **`[research]`** — a grounded research engagement: an *input* that grounds
+     other work (a decision, a design, an adoption call), not a shippable
+     deliverable. Routes **cross-plugin** to `agentic-research:research-orchestrator`,
+     not a design-family skill. The work item carries the **commissioning subset** of
+     the engagement registration in a `research_dials:` block (the four scoping fields:
+     scope_authority, verification_rigor, intent, output_kind) — **scoping the item IS
+     the dispatch act**; the orchestrator reads those dials at kickoff and settles the
+     rest at dispatch. A `[research]` item **does not bind to a release** (it is
+     an input, not a bundle member) and its verification **gates run inline** in the
+     orchestrator (it never reaches `release-deploy`). Routes through `feature-design`
+     only as the inert-tag fallback.
+   ```
+
+   Without `agentic-research`, leave the Phase 6.5 template at `[refactor]` + `[perf]`.
+
+### Phase 6.5: Write `.agents/rules/agile-workflow.md` (rules-first, then slim)
+
+The dense agile-workflow behavioral rules live in a plugin-managed
+`.agents/rules/agile-workflow.md`, force-loaded into agent context by the
+agile-workflow SessionStart/PostCompact hook path (and read directly by the
+design/implement/review skills' grounding). **Write and verify this file BEFORE
+writing the slim AGENTS section
+(Phase 6).** The slim section overwrites the managed AGENTS block, so the rules
+must already exist at their new home or the dense content is lost.
+
+1. `mkdir -p .agents/rules` and write `.agents/rules/agile-workflow.md`. Refresh
+   only the content between the markers on sync; preserve anything outside them
+   and every other `.agents/rules/*.md` (user-owned rules):
+
+   ```markdown
+   <!-- agile-workflow:rules:start -->
+   ## Agile-Workflow Rules
+
+   ### Tag semantics
+
+   The `tags` field on items routes them to the right design skill. One tag has
+   load-bearing semantics — get this one right:
+
+   - **`[refactor]`** — behavior-preserving structural change ONLY. Apply the
+     black-box test: would any observable behavior change for a caller of the
+     public surface? If yes, this is NOT a refactor — drop the tag and let the
+     item route through `feature-design`.
+     - Counts as refactor: extract a helper to dedupe, split a god file, rename
+       for clarity, remove dead code, inline a one-call abstraction.
+     - Does NOT count as refactor (even if it feels "structural"): change an API
+       signature, swap a storage backend with different consistency guarantees,
+       replace a silent failure with an explicit error, split a function in a
+       way that changes call-site contracts, "major rework of X."
+   - **`[perf]`** — performance work. Routes to `perf-design`.
+
+   All other tags are project-specific (see `.work/CONVENTIONS.md`) and do not
+   affect skill routing.
+
+   ### Engineering posture
+
+   Prefer short, clear code and context-appropriate rigor over speculative
+   generality. Not every project needs exhaustive invariants, edge handling,
+   firm determinism, or universal coverage. Test important interfaces, complex
+   units, and regressions learned from bugs—not every line. When touching an
+   area, eliminate unnecessary code, tests, checks, abstractions, and
+   compatibility paths; leave it simpler. Ask before removing meaningful
+   behavior, guarantees, validation, compatibility, or safety.
+
+   Compatibility is earned, not assumed. Absent a project declaration of
+   external consumers, only two things create compatibility obligations:
+   dependencies outside the repository that are not owned by the author, and
+   substantial real data that must be preserved or transformed. Agent tooling,
+   MCP servers, internal services, and unpublished libraries have no external
+   consumers by default—never version project-owned schemas (v1/v2/v3) or
+   keep compat shims for surfaces the project owns; change them in place.
+   Real-data migrations are planned by the agent but approved and executed by
+   the user for production data; do not run production transforms
+   autonomously.
+
+   Release-bound items define a gate's focus, not a hard scan boundary. Gates
+   may follow concrete evidence into adjacent dependencies, shared
+   infrastructure, or system-wide mechanisms. Bind release-relevant findings;
+   route merely ambient discoveries to the unbound backlog so a scan does not
+   silently expand a release.
+
+   ### Test integrity
+
+   When running, writing, or modifying tests:
+
+   - **File real production bugs as backlog items.** When a test failure
+     surfaces an actual product bug (not a stale fixture, drifted assertion,
+     or broken mock), park it via `/agile-workflow:park` instead of silently
+     fixing it inline mid-test-pass. The backlog item is the audit trail.
+   - **Fix bad tests in-session.** Stale fixtures, drifted assertions, broken
+     mocks, and outdated snapshots are test debt, not product bugs. Repair
+     them as you go so the suite stays meaningful.
+   - **Then drain small backlog bugs with a full pass.** Once tests are
+     green again, if a parked production bug is small enough for a single
+     stride, pick it up immediately as `/agile-workflow:scope` → design →
+     implement. Larger bugs stay in backlog for prioritization.
+   - **Tests must earn their upkeep.** Prefer tests at stable interfaces,
+     regression tests for real bugs, and unit tests for genuinely complex
+     units. Do not add tests merely to cover every line or surface; remove
+     duplicate, tautological, implementation-bound, or obsolete tests when
+     they add less confidence than maintenance cost.
+   - **NEVER game a test to make it pass.** A failing test that documents
+     *why* it fails — an inline comment naming the bug, a `skip` linked to a
+     backlog id, an `xfail` with a reason — is more honest than a green test
+     that lies. No `expect(true).toBe(true)`, no asserting on whatever the
+     code happens to return, no deleting a test as "flaky" without
+     root-causing first.
+
+   Implementation orchestration defaults to one worker per feature. Bundle
+   related features into one sequential worker when shared context reduces
+   handoffs; split an unusually large feature only by coherent write ownership.
+   Child stories are design and acceptance checkpoints, not default worker units.
+
+   Review is non-blocking for dependency-ordered implementation: an item at
+   `review` satisfies downstream implementation dependencies while its review
+   runs. Child stories advance directly to `done` after green verification and
+   never receive review. Standalone stories receive bounded inline review but
+   never an independent, fresh-context, or cross-model reviewer. Features are the
+   normal implementation-review boundary; epics receive their own deeper
+   aggregate review after child features are done. Broader scope gets deeper
+   review because integration and capability gaps emerge there; child-story
+   review is avoided because it tends toward pedantry and over-engineering.
+   Independent feature and epic reviews may run in parallel and must not
+   serialize the next implementation wave. Review weight defaults to
+   `standard`: one independent pass, then receiver adjudication, fixes for
+   material blockers, verification, and `done` without re-review. Epic review
+   is broader than feature review, but it does not add passes to `standard`.
+   Only `thorough` and `maximum` use multi-pass review; they repeat until a pass
+   yields no receiver-confirmed material current-cycle blockers. Smaller
+   findings are parked unbound, kept as nits, or rejected by judgment and do not
+   keep the loop open.
+
+   Cross-model advisory review: explicit user/project review instructions
+   override agile-workflow defaults. When peeragent is available with a different
+   model class, large/risky feature, epic, or final-completion reviews may use it;
+   standalone stories never do. Reviewer findings are proposals: the receiving
+   orchestrator verifies them against repository context and actual risk. Only
+   credible material current-cycle risks block; park valid lower-priority
+   findings in the unbound backlog and continue. Same-model peers fall back to
+   local sub-agents instead. Claude Opus peeragent calls can take 10 to 30 minutes
+   on large reviews; no return after a few minutes is not evidence that the call
+   has hung.
+
+   Broad entry points:
+   `/agile-workflow:ideate`, `/agile-workflow:epicize`,
+   autopilot goals such as "Use agile-workflow autopilot to drain --all",
+   and `/agile-workflow:release-deploy`.
+   <!-- agile-workflow:rules:end -->
+   ```
+
+2. **Verify before slimming** (the content-integrity gate, Phase 1.8, applied to
+   this managed-section overwrite — content verification, NOT just a non-empty +
+   end-marker check): confirm `.agents/rules/agile-workflow.md` exists AND that the
+   dense rule content the slim removes from AGENTS actually landed there — each
+   section is present (`### Tag semantics`, `### Engineering posture`, `### Test integrity`, the
+   advisory-review paragraph, and Broad entry points), or recompute per the Phase
+   1.8 provenance check. Only when the content is verified present do you write or
+   refresh the slim AGENTS section (Phase 6), overwriting the managed AGENTS block.
+   If verification fails, halt without touching the AGENTS section — the project
+   keeps its current (full) section intact (no data loss).
+
+User-owned and legacy rule prose (e.g. non-pattern `.claude/rules/*` content)
+goes into a separate user-owned `.agents/rules/<name>.md` (e.g. `project.md`),
+never inside the plugin `agile-workflow:rules` markers. The SessionStart and
+host-supported PostCompact hook paths inject every `.agents/rules/*.md`, so both
+plugin and user rules reach the agent without prompt-time fallback output.
 
 ### Phase 7: Preserve Claude Code compatibility
 
@@ -437,8 +754,10 @@ and root `AGENTS.md` is its pointer (created in Phase 2.5). In this mode, do NOT
 migrate `CLAUDE.md` into AGENTS, do NOT replace `CLAUDE.md` with a symlink, and
 do NOT import its content elsewhere — the managed section and conventions were
 written into `CLAUDE.md` itself. Still normalize any *nested* Claude duplicates
-(`.claude/CLAUDE.md`, `.agents/CLAUDE.md`) to point at `CLAUDE.md`. Skip the
-rest of this phase's root-`CLAUDE.md` handling.
+(`.claude/CLAUDE.md`, `.agents/CLAUDE.md`) to point at `CLAUDE.md` —
+content-integrity gate first, so a nested duplicate carrying unique content not
+already in `CLAUDE.md` is preserved, not replaced. Skip the rest of this phase's
+root-`CLAUDE.md` handling.
 
 In the default `agents-canonical` mode, handle every detected Claude candidate
 (`CLAUDE.md`, `.claude/CLAUDE.md`, `.agents/CLAUDE.md`) as follows:
@@ -454,8 +773,9 @@ In the default `agents-canonical` mode, handle every detected Claude candidate
      unless the same content is already present.
    - After import, replace the Claude file with a symlink to the selected
      AGENTS target only when `cleanup_scope` allows generated cleanup or the
-     user confirms that exact path. Otherwise leave it in place and report the
-     duplicate entrypoint.
+     user confirms that exact path, **and only after the content-integrity gate
+     (Phase 1.8) confirms every imported block landed** (presence + provenance +
+     anchors). Otherwise leave it in place and report the duplicate entrypoint.
 3. If symlink creation is unavailable or unsafe in the environment, write this
    shim instead only when the same cleanup authorization exists. Otherwise leave
    the file in place and report it as a duplicate entrypoint:
@@ -475,33 +795,69 @@ what never happens is migrating its content out or replacing the file with a
 pointer.
 
 Handle every legacy `.claude/rules/*.md` file (not just `patterns.md`) as a
-legacy Claude rules file, not a compatibility entrypoint, and **route its
-content by type** (see Phase 2.5 and the DIY→canonical mapping in the
-reference) — do not dump it wholesale into AGENTS:
+legacy Claude rules file, not a compatibility entrypoint. Build the **Phase 1.8
+block-level preservation manifest** for it and route each block by classification
+(see Phase 2.5 and the DIY→canonical mapping in the reference) — do not dump it
+wholesale into AGENTS:
 
-1. If it exists as a regular file with content not already present at the
-   canonical destination:
-   - **Structural-pattern definitions** (chiefly in `patterns.md`) → write to
-     `.agents/skills/patterns/`, deferring to `gate-patterns` Phase 1 for layout
-     and index.
-   - **Project style / agent-rule prose** (the common case for other rules
-     files) → import into the canonical instruction file under a short
-     `## Imported Claude Pattern Rules` heading.
-2. Replace the rules file with the shim below only when `cleanup_scope` allows
-   generated cleanup or the user confirms that exact path, and only after the
-   reference-integrity check (Phase 1.8) has rewritten or shimmed any inbound
-   references to it:
+1. For each block of a regular-file rules file not already present at its
+   canonical destination (`landed_existing`):
+   - **Structural-pattern blocks** (chiefly in `patterns.md`) → import via the
+     **convert-owned verbatim legacy-pattern importer** below. State after this
+     step: `landed_this_run`.
+   - **Rule-prose blocks** (the common case for other rules files) → write to
+     `.agents/rules/<name>.md` (default `project.md`; NEVER `patterns.md`, which is
+     reserved for gate-patterns' generated digest, and NEVER `agile-workflow.md`,
+     which is plugin-managed) as user-owned rules the hook
+     force-loads — under a short `## Imported Claude Rules` heading, OUTSIDE the
+     plugin `agile-workflow:rules` markers. NOT the AGENTS canonical file.
+   - **Ambiguous blocks** → `preserved_in_place`; leave them in the source.
+
+   **Convert-owned verbatim legacy-pattern importer (NO discovery filter).**
+   `gate-patterns` is a *discovery* writer: its sub-agent only emits patterns
+   that recur 3+ times in the bundle, and it explicitly says legacy
+   `.claude/rules/patterns.md` is convert's job — so routing legacy patterns
+   "through gate-patterns Phase 1" would silently drop single-use and two-use
+   legacy patterns. Convert therefore owns the lossless *import* of existing
+   patterns, reusing only gate-patterns' file/index **format**:
+   - For each structural-pattern block, write
+     `.agents/skills/patterns/<slug>.md` verbatim in the gate-patterns
+     Phase 4 file format (the pattern body — name, rationale, examples, when to
+     use / not use, common violations — everything except the `Index entry`
+     line). Apply **no 3+-occurrence filter**: every legacy pattern is imported,
+     regardless of how many times it occurs.
+   - Append the source-block provenance comment
+     (`<!-- agile-workflow:provenance src-sha256=<digest> -->`) so the
+     content-integrity gate can verify the import landed.
+   - Update `.agents/skills/patterns/SKILL.md` (the index) per gate-patterns
+     Phase 5, merging the new entries with any existing ones; never duplicate an
+     entry already indexed.
+   - gate-patterns remains the discovery writer for NEW patterns found in
+     release bundles; convert owns lossless import of EXISTING legacy ones.
+2. **Content-integrity gate before any shim/removal.** Replacing the rules file
+   with the shim below is a source-eliminating op, so the content-integrity gate
+   (Phase 1.8) permits it only when **every** user block is `landed_*` (any
+   `preserved_in_place` or `ambiguous` block keeps the file in place, unshimmed),
+   AND `cleanup_scope` allows generated cleanup or the user confirms that exact
+   path, AND the reference-integrity check (Phase 1.8) has rewritten or shimmed any
+   inbound references. **`patterns.md` carve-out:** `patterns.md` is NEVER
+   treated as "generated cleanup" — its content is user/legacy data, so the
+   `generated-only` shortcut does NOT authorize shimming it. Shim `patterns.md`
+   only under explicit per-path user confirmation, AFTER the content-integrity
+   gate passes. If any block is `ambiguous`/`unsafe`, leave the whole file in
+   place and report it.
 
    ```markdown
    # Pattern Rules
 
-   Canonical project rules live in the canonical agent instruction file;
-   reusable code patterns live in `.agents/skills/patterns/`. Read those.
+   Reusable code patterns now live in `.agents/skills/patterns/` (load the
+   `patterns` skill for detail). Project agent rules live in
+   `.agents/rules/*.md`. Read those.
    ```
 
 3. If the file is already a symlink or shim that points to the canonical
-   instruction file, leave it
-   alone.
+   destinations, verify the target exists and is non-dangling, then leave it
+   alone (do not re-migrate the shim's pointer text as content).
 
 ### Phase 8: Per-shape migration
 
@@ -530,13 +886,46 @@ Heuristics for inferred default (use these to pre-fill the per-design ask):
 - In `docs/designs/`, code partially landed → `implementing`
 - In `docs/designs/`, no code yet → `drafting`
 
-Ask the user to confirm/edit the classification per design via AskUserQuestion
+Ask the user to confirm/edit the classification per design via structured question tool
 (group designs by inferred bucket if there are many, to keep the question count
 under 4-options-per-call). The body of each new feature item = the original
 design content.
 
 If the user picks any `done-shipped` items, also create
 `.work/releases/v0/release-v0.md` at `stage: released` to bind them.
+
+**Terminal retention applies to seeding.** When `terminal-tier retention: delete-refs` (the
+default), seed terminal buckets as refs, not full bodies: `done-archived` → a bodyless stub
+(frontmatter + `# Title` + `git_ref` + `archived_atop`, per the review skill's stub shape; compute
+`archived_atop` per the SPEC "`archived_atop` computation" — latest released tag at the item's
+archival, else `pre-release`); `done-shipped` → a row in the single `release-v0.md` summary table
+(id, title, kind, `archived_atop`, git ref), not a per-item file. Only `retain-bodies` keeps full
+bodies.
+
+**Sync existing substrates to delete-refs.** When converting/syncing a repo that already uses the
+substrate and `delete-refs` is selected, detect retained full-body terminal items — full bodies in
+`.work/archive/*.md` and `.work/releases/<version>/<id>.md` (anything beyond the
+`release-<version>.md` summary) — and **offer** (structured question tool; never force) to prune them to
+current practice. The prune ALSO stamps `archived_atop`:
+
+- archived bodies → bodyless stubs. Capture each `git_ref` from `git log -- <path>`. Stamp
+  `archived_atop` from history: the latest release that existed at the commit where the item reached
+  `done`/was archived (the newest release tag — or `.work/releases/<version>/` summary — reachable
+  from `git log -- <path>`'s last touching commit), else `pre-release`. Stamp once; if a stub already
+  carries `archived_atop`, preserve it.
+- released bodies → folded into their `release-<version>.md` summary table (with their `archived_atop`
+  column, `—` if unknowable from history), then `git rm`.
+
+Preserve-only stays the default per convert's posture.
+
+**Converge a bespoke "Done-item archival" convention.** A repo may already carry a hand-rolled
+`## Done-item archival` (or similarly named) section in `.work/CONVENTIONS.md` describing
+`archived_atop` late-binding. Detect it; do NOT duplicate it alongside the merged
+`Terminal-tier retention` convention. Offer (structured question tool; never force) to **converge** it: fold
+its semantics into the one merged `Terminal-tier retention` section and remove the bespoke section,
+preserving any project-specific rules it carried (custom in-body markers, date metadata, etc.) by
+routing them to a user-owned `.agents/rules/<name>.md` rather than dropping them. The
+content-integrity gate (Phase 1.8) applies before removing the bespoke section.
 
 For `docs/ROADMAP.md` phases:
 1. Each phase becomes an epic at `.work/active/epics/epic-phase-<n>-<slug>.md`.
@@ -545,7 +934,7 @@ For `docs/ROADMAP.md` phases:
    `.work/archive/epics/`. If any child is `implementing` or `review`, epic is
    at `stage: implementing`. Otherwise `stage: drafting`.
 3. Phase ordering becomes `depends_on` chains (phase 2 depends on phase 1, etc.).
-4. Confirm with the user via AskUserQuestion before committing.
+4. Confirm with the user via structured question tool before committing.
 
 For `docs/PROGRESS.md` deviation logs: fold notes into relevant items' bodies.
 
@@ -557,9 +946,11 @@ creation:
 
 1. List the exact legacy paths that are fully represented in `.work/`.
 2. Ask the user whether to keep, move, or delete them.
-3. Apply only the confirmed path actions. Prefer `git mv` when the user wants a
-   retained legacy copy; use `git rm` only for paths explicitly chosen for
-   deletion.
+3. Apply only the confirmed path actions, and only after the content-integrity
+   gate (Phase 1.8) confirms each path's content is preserved at its destination
+   (the seeded `.work/` items here) and the reference-integrity check clears the
+   move. Prefer `git mv` when the user wants a retained legacy copy; use
+   `git rm` only for paths explicitly chosen for deletion.
 
 #### Path B — ad-hoc
 
@@ -598,12 +989,12 @@ something to drain after bootstrap:
 1. **Cluster** the changed files. Start with path grouping plus `git diff
    --stat`; if the changed set is still small enough to inspect directly, read
    the relevant diffs yourself. For large or unclear sets, use a read-only
-   Explore sub-agent: "Categorize these <N> files into 1-5 coherent feature
+   exploratory sub-agent: "Categorize these <N> files into 1-5 coherent feature
    buckets by path, imports, and diff content. Report each as slug +
    one-paragraph description + file list." Pass `git status --porcelain` and
    `git diff --stat` as the sub-agent's context rather than dumping many full
    diffs into the prompt.
-2. **Confirm with the user** via AskUserQuestion (groups of 2-4 buckets if
+2. **Confirm with the user** via structured question tool (groups of 2-4 buckets if
    there are many). Allow merge / split / rename.
 3. **Scope each cluster** as `.work/active/features/feature-<slug>.md` with
    `kind: feature, stage: implementing`, body = brief + "Files in this
@@ -620,9 +1011,12 @@ canonical destination (DIY→canonical mapping in the reference), deferring to t
 owning skill for layout:
 
 - **Pattern-mirroring skills** (`extract-patterns`, bespoke `patterns`) →
-  fold their pattern definitions into `.agents/skills/patterns/` per
-  `gate-patterns` Phase 1; keep an optional `.claude/skills/patterns/` symlink
-  mirror.
+  import their pattern definitions into `.agents/skills/patterns/` via the
+  **convert-owned verbatim legacy-pattern importer** (Phase 7) — verbatim, in
+  the gate-patterns file/index format, with NO 3+-occurrence discovery filter.
+  Do NOT route them "through gate-patterns Phase 1" (its discovery filter would
+  drop legacy single-use patterns). Keep an optional `.claude/skills/patterns/`
+  symlink mirror.
 - **Refactor-mirroring skills** (`structural-refactor`, `stylistic-refactor`,
   bespoke `refactor-conventions`) → split into AGENTS
   `## Refactor Style Conventions` (style rules) and
@@ -632,11 +1026,15 @@ owning skill for layout:
 - **`plugin-mirror-divergent-copy` entries** → reconcile unique content into
   the `.agents` canonical, then re-establish the `.claude` mirror as a symlink.
 
-Removing or replacing the bespoke source path is a destructive action: apply the
-reference-integrity-on-move procedure first (grep for inbound references —
-especially `.work/` items and `docs/` — then rewrite or shim), and only remove
-the original when `cleanup_scope` allows it and the exact path is confirmed.
-Otherwise write the canonical copy and leave the bespoke source in place,
+Removing or replacing the bespoke source path is a destructive action governed
+by the **content-integrity gate (Phase 1.8)**: build the block-level manifest
+for the source, import its content, then **verify the import actually landed**
+(presence + provenance digest + semantic anchors per the block-level
+preservation manifest) BEFORE removing the source. Only after the gate passes, apply the reference-integrity-on-move
+procedure (grep for inbound references — especially `.work/` items and `docs/` —
+then rewrite or shim), and only then remove the original when `cleanup_scope`
+allows it and the exact path is confirmed. If verification fails or any block is
+ambiguous, write the canonical copy and leave the bespoke source in place,
 reporting the duplication. If a converged artifact backed a user-invocable
 command, note in `MIGRATION_REPORT.md` that the command is superseded.
 
@@ -655,7 +1053,7 @@ cleanup actions taken, conventions chosen, next steps.
 Single git commit:
 
 ```bash
-git add .work/ AGENTS.md .agents/AGENTS.md .claude/AGENTS.md CLAUDE.md .claude/CLAUDE.md .agents/CLAUDE.md MIGRATION_REPORT.md
+git add .work/ AGENTS.md .agents/AGENTS.md .claude/AGENTS.md CLAUDE.md .claude/CLAUDE.md .agents/CLAUDE.md .agents/rules/ MIGRATION_REPORT.md
 # If a legacy rules shim was created or updated:
 git add .claude/rules/
 # If Phase 8.6 converged bespoke overlaps into the canonical catalogs:
@@ -700,12 +1098,43 @@ path list), plus deeper checks:
 - For each plugin-shipped artifact that IS present, compare its content against
   the version in the current plugin source:
   - The selected AGENTS target section between `<!-- agile-workflow:start -->` /
-    `<!-- agile-workflow:end -->` vs the canonical template in Phase 6
-  - `.work/bin/work-view` vs `${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/work-view.sh`
+    `<!-- agile-workflow:end -->` vs the canonical (slim) template in Phase 6. If
+    the section still carries the OLD dense prose inline (`### Tag semantics`,
+    `### Test integrity`, the advisory-review paragraph), classify it
+    `drift_plugin` "needs extraction" — Phase S3 migrates that prose to
+    `.agents/rules/agile-workflow.md` (rules-first, then slim) without loss.
+  - `.agents/rules/agile-workflow.md` between `<!-- agile-workflow:rules:start -->`
+    / `<!-- agile-workflow:rules:end -->` vs the Phase 6.5 template — `missing`
+    (install), `match` (skip), or `drift_plugin` (refresh the marker block only,
+    preserving out-of-marker and other `.agents/rules/*.md`).
+  - `.work/bin/work-view` — check existence and executability first (the
+    `work_view` doctor marker). If `.work/bin/work-view` is absent or not
+    executable, classify as `missing` and re-run the installer. If it exists and
+    is executable, run `.work/bin/work-view --version` and compare its last token
+    to the plugin version from
+    `${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/.claude-plugin/plugin.json`. If
+    `--version` is unrecognized, empty, non-zero, or reports a different
+    version, classify as `drift_plugin` and re-run the installer (this catches
+    pre-versioning and stale plugin copies). If `--version` matches the plugin
+    version, classify as `match`. Compare `--version`, never bytes; the
+    source-stamped version is the freshness signal.
   - `CLAUDE.md` compatibility state (symlink/shim/legacy copy)
   - `.claude/rules/patterns.md` state (legacy content vs AGENTS shim)
   - `.work/CONVENTIONS.md` load-bearing tag entries (see below). The rest of
     CONVENTIONS is user-owned and untouched.
+  - `.work/CONVENTIONS.md` `review_weight` — preserve any existing value unchanged; review validates
+    the five-value boundary when it consumes the setting. Absence is also valid and resolves to
+    `standard`, so sync neither inserts the default into older projects nor asks a migration question.
+    The allowed values and canonical policy are in Phase 5.
+  - `.work/CONVENTIONS.md` **Terminal-tier retention** state (the merged convention — see
+    "Terminal-tier retention drift" below). The per-project CONVENTIONS template is **value-only** (a
+    `## Terminal-tier retention` heading + a bare `delete-refs`/`retain-bodies` value); the merged
+    prose lives in SPEC.md, never duplicated per project. Classify it `missing` (no section/value at
+    all — a real gap on repos converted before this convention existed), `match` (a bare
+    `delete-refs`/`retain-bodies` value — the canonical value-only form), or `partial` only when the
+    value is absent under the heading or contradictory/bespoke. Also detect a bespoke
+    `## Done-item archival` (or similarly named) section that duplicates the merged model; flag it as
+    a convergence candidate.
   - `.agents/skills/refactor-conventions/SKILL.md` wrapper shape when present:
     current catalog shape vs old generated template that writes standalone
     `.md` refactoring plans. Rule reference files are user-owned.
@@ -734,6 +1163,34 @@ The current canonical entries live in `docs/SPEC.md` under
 "`.work/CONVENTIONS.md` → Tag taxonomy" and must be kept in sync with that
 template.
 
+**Terminal-tier retention drift in CONVENTIONS.md.** This was a real gap: sync historically neither
+seeded nor offered the terminal-retention convention, so repos converted before it existed silently
+lack it. The per-project CONVENTIONS form is **value-only** — a `## Terminal-tier retention` heading
+plus a bare `delete-refs`/`retain-bodies` value. The merged prose (archival + `archived_atop`
+late-binding + one-summary release) lives in SPEC.md and is the single source of truth; it is NOT
+duplicated into each project's CONVENTIONS.md. A bare value is therefore the **canonical** form, not
+a partial one. Detect:
+
+- **`missing`** — no `## Terminal-tier retention` section, OR a heading with no value under it. S3
+  offers to add the heading + canonical value line (default `delete-refs`) — just the value line
+  under the heading, not the full SPEC prose.
+- **`match`** — a `## Terminal-tier retention` heading with a bare `delete-refs` or `retain-bodies`
+  value. This is the canonical value-only form (prose lives in SPEC, not per project). No-op — a repo
+  bootstrapped by this version lands here on its next sync.
+- **`partial`** — the value is contradictory or bespoke: a value that is neither `delete-refs` nor
+  `retain-bodies`, or inline prose under the heading that conflicts with the SPEC model. S3 offers to
+  reconcile it to a canonical bare value.
+- **bespoke-overlap** — a hand-rolled `## Done-item archival` (or similar) section describes the same
+  `archived_atop` late-binding model. S3 offers to **converge** it into the one merged
+  `Terminal-tier retention` section (route any project-specific rules it carries to a user-owned
+  `.agents/rules/<name>.md`), not duplicate it.
+
+**Retained terminal bodies (for the prune offer).** Independently of the convention text, scan for
+full-body terminal items the merged `delete-refs` model would prune: any `.work/archive/*.md` carrying
+body content beyond `# Title` (or lacking `archived_atop`/`git_ref`), and any
+`.work/releases/<version>/<id>.md` other than the `release-<version>.md` summary. Record the count so
+S3 can offer the prune-to-stubs migration (which stamps `archived_atop` + `git_ref` from history).
+
 Classify each artifact as one of:
 
 | State | Meaning |
@@ -748,16 +1205,19 @@ installed text matches a known prior plugin release's template (recognisable
 shape, just older content), assume `drift_plugin`. Otherwise treat as
 `drift_user` and ask. The entrypoint-compatibility heuristic follows the derived
 `entrypoint_model`: in `agents-canonical`, if a Claude candidate has legacy
-content not yet in `AGENTS.md`, import it before replacing the Claude file with a
-symlink/shim; in `claude-source`, `CLAUDE.md` is canonical, so import nothing out
-of it and only verify root `AGENTS.md` points at it.
+content not yet in `AGENTS.md`, import it and let the content-integrity gate
+(Phase 1.8) verify it landed before replacing the Claude file with a
+symlink/shim (S3); in `claude-source`, `CLAUDE.md` is canonical, so import
+nothing out of it and only verify root `AGENTS.md` points at it.
 
 If `.claude/rules/patterns.md` is absent, treat the legacy-rules state as
 `match` and take no action. If it contains non-shim content not yet present at
-its canonical destination, **route by content type per Phase 2.5** before
-replacing the file with the shim: structural-pattern definitions →
-`.agents/skills/patterns/` (defer to `gate-patterns` Phase 1); project
-style/agent-rule prose → the canonical instruction file. Do not import the whole
+its canonical destination, build the **Phase 1.8 block-level preservation
+manifest** and route each block by classification before any shim: structural-
+pattern blocks → `.agents/skills/patterns/` via convert's **verbatim
+legacy-pattern importer** (Phase 7 — verbatim, no 3+-occurrence filter);
+rule-prose blocks → `.agents/rules/<name>.md` (e.g. `project.md`), NOT the AGENTS
+canonical file; ambiguous blocks → preserve in place. Do not import the whole
 file into AGENTS. Treat user-edited or ambiguous content as `drift_user` and ask
 before routing; treat old generated pattern-rules content as `drift_plugin`.
 Apply the same content-routing to any other `.claude/rules/*.md`.
@@ -809,37 +1269,79 @@ confirm before applying.
 
 For each artifact with a non-`match` state:
 
-- Canonical instruction file section between markers — overwrite with the
-  canonical template from Phase 6, in whichever file holds it per the derived
-  `entrypoint_model` (`AGENTS.md` or, for `claude-source`, `CLAUDE.md`). If the
-  file lacks markers, append the section. If it doesn't exist, create it.
-- `.work/bin/work-view` — overwrite with the plugin's current script and
-  `chmod +x`
+- `.agents/rules/agile-workflow.md` + canonical instruction section
+  (rules-first, then slim) — FIRST write/refresh `.agents/rules/agile-workflow.md`
+  between its `<!-- agile-workflow:rules:start/end -->` markers (Phase 6.5) and
+  verify per the Phase 6.5 content check (the dense rule sections actually landed,
+  not merely non-empty + end marker). THEN overwrite the
+  AGENTS managed section with the slim Phase 6 template, in whichever file holds it
+  per the derived `entrypoint_model` (`AGENTS.md` or, for `claude-source`,
+  `CLAUDE.md`). If the file lacks markers, append the section; if it doesn't exist,
+  create it. **Full-AGENTS migration:** when S1 found an AGENTS section that still
+  carries the old dense prose (tag semantics / test integrity / advisory review
+  inline), this IS the extraction migration — the rules-first verify guarantees
+  the dense prose lands in `.agents/rules/agile-workflow.md` before the section is
+  slimmed, so no rule content is lost. If the verify fails, do NOT slim — leave the
+  existing full section intact and report it.
+- `.work/bin/work-view` — reinstall via
+  `bash "${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/scripts/install-work-view.sh"`
+  (installs the version-verified prebuilt Rust binary on supported platforms,
+  with the Bash fallback only on unsupported platforms). This replaces any
+  pre-versioning copy in place. After
+  reinstalling, ensure `.work/bin/work-view` is tracked and agent-visible: run
+  `git check-ignore .work/bin/work-view`; if it reports a matching ignore rule,
+  surface that rule for removal or a negation entry under convert's
+  preserve-by-default cleanup policy rather than silently editing ignore files.
+  Ensure `.work/bin/work-view` is included in the Phase S5 `git add`.
+  - **Scan-awareness rides this reinstall.** The current `work-view` delivers the
+    `deep-code-scan` substrate support: the `--scan-origin <slug>` filter (the
+    `scan_origin` linkage field) and the **`[scan]`-tag exclusion from `--ready`/
+    `--blocked`** (so engagement-owned scan scaffold is never drained by autopilot).
+    Reinstalling the binary is what brings an existing install up to scan-awareness —
+    no separate step. Verify post-reinstall with `.work/bin/work-view --scan-origin x`
+    exiting cleanly.
+- **Scan taxonomy in CONVENTIONS (user-owned — offer, never force).** If
+  `.work/CONVENTIONS.md` doesn't yet register the `deep-code-scan` reserved tags
+  (`scan` + the lane/band tags) or the `scan_origin` linkage field, **offer** to add
+  them (structured question tool), exactly like other convergence offers — preserving all user
+  content. These are documentation/taxonomy; the behavioral guarantee lives in the
+  reinstalled binary, so this offer is non-blocking.
 - Entrypoint compatibility — refresh the pointer in the direction set by
   `entrypoint_model`:
   - `agents-canonical` — import legacy generated content from any detected
     Claude candidate into `AGENTS.md`, then replace the Claude file with a
-    symlink/shim to it only when `cleanup_scope` allows generated cleanup or the
-    user confirms that exact path.
+    symlink/shim to it only after the content-integrity gate (Phase 1.8)
+    confirms every imported block landed, AND `cleanup_scope` allows generated
+    cleanup or the user confirms that exact path.
   - `claude-source` — `CLAUDE.md` is the canonical instruction file: its managed
     section between markers IS refreshed in place (handled by the canonical-file
     step above), but its content is never migrated out and the file is never
     replaced by a pointer. Here, only ensure root `AGENTS.md` is a symlink/shim
     pointing at `CLAUDE.md`, and normalize nested Claude duplicates to point at
-    `CLAUDE.md`.
+    `CLAUDE.md` — content-integrity gate first, so a nested duplicate with unique
+    content not already in `CLAUDE.md` is preserved, not replaced.
   If symlinks are unavailable, write the Phase 7 shim under the same cleanup
   authorization.
-- Legacy `.claude/rules/*.md` — only when present, route non-duplicate content
-  by type per Phase 2.5 (structural patterns → `.agents/skills/patterns/`;
-  style/agent-rule prose → the canonical instruction file), then replace the
-  file with the Phase 7 shim only when cleanup is authorized for that exact path
-  and after the reference-integrity check. Never import the whole file into
-  AGENTS.
-- Optional pattern and refactor-conventions mirrors — align `.claude/skills/*`
-  to `.agents/skills/*` when the `.agents` catalog exists and the Claude copy is
-  absent, a symlink, or a known generated mirror, and cleanup is in scope for
-  generated mirrors. If the Claude copy contains unique user content, ask before
-  import or replacement.
+- Legacy `.claude/rules/*.md` — only when present, build the Phase 1.8
+  block-level manifest and route non-duplicate blocks by classification
+  (structural-pattern blocks → `.agents/skills/patterns/` via convert's verbatim
+  legacy-pattern importer, NO discovery filter; rule-prose blocks →
+  `.agents/rules/<name>.md`, NOT the AGENTS canonical file; ambiguous → preserve
+  in place). The **`drift_user` / ambiguous atomic sequence** is
+  **confirm → import → verify → shim** (never shim before a verified import):
+  confirm with the user, import the blocks, run the content-integrity gate to
+  verify they landed (presence + provenance + anchors), THEN — only when cleanup
+  is authorized for that exact path and after the reference-integrity check —
+  replace the file with the Phase 7 shim. `patterns.md` is never "generated
+  cleanup"; shim it only under explicit per-path confirmation after the gate
+  passes. Never import the whole file into AGENTS.
+- Optional pattern and refactor-conventions mirrors — `.claude/skills/*` mirror
+  replacement is a destructive op, so the content-integrity gate runs first: align
+  `.claude/skills/*` to `.agents/skills/*` only when the `.agents` catalog exists
+  (the verified home) and the Claude copy is absent, a symlink, or a known
+  generated mirror, and cleanup is in scope for generated mirrors. If the Claude
+  copy contains unique user content, the gate keeps it — reconcile that content
+  into `.agents` first, then re-mirror; never overwrite it unverified.
 - Refactor-conventions wrapper — when `.agents/skills/refactor-conventions/`
   exists and its `SKILL.md` is a known old generated template, rewrite only
   `SKILL.md` to the current catalog/index shape. Preserve all rule reference
@@ -849,7 +1351,7 @@ For each artifact with a non-`match` state:
   concise `## Refactor Style Conventions` section. If the user declines, leave
   the catalog intact and report the mismatch.
 - Load-bearing tag entries in `.work/CONVENTIONS.md` — for each entry flagged
-  `drift_plugin` or `missing` in Phase S1, ask the user via `AskUserQuestion`
+  `drift_plugin` or `missing` in Phase S1, ask the user via `structured question tool`
   before rewriting:
   > "Your `.work/CONVENTIONS.md` has the old default text for the `[refactor]`
   > tag. The current plugin default tightens the definition to lock the
@@ -862,6 +1364,36 @@ For each artifact with a non-`match` state:
   lines flagged as drift. If the entry was `missing`, append it in the Tag
   taxonomy section.
 
+- **Terminal-tier retention convention in `.work/CONVENTIONS.md`** — for the state flagged in S1
+  (`missing` / `partial` / bespoke-overlap), offer via `structured question tool` (never silently rewrite
+  user-owned CONVENTIONS). A bare `delete-refs`/`retain-bodies` value is `match` and is left
+  untouched — the merged prose lives in SPEC, not per project, so a bare value is canonical:
+  - `missing` — "Your `.work/CONVENTIONS.md` has no `## Terminal-tier retention` value. Add it
+    (default `delete-refs`)?" On accept, append **just the value-only form** — the
+    `## Terminal-tier retention` heading + a bare `delete-refs` value line per the SPEC CONVENTIONS
+    template — NOT the full SPEC prose (the prose is SPEC's, not duplicated into CONVENTIONS). A repo
+    bootstrapped this way classifies as `match` on its next sync.
+  - `partial` — only fires when the value is contradictory or bespoke (not a bare
+    `delete-refs`/`retain-bodies`, or inline prose that conflicts with the SPEC model). "Your
+    terminal-retention value is non-standard. Reconcile it to a canonical bare
+    `delete-refs`/`retain-bodies` value?" Options: `Reconcile` / `Keep mine` / `Show diff`. On
+    accept, replace the section with the value-only form (preserve the intended
+    `delete-refs`/`retain-bodies` choice).
+  - bespoke-overlap (a hand-rolled `## Done-item archival` section) — "You have a custom
+    `## Done-item archival` section describing the same `archived_atop` model. Converge it into the
+    one merged `Terminal-tier retention` convention (removing the duplicate, preserving any
+    project-specific rules to `.agents/rules/<name>.md`)?" On accept, fold its semantics into the
+    merged section, route project-specific rules to a user-owned rules file, and remove the bespoke
+    section only after the content-integrity gate (Phase 1.8) confirms nothing is dropped.
+
+- **Prune retained terminal bodies to stubs (the offer)** — when S1 found retained full-body terminal
+  items and `delete-refs` is in effect, offer (`structured question tool`; never force, preserve-only stays the
+  default) the prune-to-current-practice migration from Phase 8's "Sync existing substrates to
+  delete-refs": archived bodies → bodyless stubs (capture `git_ref` from `git log -- <path>`, stamp
+  `archived_atop` from the history at the archival/done commit, else `pre-release`); released bodies →
+  folded into their `release-<version>.md` summary table, then `git rm`. The content- and
+  reference-integrity gates (Phase 1.8) apply before any `git rm`.
+
 For `drift_user` items, only proceed after the user confirms.
 
 For bespoke overlaps in the `converge` set, run Phase 8.6's convergence
@@ -869,19 +1401,24 @@ For bespoke overlaps in the `converge` set, run Phase 8.6's convergence
 bootstrap does.
 
 For cleanup candidates, only proceed when the candidate class is inside
-`cleanup_scope`, then run the reference-integrity-on-move check (grep for
-inbound references, rewrite or shim) and ask with exact paths before applying
-any `git mv` or `git rm`. If the user declines, leave the files and report them
-as preserved.
+`cleanup_scope`, the content-integrity gate (Phase 1.8) has confirmed each
+candidate's content is preserved at its destination, and the
+reference-integrity-on-move check (grep for inbound references, rewrite or shim)
+clears the move — then ask with exact paths before applying any `git mv` or
+`git rm`. If the user declines, or the content-integrity gate finds an
+unaccounted block, leave the files and report them as preserved.
 
 ### Phase S4: Preserve user state
 
 These are NEVER touched in sync mode:
 
-- `.work/CONVENTIONS.md` user-customized content. The single exception is
-  load-bearing tag entries (`refactor`, `perf`) when they match a known prior
-  plugin default verbatim — those may be refreshed in Phase S3 with user
-  confirmation. Everything else in CONVENTIONS — release mapping, project
+- `.work/CONVENTIONS.md` user-customized content. The exceptions, each applied in Phase S3 ONLY with
+  user confirmation, are: (a) load-bearing tag entries (`refactor`, `perf`) when they match a known
+  prior plugin default verbatim, and (b) the `## Terminal-tier retention` convention when it is
+  `missing`/`partial`/a bespoke `## Done-item archival` overlap (add / reconcile / converge). A bare
+  `delete-refs`/`retain-bodies` value is `match` and is left untouched. `review_weight` is optional
+  and is never added, reset, or rewritten by sync; preserve an existing value byte-for-byte, while
+  absence continues to mean `standard`. Everything else in CONVENTIONS — release mapping, project
   tags, slug conventions, gate config, any user prose — is untouched.
 - Everything under `.work/active/`, `.work/backlog/`, `.work/releases/`,
   `.work/archive/`
@@ -889,12 +1426,19 @@ These are NEVER touched in sync mode:
   Sync may refresh the generated `SKILL.md` wrapper when it matches a known old
   template, but it must not rewrite rule bodies, examples, exceptions, or scope
   content without explicit confirmation.
-- `.agents/skills/patterns/` pattern bodies. Sync may align mirrors, but
-  `gate-patterns` owns pattern discovery and updates.
+- `.agents/skills/patterns/` pattern bodies. Sync may align mirrors and import
+  verbatim legacy patterns (Phase 7), but `gate-patterns` owns pattern
+  *discovery*; sync never rewrites an existing pattern body without confirmation.
+- User-authored `.agents/rules/*.md` — every file other than the plugin-managed
+  `agile-workflow.md`, and any content outside `agile-workflow.md`'s
+  `<!-- agile-workflow:rules:start/end -->` markers. Sync refreshes only the
+  plugin block; it never touches user rule files or out-of-marker content.
 - Content in the canonical instruction file (`AGENTS.md`, or `CLAUDE.md` in
   `claude-source`) outside the agile-workflow markers, except imported legacy
-  Claude content, imported legacy Claude pattern-rules content, and synthesized
-  refactor style convention summaries the user confirms should become canonical
+  Claude *entrypoint* content (under `## Imported Claude Code Instructions`) and
+  synthesized refactor style convention summaries the user confirms should become
+  canonical. (Legacy `.claude/rules/*.md` rule prose is NOT imported here — it
+  goes to `.agents/rules/<name>.md`.)
 - `MIGRATION_REPORT.md` (a bootstrap artifact; sync never writes it)
 - Any cleanup candidate outside the chosen `cleanup_scope`
 - Any cleanup candidate not listed by exact path in the confirmed cleanup plan
@@ -904,13 +1448,16 @@ These are NEVER touched in sync mode:
 If any files were rewritten:
 
 ```bash
-git add AGENTS.md .agents/AGENTS.md .claude/AGENTS.md CLAUDE.md .claude/CLAUDE.md .agents/CLAUDE.md .work/bin/work-view
+git add AGENTS.md .agents/AGENTS.md .claude/AGENTS.md CLAUDE.md .claude/CLAUDE.md .agents/CLAUDE.md .agents/rules/ .work/bin/work-view
 # If any legacy rules shim was created or updated (not just patterns.md):
 git add .claude/rules/
 # If optional project skill catalogs or mirrors were aligned or converged:
 git add .agents/skills/patterns .claude/skills/patterns .agents/skills/refactor-conventions .claude/skills/refactor-conventions
-# If load-bearing CONVENTIONS tag entries were refreshed with user confirmation:
+# If load-bearing CONVENTIONS tag entries OR the terminal-retention convention were
+# refreshed/added/converged with user confirmation:
 git add .work/CONVENTIONS.md
+# If the user accepted the prune-to-stubs migration (archived bodies → stubs, released bodies → summary):
+git add .work/archive/ .work/releases/
 # If reference-integrity rewrote inbound references in existing items/docs:
 git add .work/ docs/
 # If cleanup was explicitly confirmed for exact paths:
@@ -951,10 +1498,27 @@ After sync (auto or `--update`):
   scope and the exact path appears in the confirmed cleanup plan.
 - Prefer `git mv` for retained legacy artifacts. Use `git rm` only when the user
   explicitly chose deletion for exact paths. Never use broad cleanup globs.
+- **Content integrity is mandatory before every destructive op, and runs first
+  (Phase 1.8).** Before any delete / move / symlink / shim / copy-over /
+  managed-section overwrite / mirror replacement of a legacy artifact, build the
+  block-level preservation manifest and confirm every block is terminal
+  (`landed_existing` / `landed_this_run` / `preserved_in_place`) — present at its
+  canonical destination with provenance + semantic anchors, or kept in place. If
+  any block is unaccounted-for, do NOT perform the op; leave the artifact and
+  report. Content inside plugin-managed markers never counts as preserved
+  user-content. This preserves *content*; reference integrity preserves
+  *pointers* — both are required.
 - **Reference integrity is mandatory before every move/remove, regardless of
-  `cleanup_scope`.** Grep the repo (especially `.work/` items and `docs/`) for
-  inbound references to any path being moved, removed, or replaced; then rewrite
-  them or leave a redirect shim, and report which. Never strand a live pointer.
+  `cleanup_scope`, and runs after content integrity.** Grep the repo (especially
+  `.work/` items and `docs/`) for inbound references to any path being moved,
+  removed, or replaced; then rewrite them or leave a redirect shim, and report
+  which. Never strand a live pointer.
+- **Legacy patterns are imported verbatim, never discovered.** Convert owns the
+  lossless import of existing legacy structural patterns into
+  `.agents/skills/patterns/` (gate-patterns file/index format, NO 3+-occurrence
+  filter). `gate-patterns` remains the discovery writer for NEW patterns in
+  release bundles. Never route legacy pattern content through gate-patterns'
+  discovery filter — it would drop single-use legacy patterns.
 - **Discovery over checklist.** Enumerate and classify both skill roots and the
   rules tree; never assume the only overlaps are the canonical `patterns` and
   `refactor-conventions` catalogs. Bespoke skills mirroring plugin concepts,
@@ -962,7 +1526,8 @@ After sync (auto or `--update`):
 - **Defer to the owning skill for canonical locations.** Convert places
   content; `gate-patterns` and `refactor-conventions-creator` own where it
   lives. Do not carry a divergent end-state (e.g. never dump pattern content
-  into AGENTS).
+  into AGENTS, and route legacy rule prose to `.agents/rules/<name>.md`, not
+  AGENTS).
 - The conventions interview is mandatory in bootstrap mode. No silent inference
   of release mapping or tag taxonomy.
 - Foundation docs are read-only from convert. They roll forward through `scope`,

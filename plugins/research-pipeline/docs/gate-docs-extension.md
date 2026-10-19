@@ -2,8 +2,8 @@
 
 Additive checks `research-pipeline:quality-checkpoint` layers on top of
 `agile-workflow:gate-docs` (see
-`plugins/agile-workflow/skills/gate-docs/SKILL.md`) when running the 7-gate
-release-time quality system.
+`plugins/agile-workflow/skills/gate-docs/SKILL.md`) when running the configured
+release-time quality checks.
 
 Nathan's `gate-docs` already covers foundation-doc drift, README staleness,
 CHANGELOG gaps, repo-skill / pattern-skill staleness, and doc misplacement.
@@ -16,8 +16,9 @@ methodology (`docs/build-process.md` §Knowledge Layer + §Doc-Review):
 
 The orchestrator (`quality-checkpoint`) appends these checks to the sub-agent
 brief when dispatching `agile-workflow:gate-docs`, and ALSO invokes
-`research-pipeline:doc-review` in parallel for the cascading pass (doc-review
-has its own report; gate-docs emits items).
+`research-pipeline:doc-review` for the cascading pass before the gate scans
+(doc-review has its own report; gate-docs emits items). Required checks run
+sequentially against the recorded baseline; doc-review residuals remain explicit.
 
 Findings from this extension are emitted as items with `gate_origin: docs`
 and tag `[documentation, research-pipeline-extension]` so they're queryable:
@@ -101,10 +102,10 @@ epic it blocks).
 
 | Probe | Concrete check |
 |---|---|
-| **Brief exists for every `[needs-brief]` epic in the release bundle** | For each item in `work-view --release <version> --tag needs-brief --paths`, extract id (`grep -m1 '^id:' $item`), then verify a brief exists at one of: `docs/briefs/<id>.md`, `docs/briefs/<phase-N>-*.md` matching the epic's phase, OR `.research/briefs/<topic>/parent.md` referencing the epic by id |
+| **Brief exists for every `[needs-brief]` epic in the release bundle** | Verify a brief exists in `docs/briefs/`, current `.research/analysis/` brief/campaign/position outputs, or a retained legacy `.research/briefs/` artifact, and references the epic by id or `research_refs:` slug |
 | **Brief references its blocking epic** | For each brief, grep for `blocks_phase:` or `blocks_epic:` in frontmatter; verify the referenced epic exists in `.work/active/epics/` or `.work/releases/*/` |
 | **Reverse — orphan brief** — a brief on disk that references a non-existent epic | For each brief, validate the `blocks_*` target resolves to a real item |
-| **Brief frontmatter present** | Each brief at `docs/briefs/*.md` and `.research/briefs/*/parent.md` has knowledge-index frontmatter (`name`, `description`, `type`, `kind`, `summary`, `updated`) per `build-process.md` |
+| **Brief frontmatter present** | Project docs use the knowledge-index schema. Agentic Research analysis artifacts use their own provenance contract; do not impose docs-specific fields on them. Retained legacy pipeline briefs keep their existing schema. |
 
 **Output:** missing-brief findings get severity High and stage `implementing`
 (blocks the release). Orphan-brief findings get Medium and stage `drafting`
@@ -119,7 +120,7 @@ epic it blocks).
 
 ## Invocation contract
 
-`quality-checkpoint` calls Nathan's `gate-docs` via the Skill tool, then
+`quality-checkpoint` invokes `agile-workflow:gate-docs` through the host, then
 appends this policy to the brief template. Two integration points:
 
 1. **Brief append.** The orchestrator passes the contents of this doc as an
@@ -128,9 +129,9 @@ appends this policy to the brief template. Two integration points:
    checks alongside the foundation-doc-drift / README / CHANGELOG / etc.
    passes.
 
-2. **Parallel doc-review invocation.** `quality-checkpoint` ALSO invokes
+2. **Doc-review before gate scans.** `quality-checkpoint` ALSO invokes
    `research-pipeline:doc-review` for the cascading pass — doc-review writes
-   a report to `docs/doc-review-report-<version>.md` (durable artifact),
+   a report to `doc-review-report.md` at the project root (durable artifact),
    gate-docs emits substrate items (release-binding artifacts). The two are
    complementary, not redundant: doc-review is the deep narrative pass;
    gate-docs is the queryable item set.
@@ -153,7 +154,7 @@ depends_on: []
 release_binding: <version>
 gate_origin: docs
 created: YYYY-MM-DD
-updated: YYYY-MM-DD
+updated: 2026-06-08
 ---
 ```
 

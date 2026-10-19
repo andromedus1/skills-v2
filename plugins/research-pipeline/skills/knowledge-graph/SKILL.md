@@ -1,20 +1,9 @@
 ---
 name: knowledge-graph
 description: >
-  Render the project's knowledge index as an interactive browser graph + integrity QA. Reads
-  docs/knowledge-index.yaml (nodes) + docs/knowledge-index-detail.yaml (typed related[] edges,
-  summaries, decisions, supersession), adds directory-containment edges for research trees, and emits
-  a self-contained HTML. DEFAULT is a 3D view (3d-force-graph/three.js) where docs are stacked into
-  vertical layers by a selectable dimension (kind / group / status / recency / in-degree / community);
-  pass --2d for the cytoscape.js view (search-first "type to explore" DOI navigation + QA lenses +
-  sortable table). Doubles as a knowledge-index LINTER: classifies unresolved related[] targets
-  (unindexed-on-disk / broken-ref / out-of-scope) and surfaces orphans + superseded chains. Sibling to
-  agile-workflow:board (board = work substrate; this = knowledge corpus). Use when the user asks to
-  "visualize the knowledge graph", "show the doc graph", "graph the research", "find orphan docs", or
-  "audit the knowledge index integrity".
-user-invocable: true
-allowed-tools: Bash, Read
-model: haiku
+  Render the project's knowledge index as an interactive 2D or 3D graph with relationship,
+  containment, supersession, orphan, and research-evidence integrity overlays. Use to visualize the
+  knowledge corpus, find broken or missing links, inspect citation chains, or audit graph integrity.
 ---
 
 # Knowledge Graph
@@ -62,6 +51,11 @@ The search-first 2D graph — best for integrity auditing. Built on the **DOI mo
 - ⚫ **out-of-scope** — target outside the indexed roots (e.g. `src/`); expected, not a defect.
 - ⚪ **orphans** — docs with zero edges (after containment); a cross-reference gap worth backfilling.
 - 🟣 **superseded** — docs carrying a `supersession_note`.
+- 🟡 **unresolved citations** — a `[handle]{N}` cited in a `.research/` analysis with no attestation under `.research/attestation/` → a broken citation chain (the same defect Agentic Research's lint and `/gate-citations` flag, surfaced visually). 2D view only; both views render it as a red attestation node.
+
+### ARD evidence overlay (attestations + citations)
+
+When a project has an `.research/attestation/` tier, the graph renders a distinct **evidence node class** (read directly from the attestation files — they're deliberately absent from the knowledge index, so they're shown *without* being schema-linted as docs) plus **citation edges** from each brief to the attestations its `[handle]{N}` citations resolve to. Resolved attestations are teal; a cited handle with no attestation is a red **unresolved** node (a broken chain). Evidence is a separate class — it never counts toward doc-corpus degree, communities, orphans, or QA. Toggle it with the **citation** edge-type checkbox; in 3D it occupies its own bottom layer; click any attestation node for its handle / source / provenance / cited-by count.
 
 ## Workflow
 

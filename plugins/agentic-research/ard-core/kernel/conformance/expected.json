@@ -1,0 +1,48 @@
+{
+  "_comment": "Canonical expected verdicts for the ARD reference lint. Any re-implementation of the lint must reproduce these. Runner: python3 run.py",
+  "citations": {
+    "resolved-src": "resolved",
+    "no-such-handle": "unresolved-handle",
+    "mismatched-src": "mismatched-source-handle",
+    "unreachable-src": "unreachable-source",
+    "missing-prov-src": "missing-provenance",
+    "a-position": "intra-program-resolved",
+    "reduced-src": "reduced-substrate-attestation",
+    "thin-src": "resolved",
+    "colliding-src": "colliding-handle",
+    "explicit-sc-src": "resolved",
+    "unspecified-sc-src": "reduced-substrate-attestation",
+    "c1-f1-real": "intra-program-resolved",
+    "c9-f1-totally-fabricated": "unresolved-handle",
+    "c1-parent": "intra-program-resolved",
+    "BadCase-Handle": "non-canonical-handle",
+    "dup-key-src": "duplicate-frontmatter-key",
+    "acq-candidate-src": "acquisition-candidate",
+    "c9-f1-real": "intra-program-resolved",
+    "c1-f2-cross": "intra-program-resolved",
+    "c9-position-fake": "unresolved-handle"
+  },
+  "thin": ["thin-src"],
+  "pattern_categories": [
+    "decimal-with-attribution",
+    "version-number",
+    "count-without-unit-citation",
+    "comparative-superlative",
+    "named-feature-claim",
+    "composed-effort-estimate"
+  ],
+  "campaign_unbound": ["c1-f1-real", "c1-parent", "c1-f2-cross", "c9-f1-real"],
+  "campaign_unbound_excluded": ["a-position", "c9-f1-totally-fabricated", "c9-position-fake"],
+  "version_anchor": {
+    "_comment": "version-number anchor rule (CATALOGS §3 item 2), by fixture line. 'suppressed' lines must not fire version-number: the source-direct attestation tier, and cited lines whose resolved or reduced-substrate attestation contains the matched token. 'flagged' lines must fire: uncited; cited attestation lacks the token (incl. a prefix such as 3.1 vs 3.12, or a different 'version N'); a non-anchor citation status (intra-program, acquisition-candidate); one unanchored token among anchored ones. Dotted 'version N.M' is keyed on the whole dotted token: 'version 3.9' is not anchored by an attestation that only contains 'Version 3'.",
+    "suppressed": {
+      "attestation/version-anchor-src.md": [16, 17, 18, 22],
+      "attestation/version-anchor-reduced-src.md": [12],
+      "attestation/version-anchor-candidate-src.md": [13],
+      "briefs/version-anchor-brief.md": [13, 14, 15, 16, 17, 31]
+    },
+    "flagged": {
+      "briefs/version-anchor-brief.md": [21, 22, 23, 24, 25, 26, 27, 32]
+    }
+  }
+}

@@ -1,0 +1,255 @@
+# Auto-generated. DO NOT EDIT BY HAND.
+# On-demand layer — load when surfacing a specific doc's full context.
+generated_at: '2026-10-19T16:00:47Z'
+generated_from: frontmatter
+schema_version: 1
+documents:
+  docs/ARCHITECTURE.md:
+    summary: Inherited map of Nathan's plugin repository, native catalogs, Pi bridge and substrate tools.
+      Plugin internals are delegated to their own documentation; the upstream Workbench emphasis does
+      not select this fork's process.
+    decisions:
+    - Shared skill sources are distributed through host-specific manifests and catalogs.
+    - Plugin-internal architecture belongs in each plugin's documentation.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/SPEC.md:
+    summary: Inherited specification for Claude, Codex and Pi distribution, manifest parity, versioning
+      and upstream plugin status. The Workbench-centered status policy belongs to the upstream catalog.
+    decisions:
+    - Claude and Codex manifests for a plugin carry the same identity and version.
+    - The two native marketplace catalogs expose the same ordered plugin identities.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/VISION.md:
+    summary: Inherited upstream vision for a cross-host plugin catalog centered on Workbench. Its workflow
+      choices describe Nathan's repository, while this fork's instructions retain Agile Workflow and Research
+      Pipeline.
+    decisions:
+    - The upstream catalog centers new workflow development on Workbench.
+    - Plugins share portable skills and version independently.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/agile-workflow-guide.md:
+    summary: Human-facing guide to the Agile Workflow delivery loop, operator decisions, work items and
+      recovery. This fork continues using Agile Workflow despite the guide's upstream recommendation for
+      new projects.
+    decisions:
+    - Align consequential design choices before autonomous implementation.
+    - Use the work substrate to preserve delivery state across sessions.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/designs/knowledge-graph-v2.md:
+    summary: Design for a searchable document graph with stable layout, contextual expansion, synchronized
+      detail views and embedded diagnostics. Records the proposed units and verification criteria for
+      the renderer.
+    decisions:
+    - Prefer search, context and expansion on demand over presenting the entire graph at once.
+    - Integrate relationship and corpus diagnostics with the graph interaction.
+  docs/project-navigation.md:
+    summary: Maps the fork's authoritative instructions and plugin documentation, distinguishes upstream
+      Workbench references, and explains how to regenerate the repository knowledge index.
+    decisions:
+    - Follow AGENTS.md, README.md and the work conventions for this fork's process.
+    - Use Research Pipeline for project context, Agentic Research for grounded research, and Agile Workflow
+      for delivery.
+    - Treat inherited Workbench guidance as upstream context without changing the fork's substrate.
+    related:
+    - slug: AGENTS.md
+      relationship: depends-on
+    - slug: README.md
+      relationship: depends-on
+    - slug: plugins/research-pipeline/docs/build-process.md
+      relationship: depends-on
+    - slug: plugins/research-pipeline/docs/research-composition.md
+      relationship: depends-on
+    - slug: plugins/research-pipeline/skills/methodology-review/SKILL.md
+      relationship: parallel-to
+    - slug: plugins/agentic-research/README.md
+      relationship: parallel-to
+  docs/research/codex-plugin-format.md:
+    summary: Research snapshot comparing Codex repository instructions, skill format, plugin manifests
+      and distribution options. The metadata catalogs the retained findings without refreshing their external
+      sources.
+    key_findings:
+    - The research recommends dual manifests around one shared skill source tree.
+    - Repository instructions, skills and plugin manifests serve distinct roles.
+  docs/research/npm-trusted-publishing.md:
+    summary: Retains the OIDC publishing proposal from when Pi packages lived in this tree. Current distribution
+      docs place Pi-native packages in a separate repository, so the described local workflow and setup
+      are historical.
+    related:
+    - slug: docs/SPEC.md
+      relationship: parallel-to
+  docs/research/pi-package-format.md:
+    summary: Research snapshot of Pi package resources, extensions, security implications and companion
+      packages. Describes package capabilities rather than proving this fork's current Pi installation
+      works.
+    key_findings:
+    - Pi packages can contain skills and executable extensions with different responsibilities.
+    - The research recommends keeping executable Pi integrations small and separate from portable skills.
+  docs/research/plugin-root-discovery.md:
+    summary: Retained May 2026 investigation of hook variables, cache layouts and active-plugin discovery
+      across Claude and Codex. Its version-specific observations require a new probe before being applied
+      to a changed host.
+    key_findings:
+    - The investigated hook variables were absent from ordinary agent-shell and terminal commands.
+    - The investigation ruled out reliable active-plugin discovery from an arbitrary shell under the observed
+      layouts.
+  docs/research/substrate-binary-runtime.md:
+    summary: May 2026 comparison of Rust and Bun for a shared substrate CLI and web board. Recommends
+      Rust primarily because of the constraints of shipping binaries inside a plugin git tree.
+    key_findings:
+    - The research selected Rust on binary distribution grounds despite Bun's web-development advantages.
+    - It proposed prebuilt platform binaries with a shell fallback to avoid requiring a user toolchain.
+  docs/ux-ui-design-guide.md:
+    summary: Human-facing guide to palettes, components, screens, flows and motion using disposable HTML
+      mockups. Covers standalone use and integration with Agile Workflow and Workbench.
+    decisions:
+    - Explore and align UI designs with mockups before production implementation.
+    - Use the design skill matching the scope of the visual decision.
+  docs/workbench-guide.md:
+    summary: Upstream usage guide covering Workbench adoption, ordinary-language delivery, autonomy, research
+      and release summaries. Retained as a reference for a separate workflow that this fork does not run.
+    decisions:
+    - Workbench records its decisions, evidence and delivery state in the adopting repository.
+    - Operators steer autonomy and review depth through the Workbench workflow.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  docs/workflow-guide.md:
+    summary: Reference for the deprecated workflow plugin, including its command selection, lifecycle
+      and document layout. The body explicitly marks the plugin unsupported; it is not the current fork
+      workflow.
+    related:
+    - slug: docs/project-navigation.md
+      relationship: parallel-to
+  .research/analysis/briefs/quality-feedback-loops.md:
+    summary: Explicit criteria and observed outcomes support evaluation, while studies disagree about
+      intrinsic self-correction under different conditions.
+    key_findings:
+    - Evaluator-optimizer guidance describes clear criteria and measurable refinement value as best-fit
+      conditions.
+    - Self-correction findings are conditional; repeated model judgment alone is not a correctness guarantee.
+    - 'Proposed implication: record checked outcomes and preserve bounded unresolved exits.'
+  .research/analysis/briefs/research-package-boundary.md:
+    summary: Preserve the research engine and project-process boundary; test a coordinated suite experience
+      before a full package merger, and make methodology-review research scale explicit.
+    key_findings:
+    - 'Proposed: preserve module boundaries while testing coordinated installation.'
+    - Current integration has a reproduced cache-selection weakness and undeclared manifest dependencies.
+    - Claude documents dependency bundles; equivalent OpenAI installation behavior remains unverified.
+    - 'Proposed: clarify methodology-review research-scale selection and preserve its existing decision
+      loop.'
+  .research/analysis/campaigns/qvc-review-evidence/parent.md:
+    summary: 'Cross-facet synthesis on two questions about review and advisory controls for generated
+      work. Same-model judging carries a measured self-preference that, with ground truth, is mostly legitimate
+      for stronger models but more harmful when the judge is wrong; a different-model judge grading without
+      references still favours similar models. In MT-bench''s math-grading comparison (20 judgements per
+      prompt), reference guidance cut judge failures most (14/20 to 3/20) and chain-of-thought also cut
+      them (to 6/20); chain-of-thought lowered harmful self-preference in another study; reference-based
+      feedback reduced self-bias in another study. One randomized experiment found one-person inspections
+      poorer than two- or four-person ones, though its abstract reports no significant treatment effect;
+      no fetched source measures whether an earlier approval safely covers later changes. Noisy warnings
+      are ignored when delivered outside the work context. Facebook reports diff-time findings, given
+      to developers as part of code review, acted on at high rates (the source does not say whether they
+      gate landing); Google reports low not-useful click ratios, which undercount ignoring, for review-time
+      findings that reviewers typically enforce. False-positive thresholds are definition-specific.
+
+      '
+    key_findings:
+    - Self-preference in LLM judges is reported by several groups; with ground truth, stronger models'
+      self-preference is mostly legitimate, but more harmful when they are wrong.
+    - A different-model judge grading without references still favours functionally similar models, so
+      model identity is not independence; in MT-bench's comparison of default, chain-of-thought and reference-guided
+      judge prompts (20 math judgements per prompt), reference guidance produced the largest reduction
+      in judge failures and chain-of-thought also reduced them, and chain-of-thought lowered harmful self-preference
+      in another study; panel diversity helped in one study.
+    - No fetched study isolates same-model versus different-model review of generated code as the single
+      varied factor.
+    - In one randomized experiment one inspector did worse than two or four, which did not differ, though
+      its abstract reports no significant treatment effect; effort rose with reviewer count. Links between
+      review participation and later defects were unstable and added no model fit in an independent replication.
+    - Re-review after changes is governed by documented or designed policy (approve-with-comments; diff-tied
+      approval dismissal); no fetched source measures post-approval defect introduction.
+    - At an unchanged estimated false-positive rate, moving one analysis from a nightly batch list to
+      diff time moved its fix rate from near zero to over 70% (uncontrolled); a Google code-review integration
+      of FindBugs was still discontinued over effective false positives and inconsistent per-user customization.
+    - Published thresholds (zero effective false positives to block; under 10% for review-time checks;
+      probation at a 10% not-useful rate) are defined by developer action, not report correctness, and
+      were not validated against outcomes.
+    - 'Override or non-action is not by itself degradation: on average about half of outpatient alert
+      overrides were judged appropriate (12% to 92% by alert type).'
+  .research/analysis/campaigns/qvc-review-evidence/specialists/reviewer-independence.md:
+    summary: LLM judges measurably favour their own and similar models' outputs, but much of that preference
+      tracks real quality, and reference-based feedback reduced it; diverse panels and human-plus-model
+      teams show bounded gains in single-group studies. One randomized inspection experiment finds one
+      reviewer weaker than two and little gain from two to four, though its abstract reports no significant
+      treatment effect; links between review measures and later defects are weak or unstable. No fetched
+      source measures defects introduced by changes made after an approval; re-review rules found are
+      documented or designed policies.
+    key_findings:
+    - Judge favouritism toward a judge's own (and functionally similar) outputs is reported by several
+      independent groups across tasks; a ground-truth study finds stronger models' self-preference mostly
+      legitimate yet more harmful when they are wrong.
+    - Switching to a different model does not remove correlated-judgement risk; a similarity study finds
+      judges grading without references favour functionally similar models, and model errors growing more
+      alike with capability.
+    - Reference grounding (a reference answer or reference-based oracle feedback) is associated with reduced
+      judge error; in MT-bench's comparison of default, chain-of-thought and reference-guided judge prompts
+      (10 math questions, 20 judgements per prompt), a reference-guided judge cut failures most (14/20
+      default to 3/20) and a chain-of-thought judge also cut them (to 6/20), and chain-of-thought and
+      long-reasoning judging lowered harmful self-preference in another study. Model identity alone was
+      not the varied factor in most studies. No fetched study gave judges executable tests.
+    - A randomized inspection experiment found one-person teams poorer than two- or four-person teams
+      and no difference between two and four, with effort rising with reviewer count; its abstract reports
+      no significant treatment effects on effectiveness overall.
+    - Practice data show a median of two reviewers in several organizations and a median of one at Google;
+      observational links between review participation and post-release defects did not hold up robustly
+      in an independent replication.
+    - Re-review after changes is governed by documented policy (approval with comments for minor follow-ups;
+      optional dismissal of stale approvals on any diff change), not by measured outcomes in the fetched
+      sources.
+  .research/analysis/campaigns/qvc-review-evidence/specialists/warning-noise.md:
+    summary: 'Evidence from industrial static analysis (Google, Facebook, Coverity), developer interview
+      and mining studies, operations paging guidance, security-operations alarm triage, and clinical decision-support
+      alert overrides on how people respond to warnings with high false-positive rates, which numeric
+      thresholds have been used and under what definitions, and which practices keep advisory signals
+      acted on. The sources converge that noisy warnings delivered outside the work context are ignored,
+      but they also show diff-time findings, given to developers as part of code review, acted on at high
+      rates at Facebook (the source does not say whether those reports gate landing), and review-time
+      findings drawing low not-useful click ratios (which undercount ignoring) at Google, where they are
+      curated by an action-rate feedback loop and socially enforced before approval. As a composed reading,
+      delivery point, curation, and volume/repetition are more associated with decay than advisory status
+      as such, though one review found no volume-override relationship.
+
+      '
+    key_findings:
+    - 'Same analysis, same estimated false-positive rate: Facebook reports a near-zero fix rate for a
+      nightly batch bug list versus over 70% when reported at diff time (demonstrated, small uncontrolled
+      batch sample).'
+    - 'Google''s published thresholds are definition-specific: zero effective false positives for build-breaking
+      checks, under 10% effective false positives for code-review checks, analyzer probation at a not-useful
+      click rate of 10% or more and possible shut-off above 25% (designed).'
+    - 'Coverity''s vendor experience: more than 30% false positives ''easily cause problems'', aim below
+      20% for stable checkers; a not-understood true report is commonly labelled false (documented).'
+    - Google found compiler warnings ignored and moved checks to errors or code review; yet non-blocking
+      code-review findings run at about a 5% platform not-useful click ratio, which undercounts ignoring,
+      with thousands of fix requests per day (documented and demonstrated).
+    - Clinical alerts are overridden in 49% to 96% of cases across studies, but about half of outpatient
+      overrides were judged appropriate (12%-92% by alert type), so override rate is not a direct measure
+      of degradation (independently measured; demonstrated).
+    - Severity tiering, with only higher-severity alerts interrupting and the lowest tier information-only,
+      was associated with 29% vs 10% overall compliance and 29% vs 11% on the interruptive Level 2 tier;
+      the most severe tier was 100% by hard-stop design vs 34%, and the information-only tier's response
+      was not collected (demonstrated, observational).
+    - Acceptance falls with alert volume and within-patient repeats (about 30% per extra reminder per
+      encounter; 10% per 5-point rise in repeat share), but no desensitization over time was found for
+      newly deployed alerts (independently measured).
+    - 'Numeric thresholds are not commensurable across sources: ''effective false positive'' (no action
+      taken), ''false positive'' (cannot happen), ''not-useful rate'' (click ratio), and ''override rate''
+      measure different things.'

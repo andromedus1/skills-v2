@@ -1,18 +1,9 @@
 ---
 name: knowledge-index
 description: >
-  Regenerate the project knowledge index from frontmatter — produces a three-layer model.
-  Layer 1: knowledge-index-nav.yaml (~5-8KB, auto-loaded at session start within the
-  harness's 10KB hook-output cap; surfaces corpus counts + 15 most-recent docs + docs
-  flagged with nav_priority: high in frontmatter). Layer 2: knowledge-index.yaml (terse
-  full per-doc index, on-demand via Read). Layer 3: knowledge-index-detail.yaml (rich
-  layer with summaries / decisions / key_findings / related, on-demand). Runs an inline
-  lint pass that catches drift, broken supersession chains, and missing required fields.
-  Navigator size warned at 8KB / errored at 10KB. Run at the start of any session, or
-  anytime you've added or modified docs.
-user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash
-model: sonnet
+  Regenerate and lint the project's three-layer knowledge index from document, research, and work
+  artifacts. Use after knowledge-bearing files change, when session navigation is stale, or to audit
+  frontmatter, relationships, substrate shape, and the navigator size budget.
 ---
 
 # Knowledge Index
@@ -45,11 +36,11 @@ the design rationale and the dev-time vs production-retrieval distinction.
 
 ## Model Assignment
 
-Per [model-selection-pattern.md](../docs/model-selection-pattern.md):
+Per [model-selection-pattern.md](../../docs/model-selection-pattern.md):
 
-- **Index regenerator (this skill's main loop)** — Volume / structured extraction. Sonnet medium. Runs in parent context.
+- **Index regenerator (this skill's main loop)** — Volume / structured extraction at the balanced host-native tier with medium reasoning. Runs in parent context.
 
-Frontmatter parsing, lint, and YAML emission are mechanical structured work — Sonnet handles
+Frontmatter parsing, lint, and YAML emission are mechanical structured work — the balanced host-native tier handles
 this cleanly. No sub-agents.
 
 ## When This Runs
@@ -63,10 +54,15 @@ this cleanly. No sub-agents.
 
 ### Step 1: Discover all knowledge docs
 
-**Docs corpus** — glob `docs/**/*.md` AND `.research/**/*.md` recursively. Exclude:
+**Docs corpus** — glob `docs/**/*.md` AND `.research/**/*.md` recursively. Current
+Agentic Research analysis artifacts under `.research/analysis/` remain on their own
+frontmatter contract and are indexed without forcing docs-specific fields. Retained
+legacy `.research/briefs/` and `.research/programs/` remain discoverable. Exclude:
 - `docs/_archive/**/*` (archived)
 - `docs/**/doc-review-report-*.md` (audit artifacts)
 - Any path matching `**/RESUME-STATE.md` or session artifacts (no frontmatter, by convention)
+- `.research/{reference,attestation,precis}/`, `.research/.import-holding/`, and
+  top-level research scaffold files
 
 **Substrate corpus (when `.work/` exists)** — also glob `.work/active/**/*.md`,
 `.work/backlog/**/*.md`, `.work/releases/**/*.md`, `.work/archive/**/*.md`. These are
@@ -219,7 +215,9 @@ full_index_path: docs/knowledge-index.yaml
 detail_index_path: docs/knowledge-index-detail.yaml
 ```
 
-**Size check:** warn at 8KB, error at 10KB. If the file exceeds 8KB, reduce the number of docs flagged `nav_priority: high` or shorten titles. If it exceeds 10KB, the SessionStart hook will truncate it and the auto-load degrades.
+**Size check:** warn at 8KB, fail generation above 10KB. If the file exceeds 8KB,
+reduce the number of docs flagged `nav_priority: high` or shorten titles. The
+SessionStart hook also refuses to inline an oversized pre-existing navigator.
 
 ### Step 6: Write `docs/knowledge-index.yaml` (terse layer)
 

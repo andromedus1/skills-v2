@@ -7,10 +7,6 @@ description: >
   existing foundation docs (does not overwrite). Identifies domains needing /research,
   /deep-research, or /research-program. The canonical first step for new projects in
   this workflow.
-user-invocable: true
-disable-model-invocation: false
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion, Task, Skill
-model: opus
 ---
 
 # Ideate (super-layer)
@@ -44,12 +40,12 @@ For ds-engine and other established projects: don't run this. Existing nested do
 
 ## Model Assignment
 
-Per [model-selection-pattern.md](${CLAUDE_PLUGIN_ROOT}/docs/model-selection-pattern.md):
+Per [model-selection-pattern.md](../../docs/model-selection-pattern.md):
 
-- **Ideator (this skill's main loop)** — Orchestration. Opus high effort. Runs in parent context.
-- **Scout auto-call (Phase 2)** — Skill chain via `Skill` tool. Spawns Sonnet workers internally.
+- **Ideator (this skill's main loop)** — Orchestration at the host quality-first tier with high reasoning. Runs in parent context.
+- **Scout auto-call (Phase 2)** — Skill chain via `Skill` tool. Spawns balanced host-native workers internally.
 
-Vision and architecture decisions cascade through every downstream phase — Opus warrants. /scout handles its own model selection.
+Vision and architecture decisions cascade through every downstream phase — the host quality-first tier warrants the cost. /scout handles its own model selection.
 
 ## Anti-patterns
 
@@ -168,12 +164,12 @@ Capture into `docs/research-plan.md` with routing recommendations:
 1. **<Domain>** — `/research`
    - Question: <specific>
    - Rationale: <why this needs research>
-   - Output: brief at `.research/briefs/<topic>/parent.md`
+   - Output: brief under `.research/analysis/briefs/`
 
 2. **<Domain>** — `/deep-research`
    - Topic: <broad>
    - Facets: <5-7 orthogonal aspects>
-   - Output: campaign at `.research/briefs/<topic>/`
+   - Output: campaign under `.research/analysis/campaigns/`
 
 ## Optional follow-ups (post-architecture, per-phase)
 

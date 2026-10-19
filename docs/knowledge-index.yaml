@@ -1,0 +1,174 @@
+# Auto-generated. DO NOT EDIT BY HAND. Run /knowledge-index to regenerate.
+# Frontmatter is the source of truth — edit each doc's frontmatter and re-run.
+#
+# schema_version controls lint mode:
+#   1 = grace (missing v2 fields produce warnings, not errors)
+#   2 = enforce (missing v2 fields are errors)
+# Set to 2 once the project's docs are fully backfilled to v2 frontmatter.
+schema_version: 1
+generated_at: 2026-10-19T16:00:47Z
+generated_from: frontmatter
+total_docs: 22
+
+documents:
+  # ── planning ──────────────────────────────────────────────────────────────
+
+  - path: docs/ARCHITECTURE.md
+    title: Upstream skills repository architecture
+    type: architecture
+    kind: planning
+    updated: 2026-10-18
+    consumer_hint: Read for plugin layout and distribution boundaries; use project-navigation.md to resolve this fork's workflow ownership.
+
+  - path: docs/designs/knowledge-graph-v2.md
+    title: "Design: knowledge-graph skill v2 (interactive doc-corpus graph)"
+    type: design
+    kind: planning
+    updated: 2026-10-18
+    consumer_hint: Read for the rationale and interaction design behind the knowledge graph renderer; verify implementation details against the current skill.
+
+  - path: docs/SPEC.md
+    title: Upstream plugin distribution specification
+    type: module-rules
+    kind: planning
+    updated: 2026-10-18
+    consumer_hint: Read for marketplace shapes and manifest invariants; check this fork's instructions before applying upstream workflow or release policy.
+
+  - path: docs/agile-workflow-guide.md
+    title: Agile Workflow usage guide with upstream adoption context
+    type: module-rules
+    kind: planning
+    updated: 2026-10-18
+    consumer_hint: Read for substrate stages, design, implementation, autopilot and release usage; the Workbench adoption recommendation is upstream guidance.
+
+  - path: docs/project-navigation.md
+    title: Skills v2 fork navigation
+    type: module-rules
+    kind: planning
+    updated: 2026-10-19
+    consumer_hint: Start here to find this fork's current process, research ownership, methodology-review entrypoint and inherited upstream references.
+
+  - path: docs/ux-ui-design-guide.md
+    title: UX/UI Design Guide
+    type: module-rules
+    kind: planning
+    updated: 2026-10-18
+    consumer_hint: Read when choosing UI mockup skills or connecting visual design to a delivery workflow.
+
+  - path: docs/workbench-guide.md
+    title: Workbench upstream usage reference
+    type: module-rules
+    kind: planning
+    updated: 2026-10-18
+    consumer_hint: Read when studying Nathan's Workbench approach as prior art; this guide does not authorize adopting its substrate in this fork.
+
+  - path: docs/VISION.md
+    title: Upstream vision for the skills catalog
+    type: north-star
+    kind: planning
+    updated: 2026-10-18
+    consumer_hint: Read for Nathan's catalog direction and Workbench context; use project-navigation.md for this fork's active process.
+
+  # ── research ──────────────────────────────────────────────────────────────
+
+  - path: .research/analysis/briefs/quality-feedback-loops.md
+    title: Evidence and limits for quality-feedback loops
+    type: brief
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: "Agentic Research brief: Evidence and limits for quality-feedback loops"
+
+  - path: .research/analysis/briefs/research-package-boundary.md
+    title: Research package boundary and methodology review
+    type: brief
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: "Agentic Research brief: Research package boundary and methodology review"
+
+  - path: docs/research/codex-plugin-format.md
+    title: "Research: Codex Plugin Format and Standards"
+    type: brief
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: Read the retained research behind shared skills and dual plugin manifests; recheck current host behavior before changing distribution.
+
+  - path: docs/research/pi-package-format.md
+    title: "Research: Pi package format"
+    type: brief
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: Read the retained Pi package and extension research before investigating Pi compatibility; confirm current package behavior separately.
+
+  - path: docs/research/plugin-root-discovery.md
+    title: "Research: Plugin-root discovery from an arbitrary shell (Claude Code + Codex)"
+    type: brief
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: Read before designing a launcher that must locate the active installed plugin outside a host hook.
+
+  - path: docs/research/substrate-binary-runtime.md
+    title: "Research: Substrate binary runtime (Rust vs Bun)"
+    type: brief
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: Read for the distribution rationale behind compiled substrate tools; runtime measurements are retained research rather than current benchmarks.
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/acquisitions.md
+    title: Acquisition manifest — qvc-review-evidence
+    type: campaign
+    kind: research
+    updated: 2026-10-18
+    consumer_hint: "Agentic Research campaign: Acquisition manifest — qvc-review-evidence"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/campaign-evaluation.md
+    title: Campaign evaluation — qvc-review-evidence
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Campaign evaluation — qvc-review-evidence"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/parent.md
+    title: Evidence on reviewer independence and warning noise
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Evidence on reviewer independence and warning noise"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/specialists/reviewer-independence.md
+    title: Reviewer independence, reviewer count and re-review after changes
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Reviewer independence, reviewer count and re-review after changes"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/specialists/warning-noise.md
+    title: "Warning noise: how people respond to noisy advisory signals, and what keeps them actionable"
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Warning noise: how people respond to noisy advisory signals, and what keeps them actionable"
+
+  - path: .research/analysis/campaigns/qvc-review-evidence/verification-checklist.md
+    title: Adversarial-read verification checklist — qvc-review-evidence
+    type: campaign
+    kind: research
+    updated: 2026-10-19
+    consumer_hint: "Agentic Research campaign: Adversarial-read verification checklist — qvc-review-evidence"
+
+  # ── historical ──────────────────────────────────────────────────────────────
+
+  - path: docs/research/npm-trusted-publishing.md
+    title: Historical npm publishing research for Pi packages
+    type: brief
+    kind: historical
+    updated: 2026-10-18
+    status: legacy
+    consumer_hint: Read for the earlier Pi package publishing investigation, not as release instructions for this repository.
+
+  - path: docs/workflow-guide.md
+    title: Deprecated Workflow Suite guide
+    type: module-rules
+    kind: historical
+    updated: 2026-10-18
+    status: legacy
+    consumer_hint: Read only to understand the retired workflow plugin or an existing legacy installation.

@@ -1,0 +1,211 @@
+---
+id: feature-ar-fork-citation-matcher
+kind: feature
+stage: done
+tags: [agentic-research, methodology-review]
+parent: null
+depends_on: [feature-qvc-minor-remedies]
+release_binding: null
+gate_origin: null
+created: 2026-10-19
+updated: 2026-10-19
+---
+
+# Fork-owned agentic-research: anchor-aware version-number matcher
+
+## Brief
+
+Andrew decided on 2026-10-19 that the fork owns `agentic-research` going forward
+(see `feature-claude-methodology-repeat`, "Operator decisions — follow-ups").
+First change: QVC-S/METH-001's version-number matcher in
+`plugins/agentic-research/ard-core/kernel/lint-citations.py`.
+
+- Suppress version-number advisories in `source-direct` attestations (tier
+  suppression, matching CATALOGS §3 "without an in-corpus anchor").
+- On analytical lines with resolved citations, suppress only when a cited
+  attestation contains the matched version token (experiment variant B).
+- Add positive and negative conformance fixtures that distinguish current,
+  blanket-citation and token-aware behavior (modeled on the scratch experiment's
+  labeled fixtures; see the controller's experiment section).
+- Roll forward ownership statements in `AGENTS.md` and
+  `docs/project-navigation.md`; keep catalogs/docs consistent with the kernel.
+
+Evidence: scratch experiment (fixture precision 0.40 → 0.84, recall 0.90 →
+0.80; real-corpus flags 174 → 60, with 112 attestation flags removed and no
+observed recall loss). Synthetic fixtures; not field measurement.
+
+Out of scope: matcher-shape changes (case-insensitive `version`, dotless `vN`,
+section refs, arXiv IDs) unless design shows they are cheap and tested; other
+kernel rules.
+
+## Simplification opportunity
+
+The gate-citations version-advisory caveat prose may shrink once the matcher
+stops flagging attestation metadata.
+
+## Design decisions
+
+- **Ownership (Andrew, 2026-10-19):** the fork owns `agentic-research`; stated
+  interpretation (whole plugin, starting with the citation matcher) was not
+  corrected. AGENTS.md and project-navigation roll forward accordingly.
+- Suppression is default behavior, not a CLI flag (judgment: one behavior, no
+  configuration surface; the experiment's flag existed only to compare variants).
+- Out of scope (judgment, per brief): matcher-shape gaps (case-insensitive
+  `Version`, dotless `vN`, section refs, arXiv IDs) were not tested; parked.
+- Depends on `feature-qvc-minor-remedies`: both edit `gate-citations/SKILL.md`
+  and the fork-patch section of `docs/project-navigation.md`.
+
+## Architectural choice
+
+Options: (A) tier suppression only — simplest, removes 112/115 real flags but
+keeps cited-line noise; (B) tier + token-aware cited-line suppression — best
+fixture precision/recall balance (0.84 / 0.80), costs one read per resolved
+cited attestation; (C) tier + blanket cited-line suppression — recall 0.50,
+rejected. Choose **B**, matching CATALOGS §3's own definition ("without an
+in-corpus anchor"): a source-direct attestation is the anchor tier, and a cited
+attestation that contains the token anchors the claim. Known hole: a coincident
+token in an unrelated passage of the cited attestation — documented, not
+fixed.
+
+## Implementation Units
+
+### Unit 1 (trickiest): anchor-aware version-number suppression
+**File**: `plugins/agentic-research/ard-core/kernel/lint-citations.py`
+
+```python
+ANCHOR_STATUSES = {"resolved", "reduced-substrate-attestation"}
+
+def _version_core(line: str, m: re.Match) -> str | None:
+    """Maximal digit/dot run overlapping the match (re-joins 'version 1' + '9.0')."""
+
+def _attestation_has_token(core: str, att_body: str) -> bool:
+    """Dotted core: exact token not embedded in a longer number.
+    Undotted core: 'version N' / 'vN' form, case-insensitive."""
+```
+
+In `lint_file`, build `anchored: dict[int, list[str]]` (line → bodies of cited
+attestations whose resolution status is in `ANCHOR_STATUSES`; read each body
+once per run via a small cache). In the `version-number` branch, after the
+URL/inline-code skip: `if is_attestation: continue`; then
+`if lineno in anchored and core and any(_attestation_has_token(core, b) for b in anchored[lineno]): continue`.
+Update the header comment (L30) to describe the rule.
+
+**Acceptance**:
+- [ ] On the scratch experiment's fixtures (rebuild from the controller record
+      if the scratch tree is gone) the lint reproduces variant B's flags.
+- [ ] On this repo's `.research/` the version-number count drops from the
+      current matcher's total by the attestation-tier flags, with every remaining
+      suppression on an analytical line explained by a token-bearing cited
+      attestation.
+- [ ] No change to integrity results or other pattern categories (diff JSON
+      outputs before/after apart from version-number entries).
+
+### Unit 2: conformance fixtures
+**Files**: `plugins/agentic-research/ard-core/kernel/conformance/{analysis,attestation,briefs}/…`,
+`expected.json`, `README.md`.
+- Negative: version tokens in a source-direct attestation; a cited analytical
+  line whose attestation contains the token.
+- Positive: an uncited fabricated version; a cited line whose attestation lacks
+  the version (the case blanket suppression would lose).
+- README notes the coincident-token limitation.
+
+**Acceptance**: [ ] `python3 run.py` passes with the new checks; [ ] the suite
+fails against the previous lint (proves it distinguishes) and against a blanket
+cited-line variant.
+
+### Unit 3: documentation and ownership roll-forward
+**Files**: `AGENTS.md` (Ownership: fork owns `research-pipeline` and
+`agentic-research`; upstream owns the rest plus documented patches),
+`docs/project-navigation.md` (replace "Narrow Agentic Research fork patches" /
+"kernel unchanged" with fork ownership of Agentic Research),
+`plugins/agentic-research/ard-core/CATALOGS.md` §3 item 2 (state what counts as
+an anchor) then `python3 tools/gen-contract.py` and `--check`,
+`plugins/research-pipeline/skills/gate-citations/SKILL.md` (shrink the version
+caveat to the documented residual noise), and the agentic-research README if it
+states upstream ownership.
+**Acceptance**: [ ] `gen-contract.py --check` passes; [ ] no remaining claim that
+the AR kernel is upstream-owned or unchanged; [ ] AGENTS.md's "Never copy its
+kernel into research-pipeline" boundary preserved.
+
+## Implementation Order
+1. Unit 2 negative/positive fixtures (red against current lint) → 2. Unit 1 →
+3. Unit 3 → integrated verification → one standard feature review with receipt.
+
+## Testing
+Conformance (extended) is the regression suite; JSON before/after diff on the
+real corpus; skill metadata test for AR.
+
+## Risks
+- **Coincident tokens hide a fabricated version** — documented limitation;
+  fallback: restrict token match to the attestation's quoted passages.
+- **Performance** on large corpora (one read per cited attestation) — cached
+  per run; fallback: skip token check above a size bound.
+- **Ownership roll-forward conflicts with future upstream merges** — accepted by
+  Andrew's decision; upstream drift comparisons for AR no longer apply.
+
+## Implementation notes
+- Execution capability: one worker for Units 1–2 (kernel + conformance; red →
+  green), host for Unit 3 (docs/ownership); review of other features ran in
+  parallel on disjoint files.
+- Review weight: standard (default).
+- Files changed: `ard-core/kernel/lint-citations.py`; conformance `run.py`,
+  `expected.json`, `README.md`, 4 new fixtures; `ard-core/CATALOGS.md` §3 +
+  regenerated `kernel/catalogs.json`; `AGENTS.md`, `README.md`,
+  `docs/project-navigation.md` (fork-owned Agentic Research);
+  `gate-citations/SKILL.md` version caveat.
+- Tests added: 18 version-anchor conformance checks (57 → 75), line-level
+  expectations via a new data-driven `run.py` group; the suite fails against the
+  previous lint (11 failures), a blanket cited-line variant, a tier-only variant
+  and an any-status variant.
+- Results: experiment fixtures reproduce variant B exactly (19 flags; precision
+  0.84, recall 0.80). This repo's `.research/`: version-number 174 → 60 (112
+  attestation + 2 analytical suppressions, each with a token-bearing cited
+  attestation); all other outputs identical.
+- Discrepancies from design: `run.py` gained a check group; body cache is per run
+  via an optional `lint_file(body_cache=None)` parameter; with
+  `--no-citation-check` only tier suppression applies (cited lines keep flags);
+  acquisition-candidate attestations (`provenance: source-direct`) are
+  tier-suppressed in their own file but cannot anchor citing lines — flagged for
+  review; brief's "112/115" measured as 114 suppressed.
+- Not changed: the AR README install commands still name the upstream
+  `nklisch/skills` marketplace — a distribution decision for Andrew, not an
+  ownership statement.
+- Adjacent issues parked: `idea-version-matcher-shape`.
+
+## Integrated verification (2026-10-19)
+Conformance 75/75; `gen-contract.py --check` in sync; AR skill metadata ok; RP
+portability ok; `test_refresh_scan.py` ALL PASS; gate command on this repo: 0
+broken, version-number 60, other categories unchanged.
+
+## Review (2026-10-19)
+
+**Verdict**: Approve with comments
+
+**Blockers**: none
+**Important**: accepted and fixed in `d8afde36` — conformance did not cover the
+overlap of dotted numbers and `version N` (a span-only `_version_core` mutant
+passed 75/75 while suppressing `version 3.9` against `Version 3`). Added brief
+L31 (suppressed `version 2.3.0`) and L32 (flagged `version 3.9`); suite 77/77;
+the span-only mutant now fails exactly on L31 and L32.
+**Nits**: none
+**Rejected**: none
+
+**Notes**: feature substrate review, standard weight, one independent pass.
+Reviewer confirmed 75/75 and that the previous matcher, blanket, tier-only,
+substring and candidate-anchor variants fail; 16 behavioral + 9 token-boundary
+probes; body cache; `--no-citation-check` conservative; corpus 174 → 60 with all
+other JSON identical; `test_refresh_scan.py` ALL PASS; `gen-contract.py --check`
+in sync. Candidate-file tier suppression accepted as consistent with the
+provenance rule; candidates correctly cannot anchor. Coincident-token recall
+limitation remains documented. Host fix verification: conformance 77/77; scratch
+span-only mutant fails on the two new checks; `expected.json` edited minimally.
+
+**Receipt**
+- Reviewed: `df73daf0..672ccdc5` — AR kernel, conformance, CATALOGS/catalogs.json, AGENTS.md, README.md, docs/project-navigation.md, gate-citations; `.work/` excluded
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261019T155657Z-bf023c5b`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: default)
+- Findings: blockers 0, important 1, nits 0, rejected 0
+- Accepted-fix verification: `d8afde36` verified by host (conformance 77/77; mutant fails)
+
+**Post-review changes** (`672ccdc5..c6c2b6fb`)
+- `d8afde36` test(agentic-research): cover dotted 'version N.M' anchor keys (conformance brief, expected.json, README) — fix-of:important-1 verified by host

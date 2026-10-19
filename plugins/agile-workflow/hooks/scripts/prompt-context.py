@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import hashlib
 import json
 import os
@@ -12,9 +13,13 @@ import sys
 import tempfile
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
-MAX_ITEMS = 5
+try:  # POSIX advisory file locking; absent on some platforms (e.g. Windows).
+    import fcntl
+except ImportError:  # pragma: no cover - exercised via monkeypatch in tests.
+    fcntl = None  # type: ignore[assignment]
+
 MAX_SESSIONS = 20
 
 STRONG_ACTION_RE = re.compile(
@@ -27,6 +32,14 @@ POLY_WORKFLOW_ACTION_RE = re.compile(r"\b(ready|blocked|release|deploy|gate|queu
 POLY_WORKFLOW_CONTEXT_RE = re.compile(r"\b(epic|feature|story|item|items|stage|workflow|agile-workflow|depends_on)\b", re.IGNORECASE)
 ITEM_VERB_RE = re.compile(
     r"\b(implement|fix|patch|design|scope|park|refactor|perf|optimi[sz]e|review|verdict|done)\b",
+    re.IGNORECASE,
+)
+# A one-word imperative like "implement" is a high-intent workflow command in
+# an agile-workflow-enabled repo. Earlier gating required an explicit noun
+# ("implement item"), which was too conservative: the hook is already gated by
+# `.work/CONVENTIONS.md`, and principles capsules are small + per-session deduped.
+SHORT_WORKFLOW_COMMAND_RE = re.compile(
+    r"^\s*(implement|fix|patch|design|scope|park|refactor|review|done|release|deploy|gate|convert|ideate|epicize|autopilot|perf|optimi[sz]e)\s*[.!?]*\s*$",
     re.IGNORECASE,
 )
 WORKFLOW_NOUN_RE = re.compile(r"\b(epic|feature|story|item|items|backlog|ready|queue|stage|workflow)\b", re.IGNORECASE)
@@ -52,6 +65,8 @@ QUEUE_QUERY_RE = re.compile(
     re.IGNORECASE,
 )
 
+DEFAULT_RULES_MAX_BYTES = 12000
+
 CAPSULES = {
     "code_design": {
         "title": "Code-design capsule",
@@ -63,7 +78,10 @@ CAPSULES = {
             "Ports & Adapters: domain logic stays independent of DB/filesystem/HTTP/time/randomness.",
             "Single Source of Truth: growing variant sets have one registry; types, validation, routing, and display derive from it.",
             "Generated Contracts: boundary types come from schema/router/DB inference or generation instead of hand copies.",
-            "Fail Fast: unknown input is validated at system boundaries and internal preconditions are asserted early.",
+            "Proportional rigor: validate real boundaries; add invariants, edge handling, and determinism only when context warrants them.",
+            "Code economy: prefer the shortest clear solution and fewer concepts over speculative generality.",
+            "Useful tests: protect important interfaces, complex units, and bug regressions—not every line or surface.",
+            "Leave it simpler: adapt simplification to accumulated feature change inside normal design and implementation; item counts never trigger standalone refactor runs; ask before reducing guarantees.",
         ],
     },
     "dispatch_economy": {
@@ -75,8 +93,11 @@ CAPSULES = {
         "text": [
             "Local probes with rg/read/work-view come before read-only agents.",
             "Agents are for breadth, isolation, fresh judgment, or independent write ownership.",
-            "Parallelism follows ownership and dependency layers rather than item count.",
+            "One implementation agent per feature is the baseline; bundle related features when shared context helps, and split only unusually large features into coherent ownership bundles.",
+            "Stories are design checkpoints, not default implementation-agent units or parallelism signals.",
+            "Parallelism follows feature ownership, write sets, and dependency layers rather than story or item count.",
             "Dispatch rationale belongs in run notes or the item body when it affects bundling or wave width.",
+            "Gate scope: release-bound work is the focus, not a hard boundary; follow concrete evidence and route ambient findings to the unbound backlog.",
         ],
     },
     "advisory_review": {
@@ -88,7 +109,14 @@ CAPSULES = {
         "text": [
             "Cross-model peer review applies only when a different model class is available.",
             "Same-model review uses a fresh-context sub-agent rather than inline self-review.",
-            "Stories fast-advance on verification; features and epics get deeper review.",
+            "Child stories never enter review: green verification advances them directly to done; only standalone stories receive review, and never cross-model review.",
+            "Implementation review happens at feature level, with standalone stories as the narrow exception; epics receive their own deeper aggregate review.",
+            "Review weight defaults to standard; standard means one independent pass, then adjudicate, fix material blockers, verify, and finish without re-review.",
+            "Only thorough and maximum use multi-pass review; continue until a pass has no receiver-confirmed material blockers, while parking or noting smaller findings.",
+            "Review is non-blocking for dependency-ordered implementation: an item at review permits the next implementation layer to start.",
+            "Reviewer findings are proposals; the receiving orchestrator judges actual risk in repository context.",
+            "Only material current-cycle risk blocks completion; park valid lower-priority findings and continue.",
+            "Foundation docs may describe future intent: review existing claims only; omission or absent implementation is not drift.",
             "Advisory review is non-blocking during design, but final autopilot completion needs a successful review path.",
         ],
     },
@@ -146,11 +174,61 @@ def load_state(root: Path) -> dict[str, Any]:
 def save_state(root: Path, state: dict[str, Any]) -> None:
     path = state_path(root)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".json.tmp")
-    with tmp.open("w", encoding="utf-8") as fh:
-        json.dump(state, fh, indent=2, sort_keys=True)
-        fh.write("\n")
-    tmp.replace(path)
+    # Per-writer unique temp path (pid + random token) so overlapping writers do
+    # not clobber each other's temp before the atomic os.replace. A fixed
+    # ".json.tmp" would race: two processes writing it concurrently could rename
+    # a half-written or interleaved file into place.
+    token = os.urandom(8).hex()
+    tmp = path.with_suffix(f".{os.getpid()}.{token}.tmp")
+    try:
+        with tmp.open("w", encoding="utf-8") as fh:
+            json.dump(state, fh, indent=2, sort_keys=True)
+            fh.write("\n")
+        os.replace(tmp, path)
+    except OSError:
+        # Fail open: a failed save must never crash the hook. Best-effort cleanup
+        # of our uniquely-named temp so we don't leave debris behind.
+        with contextlib.suppress(OSError):
+            tmp.unlink()
+
+
+@contextlib.contextmanager
+def _state_lock(root: Path) -> Iterator[None]:
+    """Serialize the state-file read-modify-write across concurrent hook procs.
+
+    Holds an advisory ``fcntl.flock`` on a sibling ``.lock`` file for the whole
+    load -> mutate -> save cycle so two processes cannot lose each other's
+    session entries (whole-file last-writer-wins). Degrades gracefully:
+
+    - Where ``fcntl`` is unavailable (import-guarded above), this is a no-op and
+      we fall back to the prior best-effort behavior.
+    - Any locking failure (cannot open/create the lock file, flock errors) is
+      swallowed — the hook must stay fail-open and still exit 0. We never block
+      the hook on lock acquisition errors.
+    """
+    if fcntl is None:
+        yield
+        return
+    lock_path = state_path(root).with_suffix(".lock")
+    handle = None
+    try:
+        lock_path.parent.mkdir(parents=True, exist_ok=True)
+        handle = lock_path.open("a+")
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+    except OSError:
+        # Could not acquire the lock — proceed unlocked rather than block/crash.
+        if handle is not None:
+            with contextlib.suppress(OSError):
+                handle.close()
+        yield
+        return
+    try:
+        yield
+    finally:
+        with contextlib.suppress(OSError):
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+        with contextlib.suppress(OSError):
+            handle.close()
 
 
 def session_entry(state: dict[str, Any], session_id: str) -> dict[str, Any]:
@@ -171,15 +249,16 @@ def bump_epoch(root: Path, payload: dict[str, Any]) -> None:
     session_id = str(payload.get("session_id") or "unknown")
     event = str(payload.get("hook_event_name") or "")
     source = str(payload.get("source") or payload.get("trigger") or "")
-    state = load_state(root)
-    entry = session_entry(state, session_id)
-    if event == "SessionStart" and source in {"startup", "clear", ""}:
-        entry["epoch"] = 0
-        entry["seen"] = {}
-    elif event == "PostCompact" or source in {"resume", "compact"}:
-        entry["epoch"] = int(entry.get("epoch") or 0) + 1
-        entry["seen"] = {}
-    save_state(root, state)
+    with _state_lock(root):
+        state = load_state(root)
+        entry = session_entry(state, session_id)
+        if event == "SessionStart" and source in {"startup", "clear", ""}:
+            entry["epoch"] = 0
+            entry["seen"] = {}
+        elif event == "PostCompact" or source in {"resume", "compact"}:
+            entry["epoch"] = int(entry.get("epoch") or 0) + 1
+            entry["seen"] = {}
+        save_state(root, state)
 
 
 def output_context(event_name: str, text: str) -> None:
@@ -249,6 +328,8 @@ def cheap_action_candidate(prompt: str) -> bool:
         return False
     if SLASH_RE.search(prompt) or SKILL_MENTION_RE.search(prompt):
         return True
+    if SHORT_WORKFLOW_COMMAND_RE.search(prompt):
+        return True
     if QUEUE_QUERY_RE.search(prompt):
         return True
     if STRONG_ACTION_RE.search(prompt):
@@ -268,6 +349,8 @@ def is_actionable(prompt: str, matched_ids: set[str]) -> bool:
         return True
     if SLASH_RE.search(prompt) or SKILL_MENTION_RE.search(prompt):
         return True
+    if SHORT_WORKFLOW_COMMAND_RE.search(prompt):
+        return True
     if QUEUE_QUERY_RE.search(prompt) or STRONG_ACTION_RE.search(prompt):
         return True
     if POLY_WORKFLOW_ACTION_RE.search(prompt) and POLY_WORKFLOW_CONTEXT_RE.search(prompt):
@@ -278,13 +361,33 @@ def is_actionable(prompt: str, matched_ids: set[str]) -> bool:
     )
 
 
-def run_work_view(root: Path, *args: str) -> list[Path]:
+def plugin_root() -> Path | None:
+    pr = os.environ.get("PLUGIN_ROOT") or os.environ.get("CLAUDE_PLUGIN_ROOT")
+    return Path(pr) if pr else None
+
+
+def is_codex_hook_environment() -> bool:
+    return bool(os.environ.get("PLUGIN_ROOT") or os.environ.get("PLUGIN_DATA"))
+
+
+def plugin_version(pr: Path) -> str | None:
+    try:
+        data = json.loads((pr / ".claude-plugin" / "plugin.json").read_text("utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    version = data.get("version")
+    return version if isinstance(version, str) and version else None
+
+
+def installed_version(root: Path) -> str | None:
     work_view = root / ".work" / "bin" / "work-view"
     if not work_view.is_file() or not os.access(work_view, os.X_OK):
-        return []
+        return None
     try:
         result = subprocess.run(
-            [str(work_view), *args, "--paths"],
+            [str(work_view), "--version"],
             cwd=str(root),
             text=True,
             stdout=subprocess.PIPE,
@@ -293,72 +396,51 @@ def run_work_view(root: Path, *args: str) -> list[Path]:
             check=False,
         )
     except (OSError, subprocess.TimeoutExpired):
-        return []
-    paths: list[Path] = []
-    for line in result.stdout.splitlines():
-        line = line.strip()
-        if line:
-            paths.append((root / line).resolve() if not line.startswith("/") else Path(line))
-    return paths
+        return None
+    if result.returncode != 0:
+        return None
+    out = result.stdout.strip()
+    return out.split()[-1] if out.startswith("work-view ") else None
 
 
-def summarize_paths(paths: list[Path], limit: int = MAX_ITEMS) -> tuple[list[str], int]:
-    items: list[str] = []
-    for path in paths[:limit]:
-        fields = frontmatter(path)
-        item_id = fields.get("id") or path.stem
-        kind = fields.get("kind")
-        parent = fields.get("parent")
-        details = []
-        if kind:
-            details.append(kind)
-        if parent and parent != "null":
-            details.append(f"parent={parent}")
-        suffix = f" ({', '.join(details)})" if details else ""
-        items.append(f"- {item_id}{suffix}")
-    return items, max(0, len(paths) - limit)
-
-
-def format_section(title: str, paths: list[Path]) -> list[str]:
-    lines = [f"{title}: {len(paths)}"]
-    items, hidden = summarize_paths(paths)
-    if items:
-        lines.extend(items)
-        if hidden:
-            lines.append(f"- ... {hidden} more")
-    return lines
-
-
-def backlog_paths(root: Path) -> list[Path]:
-    base = root / ".work" / "backlog"
-    if not base.exists():
-        return []
-    return sorted(base.glob("*.md"), key=lambda path: frontmatter(path).get("created", "9999-99-99"))
-
-
-def needs_snapshot(prompt: str, matched_ids: set[str]) -> bool:
-    if matched_ids:
-        return True
-    return bool(
-        re.search(
-            r"\b(agile-workflow|autopilot|drain|ready|blocked|review|verdict|scope|park|release|deploy|gate|epic|feature|story|backlog|queue|next)\b",
-            prompt,
-            re.IGNORECASE,
+def run_installer(root: Path, pr: Path) -> None:
+    installer = pr / "scripts" / "install-work-view.sh"
+    if not installer.is_file():
+        return
+    with contextlib.suppress(OSError, subprocess.TimeoutExpired):
+        subprocess.run(
+            ["bash", str(installer)],
+            cwd=str(root),
+            env={**os.environ, "PLUGIN_ROOT": str(pr)},
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=20,
+            check=False,
         )
-    )
 
 
-def build_snapshot(root: Path, prompt: str) -> str:
-    review = run_work_view(root, "--stage", "review")
-    ready = run_work_view(root, "--ready")
-    blocked = run_work_view(root, "--blocked")
-    lines = ["## Agile Workflow Snapshot"]
-    lines.extend(format_section("Ready", ready))
-    lines.extend(format_section("Review", review))
-    lines.extend(format_section("Blocked", blocked))
-    if re.search(r"\b(backlog|park|scope)\b", prompt, re.IGNORECASE):
-        lines.extend(format_section("Backlog", backlog_paths(root)))
-    return "\n".join(lines)
+def self_heal_work_view(root: Path, event: str) -> None:
+    try:
+        pr = plugin_root()
+        if pr is None:
+            return
+        work_view = root / ".work" / "bin" / "work-view"
+        present = work_view.is_file() and os.access(work_view, os.X_OK)
+        if event == "UserPromptSubmit":
+            if not present:
+                run_installer(root, pr)
+            return
+
+        if not present:
+            run_installer(root, pr)
+            return
+        want = plugin_version(pr)
+        if want is None:
+            return
+        if installed_version(root) != want:
+            run_installer(root, pr)
+    except Exception:
+        return
 
 
 def capsule_keys(prompt: str, matched_ids_set: set[str], index: dict[str, Path]) -> list[str]:
@@ -381,14 +463,15 @@ def unseen_capsules(root: Path, payload: dict[str, Any], keys: list[str]) -> lis
     if not keys:
         return []
     session_id = str(payload.get("session_id") or "unknown")
-    state = load_state(root)
-    entry = session_entry(state, session_id)
-    epoch = int(entry.get("epoch") or 0)
-    seen = entry.setdefault("seen", {})
-    unseen = [key for key in keys if seen.get(key) != epoch]
-    for key in unseen:
-        seen[key] = epoch
-    save_state(root, state)
+    with _state_lock(root):
+        state = load_state(root)
+        entry = session_entry(state, session_id)
+        epoch = int(entry.get("epoch") or 0)
+        seen = entry.setdefault("seen", {})
+        unseen = [key for key in keys if seen.get(key) != epoch]
+        for key in unseen:
+            seen[key] = epoch
+        save_state(root, state)
     return unseen
 
 
@@ -403,6 +486,106 @@ def format_capsules(keys: list[str]) -> str:
     return "\n".join(lines)
 
 
+def rules_config(root: Path) -> tuple[bool, int]:
+    """Parse `.work/CONVENTIONS.md` for the rules-loader knobs.
+
+    `rules_context: on|off` (default on) and `rules_context_max_bytes: <int>`
+    (default DEFAULT_RULES_MAX_BYTES). Tolerant: any read/parse failure returns
+    the enabled defaults so a malformed CONVENTIONS never silences rules.
+    """
+    enabled = True
+    max_bytes = DEFAULT_RULES_MAX_BYTES
+    try:
+        text = (root / ".work" / "CONVENTIONS.md").read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return enabled, max_bytes
+    for raw in text.splitlines():
+        line = raw.strip().lstrip("-").strip()
+        # Anchor the value so prose like "rules_context: off disables injection"
+        # in a CONVENTIONS example does not silently flip the flag.
+        flag = re.match(
+            r"rules_context\s*:\s*(on|off|true|false|yes|no|0|1)\s*$", line, re.IGNORECASE
+        )
+        if flag:
+            enabled = flag.group(1).lower() not in {"off", "false", "no", "0"}
+            continue
+        cap = re.match(r"rules_context_max_bytes\s*:\s*(\d+)\s*$", line, re.IGNORECASE)
+        if cap:
+            value = int(cap.group(1))
+            if value > 0:  # 0/invalid keeps the default; use `rules_context: off` to disable
+                max_bytes = value
+    return enabled, max_bytes
+
+
+def read_rules_dir(root: Path, max_bytes: int) -> tuple[str, str]:
+    """Read `<root>/.agents/rules/*.md` (sorted) into one injectable block.
+
+    Returns ``(text, sha256)`` where the hash is over the UNtruncated
+    concatenation so any edit re-injects. Truncates the emitted text at
+    ``max_bytes`` with a notice. Returns ``("", "")`` when the dir is absent or
+    has no readable markdown content.
+    """
+    rules_dir = root / ".agents" / "rules"
+    if not rules_dir.is_dir():
+        return "", ""
+    chunks: list[str] = []
+    for path in sorted(rules_dir.glob("*.md")):
+        try:
+            body = path.read_text(encoding="utf-8").strip()
+        except OSError:
+            continue
+        if body:
+            chunks.append(body)
+    if not chunks:
+        return "", ""
+    body = "\n\n".join(chunks)
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+    if max_bytes and len(body.encode("utf-8")) > max_bytes:
+        clipped = body.encode("utf-8")[:max_bytes].decode("utf-8", "ignore").rstrip()
+        body = clipped + "\n\n(.agents/rules truncated — read the files for full content)"
+    return "## Project Rules (.agents/rules/)\n" + body, digest
+
+
+def rules_unseen(root: Path, payload: dict[str, Any], content_hash: str) -> bool:
+    """True iff (epoch, content_hash) has not yet been injected this session.
+
+    Reuses the epoch state; stores ``seen['rules'] = f'{epoch}:{hash}'`` so rules
+    re-inject after a PostCompact epoch bump or when `.agents/rules/` content
+    changes, but only once per (epoch, content) otherwise.
+    """
+    session_id = str(payload.get("session_id") or "unknown")
+    with _state_lock(root):
+        state = load_state(root)
+        entry = session_entry(state, session_id)
+        marker = f"{int(entry.get('epoch') or 0)}:{content_hash}"
+        seen = entry.setdefault("seen", {})
+        if seen.get("rules") == marker:
+            return False
+        seen["rules"] = marker
+        save_state(root, state)
+    return True
+
+
+def emit_rules(root: Path, payload: dict[str, Any], *, force: bool = False) -> str:
+    """Return `.agents/rules/` context to inject, or "".
+
+    Claude/Codex SessionStart/PostCompact hooks dedup once per epoch via
+    ``rules_unseen`` because hook output is host-managed context. Pi rebuilds the
+    system prompt every turn and has no hooks.json package surface, so its native
+    extension calls the synthetic ``PiBeforeAgentStart`` path with ``force=True``
+    to append the same rules block every turn without mutating hook state.
+    """
+    enabled, max_bytes = rules_config(root)
+    if not enabled:
+        return ""
+    text, digest = read_rules_dir(root, max_bytes)
+    if not text:
+        return ""
+    if not force and not rules_unseen(root, payload, digest):
+        return ""
+    return text
+
+
 def main() -> int:
     payload = load_payload()
     event = str(payload.get("hook_event_name") or "")
@@ -410,33 +593,47 @@ def main() -> int:
     if root is None:
         return 0
 
+    # Pi package parity adapter: Pi has native extension events rather than a
+    # hooks.json surface. The extension calls this synthetic path from
+    # before_agent_start so it can append the exact same .agents/rules block to
+    # Pi's rebuilt-per-turn system prompt without disturbing Claude/Codex epoch
+    # dedup state.
+    if event == "PiBeforeAgentStart":
+        output_context("SessionStart", emit_rules(root, payload, force=True))
+        return 0
+
+    # Primary rules firing: SessionStart / PostCompact emit `.agents/rules/`
+    # directly where the host supports hook-specific context. Codex accepts
+    # context on SessionStart but not PostCompact, so Codex PostCompact only
+    # bumps the epoch and leaves context injection to SessionStart compact.
     if event in {"SessionStart", "PostCompact"}:
         bump_epoch(root, payload)
+        self_heal_work_view(root, event)
+        if event == "PostCompact" and is_codex_hook_environment():
+            return 0
+        output_context(event, emit_rules(root, payload))
         return 0
 
     if event != "UserPromptSubmit":
         return 0
 
     prompt = str(payload.get("prompt") or "")
-    if not cheap_action_candidate(prompt):
-        return 0
-
-    index = item_index(root)
-    matched = matched_item_ids(prompt, set(index))
-    if not is_actionable(prompt, matched):
-        return 0
+    self_heal_work_view(root, event)
 
     parts: list[str] = []
-    if needs_snapshot(prompt, matched):
-        parts.append(build_snapshot(root, prompt))
+    # Prompt-time output is limited to principles capsules behind the workflow
+    # gate. Queue state is available through explicit work-view/board commands.
+    if cheap_action_candidate(prompt):
+        index = item_index(root)
+        matched = matched_item_ids(prompt, set(index))
+        if is_actionable(prompt, matched):
+            capsule_text = format_capsules(
+                unseen_capsules(root, payload, capsule_keys(prompt, matched, index))
+            )
+            if capsule_text:
+                parts.append(capsule_text)
 
-    selected = capsule_keys(prompt, matched, index)
-    selected = unseen_capsules(root, payload, selected)
-    capsule_text = format_capsules(selected)
-    if capsule_text:
-        parts.append(capsule_text)
-
-    output_context(event, "\n\n".join(parts))
+    output_context(event, "\n\n".join(p for p in parts if p))
     return 0
 
 

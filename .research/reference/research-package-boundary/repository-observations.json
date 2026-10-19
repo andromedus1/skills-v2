@@ -1,0 +1,290 @@
+{
+  "observed_at": "2026-10-18T21:35:26.538093+00:00",
+  "baseline": "15893074c2731db015a1c11b4f626045fe5818fa",
+  "provenance": "generated-listing",
+  "plugins": {
+    "research-pipeline": {
+      "skill_directories": [
+        "architecture",
+        "brief",
+        "build-process",
+        "deep-research",
+        "doc-review",
+        "engineering-principles",
+        "epic-design",
+        "epicize",
+        "expand",
+        "feature-design",
+        "gate-citations",
+        "ideate",
+        "init-project",
+        "knowledge-graph",
+        "knowledge-index",
+        "methodology-review",
+        "quality-checkpoint",
+        "research",
+        "research-program",
+        "scout",
+        "security-review",
+        "test-quality",
+        "update-documentation",
+        "update-epicize"
+      ],
+      "skill_count": 24,
+      "manifests": {
+        "plugins/research-pipeline/.claude-plugin/plugin.json": {
+          "sha256": "23e4638b865fa9bb44c9b95fbe846e66a747ba3e110d9b443278cc0e9afae4a0",
+          "content": {
+            "name": "research-pipeline",
+            "description": "Project-process and knowledge overlay for agile-workflow, using agentic-research as its authoritative grounded-research engine.",
+            "version": "0.2.0",
+            "author": {
+              "name": "andrewclark88"
+            },
+            "repository": "https://github.com/andrewclark88/skills-v2",
+            "license": "MIT"
+          }
+        },
+        "plugins/research-pipeline/.codex-plugin/plugin.json": {
+          "sha256": "cc5b30c12755a916a31ad74506ff6933ed1267c89b928254903a09baa1e78256",
+          "content": {
+            "name": "research-pipeline",
+            "version": "0.2.0",
+            "description": "Project-process and knowledge overlay for agile-workflow, using agentic-research as its authoritative grounded-research engine.",
+            "author": {
+              "name": "andrewclark88"
+            },
+            "repository": "https://github.com/andrewclark88/skills-v2",
+            "license": "MIT",
+            "skills": "./skills/",
+            "hooks": "./hooks/hooks.json",
+            "interface": {
+              "displayName": "Research Pipeline",
+              "shortDescription": "Project process and knowledge over grounded research",
+              "longDescription": "Project-process overlay for agile-workflow with prior-art scouting, intent-based research entrypoints, architecture and design integration, a three-layer knowledge index and graph, cross-host context hooks, document review, and release quality orchestration. Requires agentic-research for grounded research execution and ARD verification.",
+              "developerName": "andrewclark88",
+              "category": "Productivity",
+              "capabilities": [
+                "Read",
+                "Write",
+                "Bash",
+                "WebSearch"
+              ],
+              "defaultPrompt": [
+                "Use research-pipeline to load the knowledge index and recommend the next research or design step."
+              ],
+              "websiteURL": "https://github.com/andrewclark88/skills-v2"
+            }
+          }
+        }
+      }
+    },
+    "agentic-research": {
+      "skill_directories": [
+        "convert",
+        "research-discipline",
+        "research-handoff",
+        "research-orchestrator"
+      ],
+      "skill_count": 4,
+      "manifests": {
+        "plugins/agentic-research/.claude-plugin/plugin.json": {
+          "sha256": "823f6563d45d6a556ada9f756bf0fff2cf4eb36ea234c3016e7e3c425ba10998",
+          "content": {
+            "name": "agentic-research",
+            "description": "Agentic Research Discipline (ARD) \u2014 grounded, verifiable AI research: a non-erodable anti-fabrication floor, selectable verification gates, and a .research/ substrate tier of attestations and syntheses that parallels .work/. ARD is the plugin's internal, empirically-warranted discipline (ard-core/).",
+            "version": "0.6.5",
+            "author": {
+              "name": "Kevoun"
+            },
+            "repository": "https://github.com/nklisch/skills",
+            "license": "MIT"
+          }
+        },
+        "plugins/agentic-research/.codex-plugin/plugin.json": {
+          "sha256": "88b3baf79e21c8bbcb371e2a9423e157d8fc98c54cfa1139aeb1d5213ab4c237",
+          "content": {
+            "name": "agentic-research",
+            "version": "0.6.5",
+            "description": "Agentic Research Discipline (ARD) \u2014 grounded, verifiable AI research with a non-erodable anti-fabrication floor, selectable verification gates, and a .research/ substrate tier paralleling .work/. ARD is the plugin's internal, empirically-warranted discipline (ard-core/).",
+            "author": {
+              "name": "Kevoun"
+            },
+            "repository": "https://github.com/nklisch/skills",
+            "license": "MIT",
+            "skills": "./skills/",
+            "interface": {
+              "displayName": "Agentic Research Discipline",
+              "shortDescription": "Grounded, verifiable AI research discipline",
+              "longDescription": "ARD makes AI research grounded and verifiable: a non-erodable anti-fabrication floor, a per-engagement control-space of selectable verification gates, and a .research/ substrate tier (attestations, precis, analytical syntheses) paralleling the operational .work/ tier. Citations use the [handle]{N} convention with per-source attestations, enforced by a citation-chain lint. ARD is the plugin's internal, empirically-warranted discipline, maintained in ard-core/.",
+              "developerName": "Kevoun",
+              "category": "Productivity",
+              "capabilities": [
+                "Read",
+                "Write",
+                "Bash",
+                "WebSearch",
+                "WebFetch"
+              ],
+              "defaultPrompt": [
+                "Use agentic-research to run a grounded research engagement with citation attestations and verification gates."
+              ],
+              "websiteURL": "https://github.com/nklisch/skills"
+            }
+          }
+        }
+      }
+    }
+  },
+  "skill_name_intersection": [],
+  "reverse_reference_scan": {
+    "argv": [
+      "rg",
+      "-n",
+      "research-pipeline",
+      "plugins/agentic-research",
+      "--glob",
+      "*.md",
+      "--glob",
+      "*.py",
+      "--glob",
+      "*.sh",
+      "--glob",
+      "*.json"
+    ],
+    "exit_code": 0,
+    "stdout": "plugins/agentic-research/scripts/tests/skill-metadata.test.sh:24:        \"research-pipeline cross-plugin routing\"\n",
+    "stderr": ""
+  },
+  "composition_commit": {
+    "argv": [
+      "git",
+      "show",
+      "--format=fuller",
+      "--stat",
+      "88775f35"
+    ],
+    "exit_code": 0,
+    "stdout": "commit 88775f35e69897cd3b4a23c963a0435c30cae10b\nAuthor:     Andrew Clark <andrew.clark@orderlymeds.com>\nAuthorDate: Sat Aug 1 21:52:01 2026 -0600\nCommit:     Andrew Clark <andrew.clark@orderlymeds.com>\nCommitDate: Sat Aug 1 21:52:01 2026 -0600\n\n    refactor: remove duplicate ARD implementation\n\n .../feature-research-composition-2026-08.md        |  20 +-\n plugins/research-pipeline/ard.json                 |  37 -\n .../research-pipeline/docs/ard-adoption-plan.md    | 232 ------\n .../docs/deep-research-architecture.md             | 889 ---------------------\n .../docs/deep-research-north-star.md               | 130 ---\n .../research-pipeline/docs/gate-docs-extension.md  |   4 +-\n .../docs/model-selection-pattern.md                |   4 +-\n .../docs/research-program-architecture.md          | 887 --------------------\n .../docs/research-skills-overview.md               | 305 +------\n .../research-pipeline/docs/scout-architecture.md   | 299 -------\n plugins/research-pipeline/docs/scout-north-star.md |  72 --\n plugins/research-pipeline/scripts/catalogs.json    | 481 -----------\n .../scripts/conformance/README.md                  |  11 -\n .../scripts/conformance/expected.json              |  23 -\n .../research-pipeline/scripts/conformance/run.py   |  71 --\n .../research-pipeline/scripts/lint-citations.py    | 358 ---------\n .../scripts/resolve-agentic-research.sh            |  69 ++\n .../scripts/schema/attestation.schema.json         |  39 -\n .../scripts/tests/resolve-agentic-research.test.sh |  39 +\n .../scripts/tests/test_conformance.py              |  27 -\n .../scripts/tests/test_discipline_verbatim.py      |  48 --\n .../skills/adversarial-reader/SKILL.md             |  98 ---\n .../skills/citation-lint/SKILL.md                  |  91 ---\n .../research-pipeline/skills/epic-design/SKILL.md  |   9 +-\n plugins/research-pipeline/skills/epicize/SKILL.md  |  12 +-\n .../skills/feature-design/SKILL.md                 |   4 +-\n .../skills/gate-citations/SKILL.md                 |  30 +-\n plugins/research-pipeline/skills/ideate/SKILL.md   |   4 +-\n .../skills/research-discipline/SKILL.md            |  69 --\n plugins/research-pipeline/templates/INDEX.md       |  27 -\n plugins/research-pipeline/templates/attestation.md |  36 -\n plugins/research-pipeline/templates/precis.md      |  27 -\n 32 files changed, 194 insertions(+), 4258 deletions(-)\n",
+    "stderr": ""
+  },
+  "resolver_sha256": "b8b47d636dc8e25fea8b3199af0e35e761cca91a455c3a3249ff18186a3cc259",
+  "resolver_probe": {
+    "fixture": "Two minimally valid cached plugin directories; no explicit root or sibling engine; isolated child HOME; no active-version registry provided.",
+    "versions": [
+      "1.9.0",
+      "1.10.0"
+    ],
+    "exit_code": 0,
+    "selected_version": "1.9.0",
+    "stdout": "<temporary-root>/cache/marketplace/agentic-research/1.9.0\n",
+    "stderr": ""
+  },
+  "supplemented_at": "2026-10-18T21:44:37.318167+00:00",
+  "distribution": {
+    ".claude-plugin/marketplace.json": {
+      "marketplace": "andrewclark88-skills-v2",
+      "plugin_entries": [
+        {
+          "name": "research-pipeline",
+          "source": "./plugins/research-pipeline",
+          "description": "Project-process and knowledge overlay for agile-workflow, with familiar research intents delegated to the authoritative agentic-research engine.",
+          "category": "productivity",
+          "policy": {
+            "installation": "AVAILABLE",
+            "authentication": "ON_INSTALL"
+          }
+        },
+        {
+          "name": "agentic-research",
+          "source": "./plugins/agentic-research",
+          "description": "Agentic Research Discipline (ARD) \u2014 grounded, verifiable AI research with a non-erodable anti-fabrication floor, selectable verification gates, and a .research/ substrate tier paralleling .work/. ARD is the plugin's internal, empirically-warranted discipline (ard-core/).",
+          "category": "productivity",
+          "policy": {
+            "installation": "AVAILABLE",
+            "authentication": "ON_INSTALL"
+          }
+        }
+      ]
+    },
+    ".agents/plugins/marketplace.json": {
+      "marketplace": "andrewclark88-skills-v2",
+      "plugin_entries": [
+        {
+          "name": "research-pipeline",
+          "source": {
+            "source": "local",
+            "path": "./plugins/research-pipeline"
+          },
+          "description": "Project-process and knowledge overlay for agile-workflow, with familiar research intents delegated to the authoritative agentic-research engine.",
+          "category": "Productivity",
+          "policy": {
+            "installation": "AVAILABLE",
+            "authentication": "ON_INSTALL"
+          }
+        },
+        {
+          "name": "agentic-research",
+          "source": {
+            "source": "local",
+            "path": "./plugins/agentic-research"
+          },
+          "description": "Agentic Research Discipline (ARD) \u2014 grounded, verifiable AI research with a non-erodable anti-fabrication floor, selectable verification gates, and a .research/ substrate tier paralleling .work/. ARD is the plugin's internal, empirically-warranted discipline (ard-core/).",
+          "category": "Productivity",
+          "policy": {
+            "installation": "AVAILABLE",
+            "authentication": "ON_INSTALL"
+          }
+        }
+      ]
+    }
+  },
+  "upstream_comparison_ref": "7056fdb2e14acd452c2b5b4d2da74ed46516beb0",
+  "engine_fork_diff": {
+    "argv": [
+      "git",
+      "diff",
+      "upstream/main",
+      "--",
+      "plugins/agentic-research"
+    ],
+    "exit_code": 0,
+    "stdout": "diff --git a/plugins/agentic-research/scripts/tests/skill-metadata.test.sh b/plugins/agentic-research/scripts/tests/skill-metadata.test.sh\nnew file mode 100755\nindex 00000000..0d14d677\n--- /dev/null\n+++ b/plugins/agentic-research/scripts/tests/skill-metadata.test.sh\n@@ -0,0 +1,28 @@\n+#!/bin/sh\n+set -eu\n+\n+script_dir=$(CDPATH= cd -- \"$(dirname -- \"$0\")\" && pwd)\n+plugin_root=$(CDPATH= cd -- \"$script_dir/../..\" && pwd)\n+\n+python3 - \"$plugin_root\" <<'PY'\n+from pathlib import Path\n+import sys\n+import yaml\n+\n+root = Path(sys.argv[1])\n+metadata = root / \"skills\" / \"research-orchestrator\" / \"agents\" / \"openai.yaml\"\n+document = yaml.safe_load(metadata.read_text(encoding=\"utf-8\"))\n+\n+prompt = document.get(\"interface\", {}).get(\"default_prompt\")\n+if not isinstance(prompt, str) or \"$research-orchestrator\" not in prompt:\n+    raise AssertionError(f\"{metadata}: default prompt does not name the skill\")\n+\n+policy = document.get(\"policy\", {}).get(\"allow_implicit_invocation\")\n+if policy is not True:\n+    raise AssertionError(\n+        f\"{metadata}: research-orchestrator must allow implicit invocation for \"\n+        \"research-pipeline cross-plugin routing\"\n+    )\n+PY\n+\n+printf '%s\\n' 'agentic-research skill metadata: ok'\ndiff --git a/plugins/agentic-research/skills/research-orchestrator/agents/openai.yaml b/plugins/agentic-research/skills/research-orchestrator/agents/openai.yaml\nindex c94c9c22..36b990fc 100644\n--- a/plugins/agentic-research/skills/research-orchestrator/agents/openai.yaml\n+++ b/plugins/agentic-research/skills/research-orchestrator/agents/openai.yaml\n@@ -3,4 +3,4 @@ interface:\n   short_description: \"Use Research Orchestrator for repo workflows\"\n   default_prompt: \"Use $research-orchestrator for this repository.\"\n policy:\n-  allow_implicit_invocation: false\n+  allow_implicit_invocation: true\n",
+    "stderr": ""
+  },
+  "engine_patch_commit": {
+    "argv": [
+      "git",
+      "show",
+      "--format=fuller",
+      "--stat",
+      "c7d0de75"
+    ],
+    "exit_code": 0,
+    "stdout": "commit c7d0de75f071246f2a629869308764a56222848f\nAuthor:     Andrew Clark <andrew.clark@orderlymeds.com>\nAuthorDate: Tue Aug 11 21:19:56 2026 -0600\nCommit:     Andrew Clark <andrew.clark@orderlymeds.com>\nCommitDate: Tue Aug 11 21:19:56 2026 -0600\n\n    fix: restore research orchestrator discovery (story-fix-research-orchestrator-codex-discovery)\n\n ...ry-fix-research-orchestrator-codex-discovery.md | 71 ++++++++++++++++++++++\n .../scripts/tests/skill-metadata.test.sh           | 28 +++++++++\n .../research-orchestrator/agents/openai.yaml       |  2 +-\n 3 files changed, 100 insertions(+), 1 deletion(-)\n",
+    "stderr": ""
+  },
+  "resolver_references": {
+    "argv": [
+      "rg",
+      "-n",
+      "resolve-agentic-research.sh",
+      "plugins/research-pipeline"
+    ],
+    "exit_code": 0,
+    "stdout": "plugins/research-pipeline/skills/gate-citations/SKILL.md:72:AGENTIC_RESEARCH_ROOT=\"$(${CLAUDE_PLUGIN_ROOT}/scripts/resolve-agentic-research.sh)\"\nplugins/research-pipeline/scripts/tests/resolve-agentic-research.test.sh:5:resolver=$script_dir/../resolve-agentic-research.sh\nplugins/research-pipeline/scripts/tests/resolve-agentic-research.test.sh:24:isolated_resolver=$tmp_dir/installed/research-pipeline/scripts/resolve-agentic-research.sh\n",
+    "stderr": ""
+  },
+  "pipeline_ard_named_paths": [],
+  "portable_root_manifest_exists": {
+    "research-pipeline": false,
+    "agentic-research": false
+  },
+  "resolver_cross_host_probe": {
+    "fixture": "Three valid roots: explicit Claude cache, default Claude cache, default Codex plugins; same version 0.6.5; no sibling or explicit engine root.",
+    "exit_code": 0,
+    "stdout": "<temporary-root>/isolated-home/.codex/plugins/marketplace/agentic-research/0.6.5\n",
+    "stderr": "",
+    "selected_root": "default Codex"
+  }
+}

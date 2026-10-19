@@ -1,5 +1,5 @@
 {
-  "description": "research-pipeline hooks: knowledge-index navigator + cross-model peer-review preflight on SessionStart + docs/ updated: auto-bump on PostToolUse. Nav is flag-gated by docs/knowledge-index-nav.yaml presence; the peer-preflight is gated by peeragent being installed; both inert otherwise.",
+  "description": "research-pipeline hooks: knowledge navigator + compact .work snapshot on SessionStart and host-supported PostCompact, peer-review preflight on SessionStart, and docs updated-date maintenance on PostToolUse. Each hook is flag-gated and inert when its substrate is absent.",
   "hooks": {
     "SessionStart": [
       {
@@ -12,7 +12,29 @@
           },
           {
             "type": "command",
+            "command": "bash \"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/hooks/scripts/session-start-substrate.sh\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
             "command": "bash \"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/hooks/scripts/session-start-peer-preflight.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "manual|auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/hooks/scripts/session-start-nav.sh\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash \"${PLUGIN_ROOT:-${CLAUDE_PLUGIN_ROOT}}/hooks/scripts/session-start-substrate.sh\"",
             "timeout": 10
           }
         ]
