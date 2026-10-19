@@ -57,7 +57,8 @@ read from `.work/`, not from docs. Briefs and research artifacts are not audited
 structure here — `research-pipeline:knowledge-index` lint and the citation gate own that.
 
 **Step 3: Load the substrate.** If `.work/` exists, list active items with
-`.work/bin/work-view --kind <epic|feature|story> --paths` (or glob `.work/active/`), and
+`.work/bin/work-view --scope active --kind <epic|feature|story> --paths` (or glob
+`.work/active/`), and
 done items with `--scope archive --paths` plus active items at `stage: done`. No `.work/`
 → skip checks 2b–2d and flag **Info**.
 
@@ -81,8 +82,8 @@ research_method: /brief | /research | /deep-research | /research-program | hand-
 
 - No frontmatter, or missing `description`, `type` or `updated` → **Medium** (the index
   falls back to inference). `updated` more than a year old → **Low**.
-- `research_method` missing on research types (`brief`, `campaign-parent`,
-  `campaign-report`, `program-parent`, `program-report`) → **Low**; backfill `migrated`
+- `research_method` missing on research artifacts (knowledge-index `kind: research`,
+  whatever their layout's type names) → **Low**; backfill `migrated`
   if the origin is unknown. Informational only for other types.
 
 **Present the inventory:** "Found N system-level docs, M module docs across K modules,
@@ -125,7 +126,9 @@ patterns, placeholders and mentions of legacy locations are not citations.
 
 #### 2d. Done-item claims
 For each done item (archive or `stage: done`), files its implementation notes or
-"Files"/"Delivered" sections name as delivered must exist. Resolve plugin- or
+"Files"/"Delivered" sections name as delivered must exist. Archived items may be
+bodyless stubs: recover the body with `git show <git_ref>:.work/active/<kind>s/<id>.md`;
+if it cannot be recovered, list the item under incomplete coverage, never as clean. Resolve plugin- or
 package-relative paths first; alternatives the item merely discussed are not claims.
 - Renamed per `git log --follow` → **Info** (the record was true when written).
 - Deleted with a later commit or item explaining the removal → clean.
@@ -296,12 +299,12 @@ If the prior iteration applied any fix, run a fresh audit. Period.
 
 ## Phase 5: Regenerate Knowledge Index
 
-After fixing any issues, **run `research-pipeline:knowledge-index`** to regenerate the index
+After the loop ends, **run `research-pipeline:knowledge-index`** to regenerate the index
 from frontmatter. The index is fully derived; moves, renames, deletions and frontmatter
 changes the loop made are picked up automatically.
 
-Do NOT hand-edit `docs/knowledge-index*.yaml`. If the regenerator's lint surfaces issues,
-fix them in the source frontmatter and re-run. Skip this phase if the project does not use
+Do NOT hand-edit `docs/knowledge-index*.yaml`. Do not start new fixes here; report any
+regenerator lint issues as residual findings for the user. Skip this phase if the project does not use
 the knowledge index.
 
 ---
