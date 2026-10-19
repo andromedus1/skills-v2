@@ -1,7 +1,7 @@
 ---
 id: feature-ar-fork-citation-matcher
 kind: feature
-stage: implementing
+stage: review
 tags: [agentic-research, methodology-review]
 parent: null
 depends_on: [feature-qvc-minor-remedies]
@@ -142,3 +142,37 @@ real corpus; skill metadata test for AR.
   per run; fallback: skip token check above a size bound.
 - **Ownership roll-forward conflicts with future upstream merges** — accepted by
   Andrew's decision; upstream drift comparisons for AR no longer apply.
+
+## Implementation notes
+- Execution capability: one worker for Units 1–2 (kernel + conformance; red →
+  green), host for Unit 3 (docs/ownership); review of other features ran in
+  parallel on disjoint files.
+- Review weight: standard (default).
+- Files changed: `ard-core/kernel/lint-citations.py`; conformance `run.py`,
+  `expected.json`, `README.md`, 4 new fixtures; `ard-core/CATALOGS.md` §3 +
+  regenerated `kernel/catalogs.json`; `AGENTS.md`, `README.md`,
+  `docs/project-navigation.md` (fork-owned Agentic Research);
+  `gate-citations/SKILL.md` version caveat.
+- Tests added: 18 version-anchor conformance checks (57 → 75), line-level
+  expectations via a new data-driven `run.py` group; the suite fails against the
+  previous lint (11 failures), a blanket cited-line variant, a tier-only variant
+  and an any-status variant.
+- Results: experiment fixtures reproduce variant B exactly (19 flags; precision
+  0.84, recall 0.80). This repo's `.research/`: version-number 174 → 60 (112
+  attestation + 2 analytical suppressions, each with a token-bearing cited
+  attestation); all other outputs identical.
+- Discrepancies from design: `run.py` gained a check group; body cache is per run
+  via an optional `lint_file(body_cache=None)` parameter; with
+  `--no-citation-check` only tier suppression applies (cited lines keep flags);
+  acquisition-candidate attestations (`provenance: source-direct`) are
+  tier-suppressed in their own file but cannot anchor citing lines — flagged for
+  review; brief's "112/115" measured as 114 suppressed.
+- Not changed: the AR README install commands still name the upstream
+  `nklisch/skills` marketplace — a distribution decision for Andrew, not an
+  ownership statement.
+- Adjacent issues parked: `idea-version-matcher-shape`.
+
+## Integrated verification (2026-10-19)
+Conformance 75/75; `gen-contract.py --check` in sync; AR skill metadata ok; RP
+portability ok; `test_refresh_scan.py` ALL PASS; gate command on this repo: 0
+broken, version-number 60, other categories unchanged.
