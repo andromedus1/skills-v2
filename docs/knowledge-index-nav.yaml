@@ -3,7 +3,7 @@
 # Provides corpus situational awareness only. Read knowledge-index.yaml for full index.
 
 schema_version: 3
-generated_at: 2026-10-19T14:54:56Z
+generated_at: 2026-10-19T16:00:47Z
 generated_from: frontmatter
 total_docs: 22
 
@@ -16,15 +16,19 @@ by_kind:
 substrate_summary:
   active:
     epic: 1
-    feature: 8
-    story: 2
+    feature: 9
+    story: 6
     release: 0
-  backlog: 5
+  backlog: 7
   releases: {}
   archive: 7
 
 # Top 15 most-recently-updated docs (planning + research only).
 recent:
+  - path: docs/project-navigation.md
+    title: "Skills v2 fork navigation"
+    kind: planning
+    updated: 2026-10-19
   - path: docs/ARCHITECTURE.md
     title: "Upstream skills repository architecture"
     kind: planning
@@ -39,10 +43,6 @@ recent:
     updated: 2026-10-18
   - path: docs/agile-workflow-guide.md
     title: "Agile Workflow usage guide with upstream adoption context"
-    kind: planning
-    updated: 2026-10-18
-  - path: docs/project-navigation.md
-    title: "Skills v2 fork navigation"
     kind: planning
     updated: 2026-10-18
   - path: docs/ux-ui-design-guide.md

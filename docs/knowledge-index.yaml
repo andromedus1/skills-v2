@@ -6,7 +6,7 @@
 #   2 = enforce (missing v2 fields are errors)
 # Set to 2 once the project's docs are fully backfilled to v2 frontmatter.
 schema_version: 1
-generated_at: 2026-10-19T14:54:56Z
+generated_at: 2026-10-19T16:00:47Z
 generated_from: frontmatter
 total_docs: 22
 
@@ -45,7 +45,7 @@ documents:
     title: Skills v2 fork navigation
     type: module-rules
     kind: planning
-    updated: 2026-10-18
+    updated: 2026-10-19
     consumer_hint: Start here to find this fork's current process, research ownership, methodology-review entrypoint and inherited upstream references.
 
   - path: docs/ux-ui-design-guide.md

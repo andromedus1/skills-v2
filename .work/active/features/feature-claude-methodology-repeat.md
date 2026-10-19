@@ -710,3 +710,22 @@ variant diff, per-run outputs.
   feature; the summary above remains the record.
 - **Proceed:** design `feature-qvc-review-receipts` now and work toward this
   branch's PR (push/PR still confirmed at the time).
+
+## Delivery of round-1 decisions (2026-10-19)
+
+| Decision | Item | Outcome |
+| --- | --- | --- |
+| QVC-R/METH-002 receipts | `feature-qvc-review-receipts` | done — Codex review (Request changes → 1 blocker, 1 important fixed `7eb12d33`); receipt in item |
+| Minor bundle (S-002, S-003, E-002/R-004, E-003/E-004, hygiene) | `feature-qvc-minor-remedies` (4 checkpoints) | done — Codex review (2 doc-review blockers, 2 important fixed `3b1a9b6a`); receipt in item |
+| Fork ownership + QVC-S/METH-001 matcher | `feature-ar-fork-citation-matcher` | done — Codex review (1 important fixed `d8afde36`); conformance 57 → 77; corpus version flags 174 → 60 |
+| QVC-R/METH-003 PR per arc | this arc's close | pending — PR to be opened after round 2, confirmed with Andrew |
+
+Parked during delivery: `idea-architecture-roadmap-links`, `idea-version-matcher-shape`.
+
+## Root round 2 allocation (2026-10-19)
+
+Changed product baseline: `c6c2b6fb` (from `e3e2e070`). Round 2 of 5 allocated;
+1 complete. Fresh whole-scope assessor: Codex via peeragent (fresh job). Scope:
+the full QVC charter (three topics, interactions, seven scenarios, intended-use
+weighting), verifying remedies for decided findings and assessing new or
+persistent findings on the changed baseline. Not prescribed a verdict.
