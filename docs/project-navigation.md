@@ -83,7 +83,9 @@ replaces bash-4 `mapfile`. The fork's `scripts/bump-version.sh` refuses to bump 
 and omits upstream's Workbench version stamping and Antigravity manifests, so
 [`bump-version.test.sh`](../plugins/agile-workflow/scripts/tests/bump-version.test.sh)
 seeds its scratch repository on a named branch and covers that guard. Preserve
-these additions when syncing upstream.
+these additions when syncing upstream. Upstream's Antigravity root `plugins/*/plugin.json`
+manifests and `.agents/plugins.json` are not carried, except `plugins/workbench/plugin.json`,
+which Workbench's own validator and tests read.
 
 ## Regenerate the knowledge index
 
