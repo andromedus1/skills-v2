@@ -636,3 +636,23 @@ Codex `gpt-6.1-sol` high, peeragent job `20261019T144048Z-e4a7e91b`, terminal
 
 **Root round 1 complete: 1 of 5.** Outcome: **Awaiting decision.** Next: one
 decision packet to Andrew, majors first.
+
+## Operator decisions — round 1 packet (Andrew, 2026-10-19)
+
+| Finding(s) | Decision | Authorizes | Item |
+| --- | --- | --- | --- |
+| QVC-R/METH-002 (major; alias QVC-E/METH-005) | **Accept** "Add receipt fields" | Fork-only change to `.work/CONVENTIONS.md` and `quality-checkpoint` §2: receipts record reviewed `base..head`, reviewer class/path, weight, findings, accepted-fix verification, and a one-line coverage classification of post-review changes to consequential files. No added review pass; no upstream template change | `feature-qvc-review-receipts` |
+| QVC-R/METH-003 (major) | **Accept** "PR per arc" | Resume PRs: open one at the close of each arc, starting with this long-lived branch; Andrew reviews diffs of consequential contract files before merge. Docs stay as written. Opening/pushing a PR is still confirmed with Andrew at the time | this arc's close |
+| QVC-S/METH-002, QVC-S/METH-003, gate-citations incidentals | **Accept** "Citation gate tidy-up" | Scope into one fork-only follow-up feature | `feature-qvc-minor-remedies` |
+| QVC-E/METH-003, QVC-E/METH-004 | **Accept** "doc-review state + scope" | Report fields; mechanical-only autonomous fixes with foundation-doc contradictions routed to the operator; retarget retired roadmap checks | `feature-qvc-minor-remedies` |
+| QVC-E/METH-002, QVC-R/METH-004 | **Accept** "Consolidate duplicate rules" | One canonical fork statement with one-line local pointers; drop `research-composition` restatements; weigh by domain-review burden | `feature-qvc-minor-remedies` |
+| QVC-E incidentals I-2, I-6; QVC-R incidentals (Part IV/`peer-review` refs, undocumented `models.md` patch) | **Accept** "Repo hygiene" | Declare PyYAML for tests; branch guard in `bump-version.sh`; fix stale references; document the fork patch | `feature-qvc-minor-remedies` |
+| QVC-S/METH-001 | **Experiment** "Citation matcher precision" | Scratch-only fixtures; no repo edits | run now |
+| Research N3 | **Experiment** "Close research N3" | One independent re-read of the N3 lines | run now |
+| QVC-E/METH-001 (minor) | Not selected | Scenario harness not authorized; parked blueprint pilot remains the evidence path | — |
+| QVC-R/METH-001, QVC-R/METH-005, QVC-S/METH-004 (minor) | Not selected | Retained as minor observations; no change | — |
+
+Partial authorization only: each item's operative brief is limited to the row
+above. Next: deliver both features through normal design → implement →
+review; record experiment results; then allocate root round 2 for a fresh
+whole-scope reassessment on the changed baseline.
