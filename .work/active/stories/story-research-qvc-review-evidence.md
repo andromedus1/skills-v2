@@ -177,3 +177,8 @@ after both return.
   "non-blocking" without support. Minor m1–m5. Both attestation extensions
   verified against re-fetched sources. Second NEEDS-REVISION surfaced to Andrew
   per the orchestrator; no further revision without his decision.
+- **Operator decision (Andrew, 2026-10-19): bounded fix.** One final targeted
+  correction of N1 (MT-bench attestation extended from a re-fetched Table 4
+  first), N2, m1–m5 and the evaluator's recommendations 1–5. Verification: a
+  targeted N1/N2 re-check plus lead spot-check, not a full third read. If that
+  check fails, mark verification incomplete and proceed with the limitation.
