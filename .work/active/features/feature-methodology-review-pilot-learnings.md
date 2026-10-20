@@ -182,6 +182,90 @@ this item stands alone. **(M)** marks material findings.
   emerged. The exit ranking handled a retained major plus pending minor work
   coherently.
 
+## Pilot performance against intent (2026-10-20)
+
+This section is the operator-facing assessment from the end of the Knowledge
+pilot. The intent sources are:
+
+- the skill's description;
+- Andrew's intended jobs (`idea-blueprint-methodology-pilot`): review domain
+  methods over time, cover the whole suite and each component, and pair with
+  scout to surface alternatives and improvements;
+- the rollout record: compare methods, workflows, assumptions and evidence
+  with products, projects and research, with Andrew adjudicating;
+- the October 12 research-depth question.
+
+| Intended | Performance | Evidence |
+|---|---|---|
+| Treat current architecture as a hypothesis, not a criterion | **Met** | Verifiers repeatedly removed "designed" properties presented as evidence. The final synthesis labels the method undemonstrated throughout |
+| Ground comparisons in verified research at the right depth (Oct 12 question) | **Met, at high cost** | A 7-facet campaign, a focused prior-art brief and a scout. Review shape and research shape decoupled cleanly. Verification caught real errors, but churned (F23) |
+| Surface alternatives (scout pairing) | **Partly met** | The approach sample was host-authored. Andrew had to add gap discovery and an open scout mid-campaign (F11, F14). Scout acted as a late patch, not a front end |
+| Produce decision-useful methodological findings | **Partly met** | Honest null: no alternative was shown better, and the method itself is unproven. Most decision value came from naming experiments and hardening the design. The central evidence gap was predictable at kickoff (prior research had found no economics evidence), but the skill has no step that asks whether sources can settle a decision (F28) |
+| Operator-adjudicated loop with exact authority | **Met, a strength** | Decisions authorized only what they answered. A retained major blocked a clean exit. "Need more info" was handled, and agreement never became implementation |
+| Fresh independent reassessment | **Met, a strength** | Cross-model assessors withdrew or downgraded host majors, caught a skipped research gate, and verified remedies in round 2 (F22) |
+| Close the loop through delivery | **Met** | Decision → research-handoff items → delivered and reviewed → verified in round 2 |
+| Component, then suite program (decomposition) | **Untested** | Component-only charter. The decomposition guidance and shared round limit were not exercised |
+| Longitudinal re-review over time | **Untested, and the next test** | Andrew plans to repeat the Knowledge review with the revised skill. The skill has no guidance for re-running a closed review under a new skill version or after time passes (F29) |
+| Proportionate effort, scalable to 6 components and the suite | **Not met** | About 20 agent dispatches plus resumes for one component, with no cost shown up front (F12). At this cost, a full rollout is impractical without reuse and budgets |
+
+**New findings from this assessment:**
+
+- **F28 (M). No evidence-feasibility triage.** At charter, the skill should
+  classify each decision as literature-settleable or experiment-needed, and
+  set expectations accordingly. Where prior research already shows an
+  evidence absence, it should propose an experiment track early. This review
+  spent a large campaign confirming that a key question cannot be settled from
+  sources, and the operator then declined the experiment.
+- **F29 (M). No re-run or longitudinal-review semantics.** Define how to
+  repeat a closed review, either under a revised skill or after time has
+  passed:
+  - a new review id linked to its predecessor;
+  - prior finding ids carried forward as prior IDs;
+  - the round limit not inherited;
+  - research reused under freshness rules, not re-commissioned;
+  - an explicit "what changed since the prior review" baseline;
+  - comparison of outcomes across versions as the skill's own validation.
+- **F30. No host pre-check of draft findings.** Before the independent
+  assessment, the host should verify each draft finding against the current
+  artifact text. KMR-03 was a host misreading of the lifecycle; the assessor
+  caught it, but a cheap pre-check would have avoided it.
+- **F31. Program-scale economics.** For component-then-suite programs, the
+  skill should plan a shared domain map and shared research across children,
+  with lighter per-child research and an explicit budget per child. Repeating
+  a full campaign per component does not scale.
+
+**Suggested edit priorities for the skill revision:**
+
+1. **Domain-map front end with sample-completeness check** (Andrew's
+   direction; F11, F14). Pair it with F28's evidence-feasibility triage and
+   F31's reuse across children.
+2. **Cost and effort visibility with an operator budget** (F12, F31).
+3. **Commission-packet template** including a non-recommending
+   decision-relevance section, and a clear review/research ownership boundary
+   (F7, F9, F10, F18, F23).
+4. **Assessment ordering and bundled assessor brief** (F19, F20, F22), plus
+   the host pre-check (F30).
+5. **Loop-record mechanics** (F4, F5, F6): routing marker, skeleton, direct
+   minting.
+6. **Re-run and longitudinal semantics** (F29), with re-presentation of
+   dependent findings (F25), remedy bundling (F26) and prior pending decisions
+   (F1, F2).
+7. **Agentic-research fixes, as a separate plugin change:** F8, F15, F16, F17,
+   F21, F24, F27.
+
+**Validation plan for the revised skill.** Repeat the Knowledge review under
+the revised skill (Andrew's intent). Use it as the skill's own A/B test against
+this pilot, comparing:
+
+- whether the sample needed operator correction;
+- agent count and cost against the stated budget;
+- verification churn;
+- the decision yield of the findings;
+- whether the assessor withdrew any host findings.
+
+Reuse the existing research under freshness rules. It is TTL-bounded to
+2027-01-19/20.
+
 ## Design questions for feature-design
 
 - Should the domain map be a new Research Pipeline entry point, a step-0 phase of
