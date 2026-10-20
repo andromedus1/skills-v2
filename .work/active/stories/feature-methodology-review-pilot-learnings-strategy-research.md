@@ -122,3 +122,16 @@ bibliography block 400–449.
   operator's email address as the `email` parameter. That should have been a
   placeholder. It was reported to the operator, and the dispatch instructions now
   forbid personal data in external requests.
+- `design-space-methods`: handshake echo matches; lint 118 resolved, with 13
+  low `unreachable-source` URL-liveness warnings that change between runs; 0
+  high. It reused two LLM-ideation attestations under its own numbers
+  (duplicate `references.md` entries for the same handle are expected and left
+  as they are).
+
+**Emergent facet 8, `decision-option-generation`.** This covers value-focused
+thinking, act and objective generation, and option-generation prompts.
+`design-space-methods` reported it as the strongest measured evidence on
+incompleteness, and its central source was held only at press-release depth.
+Dispatched with bibliography block 450–499. The remaining suggestions
+(ideation-metric validity, inter-rater reliability of dimension choice) fall
+within `coverage-estimation`.
