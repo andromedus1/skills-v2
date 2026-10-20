@@ -231,8 +231,8 @@ Both are explicitly technique-relative: they estimate the reservoir of one gener
 space [meincke-prompting-idea-variance-2024]{300}. Whether pooling generators adds coverage is a
 matter of overlap and marginal additions: Meincke et al. report small overlap between different
 prompting strategies' early ideas [meincke-prompting-idea-variance-2024]{300}, while cross-model average
-similarity is high, which cautions against treating a different model as independent coverage without
-showing it adds nothing [artificial-hivemind-homogeneity-2025]{307}.
+similarity is high, so model identity alone establishes neither independent coverage nor zero additional
+discoveries; overlap and marginal additions are what to assess [artificial-hivemind-homogeneity-2025]{307}.
 
 **Omission resists audit.** Models "detect planted over-inclusions 6-7x more often than planted
 omissions", and a production deployment "fails omission-first at 10:1"; "Omission is witness-blind
@@ -349,3 +349,4 @@ Stated in the field's own terms; no project recommendations.
 ## Revisions
 
 - **2026-10-20 — correction (lead, after adversarial-read).** The categorical "pooling helps only if" restriction is replaced by an overlap and marginal-addition criterion.
+- **2026-10-20 — correction (adversarial re-check).** The marginal-addition clause is restated unambiguously (R6).

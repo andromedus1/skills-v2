@@ -36,7 +36,6 @@
   [warn] L172 version-number: ### 3.5 Recurring causes of missing families
   [warn] L188 version-number: Claude-3.7-Sonnet reached 69.6% F1 at identifying removed content and model averages ranged from
   [warn] L208 comparative-superlative: | `tension` | RIPL defines a landscape as covering "an entire population of relevant data" [smith-ripl-statement-2018]{2
-  [warn] L222 count-without-unit-citation: estimator validity is demonstrated for species, words, code paths, defects and screening, and the
 
 ## .research/analysis/campaigns/solution-space-decomposition/clusters/generation.md
   [info] L45 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
@@ -67,16 +66,15 @@
   [warn] L277 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
 
 ## .research/analysis/campaigns/solution-space-decomposition/parent.md
-  [info] L52 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L76 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L94 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
-  [info] L104 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
-  [info] L167 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L246 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [warn] L82 decimal-with-attribution: | Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [g
-  [warn] L118 count-without-unit-citation: coverage estimators do have measured evaluations in their own settings, such as species, words,
-  [warn] L136 decimal-with-attribution: the number of missing kinds is not [chao-hill-numbers-rarefaction-2014]{351}; Kitchenham et al. found missed papers "add
-  [warn] L265 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
+  [info] L53 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L77 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L95 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L105 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L171 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L250 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [warn] L83 decimal-with-attribution: | Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [g
+  [warn] L140 decimal-with-attribution: the number of missing kinds is not [chao-hill-numbers-rarefaction-2014]{351}; Kitchenham et al. found missed papers "add
+  [warn] L271 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
 
 ## .research/analysis/campaigns/solution-space-decomposition/specialists/analogous-domain-search.md
   [info] L141 [srinivasan-analogical-distance-ideation-2018]{409} → reduced-substrate-attestation
@@ -430,5 +428,7 @@
 
 ## .research/analysis/campaigns/solution-space-decomposition/verification-checklist.md
   [warn] L97 version-number: records Q1/Q2, 36.3 and the interval 29.1–68.8, but not the number of sampling units;
+  [warn] L329 count-without-unit-citation: for "species, words, code paths and defects" cites only Chao 2009 and Chao 2014
+  [warn] L356 version-number: example at `:81` retains Q1 = 9, Q2 = 4, estimate 36.3 and interval 29.1–68.8.
 
-21 file(s) · 1441 resolved/non-broken citation(s) · 0 broken · 0 thin · 253 pattern flag(s)
+21 file(s) · 1445 resolved/non-broken citation(s) · 0 broken · 0 thin · 253 pattern flag(s)

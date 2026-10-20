@@ -289,3 +289,160 @@ not discharge these semantic findings. No missing credential, network or permiss
 blocked this local verification; source reacquisition for R4 belongs to the revision.
 
 NEEDS-REVISION
+
+## Re-check (2026-10-20)
+
+Assessed revision commit `01ccee486c84e7ce8b3260a045d80a261a91bc15`
+against its parent, the revised parent and both clusters in full, the named
+specialist passages, their revision logs, and the relevant cited attestations.
+This is a targeted reconciliation of R1–R9, including unsupported wording introduced
+by their corrections, rather than another whole-corpus audit. The original pass
+above remains the historical record; the statuses below are current. Re-read the
+complete discipline and role brief; the discipline SHA-256 is unchanged.
+No delegation or external source reacquisition was used for this re-check.
+Locations below use the same path conventions as the original checklist and refer
+to the assessed revision commit.
+
+1. **R1 — resolved.** `parent.md:203` now distinguishes the adjudicated observed
+   union from an estimated total, requires a named model's justified sampling
+   assumptions and uncertainty, and declines to assign a statistical bound to the
+   deliberately varied challenge passes. `clusters/completeness.md:237` similarly
+   distinguishes observed counts and model-based estimates and limits the
+   heterogeneous-detection lower-bound interpretation to Chao-type values.
+   These distinctions are supported by
+   `.research/attestation/chao-colwell-chao2-inequality-2017.md:33`, `:36`, `:40`,
+   `:86` and `.research/attestation/bron-chao-estimator-tar-2024.md:36`.
+   `parent.md:130` and `:240` also replace the earlier generic overlap-bound
+   wording. No remaining arbitrary-overlap lower-bound guarantee was found in
+   the reviewed passages.
+
+2. **R2 — not resolved: the scope correction introduces a citation-support gap.**
+   The estimator distinctions and restricted absence finding are corrected at
+   `parent.md:16`, `:25`, `:115`, `:124`,
+   `clusters/completeness.md:10`, `:20`, `:119`, and
+   `specialists/search-completeness.md:145`. Cochrane's two-search requirement
+   (`.research/attestation/cochrane-handbook-ch4-searching-2025.md:40`) is no longer
+   imposed on abundance samples; the Chao data-shape distinctions support the
+   replacement (`.research/attestation/chao-colwell-chao2-inequality-2017.md:30`;
+   `.research/attestation/chao-hill-numbers-rarefaction-2014.md:29`).
+   However, the newly added `parent.md:118` assertion of measured evaluations
+   for "species, words, code paths and defects" cites only Chao 2009 and Chao 2014
+   at `:119`. Those attestations record ecological evaluations, not the named
+   word/software/inspection evaluations
+   (`.research/attestation/chao-sufficient-sampling-2009.md:13`;
+   `.research/attestation/chao-hill-numbers-rarefaction-2014.md:13`).
+   **Remaining fix:** attach the appropriate source-specific attestations to the
+   non-ecological claims and preserve each source's actual evaluation level.
+   The existing software and inspection evidence is recorded at
+   `.research/attestation/bohme-stads-species-discovery-2018.md:15`, `:30`, `:49`
+   and `.research/attestation/briand-capture-recapture-inspections-2000.md:15`,
+   `:22`. The word-frequency attestation records empirical application and model
+   fit (`.research/attestation/efron-thisted-shakespeare-unseen-1976.md:13`, `:33`);
+   do not promote that to independent known-total validation without attested
+   support. Reconcile the same domain-list wording in the completeness summary
+   (`clusters/completeness.md:10`, `:20`) to the resulting supported distinctions.
+
+3. **R3 — resolved.** `parent.md:141` and
+   `clusters/completeness.md:82`, `:145` restore the structural/sample conditions
+   alongside iteration stability and distinguish the demonstration's selected two
+   conditions. These match
+   `.research/attestation/nickerson-taxonomy-development-method-2013.md:68`
+   and `:96`; they no longer assert that all ending conditions inspect only the
+   last iteration or that they certify unseen-family coverage.
+
+4. **R4 — resolved.** The extended attestation now records the §7.3 sampling
+   design, explicitly identifying 12 North Site point counts and T = 12
+   (`.research/attestation/chao-colwell-chao2-inequality-2017.md:76`). Its worked
+   example at `:81` retains Q1 = 9, Q2 = 4, estimate 36.3 and interval 29.1–68.8.
+   The details now support `clusters/completeness.md:127` and
+   `specialists/coverage-estimation.md:77`, `:204` without weakening the original
+   source-true claim. This verifies the repaired attestation chain, not an
+   independent new acquisition of the PDF.
+
+5. **R5 — resolved.** `parent.md:8` and `:22` now assign the recovery fraction to
+   human generation and explicitly distinguish LLM similarity/category-coverage
+   measurements. `clusters/generation.md:8` preserves the same separation.
+   The human-objective fraction is recorded at
+   `.research/attestation/bond-carlson-keeney-improving-objectives-2010.md:52`;
+   human-alternative incompleteness and the institutionally reported 37% are at
+   `.research/attestation/siebert-keeney-alternatives-2015.md:22` and
+   `.research/attestation/siebert-keeney-press-2015.md:18`.
+   The revised text no longer assigns the human recovery denominator to LLMs.
+
+6. **R6 — not resolved: corrected main argument, unreconciled parent and specialist.**
+   `parent.md:77`, `:192` and `clusters/generation.md:99`, `:229` now correctly
+   distinguish similarity, marginal additions and independence, including
+   same-model cue gains. But `parent.md:248` still calls greater breadth
+   "Disconfirmed for ... ensembles of models," retaining the categorical
+   inference removed from the cluster. Hivemind reports high average similarity
+   and says ensembles **may not** diversify; it does not establish zero marginal
+   coverage (`.research/attestation/artificial-hivemind-homogeneity-2025.md:24`,
+   `:28`, `:33`). In addition,
+   `specialists/llm-ideation-diversity.md:234` ends the revised caution with
+   "without showing it adds nothing," which reverses or obscures the intended
+   marginal-addition condition.
+   **Remaining fix:** qualify the parent's ensemble statement as the source's
+   caution, as the revised cluster does. Replace the specialist's final clause
+   with an unambiguous statement that model identity alone establishes neither
+   independent coverage nor zero additional discoveries; assess overlap and
+   marginal additions. Do not require proof of no additions as the condition
+   for treating a model as providing independent coverage.
+
+7. **R7 — not resolved: counterevidence restored, summary upgrades evidence strength.**
+   The original exposure/consensus overgeneralization is corrected in
+   `clusters/generation.md:76`, `:84`, `:249` and `parent.md:88`, `:188`.
+   They retain the voting control
+   (`.research/attestation/creative-mad-debate-diversity-2026.md:19`) and the
+   qualified exposure countercase
+   (`.research/attestation/ashkinaze-ai-ideas-collective-diversity-2024.md:13`,
+   `:16`, `:19`). However, the replacement parent summary groups "independent
+   generation before group discussion" under "Remedies with measured support
+   in their tested settings" (`parent.md:11`). The attested sequencing is a
+   prescription (`.research/attestation/bond-carlson-keeney-improving-objectives-2010.md:55`),
+   with pooling demonstrated in one executive case
+   (`.research/attestation/bond-carlson-keeney-objectives-2008.md:47`), not a measured
+   comparison establishing that sequencing effect. The parent's own table
+   correctly labels it "Demonstrated" at `parent.md:77`.
+   **Remaining fix:** separate the measured interventions from the independent-first
+   prescription and single pooling demonstration in the summary; retain the
+   corrected control/countercase argument and its scoped recommendation.
+
+8. **R8 — resolved.** `clusters/generation.md:200` preserves the maximum-quality
+   control, problem dependence, nonsignificant direct choice-quality associations
+   and between-person status, and explicitly rejects a smaller-set causal conclusion.
+   `parent.md:229` and `specialists/decision-option-generation.md:13` use association
+   language rather than causal language; the specialist's detailed statement at
+   `:198` retains the conditioning. These match
+   `.research/attestation/delmissier-option-generation-ideation-2015.md:55` and
+   `.research/attestation/schweizer-creative-option-generation-2016.md:28`.
+   No revised passage reviewed here asserts that reducing sample size improves
+   decisions.
+
+9. **R9 — not resolved: one named category-timing occurrence remains unreconciled.**
+   The press-release/task limitation is restored at `parent.md:178`;
+   the Zahner cite-through and uncertain balance at `parent.md:82`;
+   the press-reported more-time result at `parent.md:88`; and the inspector
+   exception at `parent.md:132` and `clusters/completeness.md:128`.
+   These match the respective attestations at
+   `.research/attestation/siebert-novices-press-2016.md:12`, `:21`;
+   `.research/attestation/vasconcelos-crilly-inspiration-fixation-2016.md:42`;
+   `.research/attestation/siebert-keeney-press-2015.md:29`; and
+   `.research/attestation/briand-capture-recapture-inspections-2000.md:49`.
+   Category/second-opportunity confounding and the motivated-review null are
+   correctly restored at `parent.md:81` and `clusters/generation.md:124`, `:216`.
+   **Remaining fix:** `parent.md:228` still says "Categories help as a second
+   pass, not upfront" without those qualifications—the specific contradiction-row
+   occurrence identified in R9 remains unchanged. Reconcile it with the qualified
+   table/body and generation-cluster row, preserving the uncertainty at
+   `.research/attestation/bond-carlson-keeney-improving-objectives-2010.md:31`, `:45`.
+
+Current disposition: **resolved R1, R3, R4, R5, R8; not resolved R2, R6, R7, R9**.
+The original positions need further correction/reconciliation, not reversal.
+The frontmatter verdict remains `NEEDS-REVISION` for these remaining semantic
+issues. No credential, network, permission or missing-context blocker prevented
+this re-check. The citation lint completed with exit code 0 and zero broken
+chains or structurally thin attestations; URL-liveness checks were explicitly
+excluded from this local attestation re-check. Mechanical success does not
+resolve the findings above.
+
+NEEDS-REVISION

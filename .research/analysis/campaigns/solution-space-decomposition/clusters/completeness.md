@@ -8,8 +8,8 @@ summary: >-
   completeness before depth work. Across the fields, completeness of the process, recall of items
   against a known set, and completeness of the set of kinds or families are distinct quantities.
   For families of methods or approaches, only the first two have measured practice in the attested
-  corpus; richness estimators are evaluated in their own settings (species, words, code paths,
-  defects). Every estimate is relative to a frame (the generating process, the identity threshold for a
+  corpus; richness estimators are evaluated in their own settings (ecology, fuzzing, inspections)
+  and applied to vocabulary with model fit rather than a known total. Every estimate is relative to a frame (the generating process, the identity threshold for a
   kind, the chosen dimensions, the known set), and each estimator has its own inputs: two or more
   captures for capture–recapture, replicated units for incidence data, frequency counts for abundance
   data, or a random sample of the remainder for screening tests. "No new items in the
@@ -17,7 +17,7 @@ summary: >-
   than wrong inclusions by humans and models, and disagreement between passes is partly
   classification rather than retrieval.
 key_findings:
-  - No attested source validates a completeness estimate for families of methods or approaches; measured practice there covers item recall against a known or pooled set, while richness estimators are evaluated for species, words, code paths and defects.
+  - No attested source validates a completeness estimate for families of methods or approaches; measured practice there covers item recall against a known or pooled set, while richness estimators are evaluated in ecology, fuzzing and inspections and applied to vocabulary.
   - Chao-type estimators give lower bounds under heterogeneous detection; sample coverage (share of abundance or incidence probability already represented, not share of kinds) is more robustly estimable than the number of missing kinds.
   - Every completeness figure is conditional on the generating process, the identity threshold that merges near-duplicates, the rank counted and the frame of dimensions or known items.
   - Estimator inputs differ: capture–recapture needs two or more captures treated as independent, incidence estimators replicated units, abundance estimators frequency counts, screening tests a random sample of the remainder; few occasions widen intervals, and inspection studies advise against fewer than four inspectors unless shown to work in a particular environment.
@@ -219,7 +219,7 @@ in qualitative synthesis [booth-qes-searching-2016]{155}.
   unstructured expert list (absence reported by the landscape specialist)
   [zhang-qgs-search-2011]{258} [franke-poetz-schreier-analogous-markets-2014]{273}.
 - *A completeness estimate can certify a sample of approaches.* Not supported for kinds of approaches:
-  estimator validity is demonstrated for species, words, code paths, defects and screening, and the
+  estimator performance is measured for species, code paths, defects and screening, and applied to words, and the
   near-unbiased condition is not shown to hold for approaches
   [chao-colwell-chao2-inequality-2017]{350}; idea-space estimates have no known-truth comparison
   [kornish-ulrich-opportunity-spaces-2011]{361}.
@@ -280,3 +280,4 @@ Stated in the source fields' own terms; not recommendations.
   taxonomy ending conditions are restored (R3). Model-based bounds are confined to justified assumptions
   (R1). The 12-unit example is confirmed in the extended attestation (R4). The inspector quotation's
   exception is restored (R9).
+- **2026-10-20 — correction (adversarial re-check).** The estimator-setting lists are matched to their attested evaluation levels (R2).

@@ -9,9 +9,10 @@ summary: >-
   a half of later-recognised objectives or alternatives and narrows toward familiar examples and a
   person's dominant category; language-model generation, measured differently, converges on the same
   modes across independent draws and across models. Remedies with measured support in their tested
-  settings are an objectives- or purpose-first generation key, independent generation before group
-  discussion, a second pass that states the first is incomplete and sets a target, generation that
-  sees prior items and is told to differ, and abstraction at a workable level for distant retrieval;
+  settings are an objectives- or purpose-first generation key, a second pass that states the first is
+  incomplete and sets a target, generation that sees prior items and is told to differ, and abstraction
+  at a workable level for distant retrieval; independent generation before group discussion is a
+  prescription, with pooling demonstrated in one case;
   upfront examples, similarity feedback and standard multi-agent debate narrowed sets in the studies
   that tested them. No attested source validates a completeness estimator for families of methods or
   approaches; completeness signals are relative to a declared frame, each estimator has its own input
@@ -115,8 +116,11 @@ identity threshold that merges near-duplicates [kornish-ulrich-opportunity-space
 - **No validated estimator for the completeness of families of methods or approaches** was found in
   the attested corpus; landscape, taxonomy and design-space practice measures item recall against a
   known or pooled set [zhang-qgs-search-2011]{258} [sampson-relative-recall-2006]{163}. Richness and
-  coverage estimators do have measured evaluations in their own settings, such as species, words,
-  code paths and defects [chao-sufficient-sampling-2009]{352} [chao-hill-numbers-rarefaction-2014]{351}.
+  coverage estimators do have measured evaluations in their own settings: ecological subsampling and
+  simulation [chao-sufficient-sampling-2009]{352} [chao-hill-numbers-rarefaction-2014]{351}, fuzzing
+  against true path richness [bohme-stads-species-discovery-2018]{359} and inspections against seeded
+  defects [briand-capture-recapture-inspections-2000]{362}; vocabulary applications report model fit
+  rather than a known total [efron-thisted-shakespeare-unseen-1976]{355}.
 - **Frame-relativity.** Estimates are relative to the generating process
   [kornish-ulrich-opportunity-spaces-2011]{361} [meincke-prompting-idea-variance-2024]{300}, the
   identity threshold [kornish-ulrich-opportunity-spaces-2011]{361}, the declared dimensions
@@ -225,7 +229,7 @@ reviews specifically.
 | `contradicts` | Far-field examples raised novelty [chan-fu-analogy-distance-commonness-2011]{403}; far stimuli lowered novelty and quality [fu-near-far-analogy-2013]{404}. |
 | `tension` | Diversity-seeking sampling advocated for kinds [booth-qes-searching-2016]{155} versus estimators that need random-like repetition [chao-colwell-chao2-inequality-2017]{350} [van-rijnsoever-saturation-simulation-2017]{358}. |
 | `tension` | Perspective-based review minimises reviewer overlap [regnell-pbr-perspectives-different-2000]{367}; capture–recapture needs overlap [briand-capture-recapture-inspections-2000]{362}. |
-| `qualifies` | Categories help as a second pass, not upfront [bond-carlson-keeney-improving-objectives-2010]{453}. |
+| `qualifies` | Categories coincided with gains as a second pass, confounded with the second opportunity, and added no reliable gain over a motivated deeper review; upfront they did not reduce misses [bond-carlson-keeney-improving-objectives-2010]{453}. |
 | `qualifies` | Generating more options was associated with lower mean option quality and higher best-option quality in some problems, with non-significant direct links to choice quality [delmissier-option-generation-ideation-2015]{459}, and with higher maximum but not mean originality between persons [schweizer-creative-option-generation-2016]{460}; correlational, not causal. |
 | `tension` | Morphological "totality research" [ritchey-gma-general-method]{100} versus design spaces as "helpful—but incomplete" [shaw-petre-design-spaces-2024]{110}. |
 | `incommensurable` | LLM diversity below humans [wenger-kenett-creative-homogeneity-llms-2025]{306} versus matching or exceeding humans under some prompts [noveltybench-humanlike-diversity-2025]{310}; different metrics and domains. |
@@ -245,8 +249,10 @@ reviews specifically.
   incompleteness degrades decisions [bond-carlson-keeney-objectives-2008]{452}, while overlooked
   alternatives were of equal average quality [siebert-keeney-alternatives-2015]{450} {confidence:
   abstract-only}.
-- *Using a language model makes the sample broader.* Disconfirmed for default sampling, ensembles of
-  models and debate [artificial-hivemind-homogeneity-2025]{307} [creative-mad-debate-diversity-2026]{317};
+- *Using a language model makes the sample broader.* Disconfirmed for default sampling and standard
+  debate [artificial-hivemind-homogeneity-2025]{307} [creative-mad-debate-diversity-2026]{317}; for model
+  ensembles the source cautions they "may not" diversify given shared priors, without measuring marginal
+  additions [artificial-hivemind-homogeneity-2025]{307};
   supported only under specific prompting regimes [noveltybench-humanlike-diversity-2025]{310}.
 
 ## Open questions
@@ -278,3 +284,4 @@ reviews specifically.
   restriction is removed (R6). The narrowing claims are limited to the tested conditions, with the
   voting control and the exposure countercase restored (R7). Quantity–quality findings are stated as
   associations (R8). Source-depth, cite-through and conditional qualifiers are restored (R9).
+- **2026-10-20 — correction (adversarial re-check).** Per-setting estimator evaluations now cite their own attestations (R2). The ensemble statement is qualified as the source's caution (R6). The independent-first sequencing is labelled a prescription with one demonstration (R7). The categories contradiction row is qualified (R9).
