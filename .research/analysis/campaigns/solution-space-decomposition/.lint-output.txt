@@ -13,68 +13,87 @@
   [warn] L132 decimal-with-attribution: - Bond et al. companion work: Leon 1999, OBHDP (bond-carlson-keeney-objectives-2008) — value- versus alternative-focused
   [warn] L133 decimal-with-attribution: - Johnson & Raab 2003; Klein et al. 1995; Butler & Scherer 1997; Keller & Ho 1988; Mehle 1982; Ward et al. 2011 (delmiss
 
+## .research/analysis/campaigns/solution-space-decomposition/campaign-evaluation.md
+  [warn] L39 comparative-superlative: - **C1: stopping rules have no positive answer.** §4 says that "no new items in N", saturation and taxonomy ending condi
+  [warn] L49 comparative-superlative: - **C5: a scope choice for steps 1–2 was dropped.** RIPL defines a landscape as "an entire population", while WIPO advis
+  [warn] L87 comparative-superlative: parent.md never cites doshi-hauser. Only the widening countercase survives, in the summary, key findings and §2. As a re
+  [warn] L113 decimal-with-attribution: - **G7: Gettys et al. (1987) has no visible grounding.** It appears only in Revisit-if, in both parent.md and the genera
+  [warn] L150 decimal-with-attribution: 9. **Ground or drop Gettys et al. (G7), and reconcile the duplicate `{N}` numbers (G8).**
+
 ## .research/analysis/campaigns/solution-space-decomposition/clusters/completeness.md
   [info] L55 [varela-lema-emerging-tech-search-2012]{270} → reduced-substrate-attestation
   [info] L76 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
-  [info] L131 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
-  [info] L144 [hennink-code-meaning-saturation-2017]{174} → reduced-substrate-attestation
-  [info] L163 [wohlin-mapping-reliability-2013]{161} → reduced-substrate-attestation
-  [info] L176 [ogilvie-finding-evidence-2005]{157} → reduced-substrate-attestation
-  [info] L193 [aguilar-fault-type-code-review-2025]{370} → reduced-substrate-attestation
-  [info] L210 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
-  [info] L210 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
-  [info] L212 [ciolkowski-pbr-meta-analysis-2009]{369} → reduced-substrate-attestation
+  [info] L130 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L143 [hennink-code-meaning-saturation-2017]{174} → reduced-substrate-attestation
+  [info] L162 [wohlin-mapping-reliability-2013]{161} → reduced-substrate-attestation
+  [info] L175 [ogilvie-finding-evidence-2005]{157} → reduced-substrate-attestation
+  [info] L192 [aguilar-fault-type-code-review-2025]{370} → reduced-substrate-attestation
+  [info] L209 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
+  [info] L209 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L211 [ciolkowski-pbr-meta-analysis-2009]{369} → reduced-substrate-attestation
   [warn] L93 version-number: ### 3.1 Every completeness figure is relative to a frame
-  [warn] L117 version-number: ### 3.2 Each estimator has its own inputs and independence assumptions
-  [warn] L125 decimal-with-attribution: captures [bron-chao-estimator-tar-2024]{169}. Webster and Kemp's design, as Bron et al. describe it,
-  [warn] L127 version-number: intervals and underestimates: a Chao2 of 36.3 from 12 units carried a 95% interval of 29.1 to 68.8
-  [warn] L135 version-number: ### 3.3 "Nothing new in the last run" is not evidence of completeness
-  [warn] L158 version-number: ### 3.4 Missing items can mean missing kinds, and independent maps disagree
-  [warn] L160 decimal-with-attribution: Two independent novice reviews shared 6 of 32 papers, and papers an expert review missed "would have
-  [warn] L164 decimal-with-attribution: its replication shared 20 papers [wohlin-hybrid-search-snowballing-2022]{160}. Disagreement has two
-  [warn] L168 comparative-superlative: discrepancy averaged 43% even though 97% of responses gave exactly one category
-  [warn] L172 version-number: ### 3.5 Recurring causes of missing families
-  [warn] L188 version-number: Claude-3.7-Sonnet reached 69.6% F1 at identifying removed content and model averages ranged from
-  [warn] L208 comparative-superlative: | `tension` | RIPL defines a landscape as covering "an entire population of relevant data" [smith-ripl-statement-2018]{2
+  [warn] L116 version-number: ### 3.2 Each estimator has its own inputs and independence assumptions
+  [warn] L124 decimal-with-attribution: captures [bron-chao-estimator-tar-2024]{169}. Webster and Kemp's design, as Bron et al. describe it,
+  [warn] L126 version-number: intervals and underestimates: a Chao2 of 36.3 from 12 units carried a 95% interval of 29.1 to 68.8
+  [warn] L134 version-number: ### 3.3 "Nothing new in the last run" is not evidence of completeness
+  [warn] L157 version-number: ### 3.4 Missing items can mean missing kinds, and independent maps disagree
+  [warn] L159 decimal-with-attribution: Two independent novice reviews shared 6 of 32 papers, and papers an expert review missed "would have
+  [warn] L163 decimal-with-attribution: its replication shared 20 papers [wohlin-hybrid-search-snowballing-2022]{160}. Disagreement has two
+  [warn] L167 comparative-superlative: discrepancy averaged 43% even though 97% of responses gave exactly one category
+  [warn] L171 version-number: ### 3.5 Recurring causes of missing families
+  [warn] L187 version-number: Claude-3.7-Sonnet reached 69.6% F1 at identifying removed content and model averages ranged from
+  [warn] L207 comparative-superlative: | `tension` | RIPL defines a landscape as covering "an entire population of relevant data" [smith-ripl-statement-2018]{2
 
 ## .research/analysis/campaigns/solution-space-decomposition/clusters/generation.md
   [info] L45 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L91 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
-  [info] L132 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L174 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
-  [info] L189 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
-  [info] L220 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L222 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
-  [info] L250 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
-  [info] L258 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [warn] L76 version-number: ### 2.1 Tested narrowing conditions, and independence before pooling
-  [warn] L81 version-number: - Upfront examples increased misses (10.8 versus 7.9), consistent with part-list cueing
-  [warn] L84 comparative-superlative: - In LLMs, telling the model the similarity of existing ideas produced the least diverse pool, and
-  [warn] L85 comparative-superlative: "40 sessions then groups pick the best 10" was worse than the base prompt
-  [warn] L107 version-number: ### 2.2 Measured second-pass and conditioning techniques
-  [warn] L110 version-number: items matter added 2.77 items (87% added any) versus 0.55 for a plain review; adding "at least three /
-  [warn] L111 version-number: six / nine" added 3.08 / 3.90 / 4.87, with no quality loss in the successful arms
-  [warn] L115 comparative-superlative: "No two ideas should be the same") gave the lowest similarity of any prompt, with caveats on model
-  [warn] L119 version-number: [noveltybench-humanlike-diversity-2025]{310}; verbalized sampling reported 1.6–2.1x semantic diversity,
-  [warn] L129 version-number: ### 2.3 Objectives or purpose as the generation key
-  [warn] L137 comparative-superlative: - The SDM module builds alternatives from the best consequence for each conflicting objective, then
-  [warn] L141 version-number: ### 2.4 Abstraction and distance
-  [warn] L160 version-number: ### 2.5 Structured generators: advocated more than measured
-  [warn] L200 comparative-superlative: Generating more options was associated with lower mean option quality (controlling for the best
-  [warn] L214 decimal-with-attribution: | `contradicts` | Far-field examples raised novelty versus near [chan-fu-analogy-distance-commonness-2011]{403}; far sti
-  [warn] L218 comparative-superlative: | `incommensurable` | LLMs below pooled humans even with the best prompt [meincke-prompting-idea-variance-2024]{300} [we
-  [warn] L277 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
+  [info] L92 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L133 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L175 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
+  [info] L190 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L221 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L223 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L251 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
+  [info] L259 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [warn] L77 version-number: ### 2.1 Tested narrowing conditions, and independence before pooling
+  [warn] L82 version-number: - Upfront examples increased misses (10.8 versus 7.9), consistent with part-list cueing
+  [warn] L85 comparative-superlative: - In LLMs, telling the model the similarity of existing ideas produced the least diverse pool, and
+  [warn] L86 comparative-superlative: "40 sessions then groups pick the best 10" was worse than the base prompt
+  [warn] L108 version-number: ### 2.2 Measured second-pass and conditioning techniques
+  [warn] L111 version-number: items matter added 2.77 items (87% added any) versus 0.55 for a plain review; adding "at least three /
+  [warn] L112 version-number: six / nine" added 3.08 / 3.90 / 4.87, with no quality loss in the successful arms
+  [warn] L116 comparative-superlative: "No two ideas should be the same") gave the lowest similarity of any prompt, with caveats on model
+  [warn] L120 version-number: [noveltybench-humanlike-diversity-2025]{310}; verbalized sampling reported 1.6–2.1x semantic diversity,
+  [warn] L130 version-number: ### 2.3 Objectives or purpose as the generation key
+  [warn] L138 comparative-superlative: - The SDM module builds alternatives from the best consequence for each conflicting objective, then
+  [warn] L142 version-number: ### 2.4 Abstraction and distance
+  [warn] L161 version-number: ### 2.5 Structured generators: advocated more than measured
+  [warn] L201 comparative-superlative: Generating more options was associated with lower mean option quality (controlling for the best
+  [warn] L215 decimal-with-attribution: | `contradicts` | Far-field examples raised novelty versus near [chan-fu-analogy-distance-commonness-2011]{403}; far sti
+  [warn] L219 comparative-superlative: | `incommensurable` | LLMs below pooled humans even with the best prompt [meincke-prompting-idea-variance-2024]{300} [we
+  [warn] L278 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
 
 ## .research/analysis/campaigns/solution-space-decomposition/parent.md
-  [info] L53 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L77 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L95 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
-  [info] L105 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
-  [info] L171 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [info] L250 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
-  [warn] L83 decimal-with-attribution: | Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [g
-  [warn] L140 decimal-with-attribution: the number of missing kinds is not [chao-hill-numbers-rarefaction-2014]{351}; Kitchenham et al. found missed papers "add
-  [warn] L271 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
+  [info] L61 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L89 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L109 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L122 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L160 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
+  [info] L160 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L186 [aguilar-fault-type-code-review-2025]{370} → reduced-substrate-attestation
+  [info] L202 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L223 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L283 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L286 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
+  [info] L286 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L289 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L308 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L318 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [warn] L95 decimal-with-attribution: | Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [g
+  [warn] L112 comparative-superlative: building an alternative around the best consequence for each objective, then hybrids
+  [warn] L166 decimal-with-attribution: [chao-colwell-chao2-inequality-2017]{350}. In one review, missed papers would have added three new
+  [warn] L209 comparative-superlative: [smith-ripl-statement-2018]{251} versus "a handful of the most important technical approaches"
+  [warn] L287 comparative-superlative: | `tension` | A landscape covers "an entire population of relevant data" [smith-ripl-statement-2018]{251} versus narrowi
+  [warn] L343 decimal-with-attribution: [delmissier-option-generation-ideation-2015]{459} cites as Gettys et al. (1987).
 
 ## .research/analysis/campaigns/solution-space-decomposition/specialists/analogous-domain-search.md
   [info] L141 [srinivasan-analogical-distance-ideation-2018]{409} → reduced-substrate-attestation
@@ -430,5 +449,6 @@
   [warn] L97 version-number: records Q1/Q2, 36.3 and the interval 29.1–68.8, but not the number of sampling units;
   [warn] L329 count-without-unit-citation: for "species, words, code paths and defects" cites only Chao 2009 and Chao 2014
   [warn] L356 version-number: example at `:81` retains Q1 = 9, Q2 = 4, estimate 36.3 and interval 29.1–68.8.
+  [warn] L564 count-without-unit-citation: Citation lint passed with exit code 0: 1,451 citation occurrences across 21 files,
 
-21 file(s) · 1451 resolved/non-broken citation(s) · 0 broken · 0 thin · 253 pattern flag(s)
+22 file(s) · 1489 resolved/non-broken citation(s) · 0 broken · 0 thin · 262 pattern flag(s)

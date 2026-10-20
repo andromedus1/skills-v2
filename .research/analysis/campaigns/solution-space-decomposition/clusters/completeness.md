@@ -21,7 +21,7 @@ key_findings:
   - Chao-type estimators give lower bounds under heterogeneous detection; sample coverage (share of abundance or incidence probability already represented, not share of kinds) is more robustly estimable than the number of missing kinds.
   - Every completeness figure is conditional on the generating process, the identity threshold that merges near-duplicates, the rank counted and the frame of dimensions or known items.
   - Estimator inputs differ: capture–recapture needs two or more captures treated as independent, incidence estimators replicated units, abundance estimators frequency counts, screening tests a random sample of the remainder; few occasions widen intervals, and inspection studies advise against fewer than four inspectors unless shown to work in a particular environment.
-  - Stopping when the last run added nothing missed recall targets in about 39% of screening runs and left 18–22% of observed themes unseen at qualitative stopping points.
+  - Stopping when the last run added nothing missed recall targets in about 39% of screening runs and left a median 18–22% of observed themes unseen at qualitative stopping points.
   - Missing items can mean missing categories; independent maps of one topic overlap little, and part of their disagreement is classification, not retrieval.
   - Omission detection is a weaker capability than commission detection for humans and models; marking where content is absent recovered much of the gap in one benchmark.
 ---
@@ -54,12 +54,12 @@ The fields keep apart three things that a single word "complete" can conflate:
    stopping band [zhang-qgs-search-2011]{258}, 83% sensitivity against hand-searched journals in
    horizon scanning [varela-lema-emerging-tech-search-2012]{270} {confidence: abstract}.
 3. **Completeness of the set of kinds or families** — whether every distinct kind of approach is
-   represented. The landscape-mapping specialist found no attested tradition that reports a
-   validated estimator for this quantity, as opposed to recall of items within known families
-   [zhang-qgs-search-2011]{258} [wipo-plr-guidelines-trippe-2015]{250} [ritchey-psm-gma-2006]{263}
-   {inferred: convergence}. The taxonomy specialist found no taxonomy ending condition tested against
-   objects found later [nickerson-taxonomy-development-method-2013]{200}
-   [szopinski-taxonomy-evaluation-criteria-2020]{202}.
+   represented. No attested landscape tradition reports a validated estimator for this quantity, as
+   opposed to recall of items within known families [zhang-qgs-search-2011]{258}
+   [wipo-plr-guidelines-trippe-2015]{250} [ritchey-psm-gma-2006]{263} {inferred: absence}, and no attested
+   taxonomy ending condition is tested against objects found later
+   [nickerson-taxonomy-development-method-2013]{200} [szopinski-taxonomy-evaluation-criteria-2020]{202}
+   {inferred: absence}.
 
 The ecological estimators of Section 3 are the closest formal treatment of the third quantity;
 their validity for kinds of methods or approaches is untested in the attested sources
@@ -111,8 +111,7 @@ relative to a frame that the estimate itself cannot validate.
   [hjorland-classification-2017]{205}.
 - **Known set.** Known-item and relative-recall checks cannot detect items every route missed
   [cochrane-handbook-ch4-searching-2025]{151} [sampson-relative-recall-2006]{163}; a family absent
-  from the quasi-gold standard cannot lower its score [zhang-qgs-search-2011]{258} {inferred: tension
-  noted by the landscape specialist}.
+  from the quasi-gold standard cannot lower its score [zhang-qgs-search-2011]{258} {inferred: tension}.
 
 ### 3.2 Each estimator has its own inputs and independence assumptions
 
@@ -203,7 +202,7 @@ in qualitative synthesis [booth-qes-searching-2016]{155}.
 
 | Relationship | Positions |
 |---|---|
-| `tension` | Diversity-seeking sampling is advocated for samples of kinds [booth-qes-searching-2016]{155} and reaches every code in fewer steps, but "only yields between 1 and 3 observations per code" [van-rijnsoever-saturation-simulation-2017]{358}; frequency-count estimators read singletons as evidence of unseen kinds and assume random sampling [chao-colwell-chao2-inequality-2017]{350}. A diversity-seeking pass produces singletons by design, so its f1/f2 lose their random-sampling meaning (coverage-estimation specialist, marked inferred there). |
+| `tension` | Diversity-seeking sampling is advocated for samples of kinds [booth-qes-searching-2016]{155} and reaches every code in fewer steps, but "only yields between 1 and 3 observations per code" [van-rijnsoever-saturation-simulation-2017]{358}; frequency-count estimators read singletons as evidence of unseen kinds and assume random sampling [chao-colwell-chao2-inequality-2017]{350}. A diversity-seeking pass produces singletons by design, so its f1/f2 lose their random-sampling meaning. {inferred: tension} |
 | `tension` | Perspective-based reading aims to minimise overlap between reviewers [regnell-pbr-perspectives-different-2000]{367}; capture–recapture needs overlap and independence [briand-capture-recapture-inspections-2000]{362}. |
 | `tension` | RIPL defines a landscape as covering "an entire population of relevant data" [smith-ripl-statement-2018]{251}; WIPO advises narrowing large topics "to a handful of the most important technical approaches" [wipo-plr-guidelines-trippe-2015]{250}. |
 | `incommensurable` | WIPO's recall target above 90% is not tied to a measurement procedure in the passages read [wipo-plr-guidelines-trippe-2015]{250}; Zhang's 70–80% band is relative to a constrained known set [zhang-qgs-search-2011]{258}. |
@@ -216,7 +215,7 @@ in qualitative synthesis [booth-qes-searching-2016]{155}.
 - *A structured generator yields a complete set of kinds.* Not supported: morphological completeness
   is relative to the parameters chosen [ritchey-psm-gma-2006]{263}; no attested study shows
   keywording, morphological fields or roadmap layers finding more distinct families than an
-  unstructured expert list (absence reported by the landscape specialist)
+  unstructured expert list {inferred: absence}
   [zhang-qgs-search-2011]{258} [franke-poetz-schreier-analogous-markets-2014]{273}.
 - *A completeness estimate can certify a sample of approaches.* Not supported for kinds of approaches.
   Estimator performance is measured in ecology [chao-sufficient-sampling-2009]{352}
@@ -285,3 +284,4 @@ Stated in the source fields' own terms; not recommendations.
   exception is restored (R9).
 - **2026-10-20 — correction (adversarial re-check).** The estimator-setting lists are matched to their attested evaluation levels (R2).
 - **2026-10-20 — correction (adversarial re-check 2).** The setting-specific clauses now cite their own attestations (R2).
+- **2026-10-20 — correction (evaluate round 1).** Prose notes about specialists are replaced by closed-vocabulary markers (G2). "Median" is restored on the 18–22% figure (G9).

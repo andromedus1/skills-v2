@@ -66,10 +66,11 @@ different approach from a variation. Evidence levels follow the specialist brief
   [calderon-recall-bottleneck-factuality-2026]{320}; models judge set membership far better than they
   author the set, and the dominant authoring error is omission
   [judging-not-enumerating-omissions-2026]{321}. These sources study facts and predicates, not approach
-  families; transfer is an analogy (LLM specialist, marked `extends`).
-- **Generators misjudge their own completeness.** Laypeople and experienced mechanics alike
-  under-weighted what a pruned fault tree left out [fischhoff-slovic-lichtenstein-fault-trees-1978]{464};
-  self-perception of fixation was inaccurate [linsey-design-fixation-faculty-2010]{417}.
+  families. {inferred: extends}
+- **Completeness is misjudged.** Laypeople and experienced mechanics judging a presented, pruned fault
+  tree under-weighted what it left out [fischhoff-slovic-lichtenstein-fault-trees-1978]{464} — evidence
+  about reviewers of a given structure rather than generators of their own lists; designers' perception
+  of their own fixation was inaccurate [linsey-design-fixation-faculty-2010]{417}.
 
 ## 2. What narrows a set, and what widens it
 
@@ -94,7 +95,7 @@ exposure or consensus is narrowing in general.
   [bond-carlson-keeney-objectives-2008]{452}. The prescription is independent generation first,
   because "communication may redirect individuals' from their own ideas"
   [bond-carlson-keeney-improving-objectives-2010]{453}. Distinct per-agent "cognitive lenses" with each
-  agent seeing only its most distant peers recovered about 26% of semantic diversity
+  agent seeing only its most distant peers raised semantic diversity 26.2% over homogeneous debate
   [creative-mad-debate-diversity-2026]{317}.
 - Model identity, statistical independence and semantic diversity are different properties:
   different prompting strategies' early ideas overlapped little [meincke-prompting-idea-variance-2024]{117};
@@ -289,3 +290,4 @@ Stated in the source fields' own terms; not recommendations.
   marginal-addition criterion (R6). The narrowing claims are limited to the tested conditions, with the
   voting control and the exposure countercase restored (R7). Quantity–quality findings are stated as
   associations (R8). The category-timing qualifiers are restored (R9).
+- **2026-10-20 — correction (evaluate round 1).** The fault-tree evidence is reframed as concerning reviewers of a presented structure (H2). The 26.2% figure is restated as the attested gain over homogeneous debate (G9). The prose note is replaced by an `extends` marker (G2).

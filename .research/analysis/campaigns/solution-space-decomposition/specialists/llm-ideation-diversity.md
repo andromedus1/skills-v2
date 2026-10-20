@@ -182,7 +182,7 @@ approach families; their transfer to enumerating solution approaches is an analo
   did not — "isolating debate dynamics as the primary driver"; convergence pressure persisted with
   heterogeneous model families [creative-mad-debate-diversity-2026]{317}. Anchoring each agent to a
   persistent distinct "cognitive lens" and restricting each agent's view to its most distant peers
-  recovered ~26% semantic diversity with near-parity quality [creative-mad-debate-diversity-2026]{317}.
+  raised semantic diversity 26.2% over homogeneous debate, with near-parity quality [creative-mad-debate-diversity-2026]{317}.
   **Measured; single preprint.**
 
 ### 3.6 Interventions with null or negative measured effects
@@ -350,3 +350,4 @@ Stated in the field's own terms; no project recommendations.
 
 - **2026-10-20 — correction (lead, after adversarial-read).** The categorical "pooling helps only if" restriction is replaced by an overlap and marginal-addition criterion.
 - **2026-10-20 — correction (adversarial re-check).** The marginal-addition clause is restated unambiguously (R6).
+- **2026-10-20 — correction (evaluate round 1).** The Creative-MAD gain is restated as attested: 26.2% over homogeneous debate.
