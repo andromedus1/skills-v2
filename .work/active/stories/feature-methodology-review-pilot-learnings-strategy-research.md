@@ -114,3 +114,11 @@ analogous-domain search, design-by-analogy and fixation. `landscape-mapping`
 flagged it as covered only lightly, and it is the measured basis for one of the
 lateral moves (an alternative found in an unrelated field). Dispatched with
 bibliography block 400–449.
+- `taxonomy-construction`: handshake echo matches; lint 119 resolved, 0 broken;
+  15 attestations authored and 3 reused. Its suggested facet (reconciling
+  independent classifications) falls within `coverage-estimation`'s
+  inter-rater scope, so there is no new dispatch.
+  **Privacy incident:** the specialist sent one Unpaywall API request carrying the
+  operator's email address as the `email` parameter. That should have been a
+  placeholder. It was reported to the operator, and the dispatch instructions now
+  forbid personal data in external requests.
