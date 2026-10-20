@@ -142,7 +142,7 @@ Saturation stops when "further data collection and/or analysis are unnecessary".
 Stated in the source fields' own terms. These are not recommendations.
 
 - The fields keep **process-completeness reporting** (what routes were used, declared even when not reproducible) separate from **set-completeness estimation** (missing-count estimates, recall certification) [prisma-s-rethlefsen-2021]{150} [callaghan-stopping-recommendations-2024]{171}.
-- Every attested set-completeness estimator needs **at least two overlapping retrieval passes** or a **random sample of the unseen remainder**. A single pass gives no overlap signal [cochrane-handbook-ch4-searching-2025]{151} [callaghan-statistical-stopping-2020]{170}. {inferred: convergence}
+- The set-completeness estimators attested in this facet need either **at least two overlapping retrieval passes** (capture–recapture) or a **random sample of the unseen remainder** (statistical stopping tests); a single search pass gives no overlap signal for capture–recapture [cochrane-handbook-ch4-searching-2025]{151} [callaghan-statistical-stopping-2020]{170}. Abundance-based richness estimators in other fields use frequency counts from one sample instead (coverage-estimation facet). {inferred: convergence, scoped to this facet's estimators}
 - Overlap-based estimators read the **frequency of items found by exactly one pass versus two** (f1/f2) and assume passes behave like independent captures [bron-chao-estimator-tar-2024]{169}. Webster and Kemp's design, as Bron et al. describe it, uses independent searchers as the passes [bron-chao-estimator-tar-2024]{169}.
 - Benchmark checks guard against circularity by using a **held-out** known set [hausner-objective-search-strategy-2012]{164}. A second route that re-finds already retrieved items the team did not know about beforehand counts as a positive signal; re-finding only known items does not [cochrane-handbook-ch4-searching-2025]{151}.
 - In qualitative synthesis, completeness of a **sample of kinds** is judged by diversification moves (maximum variation, disconfirming or negative cases, different research traditions) rather than by adding more of the same source [booth-qes-searching-2016]{155} [saunders-saturation-models-2018]{172}.
@@ -156,3 +156,7 @@ Stated in the source fields' own terms. These are not recommendations.
 - Guideline bodies (Cochrane, PRISMA) adopt a reporting item or minimum standard for search-completeness or stopping statements.
 - Saturation metrics are validated on samples of *categories of approach* or other non-interview units, or on heterogeneous populations.
 - Evaluations of TAR stopping rules across new datasets show certification rules failing their stated confidence.
+
+## Revisions
+
+- **2026-10-20 — correction (lead, after adversarial-read).** The two-pass requirement is scoped to capture–recapture and stopping tests rather than to every estimator.

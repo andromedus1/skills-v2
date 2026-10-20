@@ -6,18 +6,21 @@ summary: >-
   Cross-specialist synthesis over four facets (search completeness, coverage estimation, taxonomy
   construction, landscape mapping) on how a sample of approaches or kinds can be checked for
   completeness before depth work. Across the fields, completeness of the process, recall of items
-  against a known set, and completeness of the set of kinds or families are distinct quantities;
-  only the first two have mature, measured practice. Every estimator is relative to a frame (the
-  generating process, the identity threshold for a kind, the chosen dimensions, the known set), and
-  needs at least two independent passes or a random sample of the remainder. "No new items in the
+  against a known set, and completeness of the set of kinds or families are distinct quantities.
+  For families of methods or approaches, only the first two have measured practice in the attested
+  corpus; richness estimators are evaluated in their own settings (species, words, code paths,
+  defects). Every estimate is relative to a frame (the generating process, the identity threshold for a
+  kind, the chosen dimensions, the known set), and each estimator has its own inputs: two or more
+  captures for capture–recapture, replicated units for incidence data, frequency counts for abundance
+  data, or a random sample of the remainder for screening tests. "No new items in the
   last run" rules measurably fail or are unvalidated. Omissions are detected markedly less often
   than wrong inclusions by humans and models, and disagreement between passes is partly
   classification rather than retrieval.
 key_findings:
-  - No attested tradition reports a validated completeness estimate for the set of families or kinds; measured practice covers item recall against a known or pooled set.
-  - Frequency-count estimators (Chao1/Chao2, jackknife) give lower bounds under heterogeneity; sample coverage is more robustly estimable than the number of missing kinds.
+  - No attested source validates a completeness estimate for families of methods or approaches; measured practice there covers item recall against a known or pooled set, while richness estimators are evaluated for species, words, code paths and defects.
+  - Chao-type estimators give lower bounds under heterogeneous detection; sample coverage (share of abundance or incidence probability already represented, not share of kinds) is more robustly estimable than the number of missing kinds.
   - Every completeness figure is conditional on the generating process, the identity threshold that merges near-duplicates, the rank counted and the frame of dimensions or known items.
-  - Estimates need at least two roughly independent passes, or a random sample of the unseen remainder; few passes underestimate, and inspection studies found estimates unreliable below four.
+  - Estimator inputs differ: capture–recapture needs two or more captures treated as independent, incidence estimators replicated units, abundance estimators frequency counts, screening tests a random sample of the remainder; few occasions widen intervals, and inspection studies advise against fewer than four inspectors unless shown to work in a particular environment.
   - Stopping when the last run added nothing missed recall targets in about 39% of screening runs and left 18–22% of observed themes unseen at qualitative stopping points.
   - Missing items can mean missing categories; independent maps of one topic overlap little, and part of their disagreement is classification, not retrieval.
   - Omission detection is a weaker capability than commission detection for humans and models; marking where content is absent recovered much of the gap in one benchmark.
@@ -76,7 +79,7 @@ their validity for kinds of methods or approaches is untested in the attested so
 | Hypergeometric stopping test | "Recall ≥ target" at a confidence level | Random sample of the unseen remainder [callaghan-statistical-stopping-2020]{170} | measured |
 | "No new items in N" / baseline rate | Run of non-yield | Ignores the size of the remainder [callaghan-statistical-stopping-2020]{170} | measured (often fails) |
 | Thematic saturation metric | New themes per run relative to a base | "No guarantee" [guest-thematic-saturation-method-2020]{173} | measured retrospectively |
-| Taxonomy ending conditions | No change in the last iteration; cells populated | Convergence on examined objects only [nickerson-taxonomy-development-method-2013]{200} | designed |
+| Taxonomy ending conditions | MECE; all or a representative sample of objects examined; populated characteristics; unique cells; no change in the last iteration | None tested against later-found objects; the demonstration used a selected two [nickerson-taxonomy-development-method-2013]{200} | designed |
 | Full field coverage | Sample covers every value of every dimension | Relative to the chosen dimensions [ritchey-psm-gma-2006]{263} | demonstrated |
 | Agreement across independent character sets (Whewell) | Robustness of class boundaries | Stated as a maxim [hjorland-classification-2017]{205} | advocated |
 | Overlap between independent repetitions | Low overlap signals unseen items | Disagreement is partly classification [kitchenham-slr-repeatability-2011]{260} [el-emam-defect-classification-repeatability-1998]{372} | measured |
@@ -111,17 +114,20 @@ relative to a frame that the estimate itself cannot validate.
   from the quasi-gold standard cannot lower its score [zhang-qgs-search-2011]{258} {inferred: tension
   noted by the landscape specialist}.
 
-### 3.2 Estimation needs independent passes or a random sample of the remainder
+### 3.2 Each estimator has its own inputs and independence assumptions
 
-Every attested set-completeness estimator needs at least two overlapping passes, or a random sample
-of what has not yet been examined [cochrane-handbook-ch4-searching-2025]{151}
-[callaghan-statistical-stopping-2020]{170} {inferred: convergence, search-completeness specialist}.
+Capture–recapture needs at least two searches treated as captures
+[cochrane-handbook-ch4-searching-2025]{151}; incidence estimators need replicated sampling units and
+abundance estimators frequency counts of individuals from one sample
+[chao-colwell-chao2-inequality-2017]{350} [chao-hill-numbers-rarefaction-2014]{351}; the screening
+stopping test needs a random sample of the unseen remainder [callaghan-statistical-stopping-2020]{170}.
 Overlap estimators read items found once versus twice and assume passes behave like independent
 captures [bron-chao-estimator-tar-2024]{169}. Webster and Kemp's design, as Bron et al. describe it,
 uses independent searchers as the passes [bron-chao-estimator-tar-2024]{169}. Few passes give wide
 intervals and underestimates: a Chao2 of 36.3 from 12 units carried a 95% interval of 29.1 to 68.8
 [chao-colwell-chao2-inequality-2017]{350}, inspection estimates "ought not be used with less than 4
-inspectors" [briand-capture-recapture-inspections-2000]{362}, and singleton methods underestimate at
+inspectors unless shown to work in a particular environment", while other capture–recapture models
+could overestimate severely or fail to produce an estimate [briand-capture-recapture-inspections-2000]{362}, and singleton methods underestimate at
 1–5% sampling fractions [schmitz-rahmann-richness-estimation-review-2025]{357} {confidence:
 extractor-level}. Adaptive samplers bias estimates downward
 [bohme-residual-risk-greybox-2021]{360}.
@@ -136,9 +142,10 @@ extractor-level}. Adaptive samplers bias estimates downward
   was 78–82%, and the authors state that meeting the thresholds is "no guarantee"
   [guest-thematic-saturation-method-2020]{173}. Code saturation (9 interviews) arrived before meaning
   saturation (16–24) [hennink-code-meaning-saturation-2017]{174}.
-- Taxonomy ending conditions are stability checks over the last iteration; the method's own
-  demonstration stopped after one no-change iteration over a convenience sample
-  [nickerson-taxonomy-development-method-2013]{200}.
+- Several taxonomy ending conditions are stability checks over the last iteration, alongside MECE,
+  representative-sample and populated-cell conditions; the method's own demonstration used a selected
+  two conditions and stopped after one no-change iteration over a convenience sample, and none is
+  tested against later-found objects [nickerson-taxonomy-development-method-2013]{200}.
 - Snowballing can stop early after a thin round and depends on its start set
   [wohlin-hybrid-search-snowballing-2022]{160}; seed expansion cannot reach regions with no link to
   the seeds [erana-finlayson-neural-patent-landscaping-2024]{253}.
@@ -227,8 +234,10 @@ in qualitative synthesis [booth-qes-searching-2016]{155}.
 
 Stated in the source fields' own terms; not recommendations.
 
-- The fields report process completeness, item recall and kind completeness separately, and report
-  kind counts as lower bounds with intervals, conditional on process, identity threshold and frame
+- The fields report process completeness, item recall and kind completeness separately. Where an
+  estimator's assumptions hold, kind counts are reported as model-based estimates with intervals —
+  Chao-type values as lower bounds under heterogeneity — conditional on process, identity threshold and
+  frame; observed counts are kept distinct from estimated totals
   [chao-colwell-chao2-inequality-2017]{350} [kornish-ulrich-opportunity-spaces-2011]{361}.
 - Sample coverage and short-range extrapolation are treated as estimable from small samples, while
   the total number of kinds is not [chao-hill-numbers-rarefaction-2014]{351}
@@ -263,3 +272,11 @@ Stated in the source fields' own terms; not recommendations.
 - Omission-detection evidence appears for semantic absences, for humans or models.
 - Full texts acquired for the abstract-level sources (Wohlin 2013, Kastner 2009, Rücker 2011,
   Ciolkowski 2009) change the strength of the claims that rest on them.
+
+## Revisions
+
+- **2026-10-20 — correction (adversarial-read R1–R4, R9).** Estimator inputs are stated per estimator
+  (R2). The validation absence is restricted to families of methods or approaches (R2). The full
+  taxonomy ending conditions are restored (R3). Model-based bounds are confined to justified assumptions
+  (R1). The 12-unit example is confirmed in the extended attestation (R4). The inspector quotation's
+  exception is restored (R9).

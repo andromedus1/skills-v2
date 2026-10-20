@@ -73,6 +73,11 @@ shared species, phylogenetic diversity) skimmed.
   ((T−1)Q1 + 2Q2)] (Eq. 7d), with U the total incidences; modified form when Q2 = 0 (Eq. 7e). A
   "sample completeness curve" shows coverage vs sample size and estimates the size needed for a fixed
   completeness.
+- **§7.3 sampling design:** "We treat each point-count as a sampling unit. There were 12 point counts
+  conducted along the Barrington Tops Forest Road in the northern part of the national park" (North Site);
+  17 point counts formed the South Site reference sample. The North Site frequency table reports
+  Sobs = 27, T = 12, U = 102, sample coverage estimate 91.8%. (Added 2026-10-20 on re-read of the fetched
+  PDF, extending the substrate for a cited specific.)
 - **§7.3 worked example (Australian birds, point counts):** North Site Q1 = 9, Q2 = 4 → Chao2 = 36.3,
   95% CI (29.1, 68.8); South Site Q1 = 12, Q2 = 8 → 46.5, CI (40.3, 69.8); iChao2 38.6 and 48.2.
   Coverage-based comparison: richness difference significant only for coverage up to about 93%.

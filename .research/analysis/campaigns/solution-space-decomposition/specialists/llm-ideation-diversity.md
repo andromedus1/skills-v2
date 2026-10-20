@@ -228,10 +228,11 @@ generation process has run out: a falling share of non-duplicates per batch with
 accumulated uniques [si-llm-research-ideation-2024]{318}, and convergence of new-idea similarity curves
 plus a capture-recapture estimate of reachable uniques [meincke-prompting-idea-variance-2024]{300}.
 Both are explicitly technique-relative: they estimate the reservoir of one generator, not the true
-space [meincke-prompting-idea-variance-2024]{300}. Pooling generators helps only if they draw from
-different regions; Meincke et al. report small overlap between different prompting strategies'
-early ideas [meincke-prompting-idea-variance-2024]{300}, while cross-model overlap is high
-[artificial-hivemind-homogeneity-2025]{307}.
+space [meincke-prompting-idea-variance-2024]{300}. Whether pooling generators adds coverage is a
+matter of overlap and marginal additions: Meincke et al. report small overlap between different
+prompting strategies' early ideas [meincke-prompting-idea-variance-2024]{300}, while cross-model average
+similarity is high, which cautions against treating a different model as independent coverage without
+showing it adds nothing [artificial-hivemind-homogeneity-2025]{307}.
 
 **Omission resists audit.** Models "detect planted over-inclusions 6-7x more often than planted
 omissions", and a production deployment "fails omission-first at 10:1"; "Omission is witness-blind
@@ -344,3 +345,7 @@ Stated in the field's own terms; no project recommendations.
 - New model generations report reversed alignment-diversity trends (e.g., post-training explicitly
   optimizing for diversity).
 - Capture-recapture or species-richness estimators are validated against a known-complete idea or approach space.
+
+## Revisions
+
+- **2026-10-20 — correction (lead, after adversarial-read).** The categorical "pooling helps only if" restriction is replaced by an overlap and marginal-addition criterion.

@@ -5,10 +5,12 @@ updated: 2026-10-20
 summary: >-
   Cross-specialist synthesis over four facets (design-space methods, decision-option generation,
   analogous-domain search, LLM ideation diversity) on how to generate a set of genuinely different
-  approaches rather than variations of one. Unaided generation recovers roughly a third to a half of
-  later-recognised items, and LLM generation narrows mainly across independent draws and across
-  models. Exposure to examples or consensus narrows sets; independent generation before exposure,
-  then pooling, widens them. Measured gains come from a second pass that states the first is
+  approaches rather than variations of one. Unaided human generation recovers roughly a third to a
+  half of later-recognised items; LLM generation, measured by similarity and category coverage, narrows
+  mainly across independent draws and across models. In the conditions tested, upfront examples,
+  similarity feedback and standard multi-agent debate narrowed sets, while voting over independent
+  responses did not and AI-example exposure widened collective diversity in one dynamic setting;
+  independent generation before discussion, then pooling, widened a set in one case. Measured gains come from a second pass that states the first is
   incomplete, conditioning on prior output with an instruction to differ, objectives or purpose as
   stimuli, and abstraction at a workable level for distant retrieval. Structured generators
   (morphological fields, QOC, set-based design, strategy tables) are advocated or demonstrated, not
@@ -16,7 +18,7 @@ summary: >-
 key_findings:
   - Unaided generation of objectives and alternatives recovers roughly 30–50% of later-recognised items, and omitted items are about as important as generated ones.
   - LLM idea pools are narrower mainly across independent draws and across models; a single session's list can look varied while repeated draws return the same modes.
-  - Showing examples or consensus narrows the set (more misses with upfront examples; fixation; lower diversity under debate and similarity feedback), while independent generation pooled before discussion yields a more complete set.
+  - In the conditions tested, upfront examples (more misses), similarity feedback and standard multi-agent debate narrowed sets; voting over independent responses did not, and AI-example exposure widened collective diversity in one dynamic setting; independent lists pooled before discussion gave a more complete set in one case.
   - Measured gains come from a second pass with a warning and a numeric target, from generation that sees prior items and is told to differ, from distinct per-draw cues, and from objectives or purpose used as stimuli.
   - The fields test "different approach" by the abstraction level at which ideas diverge (principle versus embodiment), a different value on a declared dimension, or non-equivalence under a declared relation.
   - Structured generators lack controlled evidence of better coverage; the one reported matrix-size result was negative, TRIZ results are mixed, and the effect of domain distance on novelty and quality is contradictory.
@@ -71,9 +73,10 @@ different approach from a variation. Evidence levels follow the specialist brief
 
 ## 2. What narrows a set, and what widens it
 
-### 2.1 Exposure before generation narrows; independence then pooling widens
+### 2.1 Tested narrowing conditions, and independence before pooling
 
-Four facets converge on one ordering effect.
+Several facets report narrowing under specific tested conditions; the evidence does not show that
+exposure or consensus is narrowing in general.
 
 - Upfront examples increased misses (10.8 versus 7.9), consistent with part-list cueing
   [bond-carlson-keeney-improving-objectives-2010]{453}; more examples did not raise distant analogies
@@ -81,8 +84,11 @@ Four facets converge on one ordering effect.
 - In LLMs, telling the model the similarity of existing ideas produced the least diverse pool, and
   "40 sessions then groups pick the best 10" was worse than the base prompt
   [meincke-prompting-idea-variance-2024]{117}; standard multi-agent debate lowered diversity across
-  runs below single-agent generation, even with heterogeneous model families
-  [creative-mad-debate-diversity-2026]{317}.
+  runs below single-agent generation, even with heterogeneous model families, whereas judge-based
+  voting over independent responses matched direct generation despite the same consensus aim —
+  isolating debate dynamics [creative-mad-debate-diversity-2026]{317}. In a dynamic multi-generation
+  pool, high exposure to AI ideas increased collective diversity
+  [ashkinaze-ai-ideas-collective-diversity-2024]{304} {confidence: search-summary}.
 - Pooling independent lists before discussion widened the set: each of 12 executives listed on
   average 36% of 39 objectives, and "the aggregated list ... was a much more complete set"
   [bond-carlson-keeney-objectives-2008]{452}. The prescription is independent generation first,
@@ -90,9 +96,13 @@ Four facets converge on one ordering effect.
   [bond-carlson-keeney-improving-objectives-2010]{453}. Distinct per-agent "cognitive lenses" with each
   agent seeing only its most distant peers recovered about 26% of semantic diversity
   [creative-mad-debate-diversity-2026]{317}.
-- Pooling helps only if generators draw from different regions: different prompting strategies'
-  early ideas overlapped little [meincke-prompting-idea-variance-2024]{117}, while different models
-  overlapped heavily [artificial-hivemind-homogeneity-2025]{307}.
+- Model identity, statistical independence and semantic diversity are different properties:
+  different prompting strategies' early ideas overlapped little [meincke-prompting-idea-variance-2024]{117};
+  different models' responses had high average similarity, so a different model alone does not
+  establish independent coverage, though the source reports similarity rather than zero marginal
+  additions [artificial-hivemind-homogeneity-2025]{307}; distinct cues to one model raised coverage
+  [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}. Overlap and marginal additions are the
+  quantities to assess.
 
 ### 2.2 Measured second-pass and conditioning techniques
 
@@ -111,9 +121,10 @@ Four facets converge on one ordering effect.
 - **Distinct cues per draw.** Ordinary everyday personas raised between-session spread 2.6x and, with
   chain-of-thought, exceeded human category-combination coverage in one model and domain
   [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}.
-- **Categories: timing matters.** A category-structured second pass raised the self-generated set by
-  over 30%, while upfront categories yielded "more specific (but not more complete) sets"
-  [bond-carlson-keeney-improving-objectives-2010]{453}.
+- **Categories.** A category-structured second pass raised the self-generated set by over 30%, but
+  that design cannot separate the categories from the second opportunity itself; in the later
+  experiment categories added no reliable gain over a motivated deeper review, and upfront categories
+  yielded "more specific (but not more complete) sets" [bond-carlson-keeney-improving-objectives-2010]{453}.
 
 ### 2.3 Objectives or purpose as the generation key
 
@@ -186,10 +197,12 @@ Four facets converge on one ordering effect.
 
 ## 4. Quantity, quality and distinctness
 
-More options lowered mean quality in two problems while raising the best option's quality
-[delmissier-option-generation-ideation-2015]{459}; number of options tracked set divergence and maximum
-originality but not mean originality, and related negatively to feasibility
-[schweizer-creative-option-generation-2016]{460}. The 2016 release reports that "a set of few but clearly
+Generating more options was associated with lower mean option quality (controlling for the best
+option) in two problems and with higher best-option quality in two, while direct links to choice quality
+were non-significant [delmissier-option-generation-ideation-2015]{459}; between persons, number of options
+was associated with set divergence and maximum but not mean originality, and negatively with
+feasibility [schweizer-creative-option-generation-2016]{460}. These are correlations; they do not show
+that a smaller set yields better decisions. The 2016 release reports that "a set of few but clearly
 distinguishable alternatives scored better than a set of many but mutually similar alternatives"
 [siebert-novices-press-2016]{454}. Frequency-based selection of approaches keeps the commonest ones
 [naik-div-se-diversity-of-thought-2023]{314}.
@@ -200,10 +213,10 @@ distinguishable alternatives scored better than a set of many but mutually simil
 |---|---|
 | `contradicts` | Far-field examples raised novelty versus near [chan-fu-analogy-distance-commonness-2011]{403}; far stimuli lowered maximum novelty and quality [fu-near-far-analogy-2013]{404}. Fu et al. reconcile them post hoc by mapping both stimulus sets onto one similarity structure. |
 | `tension` | Analogous-market solvers more novel [franke-poetz-schreier-analogous-markets-2014]{273} versus an inverse distance–shortlisting relation [chan-dow-schunn-distant-inspiration-2015]{405}; outcome constructs differ. |
-| `qualifies` | Categories help as a second pass but not upfront [bond-carlson-keeney-improving-objectives-2010]{453}. |
+| `qualifies` | Categories coincided with gains as a second pass, confounded with the second opportunity, and added no reliable gain over a motivated deeper review; upfront they did not reduce misses [bond-carlson-keeney-improving-objectives-2010]{453}. |
 | `qualifies` | Celebrity or "creative entrepreneur" personas modestly helped in one study [meincke-prompting-idea-variance-2024]{300}; ordinary personas beat them in another [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}. |
 | `incommensurable` | LLMs below pooled humans even with the best prompt [meincke-prompting-idea-variance-2024]{300} [wenger-kenett-creative-homogeneity-llms-2025]{306} versus persona-plus-CoT and in-context regeneration matching or exceeding humans [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312} [noveltybench-humanlike-diversity-2025]{310}; metrics, domains and models differ. |
-| `qualifies` | More options lower mean quality and can worsen expert choices (Johnson and Raab, as reported) [delmissier-option-generation-ideation-2015]{459} versus raising best-option quality [schweizer-creative-option-generation-2016]{460}; mean versus max, and populations differ. |
+| `qualifies` | More options associated with lower mean quality and, for time-pressured experts, poorer choices (Johnson and Raab, as reported) [delmissier-option-generation-ideation-2015]{459} versus associated with higher best-option quality [schweizer-creative-option-generation-2016]{460}; correlational, mean versus max, and populations differ. |
 | `tension` | Few distinct alternatives beat many similar ones [siebert-novices-press-2016]{454} versus objectives-stimulated generation raising both number and quality [siebert-keeney-alternatives-2015]{450} {confidence: abstract-only}. |
 | `tension` | Fixation as "premature closure" [daly-design-heuristics-2012]{104} versus fixation as sometimes neutral or time-saving [crilly-cardoso-fixation-2017]{114}. |
 | `tension` | Exposure to AI ideas narrowed collective diversity [doshi-hauser-genai-collective-diversity-2024]{302} versus increased it in a dynamic multi-generation pool [ashkinaze-ai-ideas-collective-diversity-2024]{304} {confidence: search-summary}. |
@@ -213,8 +226,10 @@ distinguishable alternatives scored better than a set of many but mutually simil
 - *Structured generators improve coverage over unstructured generation.* Not supported as measured for
   morphological fields, QOC, set-based design or strategy tables; one reported matrix result was
   negative and TRIZ results are mixed (Section 2.5).
-- *More reviewers, agents or models widen the set.* Disconfirmed for standard debate and for ensembles of
-  models with shared priors [creative-mad-debate-diversity-2026]{317} [artificial-hivemind-homogeneity-2025]{307};
+- *More reviewers, agents or models widen the set.* Disconfirmed for standard debate
+  [creative-mad-debate-diversity-2026]{317}; for model ensembles the source cautions they "may not"
+  yield diversity given shared priors, without measuring marginal additions
+  [artificial-hivemind-homogeneity-2025]{307};
   supported for independently generated lists pooled before discussion, in one demonstrated case
   [bond-carlson-keeney-objectives-2008]{452}.
 - *Distant sources yield more different approaches.* Study-specific only (Section 2.4); even the positive
@@ -233,7 +248,8 @@ Stated in the source fields' own terms; not recommendations.
 
 - Generation before exposure, then a de-duplicated union, is the prescribed group order
   [bond-carlson-keeney-improving-objectives-2010]{453} [keeney-value-focused-brainstorming-2012]{455}
-  {confidence: abstract-only}; consensus exposure measured as neutral or harmful to diversity
+  {confidence: abstract-only}; similarity feedback, select-the-best pooling and standard debate measured
+  as neutral or harmful to diversity, while voting over independent responses was not
   [meincke-prompting-idea-variance-2024]{300} [creative-mad-debate-diversity-2026]{317}.
 - Effective second passes state that the first pass is typically incomplete and set a numeric target
   [bond-carlson-keeney-improving-objectives-2010]{453}, or show prior items with an instruction to differ
@@ -265,3 +281,11 @@ Stated in the source fields' own terms; not recommendations.
   report coverage effects.
 - A meta-analysis establishes the distance–novelty–quality relation across problems with a common
   distance metric.
+
+## Revisions
+
+- **2026-10-20 — correction (adversarial-read R5–R9).** The human recovery fraction is separated from
+  LLM measures (R5). The categorical pooling restriction is replaced by an overlap and
+  marginal-addition criterion (R6). The narrowing claims are limited to the tested conditions, with the
+  voting control and the exposure countercase restored (R7). Quantity–quality findings are stated as
+  associations (R8). The category-timing qualifiers are restored (R9).

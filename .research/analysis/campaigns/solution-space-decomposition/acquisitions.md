@@ -121,7 +121,7 @@ Each is named by the fetched source in parentheses; class primary-doc unless not
 
 - Jansson & Smith 1991, Design Studies 12(1) (crilly-cardoso-fixation-2017) — original fixation study.
 - Linsey, Markman & Wood 2012, JMD 134(4) (fu-near-far-analogy-2013) — WordTree controlled study.
-- Jeppesen & Lakhani 2010 full text was attested; Abood & Feltenberger 2018, Artificial Intelligence and Law 26 (erana-finlayson-neural-patent-landscaping-2024) — seed/anti-seed method.
+- Abood & Feltenberger 2018, Artificial Intelligence and Law 26 (erana-finlayson-neural-patent-landscaping-2024) — seed/anti-seed method.
 - Bubela et al. 2013, Nature Biotechnology 31 (wipo-plr-guidelines-trippe-2015) — life-sciences landscaping practice.
 - MacLean et al. 1991, HCI 6(3&4) (naverlabs-design-space-analysis-qoc) — QOC primary source.
 - Shah, Smith & Vargas-Hernandez 2003, Design Studies 24(2) (sorensen-ideation-metrics-axioms-2026) — variety metric definitions.

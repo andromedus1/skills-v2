@@ -11,8 +11,9 @@ summary: >-
   second-pass categories, aggregation of independent generators) and which do not (more time or
   rumination, upfront examples, upfront categories for misses), documents illusory completeness (fault-tree
   omission insensitivity, including experts), and records a quality-versus-quantity split (more options
-  lower mean quality but can raise best-option quality; few distinct alternatives can beat many similar
-  ones). Strategy tables and value-focused brainstorming are advocated without controlled evidence in the
+  are associated with lower mean quality but can be associated with higher best-option quality,
+  correlationally and problem-dependently; a university release reports few distinct alternatives
+  scoring better than many similar ones). Strategy tables and value-focused brainstorming are advocated without controlled evidence in the
   attested corpus.
 ---
 
@@ -376,3 +377,7 @@ Stated in the field's own terms; no project recommendations.
 - Replications of the master-list paradigm with non-student populations, organizational decisions, or
   machine generators report recall figures outside the 30–50% band.
 - A study separates distinctness from count in alternative sets with a controlled manipulation.
+
+## Revisions
+
+- **2026-10-20 — correction (lead, after adversarial-read).** The summary's causal quantity–quality wording is restated as association, matching the body.

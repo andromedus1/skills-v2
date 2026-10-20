@@ -1,0 +1,434 @@
+
+## .research/analysis/campaigns/solution-space-decomposition/acquisitions.md
+  [warn] L14 version-number: - **Source:** Siebert J., Keeney R. L., "Creating More and Better Alternatives for Decisions Using Objectives", Operatio
+  [warn] L37 decimal-with-attribution: ## Kornish & Ulrich (estimator papers, 2009 and 2011)
+  [warn] L46 decimal-with-attribution: ## Spoor et al. 1996
+  [warn] L66 decimal-with-attribution: - **Source:** "Engineering Quality and Reliability in Technology-Assisted Review", SIGIR 2016, pp. 75–84
+  [warn] L73 decimal-with-attribution: ## Wohlin et al. 2013 (full text)
+  [warn] L82 decimal-with-attribution: ## Kundisch et al. 2022
+  [warn] L109 decimal-with-attribution: ## Srinivasan et al. 2018 (full text)
+  [warn] L125 decimal-with-attribution: - Bubela et al. 2013, Nature Biotechnology 31 (wipo-plr-guidelines-trippe-2015) — life-sciences landscaping practice.
+  [warn] L126 decimal-with-attribution: - MacLean et al. 1991, HCI 6(3&4) (naverlabs-design-space-analysis-qoc) — QOC primary source.
+  [warn] L128 decimal-with-attribution: - Smith et al. 2012 on morphological matrix size (martinsson-bonde-mm-combinatorics-2025) — negative matrix-size result.
+  [warn] L132 decimal-with-attribution: - Bond et al. companion work: Leon 1999, OBHDP (bond-carlson-keeney-objectives-2008) — value- versus alternative-focused
+  [warn] L133 decimal-with-attribution: - Johnson & Raab 2003; Klein et al. 1995; Butler & Scherer 1997; Keller & Ho 1988; Mehle 1982; Ward et al. 2011 (delmiss
+
+## .research/analysis/campaigns/solution-space-decomposition/clusters/completeness.md
+  [info] L55 [varela-lema-emerging-tech-search-2012]{270} → reduced-substrate-attestation
+  [info] L76 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L131 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L144 [hennink-code-meaning-saturation-2017]{174} → reduced-substrate-attestation
+  [info] L163 [wohlin-mapping-reliability-2013]{161} → reduced-substrate-attestation
+  [info] L176 [ogilvie-finding-evidence-2005]{157} → reduced-substrate-attestation
+  [info] L193 [aguilar-fault-type-code-review-2025]{370} → reduced-substrate-attestation
+  [info] L210 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
+  [info] L210 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L212 [ciolkowski-pbr-meta-analysis-2009]{369} → reduced-substrate-attestation
+  [warn] L93 version-number: ### 3.1 Every completeness figure is relative to a frame
+  [warn] L117 version-number: ### 3.2 Each estimator has its own inputs and independence assumptions
+  [warn] L125 decimal-with-attribution: captures [bron-chao-estimator-tar-2024]{169}. Webster and Kemp's design, as Bron et al. describe it,
+  [warn] L127 version-number: intervals and underestimates: a Chao2 of 36.3 from 12 units carried a 95% interval of 29.1 to 68.8
+  [warn] L135 version-number: ### 3.3 "Nothing new in the last run" is not evidence of completeness
+  [warn] L158 version-number: ### 3.4 Missing items can mean missing kinds, and independent maps disagree
+  [warn] L160 decimal-with-attribution: Two independent novice reviews shared 6 of 32 papers, and papers an expert review missed "would have
+  [warn] L164 decimal-with-attribution: its replication shared 20 papers [wohlin-hybrid-search-snowballing-2022]{160}. Disagreement has two
+  [warn] L168 comparative-superlative: discrepancy averaged 43% even though 97% of responses gave exactly one category
+  [warn] L172 version-number: ### 3.5 Recurring causes of missing families
+  [warn] L188 version-number: Claude-3.7-Sonnet reached 69.6% F1 at identifying removed content and model averages ranged from
+  [warn] L208 comparative-superlative: | `tension` | RIPL defines a landscape as covering "an entire population of relevant data" [smith-ripl-statement-2018]{2
+  [warn] L222 count-without-unit-citation: estimator validity is demonstrated for species, words, code paths, defects and screening, and the
+
+## .research/analysis/campaigns/solution-space-decomposition/clusters/generation.md
+  [info] L45 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L91 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L132 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L174 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
+  [info] L189 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L220 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L222 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L250 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
+  [info] L258 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [warn] L76 version-number: ### 2.1 Tested narrowing conditions, and independence before pooling
+  [warn] L81 version-number: - Upfront examples increased misses (10.8 versus 7.9), consistent with part-list cueing
+  [warn] L84 comparative-superlative: - In LLMs, telling the model the similarity of existing ideas produced the least diverse pool, and
+  [warn] L85 comparative-superlative: "40 sessions then groups pick the best 10" was worse than the base prompt
+  [warn] L107 version-number: ### 2.2 Measured second-pass and conditioning techniques
+  [warn] L110 version-number: items matter added 2.77 items (87% added any) versus 0.55 for a plain review; adding "at least three /
+  [warn] L111 version-number: six / nine" added 3.08 / 3.90 / 4.87, with no quality loss in the successful arms
+  [warn] L115 comparative-superlative: "No two ideas should be the same") gave the lowest similarity of any prompt, with caveats on model
+  [warn] L119 version-number: [noveltybench-humanlike-diversity-2025]{310}; verbalized sampling reported 1.6–2.1x semantic diversity,
+  [warn] L129 version-number: ### 2.3 Objectives or purpose as the generation key
+  [warn] L137 comparative-superlative: - The SDM module builds alternatives from the best consequence for each conflicting objective, then
+  [warn] L141 version-number: ### 2.4 Abstraction and distance
+  [warn] L160 version-number: ### 2.5 Structured generators: advocated more than measured
+  [warn] L200 comparative-superlative: Generating more options was associated with lower mean option quality (controlling for the best
+  [warn] L214 decimal-with-attribution: | `contradicts` | Far-field examples raised novelty versus near [chan-fu-analogy-distance-commonness-2011]{403}; far sti
+  [warn] L218 comparative-superlative: | `incommensurable` | LLMs below pooled humans even with the best prompt [meincke-prompting-idea-variance-2024]{300} [we
+  [warn] L277 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
+
+## .research/analysis/campaigns/solution-space-decomposition/parent.md
+  [info] L52 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L76 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L94 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L104 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L167 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L246 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [warn] L82 decimal-with-attribution: | Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [g
+  [warn] L118 count-without-unit-citation: coverage estimators do have measured evaluations in their own settings, such as species, words,
+  [warn] L136 decimal-with-attribution: the number of missing kinds is not [chao-hill-numbers-rarefaction-2014]{351}; Kitchenham et al. found missed papers "add
+  [warn] L265 decimal-with-attribution: - Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/analogous-domain-search.md
+  [info] L141 [srinivasan-analogical-distance-ideation-2018]{409} → reduced-substrate-attestation
+  [info] L237 [srinivasan-analogical-distance-ideation-2018]{409} → reduced-substrate-attestation
+  [info] L245 [srinivasan-analogical-distance-ideation-2018]{409} → reduced-substrate-attestation
+  [warn] L41 version-number: of search relative to less-common examples (d = −0.61) and to no examples (d = −1.03)
+  [warn] L45 decimal-with-attribution: to diverge from examples "did not decrease the participants' conformity" (Smith et al. 1993, as reported),
+  [warn] L68 version-number: ### 2.1 Broadcast search and solver distance (measured, observational)
+  [warn] L83 version-number: A follow-up on the same platform found **no main effect** of knowledge distance (OR 0.99, p > .25); distance
+  [warn] L88 version-number: ### 2.2 Analogous-market search (measured, one field experiment)
+  [warn] L99 version-number: ### 2.3 Problem abstraction as the retrieval key
+  [warn] L120 decimal-with-attribution: [kittur-scaling-analogical-innovation-2019]{415}. Ding et al. informally found their structured prompt
+  [warn] L124 version-number: ### 2.4 Defixation by re-representation (measured, small n)
+  [warn] L128 comparative-superlative: control group still produced the most concepts, while the defixation group "employed a greater diversity of
+  [warn] L150 decimal-with-attribution: [vasconcelos-crilly-inspiration-fixation-2016]{418}. Fu et al. say their sweet spot "is dependent upon and
+  [warn] L152 comparative-superlative: records distance as the most-studied factor and summarises the trade-off as more novelty with fewer ideas
+  [warn] L171 decimal-with-attribution: [chan-fu-analogy-distance-commonness-2011]{403}; Fu et al. attribute a null effect on quantity to the
+  [warn] L185 version-number: analogies did not correlate with users' in-task helpfulness ratings (r = −0.03, p = 0.69)
+  [warn] L200 decimal-with-attribution: moves [chan-schunn-far-analogy-in-vivo-2014]{407}. Even the positive Chan et al. study found neither
+  [warn] L211 decimal-with-attribution: time, and narrow deep exploration "might save time" [crilly-cardoso-fixation-2017]{419}; Sio et al. suggest
+  [warn] L276 decimal-with-attribution: - Full text of the 2018 Srinivasan et al. JMD paper resolves its divergence from the 2017 ICED analysis.
+  [warn] L278 decimal-with-attribution: common distance metric (Sio et al. 2015 is a meta-analysis on examples that was not read).
+  [warn] L292 decimal-with-attribution: - Srinivasan et al. (2018) JMD full text — abstract only.
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/analogous-domain-search.refs.md
+  [warn] L6 comparative-superlative: 405. **chan-dow-schunn-distant-inspiration-2015** — Do the best design ideas (really) come from conceptually distant sou
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/coverage-estimation.md
+  [info] L38 [link-heterogeneity-nonidentifiability-2003]{356} → reduced-substrate-attestation
+  [info] L38 [ciolkowski-pbr-meta-analysis-2009]{369} → reduced-substrate-attestation
+  [info] L39 [aguilar-fault-type-code-review-2025]{370} → reduced-substrate-attestation
+  [info] L39 [wohlin-mapping-reliability-2013]{374} → reduced-substrate-attestation
+  [info] L40 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L87 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L102 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L202 [link-heterogeneity-nonidentifiability-2003]{356} → reduced-substrate-attestation
+  [info] L207 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L264 [aguilar-fault-type-code-review-2025]{370} → reduced-substrate-attestation
+  [info] L289 [ciolkowski-pbr-meta-analysis-2009]{369} → reduced-substrate-attestation
+  [info] L333 [wohlin-mapping-reliability-2013]{374} → reduced-substrate-attestation
+  [info] L355 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L371 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L387 [ciolkowski-pbr-meta-analysis-2009]{369} → reduced-substrate-attestation
+  [info] L404 [ciolkowski-pbr-meta-analysis-2009]{369} → reduced-substrate-attestation
+  [info] L408 [schmitz-rahmann-richness-estimation-review-2025]{357} → reduced-substrate-attestation
+  [info] L433 [aguilar-fault-type-code-review-2025]{370} → reduced-substrate-attestation
+  [info] L439 [wohlin-mapping-reliability-2013]{374} → reduced-substrate-attestation
+  [warn] L66 decimal-with-attribution: [chao-colwell-chao2-inequality-2017]{350} [bohme-stads-species-discovery-2018]{359}. iChao2 (Chiu et al.
+  [warn] L78 version-number: Chao2 of 36.3, with a 95% interval of 29.1 to 68.8. The interval is log-transformed and right-skewed, and
+  [warn] L136 comparative-superlative: Theory sets the outer limit. Good–Toulmin predicts new kinds only up to a doubling of the sample. Smoothed
+  [warn] L137 comparative-superlative: estimators provably reach about log n times the sample, and "this range is the best possible"
+  [warn] L154 version-number: - **Effort needed.** Across seven published data sets, detecting all estimated species needed 1.05 to
+  [warn] L155 version-number: 10.67 times the original effort (median about 2.23). Detecting 90% needed 0.33 to 1.10 times (median
+  [warn] L156 version-number: about 0.80). The method is "slightly conservative for small sample sizes"
+  [warn] L188 decimal-with-attribution: - Meincke et al. applied the same estimator to GPT-4 idea pools. They stress that it estimates "only the
+  [warn] L204 version-number: 2. **Few sampling occasions give wide intervals and underestimates.** See the 29.1–68.8 interval from 12
+  [warn] L245 decimal-with-attribution: | Effort to completion (Chao et al. 2009) | f1, f2 | Extra effort to reach g% of the estimate | Measured (subsampling) |
+  [warn] L253 version-number: - Given the original and the edited document side by side, Claude-3.7-Sonnet reached 69.6% F1 at
+  [warn] L334 decimal-with-attribution: papers. The 10 additional relevant papers "would have had an impact" on a published review "by adding three
+  [warn] L337 version-number: - **Where the dendrogram is cut.** In card sorting, base clusters were stable across studies (90.9–96.5%
+  [warn] L340 version-number: - **Agreement is not correctness.** Human–human agreement (Jaccard 0.52) exceeded human–LLM agreement (0.30),
+  [warn] L376 decimal-with-attribution: Other bias sources mattered more [bohme-stads-species-discovery-2018]{359}. Orlitsky et al. prove a wider
+  [warn] L404 decimal-with-attribution: | [porter-votta-basili-detection-methods-1995]{368} vs [ciolkowski-pbr-meta-analysis-2009]{369} | `tension` | Porter et 
+  [warn] L405 decimal-with-attribution: | [porter-votta-basili-detection-methods-1995]{368} vs [regnell-pbr-perspectives-different-2000]{367} | `qualifies` | Po
+  [warn] L406 decimal-with-attribution: | [chao-hill-numbers-rarefaction-2014]{351} vs [bohme-stads-species-discovery-2018]{359} vs [orlitsky-suresh-wu-unseen-s
+  [warn] L408 comparative-superlative: | [chao-colwell-chao2-inequality-2017]{350} vs [schmitz-rahmann-richness-estimation-review-2025]{357} | `qualifies` | Ch
+  [warn] L416 comparative-superlative: were seen in exactly one or exactly two units [chao-colwell-chao2-inequality-2017]{350}
+  [warn] L447 count-without-unit-citation: or approaches* (rather than species, words, code paths or defects).
+  [warn] L453 decimal-with-attribution: - The full text of the Ciolkowski aggregation, Link (2003) or Wohlin et al. (2013) is acquired, which could
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/coverage-estimation.refs.md
+  [warn] L13 decimal-with-attribution: 360. **bohme-residual-risk-greybox-2021** — Estimating Residual Risk in Greybox Fuzzing. Fetched 2026-10-20. Source: htt
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/decision-option-generation.md
+  [info] L40 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L49 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L55 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L67 [arvai-gregory-mcdaniels-vft-risk-communication-2001]{456} → reduced-substrate-attestation
+  [info] L166 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
+  [info] L169 [keeney-value-focused-brainstorming-2012]{455} → reduced-substrate-attestation
+  [info] L174 [howard-decision-analysis-practice-promise-1988]{457} → reduced-substrate-attestation
+  [info] L188 [howard-decision-analysis-practice-promise-1988]{457} → reduced-substrate-attestation
+  [info] L259 [nutt-solution-ideas-1993]{466} → reduced-substrate-attestation
+  [info] L292 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L294 [arvai-gregory-mcdaniels-vft-risk-communication-2001]{456} → reduced-substrate-attestation
+  [info] L302 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L315 [howard-decision-analysis-practice-promise-1988]{457} → reduced-substrate-attestation
+  [info] L329 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L345 [siebert-keeney-alternatives-2015]{450} → reduced-substrate-attestation
+  [info] L366 [howard-decision-analysis-practice-promise-1988]{457} → reduced-substrate-attestation
+  [warn] L35 version-number: ### 1.1 Value-focused thinking (objectives first) versus alternative-focused thinking
+  [warn] L75 version-number: ### 1.2 The generate-then-recognize master-list paradigm (a completeness check)
+  [warn] L83 version-number: in 1.1 [siebert-keeney-press-2015]{451}.
+  [warn] L89 version-number: | S1 MBA program (retrospective) | 62 | 6.0 | 7.6 | 10% missed their top objective; 71% missed ≥1 of top five |
+  [warn] L90 version-number: | S2 executive MBA (retrospective, 1-week delay before ranking) | 70 | 6.6 | 7.7 | mean rank 5.8 vs 5.1; 35% missed top 
+  [warn] L91 version-number: | S3 internship (prospective, 1 week of rumination) | 28 | 6.8 | 7.9 | 6.8 vs 7.4 on 1–9 (bogus item 2.9) |
+  [warn] L113 version-number: ### 1.3 Diagnosis: too narrow versus too shallow
+  [warn] L119 version-number: self-generation concentrated in each person's top category (e.g. 2.60 observed vs 1.84 under a random
+  [warn] L120 version-number: model; 0.58 vs 1.36 in the lowest category) — "breadth of thinking was insufficient"
+  [warn] L120 comparative-superlative: model; 0.58 vs 1.36 in the lowest category) — "breadth of thinking was insufficient"
+  [warn] L125 decimal-with-attribution: The 2008 paper also tested an effort account and rejected it: the correlation between numbers
+  [warn] L130 version-number: ### 1.4 Prompts and stimuli with measured effects (Bond, Carlson & Keeney 2010)
+  [warn] L134 version-number: | Second pass structured by five categories after an unaided list (S1, n=20, within-subject) | +4.5 listed; uniquely map
+  [warn] L135 version-number: | Upfront categories vs standard vs four examples (S2, n=158, between-subject) | categories 12.7 vs standard 9.2 listed 
+  [warn] L136 version-number: | Second pass "simple review" (S3, n=295, six arms) | +0.55 (20% added any) | baseline |
+  [warn] L137 version-number: | "Deeper review" — warning that people list <50% and missed items matter as much | +2.77 (87% added any) | added vs ini
+  [warn] L138 version-number: | Warning + "add at least three / six / nine" | +3.08 / +3.90 / +4.87; target regression β = 0.30 | no quality loss in s
+  [warn] L139 version-number: | Warning + four categories | +3.56 | not reliably better than deeper review (p = 0.134) |
+  [warn] L151 version-number: encouragement to consult others (S3 of 2008: still 6.8 generated vs 7.9 missed), with the conclusion
+  [warn] L156 version-number: ### 1.5 Aggregation of independent generators
+  [warn] L171 version-number: ### 1.6 Strategy (generation) tables
+  [warn] L180 comparative-superlative: lists companion moves — address conflicting objectives by imagining the best consequence for each
+  [warn] L190 version-number: ### 1.7 Option generation in JDM: fluency, diversity and quality
+  [warn] L199 version-number: added ΔR² of 0.14–0.19 to option-generation fluency beyond memory, executive control, intelligence and
+  [warn] L201 version-number: mean option quality (controlling for the best option) in two problems (−0.18, −0.21) and positively with
+  [warn] L201 comparative-superlative: mean option quality (controlling for the best option) in two problems (−0.18, −0.21) and positively with
+  [warn] L202 version-number: the best option's quality in two (0.27, 0.31); fluency–choice-quality correlations were all
+  [warn] L202 comparative-superlative: the best option's quality in two (0.27, 0.31); fluency–choice-quality correlations were all
+  [warn] L205 version-number: options correlated with set divergence (r = 0.62) and maximum originality (0.53) but not mean
+  [warn] L206 version-number: originality (0.11), and negatively with mean feasibility (−0.40)
+  [warn] L209 decimal-with-attribution: **Earlier act-generation work, cited through Del Missier et al.** They attribute to Gettys et al. (1987)
+  [warn] L210 decimal-with-attribution: and Manning et al. (1980) marked departures from optimal generation (campus parking, housing for an
+  [warn] L211 decimal-with-attribution: impecunious friend, uses for a geographic area), to Mehle (1982) and Klein et al. (1995) suboptimal
+  [warn] L214 decimal-with-attribution: options (Gettys et al., 1987)" [delmissier-option-generation-ideation-2015]{459}. They also attribute to
+  [warn] L215 decimal-with-attribution: Mehle (1982) and Gettys et al. (1987) that participants "think they have generated a large fraction of
+  [warn] L224 version-number: ### 1.8 Naturalistic decision making: one option, recognized
+  [warn] L234 decimal-with-attribution: [raab-chess-take-the-first-replication-2026]{462}. Del Missier et al. attribute to Johnson and Raab
+  [warn] L239 version-number: ### 1.9 Illusory completeness of a decomposition
+  [warn] L252 version-number: ### 1.10 Organizational search tactics
+  [warn] L256 comparative-superlative: "synthesized template" integrating practices from several sources "had the most success, but this
+  [warn] L285 version-number: (10.8 vs 7.9), upfront categories did not reduce misses, a plain request to add more produced +0.55, and
+  [warn] L318 decimal-with-attribution: generation fluency (attributed to Mehle 1982; Klein et al. 1995)
+  [warn] L328 comparative-superlative: | Does generating more options help? | "Less is more": mean set quality falls and choices worsen with more options (John
+  [warn] L361 comparative-superlative: 7. Count and quality diverge: more options can lower average quality while raising the best option, and a
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/design-space-methods.md
+  [info] L68 [johansen-gma-scenario-classes-2018]{102} → reduced-substrate-attestation
+  [info] L200 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L220 [siebert-keeney-alternatives-2015]{115} → reduced-substrate-attestation
+  [info] L227 [siebert-keeney-alternatives-2015]{115} → reduced-substrate-attestation
+  [info] L270 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L341 [siebert-keeney-alternatives-2015]{115} → reduced-substrate-attestation
+  [info] L398 [kang-dse-equivalence-2010]{111} → reduced-substrate-attestation
+  [info] L407 [siebert-keeney-alternatives-2015]{115} → reduced-substrate-attestation
+  [warn] L29 version-number: ### 1.1 General morphological analysis (Zwicky; Ritchey) — parameters × values, then cross-consistency
+  [warn] L79 version-number: ### 1.2 Morphological matrix / chart (engineering design) — functions × means
+  [warn] L83 decimal-with-attribution: [martinsson-bonde-mm-combinatorics-2025]{103}. Daly et al. summarise it as "Listing properties and
+  [warn] L88 version-number: about 54.9 billion combinations, which "cannot possibly be considered manually"; "high-performing
+  [warn] L95 decimal-with-attribution: Bonde et al., Smith et al. (2012) found with engineering students that large matrices, "especially those
+  [warn] L100 version-number: ### 1.3 TRIZ — contradictions, inventive principles, ideality
+  [warn] L111 decimal-with-attribution: to find less obvious ideas" [vargas-hernandez-triz-experiment-2012]{105}. Daly et al., however, class
+  [warn] L116 version-number: redesign, short lecture-plus-handout treatment) reported novelty gains at UTEP (0.241→0.560, p=0.0004)
+  [warn] L117 version-number: and Maryland (0.095→0.186, p=0.0145) but not Penn State (0.683→0.651, p=0.5786); variety rose at UTEP
+  [warn] L118 version-number: (1.61→4.20) and marginally elsewhere with no significance test; quantity did not differ significantly
+  [warn] L119 decimal-with-attribution: [vargas-hernandez-triz-experiment-2012]{105}. One UTEP arm had 9 participants, and the paper's text on
+  [warn] L122 decimal-with-attribution: subject, task and setting [vargas-hernandez-triz-experiment-2012]{105}. Borgianni et al. (TRIZ
+  [warn] L130 version-number: ### 1.4 QOC / Design Space Analysis (MacLean, Young, Bellotti, Moran) — questions × options × criteria
+  [warn] L157 version-number: ### 1.5 Set-based concurrent engineering (Toyota; Sobek, Ward & Liker) — sets kept open, narrowed by intersection
+  [warn] L159 decimal-with-attribution: **Construction and pruning.** As synthesised by Toche et al. from Sobek, Ward & Liker (1999): (1) map
+  [warn] L178 decimal-with-attribution: introductory level" [toche-set-based-design-review-2020]{109}. Liker et al.'s supplier survey (as
+  [warn] L185 version-number: ### 1.6 Software design spaces and design-space exploration
+  [warn] L217 version-number: ### 1.7 Objective-driven alternative generation (decision analysis; Siebert & Keeney)
+  [warn] L236 version-number: ### 1.8 Contrast: heuristic transformation methods (Design Heuristics, SCAMPER, SIT)
+  [warn] L246 version-number: ### 1.9 LLM-mediated morphological generation (reused attestations)
+  [warn] L259 decimal-with-attribution: weighted more (10/6/3/1) [sorensen-ideation-metrics-axioms-2026]{113}. Sorensen et al.'s OPED tree
+  [warn] L271 decimal-with-attribution: - **Embedding similarity thresholds.** Treating cosine similarity ≥0.8 as a duplicate, Meincke et al.
+  [warn] L300 decimal-with-attribution: [shaw-petre-design-spaces-2024]{110}; Sorensen et al. state a tree "cannot describe the total design
+  [warn] L336 decimal-with-attribution: [martinsson-bonde-mm-combinatorics-2025]{103}. Daly et al. state that "little systematic evidence has
+  [warn] L349 decimal-with-attribution: 34,560 → 480 case [ritchey-psm-gma-2006]{101}; Martinsson Bonde et al. state that identifying
+  [warn] L353 decimal-with-attribution: declared frame (§3); Sorensen et al. explicitly disclaim absolute adequacy
+  [warn] L354 decimal-with-attribution: [sorensen-ideation-metrics-axioms-2026]{113} and Meincke et al. explicitly disclaim whole-space
+  [warn] L423 decimal-with-attribution: - The full texts of Siebert & Keeney (2015), Shah et al. (2003), Smith et al. (2012) on matrix size, or
+  [warn] L424 decimal-with-attribution: Ilevbare et al. (2013) on TRIZ in practice are acquired and alter the reported numbers or conditions.
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/landscape-mapping.md
+  [info] L98 [smith-patent-landscape-reporting-thesis-2018]{252} → reduced-substrate-attestation
+  [info] L180 [wohlin-mapping-reliability-2013]{259} → reduced-substrate-attestation
+  [info] L185 [petersen-mapping-guidelines-update-2015]{256} → reduced-substrate-attestation
+  [info] L216 [bishop-hines-collins-scenario-techniques-2007]{264} → reduced-substrate-attestation
+  [info] L220 [wright-bradfield-cairns-intuitive-logics-2013]{265} → reduced-substrate-attestation
+  [info] L222 [meissner-wulf-scenario-framing-2013]{266} → reduced-substrate-attestation
+  [info] L254 [varela-lema-emerging-tech-search-2012]{270} → reduced-substrate-attestation
+  [info] L256 [smith-cook-packer-horizon-sources-2010]{269} → reduced-substrate-attestation
+  [info] L260 [farrah-grey-literature-horizon-scanning-2019]{271} → reduced-substrate-attestation
+  [info] L266 [zajac-bazerman-competitor-blindspots-1991]{272} → reduced-substrate-attestation
+  [info] L291 [varela-lema-emerging-tech-search-2012]{270} → reduced-substrate-attestation
+  [info] L294 [wohlin-mapping-reliability-2013]{259} → reduced-substrate-attestation
+  [info] L306 [wohlin-mapping-reliability-2013]{259} → reduced-substrate-attestation
+  [info] L331 [farrah-grey-literature-horizon-scanning-2019]{271} → reduced-substrate-attestation
+  [info] L385 [farrah-grey-literature-horizon-scanning-2019]{271} → reduced-substrate-attestation
+  [info] L398 [wohlin-mapping-reliability-2013]{259} → reduced-substrate-attestation
+  [info] L410 [wohlin-mapping-reliability-2013]{259} → reduced-substrate-attestation
+  [info] L411 [petersen-mapping-guidelines-update-2015]{256} → reduced-substrate-attestation
+  [info] L412 [bishop-hines-collins-scenario-techniques-2007]{264} → reduced-substrate-attestation
+  [info] L412 [wright-bradfield-cairns-intuitive-logics-2013]{265} → reduced-substrate-attestation
+  [info] L413 [meissner-wulf-scenario-framing-2013]{266} → reduced-substrate-attestation
+  [info] L413 [zajac-bazerman-competitor-blindspots-1991]{272} → reduced-substrate-attestation
+  [info] L414 [smith-cook-packer-horizon-sources-2010]{269} → reduced-substrate-attestation
+  [info] L414 [varela-lema-emerging-tech-search-2012]{270} → reduced-substrate-attestation
+  [warn] L51 comparative-superlative: recommend that large topics be limited "to a handful of the most important technical approaches"
+  [warn] L112 version-number: F1 fell from 0.77 on easy examples to 0.60 on hard ones, and the best models reached roughly
+  [warn] L112 comparative-superlative: F1 fell from 0.77 on easy examples to 0.60 on hard ones, and the best models reached roughly
+  [warn] L133 decimal-with-attribution: results can be compared [felderer-carver-sms-security-2018]{257}. Petersen et al. warn that
+  [warn] L145 comparative-superlative: their only overlap with an expert review was three regression-testing papers
+  [warn] L152 decimal-with-attribution: misses known-set papers it must be modified [felderer-carver-sms-security-2018]{257}. Zhang et al.
+  [warn] L158 decimal-with-attribution: published SLR's search found it had captured only 36% (59/164) of the papers the systematic
+  [warn] L159 decimal-with-attribution: process found, and one venue contributing 7% of the QGS had no paper in the original
+  [warn] L167 decimal-with-attribution: and forward snowballing found 43 relevant papers where the original SLR listed 33; only 20 were
+  [warn] L181 decimal-with-attribution: testing shared only 6 of 32 papers and found only 3 of an expert review's 21; 8 of 10
+  [warn] L184 comparative-superlative: mapping studies commonly combine several guideline families because "the most frequently followed
+  [warn] L201 comparative-superlative: methods" [ritchey-gma-general-method]{262}. The coverage is total only relative to the chosen
+  [warn] L246 decimal-with-attribution: signals in their periphery" [rohrbeck-strategic-foresight-dt-2007]{268}. That paper reports no
+  [warn] L288 version-number: | Vocabulary | Classification-code expansion of queries | Prior-art IR [mahdabi-prior-art-query-2011]{254} | measured (r
+  [warn] L307 decimal-with-attribution: two novice SLRs shared 6 of 32 papers and an expert review missed papers that would have added
+  [warn] L309 decimal-with-attribution: 56 distinct papers [wohlin-hybrid-search-snowballing-2022]{261} {inferred: aggregate — 33 + 43 - 20
+  [warn] L323 decimal-with-attribution: the search is thorough [wipo-plr-guidelines-trippe-2015]{250}; Zhang et al. stopped one case at 73%
+  [warn] L346 comparative-superlative: the most important technical approaches" [wipo-plr-guidelines-trippe-2015]{250}. Relationship:
+  [warn] L356 decimal-with-attribution: - **Does search strategy change conclusions?** Wohlin et al. report, citing Jalali and Wohlin (2012),
+  [warn] L358 decimal-with-attribution: conclusions [wohlin-hybrid-search-snowballing-2022]{261}; Kitchenham et al. found missing papers
+  [warn] L364 decimal-with-attribution: Zhang et al. propose 70-80% quasi-sensitivity as acceptable [zhang-qgs-search-2011]{258}.
+  [warn] L397 decimal-with-attribution: - The full text of Wohlin et al. (2013) becomes readable: its four conjectures and per-paper overlap
+  [warn] L402 decimal-with-attribution: - Abood and Feltenberger (2018) or Choi et al. (2019) are read directly, revising the seed-expansion
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/llm-ideation-diversity.md
+  [info] L38 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L38 [padmakumar-he-cowriting-diversity-2023]{305} → reduced-substrate-attestation
+  [info] L40 [kandpal-long-tail-knowledge-2022]{319} → reduced-substrate-attestation
+  [info] L41 [kambhatla-persona-lexical-diversity-2025]{313} → reduced-substrate-attestation
+  [info] L42 [shaib-text-diversity-measurement-2024]{322} → reduced-substrate-attestation
+  [info] L43 [meincke-chatgpt-brainstorm-diversity-2025]{301} → reduced-substrate-attestation
+  [info] L81 [meincke-chatgpt-brainstorm-diversity-2025]{301} → reduced-substrate-attestation
+  [info] L83 [padmakumar-he-cowriting-diversity-2023]{305} → reduced-substrate-attestation
+  [info] L98 [padmakumar-he-cowriting-diversity-2023]{305} → reduced-substrate-attestation
+  [info] L98 [west-potts-base-vs-aligned-creativity-2025]{309} → reduced-substrate-attestation
+  [info] L102 [kandpal-long-tail-knowledge-2022]{319} → reduced-substrate-attestation
+  [info] L133 [kambhatla-persona-lexical-diversity-2025]{313} → reduced-substrate-attestation
+  [info] L208 [kandpal-long-tail-knowledge-2022]{319} → reduced-substrate-attestation
+  [info] L222 [shaib-text-diversity-measurement-2024]{322} → reduced-substrate-attestation
+  [info] L254 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L270 [kambhatla-persona-lexical-diversity-2025]{313} → reduced-substrate-attestation
+  [info] L295 [meincke-chatgpt-brainstorm-diversity-2025]{301} → reduced-substrate-attestation
+  [info] L295 [ashkinaze-ai-ideas-collective-diversity-2024]{304} → reduced-substrate-attestation
+  [info] L298 [west-potts-base-vs-aligned-creativity-2025]{309} → reduced-substrate-attestation
+  [info] L320 [shaib-text-diversity-measurement-2024]{322} → reduced-substrate-attestation
+  [warn] L50 version-number: college-product ideas, mean within-pool cosine similarity ranged from 0.255 to 0.432 across 35
+  [warn] L51 version-number: prompting strategies against 0.243 for an aggregated pool of separate students' ideas; the base
+  [warn] L56 version-number: Uses 0.459 vs 0.738, effect size 2.2), "even after controlling for response structure", while
+  [warn] L59 version-number: ideas per topic yielded only 200 non-duplicates at a 0.8 embedding-similarity threshold, with the
+  [warn] L61 version-number: [si-llm-research-ideation-2024]{318}. NoveltyBench reports frontier models producing roughly 1.8–2.9
+  [warn] L86 version-number: explores categories at nearly the same rate as a single human (12.46 vs 12.68 categories over 10
+  [warn] L88 version-number: combinations than independent humans (T_comb 5.88 vs 9.17)
+  [warn] L89 decimal-with-attribution: [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}. Anderson et al. likewise find the
+  [warn] L110 version-number: ### 3.1 Multi-step "generate many, then make them different" (chain-of-thought)
+  [warn] L112 decimal-with-attribution: - Meincke et al.'s CoT prompt — list 100 short titles, then revise them to be "different and bold"
+  [warn] L113 comparative-superlative: so "No two ideas should be the same", then describe — gave the lowest similarity of any prompt
+  [warn] L114 version-number: (0.255 vs base 0.377) and a larger estimated unique-idea space (~4700 vs ~3700)
+  [warn] L120 version-number: 39.15 → 55.49) and reducing fixation, but not restoring across-session knowledge partitioning
+  [warn] L123 version-number: ### 3.2 Personas
+  [warn] L126 version-number: modest gains (Creative Entrepreneur 0.348, Steve Jobs 0.368 vs base 0.377) to worse-than-base
+  [warn] L127 version-number: variants (e.g., several "Novel Modifier" variants at 0.38–0.41) [meincke-prompting-idea-variance-2024]{300}.
+  [warn] L128 version-number: - Deng et al. find ordinary everyday personas outperform "creative entrepreneur" personas (T_comb 56.97
+  [warn] L129 version-number: vs 50.40; human 59.66), acting as "diverse sampling cues" that raise between-session spread 2.6x —
+  [warn] L130 comparative-superlative: but they increase within-session fixation; ordinary personas plus CoT produced the highest coverage,
+  [warn] L138 version-number: ### 3.3 Distribution-level prompting: verbalized sampling and in-context regeneration
+  [warn] L141 version-number: {threshold}") and reports 1.6–2.1x semantic diversity over direct prompting in creative writing,
+  [warn] L146 comparative-superlative: - In-context regeneration — show prior outputs and ask for a different one — was the most effective of
+  [warn] L154 version-number: ### 3.4 Explicit dimensions and approach elicitation
+  [warn] L166 comparative-superlative: approaches (5 per call, 100 calls), keeps the most frequent 3–5, pairs them with model-suggested
+  [warn] L174 version-number: ### 3.5 Multiple agents
+  [warn] L188 version-number: ### 3.6 Interventions with null or negative measured effects
+  [warn] L190 version-number: - Telling GPT-4 the cosine similarity of existing ideas produced the least diverse pool (0.432);
+  [warn] L190 comparative-superlative: - Telling GPT-4 the cosine similarity of existing ideas produced the least diverse pool (0.432);
+  [warn] L191 version-number: hybrid "40 sessions then groups pick the best 10" scored 0.393, worse than the base prompt; HBR and
+  [warn] L191 comparative-superlative: hybrid "40 sessions then groups pick the best 10" scored 0.393, worse than the base prompt; HBR and
+  [warn] L196 version-number: [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}; min-p at temperature 2.0 still left 61.2% of
+  [warn] L201 version-number: ### 3.7 Thinking/reasoning and retrieval for recall-limited coverage
+  [warn] L221 decimal-with-attribution: | Human ratings of diversity | [verbalized-sampling-mode-collapse-2025]{311}; [creative-mad-debate-diversity-2026]{317} 
+  [warn] L251 decimal-with-attribution: per ChatGPT user [anderson-llm-homogenization-ideation-2024]{303}, and Deng et al. find near-identical
+  [warn] L283 decimal-with-attribution: generating technique [meincke-prompting-idea-variance-2024]{300}; Si et al.'s plateau of ~200 uniques reflects the
+  [warn] L288 comparative-superlative: and the best LLM pairwise idea ranker agreed with expert reviewers 53.3% of the time against 56.1% human inter-reviewer 
+  [warn] L296 decimal-with-attribution: | Which personas help | Celebrity/"creative entrepreneur" personas modestly improved diversity over base (e.g., Creative
+  [warn] L297 comparative-superlative: | Whether LLMs can match human diversity by prompting | Even the best prompt (CoT) came "close" to but below pooled huma
+  [warn] L314 comparative-superlative: - Interventions that add exposure to consensus — similarity feedback, selecting the best from pooled
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/search-completeness.md
+  [info] L29 [cooper-search-effectiveness-metrics-2018]{153} → reduced-substrate-attestation
+  [info] L36 [greenhalgh-peacock-snowball-audit-2005]{156} → reduced-substrate-attestation
+  [info] L37 [ogilvie-finding-evidence-2005]{157} → reduced-substrate-attestation
+  [info] L43 [horsley-reference-list-checking-2011]{159} → reduced-substrate-attestation
+  [info] L57 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
+  [info] L58 [stelfox-cmr-surgery-2013]{167} → reduced-substrate-attestation
+  [info] L59 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L87 [francis-data-saturation-2010]{176} → reduced-substrate-attestation
+  [info] L89 [hennink-code-meaning-saturation-2017]{174} → reduced-substrate-attestation
+  [info] L89 [hennink-kaiser-saturation-review-2022]{175} → reduced-substrate-attestation
+  [info] L90 [malterud-information-power-2016]{177} → reduced-substrate-attestation
+  [info] L101 [horsley-reference-list-checking-2011]{159} → reduced-substrate-attestation
+  [info] L105 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L114 [hennink-code-meaning-saturation-2017]{174} → reduced-substrate-attestation
+  [info] L115 [hennink-kaiser-saturation-review-2022]{175} → reduced-substrate-attestation
+  [info] L117 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L119 [wohlin-mapping-reliability-2013]{161} → reduced-substrate-attestation
+  [info] L124 [ogilvie-finding-evidence-2005]{157} → reduced-substrate-attestation
+  [info] L124 [horsley-reference-list-checking-2011]{159} → reduced-substrate-attestation
+  [info] L125 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
+  [info] L125 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L126 [francis-data-saturation-2010]{176} → reduced-substrate-attestation
+  [info] L134 [greenhalgh-peacock-snowball-audit-2005]{156} → reduced-substrate-attestation
+  [info] L134 [horsley-reference-list-checking-2011]{159} → reduced-substrate-attestation
+  [info] L135 [kastner-cmr-stopping-rule-2009]{166} → reduced-substrate-attestation
+  [info] L135 [stelfox-cmr-surgery-2013]{167} → reduced-substrate-attestation
+  [info] L135 [rucker-boosting-capture-recapture-2011]{168} → reduced-substrate-attestation
+  [info] L136 [hennink-kaiser-saturation-review-2022]{175} → reduced-substrate-attestation
+  [info] L136 [hennink-code-meaning-saturation-2017]{174} → reduced-substrate-attestation
+  [info] L150 [wohlin-mapping-reliability-2013]{161} → reduced-substrate-attestation
+  [warn] L21 decimal-with-attribution: Engagement depth varies. Full texts were read for PRISMA-S, the Cochrane Handbook chapter, both Cooper/Booth guidance re
+  [warn] L43 decimal-with-attribution: Backward tracking follows a seed's references. Forward tracking follows papers that cite it. Iterations reuse newly foun
+  [warn] L50 decimal-with-attribution: - **Relative recall.** The share of the pooled relevant set from all routes that one route retrieves [sampson-relative-r
+  [warn] L50 version-number: - **Relative recall.** The share of the pooled relevant set from all routes that one route retrieves [sampson-relative-r
+  [warn] L60 decimal-with-attribution: - Chao's estimator uses only items found once (f1) and items found twice (f2). Many singletons relative to doubletons in
+  [warn] L70 comparative-superlative: - Stopping at a baseline inclusion rate missed the 95% recall target in 39.67% of runs, and the most common work saving 
+  [warn] L81 decimal-with-attribution: *Evidence level: measured on benchmark datasets. The 2024 paper notes that reliability in simulation "may ... be depende
+  [warn] L85 decimal-with-attribution: Saturation stops when "further data collection and/or analysis are unnecessary". It has at least four forms: theoretical
+  [warn] L114 decimal-with-attribution: - **Illusory saturation, level of analysis.** Counting codes saturates earlier than understanding their dimensions [henn
+  [warn] L124 decimal-with-attribution: - *Claim: supplementary search methods improve coverage.* Disconfirming evidence was sought and found. Westphal et al. a
+  [warn] L125 decimal-with-attribution: - *Claim: capture-recapture can serve as a stopping rule.* The original authors state that cutpoints are undefined and e
+  [warn] L126 decimal-with-attribution: - *Claim: "no new items for N steps" signals completeness.* In TAR this is directly disconfirmed (39% target misses; 53%
+  [warn] L138 decimal-with-attribution: | qualifies | Bron et al. report that their estimators "work well" in simulation [bron-chao-estimator-tar-2024]{169}; Ca
+  [warn] L146 decimal-with-attribution: - Overlap-based estimators read the **frequency of items found by exactly one pass versus two** (f1/f2) and assume passe
+  [warn] L146 comparative-superlative: - Overlap-based estimators read the **frequency of items found by exactly one pass versus two** (f1/f2) and assume passe
+
+## .research/analysis/campaigns/solution-space-decomposition/specialists/taxonomy-construction.md
+  [info] L179 [trochim-concept-mapping-kb]{212} → reduced-substrate-attestation
+  [info] L188 [nielsen-card-sort-sample-size-2004]{211} → reduced-substrate-attestation
+  [info] L286 [trochim-concept-mapping-kb]{212} → reduced-substrate-attestation
+  [info] L348 [nielsen-card-sort-sample-size-2004]{211} → reduced-substrate-attestation
+  [warn] L66 comparative-superlative: only as necessary conditions for usefulness and say that the only sufficient condition they
+  [warn] L76 decimal-with-attribution: Nickerson et al. attribute to Bailey (1994) a split between typologies (conceptually or
+  [warn] L82 decimal-with-attribution: [nickerson-taxonomy-development-method-2013]{200}. Nickerson et al. also attribute to Bailey a
+  [warn] L124 version-number: reported by Vickery, faceted retrieval scored 73.8% against 75.6–82.0% for UDC, alphabetical
+  [warn] L181 version-number: correlations between studies of 0.609–0.930 and 90.9–96.5% similarity of base clusters.
+  [warn] L182 version-number: Navigation schemes cut at the elbow agreed 63.2–92.7%
+  [warn] L187 version-number: full-sample similarity was 0.75 at 5 sorters, 0.90 at 15, 0.95 at 30 and 0.98 at 60
+  [warn] L239 decimal-with-attribution: development method and 17% followed Nickerson et al. Ending conditions were stated in 17%,
+  [warn] L243 decimal-with-attribution: Nickerson et al.'s method, 16 stated that they applied the ending conditions "without giving
+  [warn] L253 comparative-superlative: students classifying seeded defects, the most frequent category accounted for 69% of
+  [warn] L254 comparative-superlative: answers, and 97% of responses assigned exactly one category. Yet discrepancy between raters
+  [warn] L336 decimal-with-attribution: [nickerson-taxonomy-development-method-2013]{200}. Allen et al. place MECE categories in
+  [warn] L348 decimal-with-attribution: [nielsen-card-sort-sample-size-2004]{211}. Katsanos et al. conclude that the multiple-mental-model concern
+  [warn] L385 decimal-with-attribution: - Kundisch et al. (2022, "An update for taxonomy designers", BISE) or Nobes & Stadler (2013,
+
+## .research/analysis/campaigns/solution-space-decomposition/verification-checklist.md
+  [warn] L97 version-number: records Q1/Q2, 36.3 and the interval 29.1–68.8, but not the number of sampling units;
+
+21 file(s) · 1441 resolved/non-broken citation(s) · 0 broken · 0 thin · 253 pattern flag(s)

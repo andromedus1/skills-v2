@@ -5,22 +5,24 @@ updated: 2026-10-20
 summary: >-
   Campaign synthesis over eight facets (design-space methods, decision-option generation,
   analogous-domain search, LLM ideation diversity, search completeness, coverage estimation,
-  taxonomy construction, landscape mapping). Unaided generation, by people or language models,
-  recovers roughly a third to a half of later-recognised alternatives and narrows in predictable
-  ways: toward familiar examples, toward a person's dominant category, and, for models, toward the
-  same modes across independent draws and across models. Measured remedies are an objectives- or
-  purpose-first generation key, independent generation before exposure to examples or consensus,
-  a second pass that states the first is incomplete and sets a target, generation that sees prior
-  items and is told to differ, and abstraction at a workable level for distant retrieval. No field
-  has a validated estimator for the completeness of a set of kinds; every completeness signal is
-  relative to a declared frame, needs independent passes, and is reported as a lower bound or
-  coverage statement, while "nothing new in the last pass" measurably fails. Omissions are detected
+  taxonomy construction, landscape mapping). Unaided human generation recovers roughly a third to
+  a half of later-recognised objectives or alternatives and narrows toward familiar examples and a
+  person's dominant category; language-model generation, measured differently, converges on the same
+  modes across independent draws and across models. Remedies with measured support in their tested
+  settings are an objectives- or purpose-first generation key, independent generation before group
+  discussion, a second pass that states the first is incomplete and sets a target, generation that
+  sees prior items and is told to differ, and abstraction at a workable level for distant retrieval;
+  upfront examples, similarity feedback and standard multi-agent debate narrowed sets in the studies
+  that tested them. No attested source validates a completeness estimator for families of methods or
+  approaches; completeness signals are relative to a declared frame, each estimator has its own input
+  and independence assumptions, and a model-based lower bound applies only where those assumptions
+  hold, while "nothing new in the last pass" measurably fails in screening. Omissions are detected
   far less often than wrong inclusions. Structured generators are advocated more than measured.
 key_findings:
-  - Unaided generation recovers roughly 30–50% of later-recognised objectives or alternatives, and omitted items are about as important as found ones.
-  - Exposure to examples or consensus before generation narrows the set; independent generation pooled before discussion widens it.
+  - Unaided human generation recovers roughly 30–50% of later-recognised objectives or alternatives, and omitted items are about as important as found ones; language-model narrowing is measured as similarity and category coverage, not as this recovery fraction.
+  - Upfront examples, similarity feedback and standard multi-agent debate narrowed sets where tested (voting over independent responses did not, and AI-example exposure widened collective diversity in one dynamic setting); independent generation pooled before discussion widened the set in one case.
   - Measured second-pass gains come from stating the first pass is incomplete with a numeric target, or showing prior items with an instruction to differ; more time does not help.
-  - No attested field has a validated completeness estimator for a set of kinds; signals are frame-relative, need at least two independent passes, and give lower bounds or coverage, not certification.
+  - No attested source validates a completeness estimator for families of methods or approaches; capture–recapture needs at least two passes, incidence estimators need replicated sampling units, abundance estimators need frequency counts from a sample, and screening tests need a random sample of the remainder; estimates are frame-relative and are not certification.
   - Stopping when the last pass added nothing missed recall targets in about 39% of screening runs; saturation stopping points left part of the observed themes unseen.
   - Reviewers and models detect omissions far less often than wrong inclusions, but judge presented candidates much more accurately than they author full sets.
   - Fields distinguish a different approach from a variation by the abstraction level of divergence, a different value on a declared dimension, or non-equivalence under a declared relation; every such test depends on the frame chosen.
@@ -72,21 +74,24 @@ throughout: no attested source tests these techniques on samples of approaches t
 | Strategy | Evidence | Key limit |
 |---|---|---|
 | Objectives or purpose as the generation key | Measured: more and better alternatives [siebert-keeney-alternatives-2015]{450} {confidence: abstract-only}; purpose-fixed, mechanism-diverse retrieval beat keyword and random [hope-analogy-mining-purpose-mechanism-2017]{414} | Students, personal decisions; one small crowd study |
-| Independent generation, then pooled union | Demonstrated: aggregate list "much more complete" [bond-carlson-keeney-objectives-2008]{452} | One case; pooling helps only across different generators [artificial-hivemind-homogeneity-2025]{307} |
+| Independent generation, then pooled union | Demonstrated: aggregate list "much more complete" [bond-carlson-keeney-objectives-2008]{452} | One case; changing model identity alone does not establish independent coverage, since different models' responses were highly similar [artificial-hivemind-homogeneity-2025]{307}, while distinct cues to one model raised coverage [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312} |
 | Second pass with "first lists are incomplete" and a numeric target | Measured: +2.77 to +4.87 items, no quality loss [bond-carlson-keeney-improving-objectives-2010]{453} | Objectives, MBA population |
 | See prior items, instruction to differ (LLM) | Measured: lowest similarity [meincke-prompting-idea-variance-2024]{300}; human-level distinctness [noveltybench-humanlike-diversity-2025]{310} | Caveats on model version; gains vanish as pools deplete |
 | Distinct cue per draw (ordinary personas, fixed agent lenses) | Measured in single studies [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312} [creative-mad-debate-diversity-2026]{317} | One model or one preprint each |
-| Categories as a second pass | Measured: +30% self-generated [bond-carlson-keeney-improving-objectives-2010]{453} | Upfront categories did not reduce misses |
-| Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [gick-holyoak-schema-induction-1983]{416}; relevant yet distant inspirations [kittur-scaling-analogical-innovation-2019]{415} | Too abstract lowers fit [vasconcelos-crilly-inspiration-fixation-2016]{418} |
+| Categories as a second pass | Measured: +30% self-generated in a second pass [bond-carlson-keeney-improving-objectives-2010]{453} | The category effect cannot be separated from the second opportunity itself, and categories added no reliable gain over a motivated deeper review; upfront categories did not reduce misses [bond-carlson-keeney-improving-objectives-2010]{453} |
+| Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [gick-holyoak-schema-induction-1983]{416}; relevant yet distant inspirations [kittur-scaling-analogical-innovation-2019]{415} | A review reports Zahner et al. finding that too-abstract framing lowers fit, and that the right balance is unclear [vasconcelos-crilly-inspiration-fixation-2016]{418} |
 | Distant or analogous-domain sources | Mixed: novelty up and usability down [franke-poetz-schreier-analogous-markets-2014]{273}; contradictory lab results [chan-fu-analogy-distance-commonness-2011]{403} [fu-near-far-analogy-2013]{404} | No locatable sweet spot |
 | Morphological fields, design spaces (dimensions × values) | Advocated/demonstrated [ritchey-gma-general-method]{100} [shaw-petre-design-spaces-2024]{110} | Complete only within chosen dimensions [ritchey-psm-gma-2006]{263} |
 | TRIZ, QOC, set-based design, strategy tables | Mixed or advocated [vargas-hernandez-triz-experiment-2012]{105} [buckingham-shum-dr-hypermedia-2005]{108} [toche-set-based-design-review-2020]{109} [usfws-usgs-sdm-developing-alternatives-2011]{458} | No coverage comparison |
 | Taxonomy construction with ending conditions | Designed [nickerson-taxonomy-development-method-2013]{200} | Never tested against later-found objects |
 
-Measured null or negative: more time or rumination [bond-carlson-keeney-objectives-2008]{452}
-[siebert-keeney-press-2015]{451}; upfront examples [bond-carlson-keeney-improving-objectives-2010]{453};
+Measured null or negative: a week of rumination for objectives [bond-carlson-keeney-objectives-2008]{452},
+and more time for alternatives as reported by the university release [siebert-keeney-press-2015]{451}; upfront examples [bond-carlson-keeney-improving-objectives-2010]{453};
 similarity feedback and select-the-best pooling [meincke-prompting-idea-variance-2024]{300}; standard
-multi-agent debate, including heterogeneous models [creative-mad-debate-diversity-2026]{317}; temperature
+multi-agent debate, including heterogeneous models, while judge-based voting over independent responses
+did not lower diversity [creative-mad-debate-diversity-2026]{317} (in a dynamic multi-generation pool,
+high exposure to AI ideas instead increased collective diversity
+[ashkinaze-ai-ideas-collective-diversity-2024]{304} {confidence: search-summary}); temperature
 [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}. A reported student study associated larger
 morphological matrices with lower-quality concepts [martinsson-bonde-mm-combinatorics-2025]{103}.
 
@@ -107,27 +112,36 @@ identity threshold that merges near-duplicates [kornish-ulrich-opportunity-space
 
 ## 4. Completeness signals and stopping
 
-- **No validated estimator for the completeness of a set of kinds** was found in landscape mapping,
-  taxonomy construction or design-space methods; measured practice concerns item recall against a
-  known or pooled set [zhang-qgs-search-2011]{258} [sampson-relative-recall-2006]{163}.
+- **No validated estimator for the completeness of families of methods or approaches** was found in
+  the attested corpus; landscape, taxonomy and design-space practice measures item recall against a
+  known or pooled set [zhang-qgs-search-2011]{258} [sampson-relative-recall-2006]{163}. Richness and
+  coverage estimators do have measured evaluations in their own settings, such as species, words,
+  code paths and defects [chao-sufficient-sampling-2009]{352} [chao-hill-numbers-rarefaction-2014]{351}.
 - **Frame-relativity.** Estimates are relative to the generating process
   [kornish-ulrich-opportunity-spaces-2011]{361} [meincke-prompting-idea-variance-2024]{300}, the
   identity threshold [kornish-ulrich-opportunity-spaces-2011]{361}, the declared dimensions
   [ritchey-psm-gma-2006]{263} and the known set [cochrane-handbook-ch4-searching-2025]{151}.
-- **Independent passes.** Set-completeness estimation needs at least two overlapping, roughly
-  independent passes or a random sample of the remainder [cochrane-handbook-ch4-searching-2025]{151}
-  [callaghan-statistical-stopping-2020]{170}; Chao-type estimates from items found once versus twice are
-  lower bounds under heterogeneity [chao-colwell-chao2-inequality-2017]{350}
-  [bron-chao-estimator-tar-2024]{169}; inspection estimates were unreliable below four inspectors
-  [briand-capture-recapture-inspections-2000]{362}.
-- **What small samples support.** Sample coverage is estimable when the number of missing kinds is not
-  [chao-hill-numbers-rarefaction-2014]{351}; Kitchenham et al. found missed papers "adding three new
+- **Inputs and assumptions differ by estimator.** Capture–recapture needs at least two searches,
+  treated as independent captures [cochrane-handbook-ch4-searching-2025]{151}
+  [bron-chao-estimator-tar-2024]{169}; incidence estimators need replicated sampling units, and
+  abundance estimators need frequency counts of individuals from a sample
+  [chao-colwell-chao2-inequality-2017]{350} [chao-hill-numbers-rarefaction-2014]{351}; the screening
+  stopping test needs a random sample of the unseen remainder [callaghan-statistical-stopping-2020]{170}.
+  Chao-type estimates are lower bounds under heterogeneous detection
+  [chao-colwell-chao2-inequality-2017]{350}; other capture–recapture models can overestimate severely
+  or fail to produce an estimate, and inspection studies advise against fewer than four inspectors
+  "unless shown to work in a particular environment" [briand-capture-recapture-inspections-2000]{362}.
+- **What small samples support.** Sample coverage, the share of total abundance or incidence
+  probability belonging to observed kinds rather than the share of kinds observed, is estimable when
+  the number of missing kinds is not [chao-hill-numbers-rarefaction-2014]{351}; Kitchenham et al. found missed papers "adding three new
   categories" [kitchenham-slr-repeatability-2011]{375}, so new items opening new categories is a
   measured signal of missing kinds.
 - **Stopping rules that fail.** "No new items in N" missed the 95% recall target in about 39% of
   screening runs [callaghan-statistical-stopping-2020]{170}; median coverage at thematic-saturation
-  stopping points was 78–82% of observed themes [guest-thematic-saturation-method-2020]{173}; taxonomy
-  ending conditions check only the last iteration [nickerson-taxonomy-development-method-2013]{200}.
+  stopping points was 78–82% of observed themes [guest-thematic-saturation-method-2020]{173}; several
+  taxonomy ending conditions check stability over the last iteration, alongside MECE, sample and
+  populated-cell conditions, and the method's demonstration used a selected two; none is tested
+  against later-found objects [nickerson-taxonomy-development-method-2013]{200}.
   Certification-style reporting gives confidence across a range of targets
   [callaghan-stopping-recommendations-2024]{171}.
 - **Diversity-seeking and estimation pull apart.** A diversity-seeking pass produces singletons by
@@ -161,30 +175,40 @@ reviews specifically.
    [ritchey-psm-gma-2006]{263}.
 
 **Charter sample.**
-4. Draw so that every value of each declared dimension appears at least once ("full field coverage")
-   [ritchey-psm-gma-2006]{263}, preferring few clearly distinct families to many similar ones
-   [siebert-novices-press-2016]{454}; do not select by how often a family is proposed, which keeps the
+4. Draw so that every value of each declared dimension appears at least once ("full field coverage",
+   which covers parameter values, not all configurations) [ritchey-psm-gma-2006]{263}. A university
+   release reports that, in a paper-title task, a few clearly distinguishable alternatives scored better
+   than many similar ones [siebert-novices-press-2016]{454}; that is a secondary report from another
+   task, so favouring distinct families over near-duplicates is a transfer, not a tested rule; do not select by how often a family is proposed, which keeps the
    commonest [naik-div-se-diversity-of-thought-2023]{314}.
 5. Name a different family by divergence at the principle level or on a declared dimension, not by
    surface features [sorensen-ideation-metrics-axioms-2026]{113}.
 
 **Completeness challenge.**
 6. Have the challenger enumerate families independently before seeing the sample, then compare —
-   exposure to examples increased misses [bond-carlson-keeney-improving-objectives-2010]{453}, and
-   consensus exposure lowered diversity [creative-mad-debate-diversity-2026]{317}.
+   upfront examples increased misses in an objectives experiment, and independent generation before
+   discussion is the prescribed order [bond-carlson-keeney-improving-objectives-2010]{453}; standard
+   multi-agent debate lowered diversity across runs [creative-mad-debate-diversity-2026]{317}.
 7. Give the challenger distinct cues from the author (different purpose framings, perspectives or
-   adjacent fields), since same-prior generators and models overlap heavily
-   [artificial-hivemind-homogeneity-2025]{307} [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}.
+   adjacent fields): different models' responses were highly similar, so a different model alone does
+   not establish independent coverage [artificial-hivemind-homogeneity-2025]{307}, while distinct cues
+   raised coverage within one model [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}.
 8. Run a second pass that states first lists are typically incomplete and sets a numeric target
    [bond-carlson-keeney-improving-objectives-2010]{453}, and present candidate families from the map
-   for membership judgement, which models do more accurately than enumeration
-   [judging-not-enumerating-omissions-2026]{321}; make absences visible, for example empty cells in the
-   dimension grid [fu-absencebench-omission-2025]{365} [nickerson-taxonomy-development-method-2013]{200}.
-9. Report a frame-relative coverage statement rather than "complete": families found by the challenger
-   but not the sample; overlap between the independent passes; whether new families open new categories
-   or empty cells; and the frame used. Treat any overlap-based count as a lower bound, and avoid "nothing
-   new in the last pass" as a completeness claim [chao-colwell-chao2-inequality-2017]{350}
-   [kitchenham-slr-repeatability-2011]{375} [callaghan-statistical-stopping-2020]{170}.
+   for membership judgement, which models did more accurately than enumeration in one-shot settings
+   with a reference [judging-not-enumerating-omissions-2026]{321}; make absences visible, for example
+   empty cells in the dimension grid — placeholder gains were measured for surface deletions with both
+   documents available [fu-absencebench-omission-2025]{365}
+   [nickerson-taxonomy-development-method-2013]{200}.
+9. Report a descriptive, frame-relative coverage statement rather than "complete": the adjudicated
+   observed union; families found by the challenger but not the sample; overlap between passes; whether
+   new families open new categories or empty cells; classification-boundary decisions; and the frame
+   used. Keep that observed count distinct from any estimated total. Apply a named model-based estimate
+   only when its sampling assumptions are justified, report its uncertainty and transfer limits, and do
+   not assign a statistical bound to deliberately varied challenge passes, whose design conflicts with
+   the estimators' assumptions [chao-colwell-chao2-inequality-2017]{350}
+   [bron-chao-estimator-tar-2024]{169} [kitchenham-slr-repeatability-2011]{375}. Avoid "nothing new in
+   the last pass" as a completeness claim [callaghan-statistical-stopping-2020]{170}.
 10. Separate retrieval gaps from classification disagreements (merged or split families) when passes
     disagree [el-emam-defect-classification-repeatability-1998]{372}
     [briand-capture-recapture-inspections-2000]{362}.
@@ -202,7 +226,7 @@ reviews specifically.
 | `tension` | Diversity-seeking sampling advocated for kinds [booth-qes-searching-2016]{155} versus estimators that need random-like repetition [chao-colwell-chao2-inequality-2017]{350} [van-rijnsoever-saturation-simulation-2017]{358}. |
 | `tension` | Perspective-based review minimises reviewer overlap [regnell-pbr-perspectives-different-2000]{367}; capture–recapture needs overlap [briand-capture-recapture-inspections-2000]{362}. |
 | `qualifies` | Categories help as a second pass, not upfront [bond-carlson-keeney-improving-objectives-2010]{453}. |
-| `qualifies` | More options lower mean quality [delmissier-option-generation-ideation-2015]{459} while raising maximum originality [schweizer-creative-option-generation-2016]{460}. |
+| `qualifies` | Generating more options was associated with lower mean option quality and higher best-option quality in some problems, with non-significant direct links to choice quality [delmissier-option-generation-ideation-2015]{459}, and with higher maximum but not mean originality between persons [schweizer-creative-option-generation-2016]{460}; correlational, not causal. |
 | `tension` | Morphological "totality research" [ritchey-gma-general-method]{100} versus design spaces as "helpful—but incomplete" [shaw-petre-design-spaces-2024]{110}. |
 | `incommensurable` | LLM diversity below humans [wenger-kenett-creative-homogeneity-llms-2025]{306} versus matching or exceeding humans under some prompts [noveltybench-humanlike-diversity-2025]{310}; different metrics and domains. |
 
@@ -213,8 +237,9 @@ reviews specifically.
   distinct families than an unstructured expert list (absence across the generation and landscape facets).
 - *An independent challenger reliably finds what is missing.* Weakened: omissions are detected far less
   often than commissions [judging-not-enumerating-omissions-2026]{321}; more perspectives did not find
-  different defects [regnell-pbr-perspectives-different-2000]{367}; overlap estimates from two passes are
-  lower bounds with wide intervals [chao-colwell-chao2-inequality-2017]{350}. Supported in a weaker form:
+  different defects [regnell-pbr-perspectives-different-2000]{367}; Chao-type estimates are
+  lower bounds under heterogeneous detection, with wide intervals from few sampling units
+  [chao-colwell-chao2-inequality-2017]{350}. Supported in a weaker form:
   independent lists pooled are more complete than any one [bond-carlson-keeney-objectives-2008]{452}.
 - *Incompleteness of the sample matters.* The objectives authors disclaim direct evidence that
   incompleteness degrades decisions [bond-carlson-keeney-objectives-2008]{452}, while overlooked
@@ -241,3 +266,15 @@ reviews specifically.
 - A controlled study compares structured or model-generated dimensions with unstructured generation on
   coverage of a reference set of approaches.
 - Omission-detection evidence for semantic absences appears for humans or models.
+
+## Revisions
+
+- **2026-10-20 — correction (adversarial-read R1–R9).** Positions preserved; claims re-scoped to their
+  attestations. Overlap counts are reported descriptively and model-based bounds are applied only under
+  justified assumptions (R1). Estimator input requirements are stated per estimator, and the validation
+  absence is restricted to families of methods or approaches (R2). The full taxonomy ending conditions
+  are restored (R3). The 12-unit worked example was confirmed against the source and the attestation
+  extended (R4). The human recovery fraction is separated from LLM findings (R5). The categorical pooling
+  restriction is removed (R6). The narrowing claims are limited to the tested conditions, with the
+  voting control and the exposure countercase restored (R7). Quantity–quality findings are stated as
+  associations (R8). Source-depth, cite-through and conditional qualifiers are restored (R9).
