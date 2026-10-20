@@ -135,3 +135,24 @@ incompleteness, and its central source was held only at press-release depth.
 Dispatched with bibliography block 450–499. The remaining suggestions
 (ideation-metric validity, inter-rater reliability of dimension choice) fall
 within `coverage-estimation`.
+
+**Program-scale threshold (8 facets across 3+ domains).** The orchestrator
+escalates at 7+ facets so that one cross-join does not over-widen. All eight
+facets serve one question and one consumer, so splitting them into separately
+registered campaigns would duplicate the seed and decision relevance. Instead
+the synthesis is nested:
+
+- **Cluster syntheses:**
+  - `clusters/generation.md`: design-space, analogous-domain,
+    decision-option and LLM ideation;
+  - `clusters/completeness.md`: search completeness, coverage estimation,
+    taxonomy and landscape mapping.
+- **Composition:** each cluster is composed from its own specialist briefs,
+  then `parent.md` from the two clusters.
+- **Gates:**
+  - lint runs on every cluster and on the parent;
+  - `adversarial-read` covers both clusters and the parent;
+  - `evaluate` receives both clusters plus the parent as its synthesis output.
+
+This keeps each cross-join at four facets while every cross-specialist
+synthesis still passes the reachability-required gates.
