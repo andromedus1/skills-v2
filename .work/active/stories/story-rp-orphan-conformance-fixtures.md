@@ -1,7 +1,7 @@
 ---
 id: story-rp-orphan-conformance-fixtures
 kind: story
-stage: implementing
+stage: review
 tags: [research-pipeline, cleanup]
 parent: null
 depends_on: []
@@ -24,3 +24,16 @@ which appears to have left the fixtures behind. Found while implementing
 
 Scoped 2026-10-20 from backlog `idea-rp-orphan-conformance-fixtures` at Andrew's direction (housekeeping during the Codex
 validation run). It merges via PR. Version bumps and install updates wait until that run ends.
+
+## Implementation (2026-10-20)
+
+Removed `plugins/research-pipeline/scripts/conformance/` (10 files).
+
+**Checks before removal:**
+- `git grep` finds no reference outside the directory, the backlog note and research artifacts.
+- No CI workflow mentions it.
+- 9 of the 10 files are byte-identical to `plugins/agentic-research/ard-core/kernel/conformance/`;
+  `briefs/brief.md` is an older variant.
+- The canonical fixtures and their runner live in agentic-research.
+
+**Verification:** research-pipeline `skill-portability` and `resolve-agentic-research` pass.
