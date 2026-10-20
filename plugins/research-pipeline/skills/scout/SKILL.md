@@ -29,6 +29,18 @@ verification. Preserve Scout's neutrality in the seed: surface representative
 adjacent products, open-source projects, academic or standards work, recurring
 patterns, failures, and research gaps without selecting a winner.
 
+## Domain-map mode
+
+When `methodology-review` (or another caller) asks for a domain map, propose
+`intent: survey-landscape` and `output_kind: [landscape-brief, vocab-capture]` and request the section shape in
+[domain-map.md](../methodology-review/references/domain-map.md): jobs and outcomes,
+decision dimensions, approach families in their own terms, scenarios, evidence by
+level and open questions. Describe the topic generically; project specifics stay
+with the caller. Search vectors must reach beyond the caller's current approach and
+vocabulary, including adjacent fields solving the same job. The result is an
+ordinary landscape brief that later reviews may reuse or refresh. The caller, not
+Scout, draws the sample from it.
+
 After completion, index the landscape and return concise recommendations for
 subsequent research. When called from `ideate`, pass the artifact back as input;
 do not let Scout define project scope itself.

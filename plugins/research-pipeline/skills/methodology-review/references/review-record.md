@@ -2,8 +2,10 @@
 
 These fields are a writing aid, not a new frontmatter schema, database or research
 tier. Decision, delivery and assessment fields belong in the loop record chosen under
-the skill's [Scope and authority](../SKILL.md#scope-and-authority); comparison rows
-belong in the Agentic Research artifacts that record links. Preserve dated reports; link corrections and
+the skill's [Scope and authority](../SKILL.md#scope-and-authority) (the Agile Workflow controller
+skeleton and re-run fields are in [controller-and-reruns.md](controller-and-reruns.md)); comparison rows
+belong in the Agentic Research artifacts that record links, while coverage mapping,
+transfer and proposals belong in the loop record. Preserve dated reports; link corrections and
 later assessments rather than changing what an earlier pass concluded.
 
 ## Contents
@@ -12,6 +14,7 @@ later assessments rather than changing what an earlier pass concluded.
 - [Charter and loop checkpoint](#charter-and-loop-checkpoint)
 - [Component coverage and coordination](#component-coverage-and-coordination)
 - [Comparison rows](#comparison-rows)
+- [Transfer and proposals](#transfer-and-proposals)
 - [Finding record](#finding-record)
 - [Decision packet](#decision-packet)
 - [Assessment report](#assessment-report)
@@ -45,6 +48,10 @@ analytical outputs.
 
 Record the target, review questions and the skill's step 1 charter, plus completed
 assessment rounds, the latest verified research artifact and the next required step.
+Record the domain-map version the sample drew from, the sample checkpoint's challenge
+report and operator response, and expected effort (engagements, dispatches,
+assessments, rounds); add actual effort as it accrues. Effort is information for the
+operator, never a cap.
 Separate fixed constraints from hypotheses by checking project intent, never by
 assumption.
 
@@ -83,15 +90,29 @@ For each representative approach, record:
 |---|---|
 | Intended use | Users, job, context, constraints; why it is in the sample |
 | Native approach | Its own concepts, workflow and configuration, before our terms |
-| Coverage mapping | Direct, delegated, partial, explicitly excluded or unknown; capabilities outside our categories |
 | Scenario | Common task/input with positive, adverse and correction paths |
 | Method | Acquisition, reasoning, evaluation, human decisions, action, learning as applicable |
 | Evidence | Source chain and inspected revision/date; claim, demonstration or measurement |
 | Consequence | Outcome quality, uncertainty, human/operating burden, limitations, tradeoffs |
-| Transfer | What to retain, simplify, adopt, integrate or test here, and why context supports it |
 
-Choose representative methods, not a vendor quota. Assign no numerical aggregate
+These rows describe each alternative in its own terms; research never maps it onto
+this project. Choose representative methods, not a vendor quota. Assign no numerical aggregate
 score without agreed weights and evidence adequate for that precision.
+
+## Transfer and proposals
+
+Keep these in the loop record, beside the verified comparisons they draw on, and
+never in the research artifact:
+
+| Field | Content |
+|---|---|
+| Coverage mapping | How the alternative's capabilities relate to ours: direct, delegated, partial, explicitly excluded or unknown, including capabilities outside our categories |
+| Transfer | What to retain, simplify, adopt, integrate or test here, and why context supports it |
+| Proposal | The finding and decision-packet choice it feeds, by stable ID |
+
+A proposal cites the research's non-recommending decision-relevance section. The
+research states the conditions under which an alternative would win; the loop record
+argues whether those conditions hold here.
 
 ## Finding record
 

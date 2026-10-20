@@ -104,8 +104,11 @@ If the release is at `stage: planned`:
    if [ "$agentic_research_installed" = true ]; then
      research_paths=$(.work/bin/work-view --tag research --paths | sort)
    fi
+   # Fork patch: methodology-review controllers never bind (inert without research-pipeline).
+   controller_paths=$(.work/bin/work-view --tag methodology-review-controller --paths | sort)
    .work/bin/work-view --stage done --paths | while IFS= read -r item; do
      [ -n "$research_paths" ] && printf '%s\n' "$research_paths" | grep -qxF "$item" && continue
+     [ -n "$controller_paths" ] && printf '%s\n' "$controller_paths" | grep -qxF "$item" && continue
      binding=$(grep -m1 '^release_binding:' "$item" | awk '{print $2}')
      { [ "$binding" = "null" ] || [ -z "$binding" ]; } && echo "$item"
    done
@@ -146,8 +149,11 @@ If the release is at `stage: planned`:
    if [ "$agentic_research_installed" = true ]; then
      research_paths=$(.work/bin/work-view --scope archive --tag research --paths | sort)
    fi
+   # Fork patch: methodology-review controllers never bind.
+   controller_paths=$(.work/bin/work-view --scope archive --tag methodology-review-controller --paths | sort)
    find .work/archive -name '*.md' -type f | while read -r p; do
      [ -n "$research_paths" ] && printf '%s\n' "$research_paths" | grep -qxF "$p" && continue
+     [ -n "$controller_paths" ] && printf '%s\n' "$controller_paths" | grep -qxF "$p" && continue
      binding=$(grep -m1 '^release_binding:' "$p" | awk '{print $2}')
      [[ "$binding" == "null" ]] && echo "$p"
    done
@@ -157,7 +163,9 @@ If the release is at `stage: planned`:
    `agentic-research` plugin is installed, skip `tags: [research]` stubs** — a research engagement
    is an input that grounds other work, not a shippable bundle member, so it never binds to a
    release; without `agentic-research`, `[research]` is an inert project tag and stubs bind
-   normally. See the `[research]` tag semantics.)
+   normally. See the `[research]` tag semantics. Likewise never bind
+   `tags: [methodology-review-controller]` items or stubs: a review controller records operator
+   decisions; the delivery items it links bind normally.)
 
 3. Use structured question tool to confirm the full set (active done items + gathered archived stubs).
    Default: all active done items without binding plus all unbound archived stubs go in. Confirming

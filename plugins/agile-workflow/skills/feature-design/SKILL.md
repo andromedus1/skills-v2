@@ -39,10 +39,14 @@ routes by item kind and tags:
 The cross-plugin target `agentic-research:research-orchestrator` is a fixed pairing contract;
 a deployment substituting a different research entry skill edits these routing rows.
 
-If the feature you're looking at has `[refactor]`, `[perf]`, `[prose]`, or `[research]`
-in `tags`, you were misrouted. Don't try to design it — log a one-line note to the item
+A feature tagged `[methodology-review-controller]` is a review controller owned by
+`research-pipeline:methodology-review` (cross-plugin) — it records an operator-adjudicated loop and
+is never designed.
+
+If the feature you're looking at has `[refactor]`, `[perf]`, `[prose]`, `[research]` or
+`[methodology-review-controller]` in `tags`, you were misrouted. Don't try to design it — log a one-line note to the item
 body ("Misrouted to feature-design; should have gone to refactor-design / perf-design /
-prose-author / the agentic-research research-orchestrator based on tags") and return without advancing the
+prose-author / the agentic-research research-orchestrator / research-pipeline:methodology-review based on tags") and return without advancing the
 stage. The caller (autopilot or human) will route correctly on the next pass.
 
 ## Trigger

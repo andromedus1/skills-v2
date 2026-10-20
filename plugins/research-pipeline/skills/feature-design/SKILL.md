@@ -37,10 +37,13 @@ and tags:
 - `/feature-design` (this skill) — `kind: feature`, no specialized tag
 - `/agile-workflow:refactor-design` — `kind: feature` with `tags: [refactor]`
 - `/agile-workflow:perf-design` — `kind: feature` with `tags: [perf]`
+- `/research-pipeline:methodology-review` — `tags: [methodology-review-controller]`, a review
+  controller recording an operator-adjudicated loop; never designed
 
-If the feature has `[refactor]` or `[perf]` in `tags`, you were misrouted. Don't try
-to design it — log a one-line note to the item body ("Misrouted to feature-design;
-should have gone to refactor-design / perf-design based on tags") and return without
+If the feature has `[refactor]`, `[perf]` or `[methodology-review-controller]` in `tags`, you
+were misrouted. Don't try to design it — log a one-line note to the item body ("Misrouted to
+feature-design; should have gone to refactor-design / perf-design / methodology-review based on
+tags") and return without
 advancing the stage. The caller (autopilot or human) will route correctly on the
 next pass.
 
@@ -128,7 +131,7 @@ direct the user to run the research family (`/research` / `/deep-research` /
 Read `.work/active/features/<id>.md`. Confirm:
 - `kind: feature`
 - `stage: drafting`
-- Tags do NOT contain `refactor` or `perf` (or misroute per "Routing" above)
+- Tags do NOT contain `refactor`, `perf` or `methodology-review-controller` (or misroute per "Routing" above)
 - Note any existing `## Design decisions` from a prior `--only-questions` pass — treat these as fixed inputs
 - Note any `## Inherited design decisions` from the parent epic — same treatment
 
@@ -365,4 +368,4 @@ In conversation:
 - Implementation Units MUST have exact file paths + language-specific signatures + acceptance criteria
 - Tests derive from spec (acceptance criteria), not just code branches
 - Don't pre-bind stories to releases (`release_binding: null`)
-- Misroute check — if feature has `[refactor]` or `[perf]` tag, log note and return without designing
+- Misroute check — if feature has `[refactor]`, `[perf]` or `[methodology-review-controller]` tag, log note and return without designing

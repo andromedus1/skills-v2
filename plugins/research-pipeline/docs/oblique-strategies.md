@@ -157,5 +157,6 @@ Reaching for oblique strategies before doing the analytical work. Lateral moves 
 |----------|---------|
 | [First Principles Primer](first-principles.md) | The complement — structured, deep thinking. Load first; switch to oblique strategies when stuck. |
 | [System Design Primer](system-design.md) | Architectural pattern moves — a third gear alongside deep thinking and lateral thinking. |
+| [Surfacing Alternatives](surfacing-alternatives.md) | Researched moves for generating genuinely different approaches and checking a sample's completeness; Borrow Eyes and Steal From a Stranger pair with its Generate moves. |
 | Research briefs (`briefs/oblique-strategies/`, when present) | Full research behind this primer |
 | [Build Process](build-process.md) | The pipeline this primer augments |
