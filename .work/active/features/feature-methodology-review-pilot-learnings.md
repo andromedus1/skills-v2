@@ -4,7 +4,7 @@ kind: feature
 stage: drafting
 tags: [methodology-review, research-pipeline]
 parent: null
-depends_on: []
+depends_on: [feature-agentic-research-pilot-fixes]
 release_binding: null
 gate_origin: null
 created: 2026-10-19
