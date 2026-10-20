@@ -3,7 +3,7 @@ source_handle: nutt-solution-ideas-1993
 fetched: 2026-10-20
 source_url: https://ideas.repec.org/a/inm/ormnsc/v39y1993i9p1071-1085.html
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 ---
 
 # The Identification of Solution Ideas During Organizational Decision Making (Nutt 1993)

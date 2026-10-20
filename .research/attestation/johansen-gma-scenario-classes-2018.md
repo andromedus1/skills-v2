@@ -3,7 +3,7 @@ source_handle: johansen-gma-scenario-classes-2018
 fetched: 2026-10-20
 source_url: https://ideas.repec.org/a/eee/tefoso/v126y2018icp116-125.html
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 ---
 
 # Scenario modelling with morphological analysis (Johansen 2018)

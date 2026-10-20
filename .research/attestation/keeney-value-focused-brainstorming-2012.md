@@ -3,7 +3,7 @@ source_handle: keeney-value-focused-brainstorming-2012
 fetched: 2026-10-20
 source_url: https://ideas.repec.org/a/inm/ordeca/v9y2012i4p303-313.html
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 ---
 
 # Value-Focused Brainstorming (Keeney 2012)

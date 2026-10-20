@@ -3,7 +3,7 @@ source_handle: petersen-mapping-guidelines-update-2015
 fetched: 2026-10-20
 source_url: https://ebse.webspace.durham.ac.uk/?p=466
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed methods paper (Information and Software Technology 65, 1-18, 2015; DOI 10.1016/j.infsof.2015.03.007)
 ---
 

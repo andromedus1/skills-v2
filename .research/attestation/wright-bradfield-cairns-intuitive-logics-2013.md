@@ -3,7 +3,7 @@ source_handle: wright-bradfield-cairns-intuitive-logics-2013
 fetched: 2026-10-20
 source_url: https://strathprints.strath.ac.uk/44829/
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed critical literature synthesis (Technological Forecasting and Social Change 80(4), 631-642, 2013; DOI 10.1016/j.techfore.2012.09.003)
 ---
 

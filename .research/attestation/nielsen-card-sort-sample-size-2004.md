@@ -3,7 +3,7 @@ source_handle: nielsen-card-sort-sample-size-2004
 fetched: 2026-10-20
 source_url: https://www.nngroup.com/articles/card-sorting-how-many-users-to-test/
 provenance: source-direct
-substrate_confidence: fetched-page-extract
+substrate_confidence: snippet
 ---
 
 # Card Sorting: How Many Users to Test

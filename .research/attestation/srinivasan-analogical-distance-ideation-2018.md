@@ -3,7 +3,7 @@ source_handle: srinivasan-analogical-distance-ideation-2018
 fetched: 2026-10-20
 source_url: https://doi.org/10.1115/1.4040165
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 source_class: peer-reviewed observational study of a design project (Journal of Mechanical Design 140(7), 071101, 2018); only the abstract was read (via the Crossref record for DOI 10.1115/1.4040165); full text not obtained
 ---
 

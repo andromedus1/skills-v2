@@ -3,7 +3,7 @@ source_handle: ciolkowski-pbr-meta-analysis-2009
 fetched: 2026-10-20
 source_url: https://ebse.webspace.durham.ac.uk/ebse-bibliography/what-do-we-know-about-perspective-based-reading-an-approach-for-quantitative-aggregation-in-software-engineering/
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed conference paper (ESEM 2009; DOI 10.1109/ESEM.2009.5316026 as listed on the EBSE bibliography page)
 ---
 

@@ -3,7 +3,7 @@ source_handle: varela-lema-emerging-tech-search-2012
 fetched: 2026-10-20
 source_url: https://www.cambridge.org/core/journals/international-journal-of-technology-assessment-in-health-care/article/making-processes-reliable-a-validated-pubmed-search-strategy-for-identifying-new-or-emerging-technologies/2782FAEFFF1BDEEE737FDA08E4A45268
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed validation study (International Journal of Technology Assessment in Health Care 28(4), 452-459, 2012; DOI 10.1017/S0266462312000578)
 ---
 

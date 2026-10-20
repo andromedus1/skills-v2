@@ -3,7 +3,7 @@ source_handle: smith-patent-landscape-reporting-thesis-2018
 fetched: 2026-10-20
 source_url: https://ora.ox.ac.uk/objects/uuid:c6215056-9e45-4710-af72-7fb68c8d2996/files/m03bd7066e156cb7c4c32a436473412c2
 provenance: source-direct
-substrate_confidence: partial
+substrate_confidence: snippet
 source_class: doctoral thesis (University of Oxford, Trinity Term 2018); Chapter 2 is a systematic review of reporting quality
 ---
 

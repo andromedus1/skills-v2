@@ -3,7 +3,7 @@ source_handle: kang-dse-equivalence-2010
 fetched: 2026-10-20
 source_url: https://www.microsoft.com/en-us/research/publication/approach-effective-design-space-exploration/
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 ---
 
 # An Approach for Effective Design Space Exploration (Kang, Jackson & Schulte)

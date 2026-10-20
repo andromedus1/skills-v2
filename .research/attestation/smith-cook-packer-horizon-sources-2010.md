@@ -3,7 +3,7 @@ source_handle: smith-cook-packer-horizon-sources-2010
 fetched: 2026-10-20
 source_url: https://www.cambridge.org/core/product/34D742D769963FAD660DC54DD891CF80
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed methods/evaluation study (International Journal of Technology Assessment in Health Care 26(3), 348-353, 2010; DOI 10.1017/S026646231000036X)
 ---
 

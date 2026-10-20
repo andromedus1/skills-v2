@@ -3,7 +3,7 @@ source_handle: schmitz-rahmann-richness-estimation-review-2025
 fetched: 2026-10-20
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11986355/
 provenance: source-direct
-substrate_confidence: fetched-page-extract
+substrate_confidence: snippet
 source_class: peer-reviewed review and benchmark (Briefings in Bioinformatics, 2025; DOI 10.1093/bib/bbaf158 as shown on the PMC page)
 extraction_pipeline: PMC article page fetched through a model-mediated extractor (direct HTTP fetch was blocked); abstract recovered in full, body findings only as quoted excerpts; tables and figures not read
 ---

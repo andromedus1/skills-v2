@@ -166,3 +166,31 @@ synthesis still passes the reachability-required gates.
   low URL-liveness warnings and 0 high; 21 attestations authored, 4 reused; no
   personal data sent. Its suggested facet (problem framing and reformulation) is
   carried as an open question in the parent, not a new dispatch.
+- `decision-option-generation`: handshake echo matches; lint 109 resolved, 0
+  broken; 15 attestations authored and 2 reused. Its suggested facets (part-list
+  cueing; under-weighting of a residual "other" bucket) are already evidenced in
+  its own brief, so there is no new dispatch.
+
+**Checkpoint B (surface-and-proceed) and composition (2026-10-20).**
+
+- **Cross-cluster contradictions** are recorded in each cluster and in the
+  parent. The main ones:
+  - diversity-seeking sampling versus estimator assumptions;
+  - perspective-based review (minimise overlap) versus capture–recapture (needs
+    overlap);
+  - mixed effects of domain distance;
+  - categories helping only as a second pass.
+- **Clusters and parent:** `clusters/completeness.md`, `clusters/generation.md`
+  and `parent.md`. All lint at 0 broken.
+- **Lead corrections:**
+  - 24 attestations carried nonstandard `substrate_confidence` values, which the
+    lint was reading as source-direct. They were normalized to `search-summary`
+    or `snippet`; the lint gap is parked as
+    `idea-lint-substrate-confidence-enum`.
+  - Malformed `{N]` braces were found in lead drafts and fixed.
+- **Bibliography:** 181 entries merged into `references.md` in block order, with
+  no duplicate numbers and 0 handle↔number mismatches across the campaign. Gaps
+  inside blocks are left as gaps.
+- **Acquisitions:** `acquisitions.md` written with 2 blocking entries (the
+  Siebert & Keeney 2015 full text; Gettys 1987) and enriching entries. Promotion
+  to `.work/` is proposed to the operator, not written.

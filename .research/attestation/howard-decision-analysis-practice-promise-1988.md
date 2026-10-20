@@ -3,7 +3,7 @@ source_handle: howard-decision-analysis-practice-promise-1988
 fetched: 2026-10-20
 source_url: https://ideas.repec.org/a/inm/ormnsc/v34y1988i6p679-695.html
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 ---
 
 # Decision Analysis: Practice and Promise (Howard 1988)

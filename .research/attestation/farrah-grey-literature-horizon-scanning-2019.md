@@ -3,7 +3,7 @@ source_handle: farrah-grey-literature-horizon-scanning-2019
 fetched: 2026-10-20
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6300230/
 provenance: source-direct
-substrate_confidence: partial
+substrate_confidence: snippet
 source_class: peer-reviewed descriptive citation analysis (Journal of the Medical Library Association 107(1), 43-48, 2019; DOI 10.5195/jmla.2019.539)
 ---
 

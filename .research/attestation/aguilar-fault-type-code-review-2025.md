@@ -3,7 +3,7 @@ source_handle: aguilar-fault-type-code-review-2025
 fetched: 2026-10-20
 source_url: https://cys.cic.ipn.mx/index.php/CyS/article/view/6107
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed journal article (Computación y Sistemas 29(4), 2025, as shown on the journal page)
 ---
 

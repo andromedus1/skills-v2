@@ -3,7 +3,7 @@ source_handle: wohlin-mapping-reliability-2013
 fetched: 2026-10-20
 source_url: https://www.lunduniversity.lu.se/lup/publication/42e4a11b-786a-462c-9ac3-f0297a380275
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed empirical case study (Journal of Systems and Software 86(10), 2594-2610, 2013; DOI 10.1016/j.jss.2013.04.076)
 ---
 

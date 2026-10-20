@@ -3,7 +3,7 @@ source_handle: zajac-bazerman-competitor-blindspots-1991
 fetched: 2026-10-20
 source_url: https://www.kellogg.northwestern.edu/academics-research/research/detail/1991/blind-spots-in-industry-and-competitor-analysis-the-implications/
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed conceptual article (Academy of Management Review, 1991)
 ---
 

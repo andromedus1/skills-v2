@@ -3,7 +3,7 @@ source_handle: meissner-wulf-scenario-framing-2013
 fetched: 2026-10-20
 source_url: https://ideas.repec.org/a/eee/tefoso/v80y2013i4p801-814.html
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed experimental study (Technological Forecasting and Social Change 80(4), 801-814, 2013; DOI 10.1016/j.techfore.2012.09.011)
 ---
 

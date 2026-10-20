@@ -3,7 +3,7 @@ source_handle: siebert-keeney-alternatives-2015
 fetched: 2026-10-20
 source_url: https://ideas.repec.org/a/inm/oropre/v63y2015i5p1144-1158.html
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 ---
 
 # Creating More and Better Alternatives for Decisions Using Objectives (Siebert & Keeney 2015)

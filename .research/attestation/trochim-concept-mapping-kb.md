@@ -3,7 +3,7 @@ source_handle: trochim-concept-mapping-kb
 fetched: 2026-10-20
 source_url: https://conjointly.com/kb/concept-mapping/
 provenance: source-direct
-substrate_confidence: fetched-page-extract
+substrate_confidence: snippet
 ---
 
 # Concept Mapping (Research Methods Knowledge Base)

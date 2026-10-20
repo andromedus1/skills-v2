@@ -3,7 +3,7 @@ source_handle: bishop-hines-collins-scenario-techniques-2007
 fetched: 2026-10-20
 source_url: https://www.emerald.com/fs/article/9/1/5-25/75661
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed review of techniques (Foresight 9(1), 5-25, 2007; DOI 10.1108/14636680710727516)
 ---
 

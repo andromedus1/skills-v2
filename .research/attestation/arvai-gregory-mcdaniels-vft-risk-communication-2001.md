@@ -3,7 +3,7 @@ source_handle: arvai-gregory-mcdaniels-vft-risk-communication-2001
 fetched: 2026-10-20
 source_url: https://ideas.repec.org/a/wly/riskan/v21y2001i6p1065-1076.html
 provenance: source-direct
-substrate_confidence: abstract-only
+substrate_confidence: search-summary
 ---
 
 # Testing a Structured Decision Approach: Value-Focused Thinking for Deliberative Risk Communication (Arvai, Gregory & McDaniels 2001)

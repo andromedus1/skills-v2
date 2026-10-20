@@ -3,7 +3,7 @@ source_handle: link-heterogeneity-nonidentifiability-2003
 fetched: 2026-10-20
 source_url: https://www.usgs.gov/publications/nonidentifiability-population-size-capture-recapture-data-heterogeneous-detection
 provenance: source-direct
-substrate_confidence: abstract
+substrate_confidence: search-summary
 source_class: peer-reviewed statistics article (Biometrics 59(4):1123-1130, 2003; DOI 10.1111/j.0006-341X.2003.00129.x, per the search-result listing)
 ---
 
