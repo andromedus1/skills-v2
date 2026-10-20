@@ -29,3 +29,6 @@ A shorter inner fence does not close the outer one {9}.
 ````
 
 After the fences a bare {10} fires again.
+
+A code span that ``crosses a line
+break with {11} inside`` stays quiet, while a bare {12} after it fires.
