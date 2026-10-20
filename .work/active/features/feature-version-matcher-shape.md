@@ -1,7 +1,7 @@
 ---
 id: feature-version-matcher-shape
 kind: feature
-stage: review
+stage: done
 tags: [agentic-research, citations, lint]
 parent: null
 depends_on: []
@@ -284,3 +284,28 @@ entry's own handle span (group `a`/`b`) from matching as for citation spans.
   `skill-portability.test.sh` ok (PyYAML via `uv run --with pyyaml`);
   `gen-contract.py --check` in sync; shim `scripts/lint-citations.py` exit 0.
 - Adjacent issues parked: `idea-rp-orphan-conformance-fixtures`.
+
+## Review (2026-10-19)
+
+Verdict: **Approve with comments.** Effective weight `standard` (default), one
+independent pass; closure by verified fixes, no re-review.
+
+- Important — `_STAT_CHAIN` quadratic backtracking on long whitespace runs
+  (`\s*\)?\s*`): accepted, fixed in `42826b6e` (`^\s*(?:\)\s*)?…`); 64k-space probe
+  5 ms.
+- Important — `Python 3.11 or 3.12` fixture could not detect suppression of the
+  second token: accepted, fixed in `42826b6e` (line now `Python 3.12 or 3.11`
+  citing `version-anchor-src`, so only the unanchored `3.11` can fire); a scratch
+  mutant suppressing numbers after `or` now fails L45.
+- Reviewer found no contract/doc drift; `catalogs.json` in sync; the unresolved
+  `[v2-notes]{9}` fixture citation disturbs no asserted group.
+
+Verification after fixes: conformance 119/119; corpus version flags 29.
+
+**Receipt**
+- Reviewed: `d7b6b7db..a4b6d4fe` — product scope `plugins/agentic-research/ard-core/**`
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261020T003044Z-2fa41ff0`; independent: yes
+- Findings: blockers 0, important 2, nits 0, rejected 0
+- Accepted-fix verification: `42826b6e` verified by host (conformance, timing probe, mutant run)
+
+**Post-review changes**: none outside listed fixes and tracked items
