@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-pilot-learnings
 kind: feature
-stage: implementing
+stage: review
 tags: [methodology-review, research-pipeline]
 parent: null
 depends_on: [feature-agentic-research-pilot-fixes]
@@ -594,3 +594,28 @@ briefs, as the research supports.
 - Resolving F4 at the routing level may remove the need for body routing notes.
 - Do not add a second research engine. Map construction stays with Agentic
   Research under existing dials.
+
+## Integrated verification (2026-10-20)
+
+All five child stories are done.
+
+**Tests that passed:**
+- research-pipeline `resolve-agentic-research` and `skill-portability`;
+- the research-pipeline session-context hook test;
+- agentic-research `skill-metadata`;
+- agentic-research conformance 132/132 and the lint unit tests;
+- agile-workflow `convert-content-integrity`, `agent-metadata`, `convert-install-routing` and
+  `test_prompt_context`.
+
+**Other checks:**
+- The knowledge index regenerates with 0 errors and 0 warnings.
+- The relative-link and anchor check is clean across the methodology-review skill, its references,
+  scout and the three primers.
+- The research campaign passed every verification gate (see the strategy-research story's record).
+
+**Acceptance coverage:**
+- design decisions 1–6 are realized (decision 6 refined to the `methodology-review-controller` tag);
+- F1–F31 are traced in the skill-core story's table;
+- the primer is grounded in the verified campaign.
+
+The validation plan (repeating the Knowledge review in project-blueprint) remains out of scope.
