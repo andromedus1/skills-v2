@@ -496,6 +496,60 @@ def _is_in_inline_code(line, pos):
     return False
 
 
+def _inline_code_spans(lines, skip):
+    """Per-line (start, end) column ranges covered by inline code spans. CommonMark spans
+    may cross line breaks within a paragraph (not blank lines), so spans are matched over
+    each paragraph's joined text: a run of N backticks closes at the next run of exactly N.
+    `skip` marks lines (frontmatter, fenced code) that break paragraphs and are ignored."""
+    spans = {i: [] for i in range(len(lines))}
+    para = []
+    def flush():
+        if not para:
+            return
+        text = "\n".join(lines[i] for i in para)
+        starts, pos = [], 0
+        for i in para:                       # offset of each line in the joined text
+            starts.append(pos)
+            pos += len(lines[i]) + 1
+        k = 0
+        while k < len(text):
+            if text[k] != "`":
+                k += 1
+                continue
+            e = k
+            while e < len(text) and text[e] == "`":
+                e += 1
+            run, close, q = e - k, None, e
+            while q < len(text):
+                if text[q] == "`":
+                    r = q
+                    while r < len(text) and text[r] == "`":
+                        r += 1
+                    if r - q == run:
+                        close = r
+                        break
+                    q = r
+                else:
+                    q += 1
+            if close is None:
+                k = e                        # unmatched run opens no span
+                continue
+            for idx, i in enumerate(para):   # project [k, close) onto each line
+                a, b = starts[idx], starts[idx] + len(lines[i])
+                lo, hi = max(k, a), min(close, b)
+                if lo < hi:
+                    spans[i].append((lo - a, hi - a))
+            k = close
+        para.clear()
+    for i, line in enumerate(lines):
+        if skip[i] or not line.strip():
+            flush()
+        else:
+            para.append(i)
+    flush()
+    return spans
+
+
 # Citation statuses whose attestation body can anchor a version token on the citing
 # line. Not intra-program (analytical tier) or acquisition-candidate (unfetched).
 ANCHOR_STATUSES = {"resolved", "reduced-substrate-attestation"}
@@ -620,11 +674,14 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
         lines = text.splitlines() if bare_scope else []
         fm_skip = _frontmatter_line_count(lines)
         code_mask = _code_block_mask(lines)
+        skip = [i < fm_skip or code_mask[i] for i in range(len(lines))]
+        code_spans = _inline_code_spans(lines, skip)
         for lineno, line in enumerate(lines, 1):
-            if lineno <= fm_skip or code_mask[lineno - 1]:
+            if skip[lineno - 1]:
                 continue
             for m in BARE_CITATION_RE.finditer(line):
-                if _is_in_inline_code(line, m.start()) or _is_in_url(line, m.start()):
+                if any(lo <= m.start() < hi for lo, hi in code_spans[lineno - 1]) \
+                        or _is_in_url(line, m.start()):
                     continue
                 citations.append({"status": "bare-citation", "severity": "high", "handle": None,
                                   "n": int(m.group(1)), "line": lineno})

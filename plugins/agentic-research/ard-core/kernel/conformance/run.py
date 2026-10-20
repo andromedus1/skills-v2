@@ -240,6 +240,12 @@ def main():
             if any(g[0] == ln for g in got_bare):
                 failures.append(f"bare-citation: L{ln} must not fire (well-formed / placeholder / "
                                 f"code / URL), but did")
+        # A code span crossing a line break masks a {N} on its continuation line.
+        for ln, n in bare.get("quiet_citations", []):
+            n_lint += 1
+            if (ln, n) in got_bare:
+                failures.append(f"bare-citation: L{ln} {{{n}}} is inside a multiline code span and "
+                                f"must not fire, but did")
         # Non-claim-bearing provenance (a verification record referring to a synthesis's
         # numbering) is out of the fence's scope.
         for rel in bare.get("out_of_scope_files", []):

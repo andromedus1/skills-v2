@@ -52,7 +52,8 @@
   "bare_citation": {
     "_comment": "Citation-form fence (CATALOGS §3 bare-citation): {N} with no [handle] is a broken chain at high severity; well-formed citations, ${N} / x_{N} / f{N}, inline code, URLs and fenced code do not fire.",
     "file": "citation-form/bare-citation-brief.md",
-    "flagged": [[8, 1], [9, 2], [9, 13], [31, 10]],
+    "flagged": [[8, 1], [9, 2], [9, 13], [31, 10], [34, 12]],
+    "quiet_citations": [[34, 11]],
     "quiet_lines": [12, 13, 14, 17, 20, 23, 28],
     "out_of_scope_files": ["citation-form/verification-record.md"]
   }
