@@ -657,3 +657,33 @@ The validation plan (repeating the Knowledge review in project-blueprint) remain
 pass, and links are clean.
 
 **Closure:** standard weight, so the item closes after the fixes are verified, with no re-review.
+
+**Receipt**
+- Reviewed: `25298928..1bd1f3e7` — product scope `plugins/`, `docs/`, `.work/CONVENTIONS.md`
+  (excluded: `.research/`, verified by its own gates in the strategy-research story; `.work/` item
+  bodies)
+- Reviewer: Codex `gpt-6.1-sol` (high) via peeragent job `20261020T212600Z-d997072a`; independent: yes
+- Findings: blockers 0, important 4, nits 2, rejected 1 (part of the scout nit, the pre-existing
+  `${CLAUDE_PLUGIN_ROOT}` reference)
+- Accepted-fix verification: `51907179` verified by host (skill-portability,
+  convert-content-integrity, test_prompt_context; relative links and anchors clean)
+
+**Post-review changes**
+- `8d04f792` merges `ar-pilot-fixes` into this branch (`lint-citations.py`, conformance files). It
+  is tracked by `feature-agentic-research-pilot-fixes`: it carries only `cccc0b81`, whose evidence is
+  in that item's receipt.
+
+## Final completion review (autopilot Phase 8, 2026-10-20)
+
+The autopilot run ended with one review pass over both features.
+
+- **Weight:** `standard`, so one balanced fresh-context pass.
+- **Reviewer:** Codex `gpt-6.1-sol` (high), fresh session, via peeragent job
+  `20261020T213051Z-4c95e503`; independent.
+- **Findings, adjudicated:**
+  - **Blocker, fixed.** Review receipts were missing, and are now recorded in both features.
+  - **Important, fixed.** The bare-citation fence produced false positives on inline code spans
+    that cross a line break; fixed in `cccc0b81` with a conformance case.
+- **No other findings.** Both features and all five stories are done, and the ready and blocked
+  queues are empty.
+- **Closure:** standard weight, so one pass, fixes verified, no re-review.
