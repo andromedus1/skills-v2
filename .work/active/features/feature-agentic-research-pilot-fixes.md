@@ -120,6 +120,21 @@ then the simpler option, then the reversible one.
   unreachable, and the lead runs lint, the rigor-selected `adversarial-read` and
   `spot-check`.
 
+## Implementation notes
+
+Two decisions were added during implementation, both by judgment:
+
+- **The evaluator always gets the bundle inlined.** Its FR.1 isolation is enforced
+  by what it is handed. A read handshake would make it open repository files,
+  where the briefs and attestations also live. Only the specialist and the
+  adversarial reader may use the handshake.
+- **The bare-citation fence is scoped to claim-bearing artifacts.** These are
+  artifacts with provenance `agent-synthesis` or `agent-authored-from-raw`, or
+  with none declared. Linting this repo's corpus found 44 bare `{N}`, all in
+  `agent-verification` records (a campaign evaluation and a checklist) that
+  refer to the synthesis's own numbering. Those are not sourced claims. After
+  scoping, the corpus has 0 hits. A conformance negative covers the scope rule.
+
 ## Implementation Units
 
 ### Unit 1: Reachability-correct verification depth (F21)

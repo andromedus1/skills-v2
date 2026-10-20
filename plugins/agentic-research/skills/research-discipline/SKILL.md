@@ -6,8 +6,8 @@ description: >
   seek-disconfirming, composed-claim) plus two supplementary disciplines (per-claim epistemic-status
   markers, corrections-vs-reversals) that bind any research-authoring context in this repo's
   .research/ substrate. This skill wraps ard-core/kernel/discipline.md (the single source of truth);
-  the research-orchestrator reads that file and inlines it into every authoring dispatch so the
-  discipline reaches sub-contexts. On the light path, read ard-core/kernel/discipline.md explicitly
+  the research-orchestrator delivers that file into every authoring dispatch (read handshake or
+  verbatim inline) so the discipline reaches sub-contexts. On the light path, read ard-core/kernel/discipline.md explicitly
   before authoring.
 ---
 
@@ -23,9 +23,11 @@ body. **Read [`ard-core/kernel/discipline.md`](../../ard-core/kernel/discipline.
 paraphrasing the discipline reintroduces the drift it fences (*ARD SPEC
 §4.6/§5*).
 
-**Propagation (this deployment's mechanism).** The `research-orchestrator` reads
-`ard-core/kernel/discipline.md` and inlines it, verbatim, into every authoring
-dispatch — satisfying the *ARD SPEC §5* invariant ("the discipline must travel
+**Propagation (this deployment's mechanism).** The `research-orchestrator`
+delivers `ard-core/kernel/discipline.md`, unaltered, into every authoring
+dispatch — by a read handshake (the sub-agent reads the file and echoes its
+sha256) when the sub-agent can read the repository, otherwise by inlining it
+verbatim — satisfying the *ARD SPEC §5* invariant ("the discipline must travel
 into every authoring sub-context"; the mechanism is a deployment choice). On the
 light path (no fan-out) the orchestrator reads `ard-core/kernel/discipline.md`
 explicitly into its own context (skills are not guaranteed to auto-invoke).

@@ -37,7 +37,7 @@ The plugin's own SemVer is the release version for the whole surface.
   (specialist, adversarial-reader, evaluator) inline.
 - **`research-discipline`** — the anti-fabrication bundle. It wraps
   [`ard-core/kernel/discipline.md`](ard-core/kernel/discipline.md) (the single source). The
-  orchestrator inlines it into every authoring dispatch so the discipline reaches sub-contexts
+  orchestrator delivers it (read handshake or verbatim inline) into every authoring dispatch so the discipline reaches sub-contexts
   (ARD SPEC §5); on the light path it is read explicitly.
 - **`convert`** — the front half of adoption: discover a repo's pre-existing (non-ARD) research,
   bootstrap the `.research/` substrate, route raw sources to `reference/` and claim-bearing

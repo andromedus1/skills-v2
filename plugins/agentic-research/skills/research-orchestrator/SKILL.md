@@ -30,17 +30,27 @@ which this one orchestrator spans by reading dials and discovering topology.
 
 Every authoring sub-context must carry the anti-fabrication discipline (ARD SPEC §5); a
 sub-context that authors without it reintroduces the failures the framework fences. **This
-deployment's mechanism is inline-into-dispatch.** Whenever you spawn an authoring sub-agent,
-you compose its prompt through **one mandatory step**:
+deployment propagates it through one of two mechanisms** (SPEC §5 leaves the mechanism to the
+deployment; the invariant is that the content arrives). Whenever you spawn an authoring
+sub-agent, you compose its prompt through **one mandatory step**:
 
-> **Dispatch composition** = `[verbatim discipline bundle]` + `[role brief]` + `[engagement params]`
-> - **discipline bundle** — `ard-core/kernel/discipline.md` (sections 1–6), inlined
->   **verbatim**. Read it once at engagement start; prepend it to every authoring dispatch.
->   Do not paraphrase it. (The `research-discipline` skill is the wrapper that points here —
->   inline the canonical file, not the wrapper.)
+> **Dispatch composition** = `[discipline bundle]` + `[role brief]` + `[engagement params]`
+> - **discipline bundle** — `ard-core/kernel/discipline.md`, unaltered, by either mechanism:
+>   - **Read handshake** (preferred when the sub-agent can read this repository) — give the
+>     bundle's absolute path and the sha256 you computed at engagement start, not its text. The
+>     sub-agent reads the whole file before engaging any source and makes
+>     `discipline-sha256: <hash>` (computed from that file) the first line of its return. A
+>     missing or mismatched echo voids that dispatch's output: discard it and re-dispatch with
+>     the bundle inlined. This keeps N copies of the bundle out of your own context.
+>   - **Verbatim inline** (whenever the sub-agent cannot read the repository, on any re-dispatch
+>     after a failed handshake, and **always for the evaluator**, whose isolation must not
+>     depend on it opening repository files) — prepend the file's full text. Do not paraphrase it.
+>
+>   Either way, point at the canonical file, never the `research-discipline` wrapper.
 > - **role brief** — the relevant file under `references/` (`research-specialist.md` /
 >   `adversarial-reader.md` / `evaluator.md`).
-> - **engagement params** — the facet/seed/paths/rigor for this specific dispatch.
+> - **engagement params** — the facet/seed/paths/rigor for this specific dispatch, plus its
+>   bibliography number block when it will cite (see Fan-out).
 
 On the **light path** (no fan-out) you author inline in your own context, with the discipline
 already present because **you read it at engagement start** (`ard-core/kernel/discipline.md` —
@@ -88,16 +98,20 @@ dispatch-time-registration record the settled ten-field registration (commission
   → [CHECKPOINT A]         confirm the decomposition / framing (multi-path) (← turn)
   → BRANCH on fan-out width discovered at decompose:
       ── light (0–1 facet):  attest → synthesize  INLINE (no spawn)
+      ── single delegated (1 facet, to protect your context):
+                              one research-specialist dispatch → attest → synthesize, writing
+                              the brief itself; no cross-synthesis
       ── multi (2+ facets):  parallel Agent × N research-specialist (one message)
                               each: attest (per-source files) → synthesize {within}
+  → merge bibliography     delegated paths: append each specialist's refs file to references.md, in block order
   → lint                   python3 plugins/agentic-research/ard-core/kernel/lint-citations.py <out> --attestation-dir .research/attestation/
   → [CHECKPOINT B]         surface contradictions before the cross-join (multi-path only)
   → synthesize {cross}     lead composition across specialist briefs → parent.md (multi-path)
   → acquisition-offgas     consolidate specialist acquisition candidates → acquisitions.md
                            (research-side persist always); propose queue promotion at the
                            handoff gate — operator-confirmed (verification-INDEPENDENT; see §Acquisition offgas)
-  → adversarial-read       if rigor ≥ standard (dispatch the adversarial-reader brief)
-  → evaluate               if rigor = full (dispatch the evaluator brief, ISOLATED context)
+  → adversarial-read       if rigor ≥ standard, or the walk is multi-path (reachability; see Verification depth)
+  → evaluate               if rigor = full, or the walk is multi-path (reachability); ISOLATED context
   → spot-check             always; lead-context categorical check across lint pattern categories
   → [user-validation]      when the user is the committing party
   → [promote]              when converged substrate warrants a cross-arc lift
@@ -223,6 +237,13 @@ A subset-select gate catalog with a hard-floor core, not a monolithic switch:
 
 `adaptive` has no row of its own: it resolves to one of these rows at kickoff (§Reading the dials).
 
+**The table is per label; reachability sets the floor per shape (SPEC §3.1, §7).** A multi-path
+(cross-specialist) synthesis puts `evaluate` back in the floor, and `evaluate` is reachable only
+where `adversarial-read` is already in it — so **every multi-path walk runs both gates, whatever
+its label**. `floor` and `standard` therefore differ from `full` only on the light and single
+delegated paths, where no cross-synthesis exists and `evaluate` is unreachable. State the gate set
+you will run, not just the label, at kickoff and in the engagement record.
+
 - **`lint` + `spot-check` are the hard floor** — they always fire. `adversarial-read` +
   `evaluate` are selectable; "go custom" (activate one independent of the profile) is
   first-class.
@@ -238,7 +259,7 @@ A subset-select gate catalog with a hard-floor core, not a monolithic switch:
 
 An accepted `NEEDS-REVISION` finding from either gate triggers a revision pass at the indicated
 scope — a revision dispatched to a sub-agent is composed per **Dispatch composition** (the
-discipline is inlined again, never skipped on a re-author). After the revision, rerun the
+discipline is propagated again, by handshake or inline, never skipped on a re-author). After the revision, rerun the
 deterministic checks (`lint`) and only the affected gate over the affected scope. **Stop rule:**
 surface to the user, rather than looping, when the same failure recurs twice without material
 progress, or when a revision introduces new material errors a second time.
@@ -254,11 +275,24 @@ Width is **discovered at `decompose`**, not preset — the number of facets is t
 specialists.
 
 - **0–1 facet → light path (inline, no spawn).** Attest + synthesize in your own context.
+- **1 facet → single delegated specialist** — when authoring inline would crowd your context
+  (a long session, a large source set). One [research-specialist](references/research-specialist.md)
+  dispatch, composed per **Dispatch composition**, writes its brief directly to
+  `.research/analysis/briefs/<slug>.md`. You then merge its bibliography block, lint, run the
+  rigor-selected gates and spot-check. With no cross-synthesis, `evaluate` stays unreachable.
 - **2+ facets → multi path.** Spawn that many [research-specialist](references/research-specialist.md)
   dispatches as **parallel `Agent` calls in one message**, await all, then `lint`. Each
   dispatch is composed per **Dispatch composition** above (discipline bundle + specialist brief
   + its facet/seed/paths). Suggested model: `sonnet` for specialists, `opus` for
   adversarial-reader / evaluator.
+
+**Bibliography numbers on delegated paths.** `references.md` is append-only and shared, so no
+specialist writes it. Before dispatch, reserve each specialist a disjoint `{N}` block above the
+file's current highest number (sized generously for its facet) and pass it in the engagement
+params. Each specialist numbers only within its block and records its entries in
+`specialists/<facet>.refs.md` (single delegated: `analysis/briefs/<slug>.refs.md`) in the
+`references.md` entry format. After all specialists return, and before `lint`, append their
+entries to `references.md` in block order. Unused numbers stay as gaps; never renumber.
 
 When a decomposition lands 7+ facets across 3+ domains, escalate to **program-scale**
 (decompose into campaigns, each a nested decomposed walk) rather than over-widening one fan-out.
@@ -296,7 +330,7 @@ input contract above); see §Refresh re-engagement.
 
 - Per-source attestation → `.research/attestation/<handle>.md` (always, before any synthesis prose).
 - Light / single-pass / breadth-survey brief → `.research/analysis/briefs/<slug>.md` (`-landscape.md` for breadth-survey).
-- Multi-specialist / program campaign → `.research/analysis/campaigns/<slug>/` (`parent.md`, `specialists/<facet>.md`, `acquisitions.md`, `verification-checklist.md`, `campaign-evaluation.md`; plus `dispatch.md` **only on the standalone-heavy path** — a work-item-commissioned campaign carries its registration on the item).
+- Multi-specialist / program campaign → `.research/analysis/campaigns/<slug>/` (`parent.md`, `specialists/<facet>.md`, `specialists/<facet>.refs.md` (pre-merge bibliography blocks), `acquisitions.md`, `verification-checklist.md`, `campaign-evaluation.md`; plus `dispatch.md` **only on the standalone-heavy path** — a work-item-commissioned campaign carries its registration on the item).
 - Promoted positions → `.research/analysis/positions/<slug>.md`; staged hypotheses → `.research/analysis/hypothesis/`.
 - Citations are `[handle]{N}`, resolving by number against the per-corpus bibliography; the chain is brief claim → attestation → fetched source (the lint enforces it).
 

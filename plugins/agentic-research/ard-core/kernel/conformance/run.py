@@ -240,6 +240,13 @@ def main():
             if any(g[0] == ln for g in got_bare):
                 failures.append(f"bare-citation: L{ln} must not fire (well-formed / placeholder / "
                                 f"code / URL), but did")
+        # Non-claim-bearing provenance (a verification record referring to a synthesis's
+        # numbering) is out of the fence's scope.
+        for rel in bare.get("out_of_scope_files", []):
+            n_lint += 1
+            out_oos = run_lint(args.lint, os.path.join(HERE, rel), ATT_DIR, ANA_DIR)
+            if any(c["status"] == "bare-citation" for r in out_oos["results"] for c in r["citations"]):
+                failures.append(f"bare-citation: {rel} is not claim-bearing and must not fire")
 
     # ── Check group 8: --stats mode — attestation-tier audit ────────────────────
     out_stats = run_lint(args.lint, BRIEFS_DIR, ATT_DIR, ANA_DIR, extra_args=["--stats"])

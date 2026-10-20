@@ -66,6 +66,10 @@ CITATION_RE = re.compile(r"\[([\w-]+)\]\{(\d+)\}")
 # enter the chain. Excludes `]{N}` (a well-formed citation), `x{N}`/`_{N}` (identifiers,
 # LaTeX subscripts) and `${N}` (shell/template placeholders).
 BARE_CITATION_RE = re.compile(r"(?<![\]\w$])\{(\d+)\}")
+# The fence covers claim-bearing artifacts only (or ones declaring no provenance): source-direct
+# attestations quote their sources' own notation, and verification records refer to the
+# synthesis's numbering rather than making sourced claims.
+BARE_CITATION_PROVENANCE = {"agent-synthesis", "agent-authored-from-raw"}
 
 # Reference regex matchers, keyed by the lint pattern-category id (ARD CATALOGS §3).
 # The *categories* are the invariant diagnostic targets and are sourced from the
@@ -584,7 +588,8 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
             if do_thin and f.pop("thin", False):
                 thin.append({"handle": m.group(1), "line": line})
         # Citation-form fence: bare `{N}` outside frontmatter, fenced code, inline code and URLs.
-        lines = text.splitlines()
+        bare_scope = fm.get("provenance") in BARE_CITATION_PROVENANCE or "provenance" not in fm
+        lines = text.splitlines() if bare_scope else []
         fm_skip = _frontmatter_line_count(lines)
         code_mask = _code_block_mask(lines)
         for lineno, line in enumerate(lines, 1):
