@@ -3,7 +3,7 @@
 # Provides corpus situational awareness only. Read knowledge-index.yaml for full index.
 
 schema_version: 3
-generated_at: 2026-10-19T20:40:12Z
+generated_at: 2026-10-20T00:15:14Z
 generated_from: frontmatter
 total_docs: 24
 
@@ -15,13 +15,13 @@ by_kind:
 # Substrate items (.work/) by tier. Query via .work/bin/work-view.
 substrate_summary:
   active:
-    epic: 1
-    feature: 5
-    story: 1
+    epic: 0
+    feature: 0
+    story: 0
     release: 0
   backlog: 6
   releases: {}
-  archive: 25
+  archive: 32
 
 # Top 15 most-recently-updated docs (planning + research only).
 recent:
