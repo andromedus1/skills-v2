@@ -48,5 +48,11 @@
       "briefs/version-shape-brief.md": [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48],
       "briefs/version-bibliography.md": [14, 15, 16, 17, 18, 19]
     }
+  },
+  "bare_citation": {
+    "_comment": "Citation-form fence (CATALOGS §3 bare-citation): {N} with no [handle] is a broken chain at high severity; well-formed citations, ${N} / x_{N} / f{N}, inline code, URLs and fenced code do not fire.",
+    "file": "citation-form/bare-citation-brief.md",
+    "flagged": [[8, 1], [9, 2], [9, 13]],
+    "quiet_lines": [12, 13, 14, 17]
   }
 }

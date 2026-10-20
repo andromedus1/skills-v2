@@ -37,7 +37,7 @@ Resolves every `[handle]{N}` to `<attestation-dir>/<handle>.md`, runs the six ci
 
 The reference lint is the **mechanical floor**, not the whole verification stack. It checks:
 
-- **Citation-chain integrity** — the six handle-resolution checks (resolution, source-handle match, handle uniqueness, source resolution, provenance, scope) plus the `non-canonical-handle` and `duplicate-frontmatter-key` integrity fences.
+- **Citation-chain integrity** — the six handle-resolution checks (resolution, source-handle match, handle uniqueness, source resolution, provenance, scope) plus the `non-canonical-handle` and `duplicate-frontmatter-key` integrity fences and the `bare-citation` citation-form fence. A relative `source_path` resolves against the project root (`--project-root`, else the parent of the attestation dir's `.research` ancestor), falling back to the working directory.
 - **The six surface-signature pattern categories** (*ARD CATALOGS §3*) — warn-level claim-shape flags.
 - **The GR.5 thin-attestation** structural check.
 - **`source_url` liveness** — on by default (see Networking behavior below).
