@@ -13,17 +13,18 @@ summary: >-
   kind, the chosen dimensions, the known set), and each estimator has its own inputs: two or more
   captures for capture–recapture, replicated units for incidence data, frequency counts for abundance
   data, or a random sample of the remainder for screening tests. "No new items in the
-  last run" rules measurably fail or are unvalidated. Omissions are detected markedly less often
-  than wrong inclusions by humans and models, and disagreement between passes is partly
+  last run" rules measurably fail or are unvalidated. Models detected planted omissions markedly less
+  often than planted wrong inclusions (one abstract-level study reports the same direction for human
+  testers), and disagreement between passes is partly
   classification rather than retrieval.
 key_findings:
   - No attested source validates a completeness estimate for families of methods or approaches; measured practice there covers item recall against a known or pooled set, while richness estimators are evaluated in ecology, fuzzing and inspections and applied to vocabulary.
   - Chao-type estimators give lower bounds under heterogeneous detection; sample coverage (share of abundance or incidence probability already represented, not share of kinds) is more robustly estimable than the number of missing kinds.
   - Every completeness figure is conditional on the generating process, the identity threshold that merges near-duplicates, the rank counted and the frame of dimensions or known items.
   - Estimator inputs differ: capture–recapture needs two or more captures treated as independent, incidence estimators replicated units, abundance estimators frequency counts, screening tests a random sample of the remainder; few occasions widen intervals, and inspection studies advise against fewer than four inspectors unless shown to work in a particular environment.
-  - Stopping when the last run added nothing missed recall targets in about 39% of screening runs and left a median 18–22% of observed themes unseen at qualitative stopping points.
+  - In screening, the baseline-rate and 50-consecutive-misses heuristics each missed the 95% recall target in about 39% of runs, and median thematic-saturation stopping points left 18–22% of observed themes unseen; reading these as evidence about any quiet last pass is a transfer.
   - Missing items can mean missing categories; independent maps of one topic overlap little, and part of their disagreement is classification, not retrieval.
-  - Omission detection is a weaker capability than commission detection for humans and models; marking where content is absent recovered much of the gap in one benchmark.
+  - Models detected planted omissions far less often than planted wrong inclusions, and one abstract-level study reports the same direction for human testers; marking where content is absent recovered much of the gap in one surface benchmark.
 ---
 
 # Completeness cluster: judging whether a set of kinds is complete
@@ -34,10 +35,10 @@ This synthesis composes four within-specialist briefs of the `solution-space-dec
 campaign: search completeness in evidence synthesis, coverage estimation for samples of kinds,
 taxonomy construction, and landscape mapping. It asks what each field treats as a completeness
 signal for a set of approaches or kinds, what that signal assumes, and how strong its evidence is.
-Evidence levels follow the specialist briefs: **advocated** (proposed or recommended without a test
+Evidence levels: **advocated** (proposed, designed or recommended without a test
 against truth), **demonstrated** (worked cases, no ground truth), **measured** (quantified against a
 known or reconstructed truth, in simulation, benchmarks or experiments). Claims rest on the
-attestations cited; abstract-level sources are marked where the specialist marked them.
+attestations cited; abstract-level sources are marked.
 
 ## 1. Three different completeness quantities
 
@@ -52,7 +53,7 @@ The fields keep apart three things that a single word "complete" can conflate:
    retrieves. This is where measured practice is concentrated: relative recall across Cochrane
    reviews [sampson-relative-recall-2006]{163}, quasi-gold-standard sensitivity with a 70–80%
    stopping band [zhang-qgs-search-2011]{258}, 83% sensitivity against hand-searched journals in
-   horizon scanning [varela-lema-emerging-tech-search-2012]{270} {confidence: abstract}.
+   horizon scanning [varela-lema-emerging-tech-search-2012]{270} {confidence: abstract-only}.
 3. **Completeness of the set of kinds or families** — whether every distinct kind of approach is
    represented. No attested landscape tradition reports a validated estimator for this quantity, as
    opposed to recall of items within known families [zhang-qgs-search-2011]{258}
@@ -79,7 +80,7 @@ their validity for kinds of methods or approaches is untested in the attested so
 | Hypergeometric stopping test | "Recall ≥ target" at a confidence level | Random sample of the unseen remainder [callaghan-statistical-stopping-2020]{170} | measured |
 | "No new items in N" / baseline rate | Run of non-yield | Ignores the size of the remainder [callaghan-statistical-stopping-2020]{170} | measured (often fails) |
 | Thematic saturation metric | New themes per run relative to a base | "No guarantee" [guest-thematic-saturation-method-2020]{173} | measured retrospectively |
-| Taxonomy ending conditions | MECE; all or a representative sample of objects examined; populated characteristics; unique cells; no change in the last iteration | None tested against later-found objects; the demonstration used a selected two [nickerson-taxonomy-development-method-2013]{200} | designed |
+| Taxonomy ending conditions | MECE; all or a representative sample of objects examined; populated characteristics; unique cells; no change in the last iteration | None tested against later-found objects; the demonstration used a selected two [nickerson-taxonomy-development-method-2013]{200} | advocated (designed) |
 | Full field coverage | Sample covers every value of every dimension | Relative to the chosen dimensions [ritchey-psm-gma-2006]{263} | demonstrated |
 | Agreement across independent character sets (Whewell) | Robustness of class boundaries | Stated as a maxim [hjorland-classification-2017]{205} | advocated |
 | Overlap between independent repetitions | Low overlap signals unseen items | Disagreement is partly classification [kitchenham-slr-repeatability-2011]{260} [el-emam-defect-classification-repeatability-1998]{372} | measured |
@@ -159,7 +160,7 @@ across a range of recall targets rather than one verdict
 Two independent novice reviews shared 6 of 32 papers, and papers an expert review missed "would have
 had an impact ... by adding three new categories to the framework"
 [kitchenham-slr-repeatability-2011]{375}. Two mapping studies of one topic differed in included
-papers and in classification [wohlin-mapping-reliability-2013]{161} {confidence: abstract}; an SLR and
+papers and in classification [wohlin-mapping-reliability-2013]{161} {confidence: abstract-only}; an SLR and
 its replication shared 20 papers [wohlin-hybrid-search-snowballing-2022]{160}. Disagreement has two
 separable parts: in inspections only 23–24% of defects were found by both inspectors, while
 classification agreement on the shared defects was kappa 0.66–0.82
@@ -189,7 +190,7 @@ in qualitative synthesis [booth-qes-searching-2016]{155}.
   marking where content was removed added 35.7% [fu-absencebench-omission-2025]{365}. The benchmark
   covers surface omission only, and its authors expect semantic absences to be harder
   [fu-absencebench-omission-2025]{365}. Human testers detected more commission than omission faults in
-  one experiment [aguilar-fault-type-code-review-2025]{370} {confidence: abstract}.
+  one experiment [aguilar-fault-type-code-review-2025]{370} {confidence: abstract-only}.
 - **Structured review helps conditionally.** Defect-class scenarios beat ad hoc and checklist reading
   in the original experiment, while checklists were no better than ad hoc
   [porter-votta-basili-detection-methods-1995]{368}; perspective-based reading's distinct perspectives
@@ -206,9 +207,9 @@ in qualitative synthesis [booth-qes-searching-2016]{155}.
 | `tension` | Perspective-based reading aims to minimise overlap between reviewers [regnell-pbr-perspectives-different-2000]{367}; capture–recapture needs overlap and independence [briand-capture-recapture-inspections-2000]{362}. |
 | `tension` | RIPL defines a landscape as covering "an entire population of relevant data" [smith-ripl-statement-2018]{251}; WIPO advises narrowing large topics "to a handful of the most important technical approaches" [wipo-plr-guidelines-trippe-2015]{250}. |
 | `incommensurable` | WIPO's recall target above 90% is not tied to a measurement procedure in the passages read [wipo-plr-guidelines-trippe-2015]{250}; Zhang's 70–80% band is relative to a constrained known set [zhang-qgs-search-2011]{258}. |
-| `tension` | Capture–recapture presented as usable for judging closeness to the total [kastner-cmr-stopping-rule-2009]{166} {confidence: abstract} versus model choice producing estimates "varying markedly" [rucker-boosting-capture-recapture-2011]{168} {confidence: abstract}. |
+| `tension` | Capture–recapture presented as usable for judging closeness to the total [kastner-cmr-stopping-rule-2009]{166} {confidence: abstract-only} versus model choice producing estimates "varying markedly" [rucker-boosting-capture-recapture-2011]{168} {confidence: abstract-only}. |
 | `qualifies` | Mills's claim that inductive and faceted routes give "remarkably similar" results is unsupported per Hjørland, who holds the routes produce different classifications [hjorland-facet-analysis-2013]{203}. |
-| `tension` | Checklists no better than ad hoc reading [porter-votta-basili-detection-methods-1995]{368} versus PBR teams less effective than checklists [ciolkowski-pbr-meta-analysis-2009]{369} {confidence: abstract}; different outcome levels and comparators. |
+| `tension` | Checklists no better than ad hoc reading [porter-votta-basili-detection-methods-1995]{368} versus PBR teams less effective than checklists [ciolkowski-pbr-meta-analysis-2009]{369} {confidence: abstract-only}; different outcome levels and comparators. |
 
 ## Disconfirming analysis
 
@@ -285,3 +286,4 @@ Stated in the source fields' own terms; not recommendations.
 - **2026-10-20 — correction (adversarial re-check).** The estimator-setting lists are matched to their attested evaluation levels (R2).
 - **2026-10-20 — correction (adversarial re-check 2).** The setting-specific clauses now cite their own attestations (R2).
 - **2026-10-20 — correction (evaluate round 1).** Prose notes about specialists are replaced by closed-vocabulary markers (G2). "Median" is restored on the 18–22% figure (G9).
+- **2026-10-20 — correction (evaluate round 2).** The omission claim rests on models, with the human study at abstract depth (G4/N2). The 39% figure is split by rule with a transfer note (G6/N2). Process-describing scope lines are removed.

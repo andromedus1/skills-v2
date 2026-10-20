@@ -9,7 +9,8 @@ summary: >-
   half of later-recognised items; LLM generation, measured by similarity and category coverage, narrows
   mainly across independent draws and across models. In the conditions tested, upfront examples,
   similarity feedback and standard multi-agent debate narrowed sets, while voting over independent
-  responses did not and AI-example exposure widened collective diversity in one dynamic setting;
+  responses did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a
+  dynamic multi-generation pool in another (abstract-level);
   independent generation before discussion, then pooling, widened a set in one case. Measured gains come from a second pass that states the first is
   incomplete, conditioning on prior output with an instruction to differ, objectives or purpose as
   stimuli, and abstraction at a workable level for distant retrieval. Structured generators
@@ -18,7 +19,7 @@ summary: >-
 key_findings:
   - Unaided generation of objectives and alternatives recovers roughly 30–50% of later-recognised items, and omitted items are about as important as generated ones.
   - LLM idea pools are narrower mainly across independent draws and across models; a single session's list can look varied while repeated draws return the same modes.
-  - In the conditions tested, upfront examples (more misses), similarity feedback and standard multi-agent debate narrowed sets; voting over independent responses did not, and AI-example exposure widened collective diversity in one dynamic setting; independent lists pooled before discussion gave a more complete set in one case.
+  - In the conditions tested, upfront examples (more misses), similarity feedback and standard multi-agent debate narrowed sets; voting over independent responses did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a dynamic multi-generation pool in another (abstract-level); independent lists pooled before discussion gave a more complete set in one case.
   - Measured gains come from a second pass with a warning and a numeric target, from generation that sees prior items and is told to differ, from distinct per-draw cues, and from objectives or purpose used as stimuli.
   - The fields test "different approach" by the abstraction level at which ideas diverge (principle versus embodiment), a different value on a declared dimension, or non-equivalence under a declared relation.
   - Structured generators lack controlled evidence of better coverage; the one reported matrix-size result was negative, TRIZ results are mixed, and the effect of domain distance on novelty and quality is contradictory.
@@ -32,8 +33,8 @@ This synthesis composes four within-specialist briefs of the `solution-space-dec
 campaign: design-space and morphological methods, decision-analysis option generation,
 analogous-domain search, and LLM ideation diversity. It asks how each field generates a set of
 genuinely different approaches, what measurably widens or narrows that set, and how the fields tell a
-different approach from a variation. Evidence levels follow the specialist briefs: **advocated**,
-**demonstrated**, **measured**; abstract-level and press-release sources are marked.
+different approach from a variation. Evidence levels: **advocated**, **demonstrated**, **measured**;
+abstract-level and press-release sources are marked.
 
 ## 1. The baseline: unaided generation is incomplete, and narrows in characteristic ways
 
@@ -66,7 +67,7 @@ different approach from a variation. Evidence levels follow the specialist brief
   [calderon-recall-bottleneck-factuality-2026]{320}; models judge set membership far better than they
   author the set, and the dominant authoring error is omission
   [judging-not-enumerating-omissions-2026]{321}. These sources study facts and predicates, not approach
-  families. {inferred: extends}
+  families. `extends`
 - **Completeness is misjudged.** Laypeople and experienced mechanics judging a presented, pruned fault
   tree under-weighted what it left out [fischhoff-slovic-lichtenstein-fault-trees-1978]{464} — evidence
   about reviewers of a given structure rather than generators of their own lists; designers' perception
@@ -77,7 +78,9 @@ different approach from a variation. Evidence levels follow the specialist brief
 ### 2.1 Tested narrowing conditions, and independence before pooling
 
 Several facets report narrowing under specific tested conditions; the evidence does not show that
-exposure or consensus is narrowing in general.
+exposure or consensus is narrowing in general. Exposure to AI story ideas narrowed collective diversity
+[doshi-hauser-genai-collective-diversity-2024]{302}, while high exposure in a dynamic multi-generation
+pool widened it [ashkinaze-ai-ideas-collective-diversity-2024]{304} {confidence: search-summary}.
 
 - Upfront examples increased misses (10.8 versus 7.9), consistent with part-list cueing
   [bond-carlson-keeney-improving-objectives-2010]{453}; more examples did not raise distant analogies
@@ -262,8 +265,9 @@ Stated in the source fields' own terms; not recommendations.
   [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}.
 - Separating the person who abstracts a problem from the person who searches is advocated as a fixation
   guard [kittur-scaling-analogical-innovation-2019]{415} [linsey-wordtree-method-2008]{411}.
-- Generators' own judgements of completeness and helpfulness are unreliable
-  [fischhoff-slovic-lichtenstein-fault-trees-1978]{464} [linsey-design-fixation-faculty-2010]{417}
+- Reviewers of a presented decomposition under-weight what it omits
+  [fischhoff-slovic-lichtenstein-fault-trees-1978]{464}; designers' perception of their own fixation, and a
+  researcher's a priori usefulness ratings, were unreliable [linsey-design-fixation-faculty-2010]{417}
   [ding-llm-cross-domain-analogies-2023]{420}.
 
 ## Open questions carried to the parent
@@ -275,7 +279,8 @@ Stated in the source fields' own terms; not recommendations.
 
 ## Revisit if
 
-- Full texts of Siebert and Keeney (2015) and Gettys et al. (1987) are acquired.
+- The full text of Siebert and Keeney (2015) is acquired, or the act-generation study that
+  [delmissier-option-generation-ideation-2015]{459} cites as Gettys et al. (1987).
 - A controlled study compares a structured generator, or LLM-generated dimensions, with unstructured
   generation on coverage of a reference set of approaches.
 - Independent replications of verbalized sampling or in-context regeneration on approach enumeration
@@ -290,4 +295,5 @@ Stated in the source fields' own terms; not recommendations.
   marginal-addition criterion (R6). The narrowing claims are limited to the tested conditions, with the
   voting control and the exposure countercase restored (R7). Quantity–quality findings are stated as
   associations (R8). The category-timing qualifiers are restored (R9).
-- **2026-10-20 — correction (evaluate round 1).** The fault-tree evidence is reframed as concerning reviewers of a presented structure (H2). The 26.2% figure is restated as the attested gain over homogeneous debate (G9). The prose note is replaced by an `extends` marker (G2).
+- **2026-10-20 — correction (evaluate round 1).** The fault-tree evidence is reframed as concerning reviewers of a presented structure in §1 (H2; the transfer-observation occurrence was corrected in round 2). The 26.2% figure is restated as the attested gain over homogeneous debate (G9). The prose note is replaced by an `extends` marker (G2).
+- **2026-10-20 — correction (evaluate round 2).** Both sides of the exposure contradiction are carried in the summary, key finding and §2.1 (X1/N2). The transfer observation no longer cites the fault-tree study as evidence about generators (H2/N2). Gettys is grounded through a cite-through (G7/N2). The marker form is corrected and the process-describing scope line removed.

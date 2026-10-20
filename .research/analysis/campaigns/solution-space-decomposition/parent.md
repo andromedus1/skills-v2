@@ -51,7 +51,8 @@ Reduced-depth sources are marked.
 **Terms used in §5.** The consumer is a methodology-review process with four steps: a *domain map* of
 approach families; a *charter sample* (the comparison sample drawn from the map for depth comparison);
 a *completeness challenge* (an independent pass, the *challenger*, that looks for families the sample
-or map misses); and *per-facet research briefs* for depth research.
+or map misses); and *per-facet research briefs* for depth research. The sample's *author* drafts it;
+the *operator* is the person who adjudicates the review's decisions.
 
 ## 1. Why samples authored from recall are incomplete
 
@@ -72,7 +73,7 @@ or map misses); and *per-facet research briefs* for depth research.
   [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}. In factual recall, rare items lag encoding
   [calderon-recall-bottleneck-factuality-2026]{320}, and models author sets less accurately than they
   judge membership [judging-not-enumerating-omissions-2026]{321}; both study facts and predicates, not
-  approach families. {inferred: extends}
+  approach families. `extends`
 - People judging a presented structure under-weight what it leaves out: laypeople and experienced
   mechanics shown a pruned fault tree assigned far too little probability to its "all other" branch
   [fischhoff-slovic-lichtenstein-fault-trees-1978]{464}. This concerns reviewers of a given
@@ -87,10 +88,10 @@ or map misses); and *per-facet research briefs* for depth research.
 | Strategy | Evidence | Key limit |
 |---|---|---|
 | Objectives or purpose as the generation key | Measured: more and better alternatives [siebert-keeney-alternatives-2015]{450} {confidence: abstract-only}; purpose-fixed, mechanism-diverse retrieval beat keyword and random [hope-analogy-mining-purpose-mechanism-2017]{414} | Students, personal decisions; one 38-worker crowd study |
-| Independent generation, then pooled union | Prescribed [bond-carlson-keeney-improving-objectives-2010]{453}; demonstrated in one case where each executive listed 36% of a 39-objective aggregate built from their pooled lists [bond-carlson-keeney-objectives-2008]{452} | "More complete than any one" holds by construction against a pooled reference, and says nothing about families every lister missed {inferred: aggregate}; a different model alone does not establish independent coverage [artificial-hivemind-homogeneity-2025]{307}, while distinct cues to one model raised coverage [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312} |
+| Independent generation, then pooled union | Advocated (prescribed) [bond-carlson-keeney-improving-objectives-2010]{453}; demonstrated in one case where executives listed on average 36% of a 39-objective aggregate built from their pooled lists [bond-carlson-keeney-objectives-2008]{452} | "More complete than any one" holds by construction against a pooled reference, and says nothing about families every lister missed {inferred: aggregate}; a different model alone does not establish independent coverage [artificial-hivemind-homogeneity-2025]{307}, while distinct cues to one model raised coverage [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312} |
 | Second pass with "first lists are incomplete" and a numeric target | Measured: +2.77 to +4.87 items, with no quality loss in the successful arms [bond-carlson-keeney-improving-objectives-2010]{453} | Objectives, one MBA population |
 | See prior items, instruction to differ (LLM) | Measured: lowest similarity [meincke-prompting-idea-variance-2024]{300}; human-level distinctness [noveltybench-humanlike-diversity-2025]{310} | Caveats on model version; gains vanish as pools deplete |
-| Distinct cue per draw (ordinary personas; persistent agent lenses) | Measured in single studies: personas raised between-session spread [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}; lens-anchored debate gained 26.2% semantic diversity over homogeneous debate [creative-mad-debate-diversity-2026]{317} | One model or one preprint each; celebrity personas were mixed [meincke-prompting-idea-variance-2024]{300} |
+| Distinct cue per draw (ordinary personas; persistent agent lenses) | Measured in single studies: personas raised between-session spread [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}; lens-anchored debate gained 26.2% semantic diversity over homogeneous debate, which itself fell below single-agent generation; a comparison with single-agent generation is not attested [creative-mad-debate-diversity-2026]{317} | One model or one preprint each; celebrity personas were mixed [meincke-prompting-idea-variance-2024]{300} |
 | Categories as a second pass | Mixed: +30% self-generated in a second pass, but confounded with the second opportunity, and no reliable gain over a motivated deeper review [bond-carlson-keeney-improving-objectives-2010]{453} | Upfront categories did not reduce misses [bond-carlson-keeney-improving-objectives-2010]{453} |
 | Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [gick-holyoak-schema-induction-1983]{416}; relevant yet distant inspirations [kittur-scaling-analogical-innovation-2019]{415} | A review reports Zahner et al. finding that too-abstract framing lowers fit, and that the right balance is unclear [vasconcelos-crilly-inspiration-fixation-2016]{418} |
 | Distant or analogous-domain sources | Mixed: novelty up and usability down [franke-poetz-schreier-analogous-markets-2014]{273}; contradictory lab results [chan-fu-analogy-distance-commonness-2011]{403} [fu-near-far-analogy-2013]{404} | No sweet spot was located in the attested sources {inferred: absence} |
@@ -166,13 +167,13 @@ identity threshold that merges near-duplicates [kornish-ulrich-opportunity-space
   [chao-colwell-chao2-inequality-2017]{350}. In one review, missed papers would have added three new
   categories [kitchenham-slr-repeatability-2011]{375}, so new items opening new categories is a signal
   of missing kinds measured in one case.
-- **Stopping rules that fail.** In screening, the baseline-rate heuristic missed the 95% recall target in
+- **Stopping rules that fail or are untested.** In screening, the baseline-rate heuristic missed the 95% recall target in
   39.67% of runs and the 50-consecutive-misses heuristic in 39% [callaghan-statistical-stopping-2020]{170};
   median coverage at thematic-saturation stopping points was 78–82% of observed themes
   [guest-thematic-saturation-method-2020]{173}; several taxonomy ending conditions check stability over
   the last iteration, alongside MECE, sample and populated-cell conditions, and the method's
   demonstration used a selected two [nickerson-taxonomy-development-method-2013]{200}. Reading these as
-  evidence about a quiet challenge pass is a transfer. {inferred: extends} Reliable screening stopping
+  evidence about a quiet challenge pass is a transfer. `extends` Reliable screening stopping
   reports confidence across a range of recall targets rather than one verdict
   [callaghan-stopping-recommendations-2024]{171}.
 - **Diversity-seeking and estimation pull apart.** A diversity-seeking pass produces singletons by
@@ -183,7 +184,7 @@ identity threshold that merges near-duplicates [kornish-ulrich-opportunity-space
   one-shot settings with a reference [judging-not-enumerating-omissions-2026]{321}; placeholders marking
   where content was removed raised omission detection by 35.7% on a surface benchmark
   [fu-absencebench-omission-2025]{365}; human testers detected more commission than omission faults in one
-  experiment [aguilar-fault-type-code-review-2025]{370} {confidence: abstract}. Disagreement between
+  experiment [aguilar-fault-type-code-review-2025]{370} {confidence: abstract-only}. Disagreement between
   passes is partly classification: 23–24% retrieval overlap alongside kappa 0.66–0.82 classification
   agreement [el-emam-defect-classification-repeatability-1998]{372}.
 - **No attested stopping rule for families.** None of the eight facets reports a validated rule for
@@ -194,7 +195,7 @@ identity threshold that merges near-duplicates [kornish-ulrich-opportunity-space
 
 These map findings onto the consumer's four steps. Each is conditional on the cited evidence and on
 transfer to approaches being analogical; none is shown in the attested sources for methodology
-reviews specifically. {inferred: extends}
+reviews specifically. `extends`
 
 **Domain map.**
 1. Start from jobs, outcomes and objectives, and use them as the generation key; derive decision
@@ -232,8 +233,8 @@ steps (c) and (d) use it.
    candidate list. Upfront examples increased misses in an objectives experiment, and independent
    generation before discussion is the prescribed order [bond-carlson-keeney-improving-objectives-2010]{453};
    whether a challenger is anchored by the sample it challenges is untested (see Open questions).
-   {inferred: extends}
-7. (b) Give the challenger distinct cues from the author (different purpose framings, perspectives or
+   `extends`
+7. (b) Give the challenger distinct cues from the sample's author (different purpose framings, perspectives or
    adjacent fields), and push it with a second pass that states first lists are typically incomplete and
    sets a numeric target [bond-carlson-keeney-improving-objectives-2010]{453}. A different model alone
    does not establish independent coverage [artificial-hivemind-homogeneity-2025]{307}, while distinct cues
@@ -248,23 +249,30 @@ steps (c) and (d) use it.
    [nickerson-taxonomy-development-method-2013]{200}. Judging map candidates can only reveal gaps between
    the sample and the map, not families the map itself lacks; reviewers of a presented structure
    under-weight what it omits [fischhoff-slovic-lichtenstein-fault-trees-1978]{464}.
-9. Report a descriptive, frame-relative coverage statement rather than "complete". The primary signal is
-   the number of families in the challenger's pre-exposure list that the sample lacks, and whether they
-   open new dimensions or empty cells [kitchenham-slr-repeatability-2011]{375}. Report alongside it: the
-   adjudicated observed union; overlap between the pre-exposure list and the sample; held-out known
-   families the map missed [hausner-objective-search-strategy-2012]{164}; new families per pass
+9. Report a descriptive, frame-relative coverage statement rather than "complete". The primary signal
+   comes from the challenger's pre-exposure list, counted after the family-versus-variation adjudication
+   of recommendation 5, in two parts: (i) families **absent from the map**, and whether they open new
+   dimensions or empty cells [kitchenham-slr-repeatability-2011]{375}; (ii) families **on the map but not
+   sampled**, and whether each carries a dimension value the sample does not cover (intended exclusions
+   under recommendation 4 are expected and are not gaps). Record whether each addition came from the
+   unforced or the targeted pass of recommendation 7. Report alongside: the adjudicated observed union;
+   overlap between the pre-exposure list and the sample; held-out known families absent from the map
+   [hausner-objective-search-strategy-2012]{164}; new families per pass
    [wohlin-hybrid-search-snowballing-2022]{160}; classification-boundary decisions; and the frame. Keep the
-   observed count distinct from any estimated total. With one author sample and one or two challenger
-   passes given deliberately different cues, the designs fall short of capture–recapture's
-   independent-capture assumption and the inspection guidance on pass counts, and differing cues create
-   heterogeneous detection [bron-chao-estimator-tar-2024]{169} [briand-capture-recapture-inspections-2000]{362}
-   [chao-colwell-chao2-inequality-2017]{350}; no model-based estimate, including sample coverage, is
-   supported for these passes. {inferred: aggregate} Avoid "nothing new in the last pass" as a completeness
-   claim [callaghan-statistical-stopping-2020]{170}.
-10. Escalate rather than stop when the challenge adds families that open new dimensions or empty cells,
-    or misses held-out known families: refresh the map and re-run the challenge on the affected
-    decisions. Proceeding to depth research is otherwise an operator judgement informed by the coverage
-    statement, since no attested rule decides it. {inferred: extends}
+   observed count distinct from any estimated total. No model-based estimate, including sample coverage,
+   is supported for these passes, because the sample is a purposive draw from the map rather than a
+   capture, there are only two or three occasions where inspection guidance advises four or more
+   [briand-capture-recapture-inspections-2000]{362}, and shared model priors may correlate the passes
+   [artificial-hivemind-homogeneity-2025]{307}, against the independence capture–recapture assumes
+   [bron-chao-estimator-tar-2024]{169}. {inferred: aggregate} Avoid "nothing new in the last pass" as a
+   completeness claim [callaghan-statistical-stopping-2020]{170}.
+10. Match each trigger to its remedy. Families absent from the map (part (i)), or held-out known
+    families absent from the map, trigger a **map refresh** and a re-challenge of the affected decisions.
+    On-map families carrying an uncovered dimension value (part (ii)) trigger a **sample revision**. If
+    the held-out families are also used to test the challenger, a challenger that misses held-out
+    families gives weak evidence, and the remedy is a **stronger challenge** (more distinct cues, another
+    targeted pass), not a map refresh. Proceeding to depth research is otherwise a judgement by the review's
+    operator, informed by the coverage statement, since no attested rule decides it. `extends`
 11. Separate retrieval gaps from classification disagreements (merged or split families) when passes
     disagree [el-emam-defect-classification-repeatability-1998]{372}
     [briand-capture-recapture-inspections-2000]{362}.
@@ -273,7 +281,7 @@ steps (c) and (d) use it.
 12. Ask each facet to seek maximum variation and disconfirming cases rather than "more of the same"
     [booth-qes-searching-2016]{155}, to record vocabulary differences, and to report whether new sources
     open new categories [kitchenham-slr-repeatability-2011]{375}. A reported new category feeds back as
-    a map refresh and a re-challenge of the decisions it touches. {inferred: extends}
+    a map refresh and a re-challenge of the decisions it touches. `extends`
 
 ## Contradictions
 
@@ -283,12 +291,12 @@ steps (c) and (d) use it.
 | `tension` | Exposure to AI story ideas narrowed collective diversity [doshi-hauser-genai-collective-diversity-2024]{302}; high exposure widened it in a dynamic multi-generation pool [ashkinaze-ai-ideas-collective-diversity-2024]{304} {confidence: search-summary}; designs differ. |
 | `tension` | Diversity-seeking sampling advocated for kinds [booth-qes-searching-2016]{155} versus estimators that need random-like repetition [chao-colwell-chao2-inequality-2017]{350} [van-rijnsoever-saturation-simulation-2017]{358}. |
 | `tension` | Perspective-based review minimises reviewer overlap [regnell-pbr-perspectives-different-2000]{367}; capture–recapture needs overlap [briand-capture-recapture-inspections-2000]{362}. |
-| `tension` | Capture–recapture presented as usable for judging closeness to the total [kastner-cmr-stopping-rule-2009]{166} versus estimates varying markedly with model choice [rucker-boosting-capture-recapture-2011]{168}; both abstract-level. |
+| `tension` | Capture–recapture presented as usable for judging closeness to the total [kastner-cmr-stopping-rule-2009]{166} {confidence: abstract-only} versus estimates varying markedly with model choice [rucker-boosting-capture-recapture-2011]{168} {confidence: abstract-only}. |
 | `tension` | A landscape covers "an entire population of relevant data" [smith-ripl-statement-2018]{251} versus narrowing to "a handful of the most important technical approaches" [wipo-plr-guidelines-trippe-2015]{250}. |
 | `qualifies` | Ordinary personas beat "creative entrepreneur" personas in one study [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}; celebrity and entrepreneur personas modestly helped in another [meincke-prompting-idea-variance-2024]{300}. |
 | `tension` | Few distinct alternatives scored better than many similar ones (university release) [siebert-novices-press-2016]{454} versus objectives raising the number and quality of alternatives [siebert-keeney-alternatives-2015]{450} {confidence: abstract-only}. |
 | `qualifies` | Within one source: categories coincided with gains as a second pass, confounded with the second opportunity, and added no reliable gain over a motivated deeper review; upfront they did not reduce misses [bond-carlson-keeney-improving-objectives-2010]{453}. |
-| `qualifies` | Generating more options was associated with lower mean option quality and higher best-option quality in some problems, with non-significant direct links to choice quality [delmissier-option-generation-ideation-2015]{459}, and with higher maximum but not mean originality between persons [schweizer-creative-option-generation-2016]{460}; correlational, not causal. |
+| `qualifies` | Generating more options was associated with lower mean option quality, and for time-pressured experts with poorer, less consistent choices (Johnson and Raab, as reported) [delmissier-option-generation-ideation-2015]{459}, versus higher best-option quality in some problems [delmissier-option-generation-ideation-2015]{459} and higher maximum but not mean originality between persons [schweizer-creative-option-generation-2016]{460}; correlational, mean versus max, populations differ. |
 | `tension` | Morphological "totality research" [ritchey-gma-general-method]{100} versus design spaces as "helpful—but incomplete" [shaw-petre-design-spaces-2024]{110}. |
 | `incommensurable` | LLM diversity below humans [wenger-kenett-creative-homogeneity-llms-2025]{306} versus matching or exceeding humans under some prompts [noveltybench-humanlike-diversity-2025]{310}; different metrics and domains. |
 
@@ -306,7 +314,7 @@ steps (c) and (d) use it.
   so it says nothing about families every lister missed. {inferred: aggregate}
 - *Purpose-first generation is a reliable key.* Supported by one study set at abstract and
   press-release depth [siebert-keeney-alternatives-2015]{450} {confidence: abstract-only} and one 38-worker
-  crowd study [hope-analogy-mining-purpose-mechanism-2017]{414}; no contrary result was found.
+  crowd study [hope-analogy-mining-purpose-mechanism-2017]{414}; no contrary result was found in the attested sources. {inferred: absence}
 - *A warning-plus-target second pass generalises.* Measured in one MBA population on objectives
   [bond-carlson-keeney-improving-objectives-2010]{453}; untested on approach families.
 - *Judging beats enumerating.* Measured for models in one-shot settings with a reference
@@ -371,3 +379,10 @@ steps (c) and (d) use it.
   on models, with the human study at abstract depth (G4). Gettys is grounded through a cite-through
   (G7). Duplicate `{N}` numbers were verified to resolve to the same attestation (G8). Dropped
   qualifiers are restored (G9). Positive prescriptions now have disconfirming entries (G10).
+- **2026-10-20 — correction (evaluate round 2).** The primary signal is split into absent-from-map and
+  on-map-but-unsampled parts, counted after adjudication and tagged by pass, and each escalation
+  trigger is matched to its remedy (N1). The reasons no estimate is supported are stated (purposive
+  sample, few occasions, correlated priors). Marker form: `extends` replaces `{inferred: extends}`.
+  Notes addressed: "on average" restored, lens-debate baseline, heading, Kastner/Rücker confidence
+  markers, Johnson and Raab side restored, absence marker, "Prescribed" mapped to advocated, "author"
+  clarified.
