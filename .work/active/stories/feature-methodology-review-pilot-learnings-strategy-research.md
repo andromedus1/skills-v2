@@ -162,3 +162,7 @@ synthesis still passes the reachability-required gates.
   visible) are already partly evidenced across the returned briefs. They go
   into the parent as open questions and `Revisit if` triggers, not a ninth
   dispatch, since the fan-out is already past the program-scale threshold.
+- `analogous-domain-search`: handshake echo matches; lint 108 resolved, with 8
+  low URL-liveness warnings and 0 high; 21 attestations authored, 4 reused; no
+  personal data sent. Its suggested facet (problem framing and reformulation) is
+  carried as an open question in the parent, not a new dispatch.
