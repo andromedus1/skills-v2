@@ -13,39 +13,57 @@ to work directly and never delegate the pass to another agent.
 ## Completeness challenge
 
 Used at the [sample checkpoint](../SKILL.md#sample-checkpoint-before-depth-research),
-before any depth research.
+before any depth research. The inputs are released in stages, because showing a
+generator examples first increased misses, and a list made after exposure cannot test
+what the exposure hid. Each stage's output is recorded before the next stage's inputs
+are given. A re-challenge is always a fresh challenger starting at stage 1, never the
+already-exposed one.
 
-**Inputs:**
-- the charter's jobs, outcomes, constraints and decisions;
-- the domain map's alternative space;
-- the drafted sample, with exclusions and their reasons.
+**Stage 1, blind.** Give only the charter's jobs, outcomes, constraints and decisions;
+the declared frame (dimensions and the rule for "same family"); and the challenger's
+cue. The cue must differ from the sample author's, for example a different objective as
+the key, a stakeholder's perspective or an adjacent field.
 
-Do not include the host's reasoning beyond those reasons.
+> You are generating approach families for the job described, without seeing anyone
+> else's list. Using the moves in the
+> [surfacing-alternatives primer](../../../docs/surfacing-alternatives.md) (Lead with
+> Purpose, Vary the Cue, Search Adjacent Fields), list genuinely different families.
+> They must differ at the principle level or on a declared dimension, not in embodiment.
+> For each, give the job it serves and the dimension values that distinguish it. Then
+> do a second pass: first lists usually miss half the relevant families, and the missed
+> ones matter as much. Add at least five more, marking which pass each came from. Name
+> families descriptively, and do not present a family's existence or merits as fact
+> without a source. Do this work directly; do not delegate it to another agent.
 
-**Brief:**
+**Stage 2, compare.** Now give the drafted sample, with its exclusions and their
+reasons, and the domain map's alternative space. Leave out the author's reasoning
+beyond those reasons.
 
-> You are challenging whether a comparison sample is complete enough to commission
-> depth research. You are not judging the project's method. Using the decomposition
-> moves in the attached
-> [surfacing-alternatives primer](../../../docs/surfacing-alternatives.md):
->
-> 1. List approach families or framings that the map omits, or that the sample
->    omits without a stated reason. For each, give the decision dimension or job
->    on which it differs, and why it bears on a recorded decision.
-> 2. Flag any sampled "families" that are variants of one family.
-> 3. Flag any exclusion whose reason depends on the current method's own design.
-> 4. Report the completeness signal the primer prescribes, and your confidence.
->
-> Name candidates descriptively. Do not present a family's existence or merits as
-> fact without a source. Your proposals go back to research through a map refresh.
-> Do this work directly; do not delegate it to another agent.
+> Compare your recorded list with the map and the sample. Classify each of your families
+> after merging variations: (i) absent from the map; (ii) on the map but not sampled,
+> noting whether it carries a dimension value the sample does not cover; (iii) already
+> sampled. Flag sampled "families" that are variants of one family, and any exclusion
+> whose reason depends on the current method's own design.
+
+**Stage 3, judge.** Now give the dimension grid with its empty cells, and the held-out
+known families.
+
+> Judge which empty combinations are real families, and which held-out families your
+> list and the map each missed. Judging the map's candidates can only find gaps between
+> the sample and the map. Report families absent from the map from your stage 1 list
+> and from held-out checks, not from this judgement.
 
 **Output:**
-- proposed additions, with dimension, job, decision and confidence;
-- merge or split notes;
+- the stage 1 list, with pass tags;
+- the classification into (i), (ii) and (iii), and the merge or split decisions;
+- empty-cell judgements;
+- held-out families missed by the challenger, and held-out families absent from the map;
 - questionable exclusions;
-- the completeness signal;
-- whether the sample is fit to commission. This is advisory; the operator decides.
+- the coverage statement the primer prescribes, as observed counts with no estimated
+  total;
+- the remedies the findings point to (map refresh, sample revision or a stronger
+  challenge), and whether the sample looks fit to commission. This is advisory; the
+  operator decides.
 
 ## Assessment
 

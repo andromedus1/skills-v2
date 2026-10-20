@@ -26,6 +26,8 @@ orchestrator remains authoritative for its kickoff, dials and verification.
   `[synthesis-brief, questions-list]`; scope authority and rigor proposed per the
   charter (default mixed and standard), for the orchestrator to settle
 - **Required output section:** Decision relevance (non-recommending), below
+- **Coverage asks:** seek maximum variation and disconfirming cases; record vocabulary
+  differences; flag any source that opens a category absent from the domain map
 - **Privacy:** no private project content in public searches or external services
 ```
 

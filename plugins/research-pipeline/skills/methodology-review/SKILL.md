@@ -23,6 +23,13 @@ stack. Read the [build process](../../docs/build-process.md) and
 [research composition](../../docs/research-composition.md). Without Agentic
 Research, report the missing prerequisite and stop; never invent a substitute.
 
+Read the [surfacing-alternatives primer](../../docs/surfacing-alternatives.md) before
+step 0 and the sample checkpoint, and apply its moves per its step table. Read
+[first-principles](../../docs/first-principles.md) for consideration, especially Open
+and Challenge. If the map or sample feels stuck, circular or over-constrained, load
+[oblique-strategies](../../docs/oblique-strategies.md) for its Reframe and Stimulate
+moves.
+
 ## Scope and authority
 
 Accept a project, component, workflow or review record; with none, use the active
@@ -63,6 +70,13 @@ the reviewed topic that the sample, research facets and coverage report all refe
   to reflect decisions.
 - **Project mapping** (loop-record-owned): in-scope jobs and decisions, where the
   current method sits in the space, and the sample drawn from it.
+
+Generate the map purpose-first: from the jobs, outcomes and objectives, not from the
+current method. Decide its scope (whole population or the most important approaches)
+and declare its frame: dimensions, the rule for "same family", and the generators used.
+Ask scout for several independent routes, including at least one adjacent-field route
+at a workable abstraction, and for vocabulary capture. Keep a few known families out of
+map-building as a held-out check, such as families named in prior reviews.
 
 Reuse a current map that covers the topic, such as a parent's, sibling's or
 predecessor's, refreshing it only for a named coverage or freshness gap. A program maps
@@ -137,17 +151,50 @@ resumed multi-part review, first read
 
 Before commissioning comparisons:
 
-1. Compare the sample with the map and name the unsampled families and why.
-2. Have a fresh-context assessor, with the project's cross-model preference when
-   available, challenge the map and sample for missing families or framings using the
+1. Check that the sample covers every value of each declared dimension at least once,
+   and name the unsampled families and why.
+2. Run the challenge with a fresh-context challenger, using the project's cross-model
+   preference when available, through the
    [completeness-challenge brief](references/assessor-briefs.md#completeness-challenge).
-   Its proposals are evidence. Add a missing family by refreshing the map through
-   scout, never from host recall.
-3. Present the operator with the map, sample, exclusions, challenge results,
-   evidence-feasibility triage and expected effort; record the actual response.
+   Stage its inputs:
+   - **Blind.** It lists families from the charter alone, before seeing the sample or
+     the map's candidates.
+   - **Push.** A second pass states that first lists are usually incomplete and sets a
+     numeric target.
+   - **Compare.** Only then is the blind list compared with the sample.
+   - **Judge.** Finally the challenger judges the map's candidates and its empty cells.
 
-Repeat the challenge only when the map or sample changes materially. Until the
-operator responds, this is a checkpoint awaiting a decision; no depth research starts.
+   Give it cues that differ from the sample author's: other objectives, perspectives or
+   adjacent fields. A different model alone is not a different cue.
+3. Record a coverage statement, not "complete". Lead with the blind list's adjudicated
+   families in two parts: those **absent from the map**, and those **on the map but
+   unsampled** with an uncovered dimension value. Add:
+   - overlap with the sample;
+   - held-out families absent from the map;
+   - new families per pass;
+   - naming and merging decisions;
+   - the frame.
+
+   Give observed counts only. These passes support no statistical estimate.
+4. Match each finding to its remedy, running any re-challenge as a fresh blind pass:
+   - families absent from the map, or held-out families absent from it → refresh the
+     map through scout, never from host recall, then re-challenge;
+   - on-map families with an uncovered value → revise the sample;
+   - a challenger that misses held-out families → strengthen the challenge, because
+     its quiet result is weak evidence.
+5. Present the operator with:
+   - the map and sample;
+   - exclusions;
+   - the coverage statement and the remedies taken;
+   - evidence-feasibility triage;
+   - expected effort.
+
+   Record the actual response.
+
+No attested rule says when a sample is complete enough. Moving to depth research is the
+operator's judgement, made on the coverage statement, never on a quiet last pass. Repeat
+the challenge only when the map or sample changes materially. Until the operator
+responds, this is a checkpoint awaiting a decision; no depth research starts.
 
 ## 3. Research and compare
 
@@ -170,6 +217,10 @@ confirmed settings within their agreed scope.
 
 Ask the research to:
 
+- Seek maximum variation and disconfirming cases rather than more of the same, record
+  vocabulary differences, and report any source that opens a category absent from the
+  domain map; such a report triggers a map refresh and re-challenge of the affected
+  decisions.
 - Describe alternatives in their own categories, including other configurations,
   deliberately omitted work and capabilities beyond our inventory, leaving their
   mapping onto ours to the loop record; a longer feature list is not a better method.

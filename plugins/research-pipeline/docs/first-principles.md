@@ -123,6 +123,7 @@ Am I in System 1 (fast, automatic) when I should be in System 2 (slow, deliberat
 | `/architecture` | Challenge + Synthesize | Fundamentals should already be researched. Focus on stress-testing decisions and building from verified foundations. |
 | `/brief` | Open + Verify | Curating knowledge requires deep decomposition and confirming you truly understand what you're summarizing. |
 | `/epicize` | Challenge + Synthesize | Question phase ordering assumptions. Find high-leverage sequencing. Trace consequences of dependency choices. |
+| `/methodology-review` | Open + Challenge | Decompose the reviewed method's jobs before mapping alternatives; falsify the sample and the frame. Pair with [Surfacing Alternatives](surfacing-alternatives.md). |
 
 ---
 
@@ -152,4 +153,5 @@ Cognitive biases pulling you back to shallow thinking even when you intend to th
 | [North Star](first-principles-north-star.md) | Vision and principles for this primer |
 | [Brief: Frameworks](brief-first-principles-frameworks.md) | Full research on 14 thinking frameworks — detailed history, examples, sources |
 | [Architecture](first-principles-architecture.md) | Design decisions for this document's structure |
+| [Surfacing Alternatives](surfacing-alternatives.md) | Generating genuinely different approaches and checking a sample's completeness |
 | [Build Process](build-process.md) | The pipeline this primer augments |

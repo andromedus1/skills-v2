@@ -50,9 +50,16 @@ Record this in the review's loop record, never in research:
 
 1. Check `.research/analysis/` and the knowledge index for a current map covering the
    topic. Reuse it when its scope and freshness fit.
-2. Otherwise commission scout with search vectors that reach beyond the current
-   method's vocabulary, including adjacent fields solving the same job.
-3. Read the result and draft the project mapping. Then run the skill's
+2. Otherwise state the jobs, outcomes and objectives first, and decide the map's scope:
+   the whole population of approaches, or the most important ones. Set aside a few
+   known families, such as ones named in prior reviews, as a held-out check that stays
+   out of map-building.
+3. Commission scout with several independent search vectors that reach beyond the
+   current method's vocabulary, including at least one adjacent-field route at a
+   workable abstraction (purpose fixed, mechanism varied).
+4. Read the result and draft the project mapping, declaring the frame: dimensions, the
+   rule for "same family" (divergence at the principle level or on a declared
+   dimension), and the generators used. Then run the skill's
    [sample checkpoint](../SKILL.md#sample-checkpoint-before-depth-research).
 
 The specific decomposition strategies to apply at each step are in the
@@ -63,7 +70,9 @@ The specific decomposition strategies to apply at each step are in the
 - **Versioning.** The alternative space follows Agentic Research's correction,
   reversal and refresh rules. A refresh supersedes a prior map and keeps it as
   history. Record which map version the sample drew from in the loop record.
-- **Refresh triggers.** A family the challenge or operator adds; an expiring
+- **Refresh triggers.** A family the challenge finds absent from the map, a held-out
+  family absent from it, a depth-research source that opens a new category, or a family
+  the operator adds; an expiring
   `temporal_contract`; material change in the field; or a re-run whose
   what-changed baseline names the area. Refresh only the named gap.
 - **Programs.** A component-then-suite program maps once at the root, covering the
