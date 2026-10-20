@@ -431,4 +431,4 @@
   [warn] L329 count-without-unit-citation: for "species, words, code paths and defects" cites only Chao 2009 and Chao 2014
   [warn] L356 version-number: example at `:81` retains Q1 = 9, Q2 = 4, estimate 36.3 and interval 29.1–68.8.
 
-21 file(s) · 1445 resolved/non-broken citation(s) · 0 broken · 0 thin · 253 pattern flag(s)
+21 file(s) · 1451 resolved/non-broken citation(s) · 0 broken · 0 thin · 253 pattern flag(s)

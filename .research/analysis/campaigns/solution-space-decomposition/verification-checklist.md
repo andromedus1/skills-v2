@@ -446,3 +446,84 @@ excluded from this local attestation re-check. Mechanical success does not
 resolve the findings above.
 
 NEEDS-REVISION
+
+## Re-check 2 (2026-10-20)
+
+Assessed commit `cc6a704481d230db176f5ce9be29c6e54c05de92` and its
+`.research/` diff against its parent. Scope is limited to unresolved R2, R6,
+R7 and R9 and unsupported specifics introduced by those fixes. Re-read the
+complete discipline and role brief and the relevant attestations. The discipline
+SHA-256 remains `6408290171aaeefdf82fd3277d01558ce2b811665c427024286dbeb0f66ebbae`.
+No delegation or external source reacquisition was used. Earlier pass results
+remain historical; these statuses supersede the first re-check for these four
+findings. Locations use the path conventions above and this assessed commit.
+
+1. **R2 — not resolved; the main citation repair is supported, with two remaining gaps.**
+   `parent.md:119` now supplies the ecological evaluation citations;
+   `parent.md:121` supplies the fuzzing and inspection citations; and
+   `parent.md:123` distinguishes vocabulary model fit from known-total validation.
+   Those distinctions match
+   `.research/attestation/chao-sufficient-sampling-2009.md:13`,
+   `.research/attestation/chao-hill-numbers-rarefaction-2014.md:13`, `:36`,
+   `.research/attestation/bohme-stads-species-discovery-2018.md:15`, `:49`,
+   `.research/attestation/briand-capture-recapture-inspections-2000.md:15`, `:22`
+   and `.research/attestation/efron-thisted-shakespeare-unseen-1976.md:13`, `:33`.
+   `clusters/completeness.md:10` and `:20` now preserve the evaluation/application
+   distinction. Two specifics prevent closure:
+   - **New read-but-not-attested detail:** `parent.md:121` calls the inspection
+     defects "seeded." The cited Briand attestation records a known true defect
+     count and the experimental data, but nowhere records that the defects were
+     seeded (`.research/attestation/briand-capture-recapture-inspections-2000.md:15`,
+     `:44`). **Fix:** check the fetched source's data-design passage and attest
+     the seeding detail with its anchor if confirmed; otherwise correct that
+     unsupported characterization. Do not infer seeding merely from a known count.
+   - **Unreconciled cluster citation:** the sentence changed at
+     `clusters/completeness.md:222` lists measured performance for species,
+     code paths, defects and screening, plus application to words, but its only
+     attached attestation remains Chao 2017 at `:224`. That attestation does not
+     record the non-ecological evaluation/application specifics. **Fix:** split
+     or cite the setting-specific clauses with their appropriate attestations,
+     following the repaired parent. In addition to the sources above, the
+     screening evaluation is recorded at
+     `.research/attestation/callaghan-statistical-stopping-2020.md:13`, `:27`, `:32`.
+     Keep the near-unbiasedness qualification attached to Chao and the vocabulary
+     claim at model-fit/application depth. This is the same R2 citation-support
+     requirement applied to the revised cluster occurrence.
+
+2. **R6 — resolved.** `parent.md:252` now distinguishes the ensemble caution
+   ("may not" diversify, without measured marginal additions) from the default
+   sampling/debate results. `specialists/llm-ideation-diversity.md:231` now
+   explicitly says model identity establishes neither independent coverage nor
+   zero additional discoveries, and directs assessment to overlap and marginal
+   additions. Both respect the similarity finding and cautious ensemble statement
+   at `.research/attestation/artificial-hivemind-homogeneity-2025.md:24`, `:28`,
+   and its measurement limits at `:33`. The reversed specialist clause and the
+   categorical ensemble dismissal are removed without adding a no-benefit claim.
+
+3. **R7 — resolved.** `parent.md:11` now separates the measured interventions
+   from independent-before-discussion sequencing, explicitly calling the latter
+   a prescription and pooling a single demonstration at `:14`.
+   This matches `.research/attestation/bond-carlson-keeney-improving-objectives-2010.md:55`
+   and `.research/attestation/bond-carlson-keeney-objectives-2008.md:47`.
+   It no longer upgrades the sequencing prescription to a measured comparison;
+   the previously restored voting control and exposure countercase are preserved.
+
+4. **R9 — resolved.** The previously unchanged contradiction row at
+   `parent.md:232` now identifies the category/second-opportunity confound,
+   the lack of reliable incremental gain over motivated deeper review, and
+   the upfront-misses result. These match
+   `.research/attestation/bond-carlson-keeney-improving-objectives-2010.md:31`,
+   `:36`, `:45` and the already qualified generation-cluster row. It no longer
+   asserts a category-specific timing advantage. The other qualifiers accepted
+   in the first re-check remain outside this second pass's reopening scope.
+
+Current disposition across R1–R9: **resolved R1, R3, R4, R5, R6, R7, R8, R9;
+not resolved R2**. The frontmatter verdict remains `NEEDS-REVISION` solely for
+the two R2 support gaps specified above. This does not reopen resolved findings.
+Citation lint completed with exit code 0: 1,445 citation occurrences across 21
+files, zero broken chains, zero structurally thin attestations and 253 pattern
+advisories. URL-liveness checks were explicitly excluded from this local
+attestation verification. No credential, network, permission or missing-context
+blocker prevented the re-check. Only this checklist was modified.
+
+NEEDS-REVISION

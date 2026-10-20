@@ -178,7 +178,7 @@ Frequent kinds "carry negligible information about the undetected species"
 - **Inspection defect counts.** Each inspector is a trapping occasion
   [briand-capture-recapture-inspections-2000]{362}. Models "ought not be used with less than 4 inspectors
   unless shown to work in a particular environment". With too few inspectors, "underestimation may be
-  substantial" [briand-capture-recapture-inspections-2000]{362}. *Measured* against known seeded defects.
+  substantial" [briand-capture-recapture-inspections-2000]{362}. *Measured* against known true defect counts.
 - **Ideas.** Kornish and Ulrich estimated the size of an "opportunity space" from repetition among 1,368
   ideas generated independently. They used a one-parameter model in which each unique idea is equally
   likely to be drawn [kornish-ulrich-opportunity-spaces-2011]{361}.
@@ -453,3 +453,4 @@ Stated in the source fields' own terms:
 - The full text of the Ciolkowski aggregation, Link (2003) or Wohlin et al. (2013) is acquired, which could
   change the strength of B2, A8.1 and B4.
 - New estimators for adaptive or purposive sampling (beyond greybox fuzzing) are published.
+- **2026-10-20 — correction (adversarial re-check 2).** "Seeded" is replaced by the attested "known true defect counts".

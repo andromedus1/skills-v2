@@ -118,8 +118,8 @@ identity threshold that merges near-duplicates [kornish-ulrich-opportunity-space
   known or pooled set [zhang-qgs-search-2011]{258} [sampson-relative-recall-2006]{163}. Richness and
   coverage estimators do have measured evaluations in their own settings: ecological subsampling and
   simulation [chao-sufficient-sampling-2009]{352} [chao-hill-numbers-rarefaction-2014]{351}, fuzzing
-  against true path richness [bohme-stads-species-discovery-2018]{359} and inspections against seeded
-  defects [briand-capture-recapture-inspections-2000]{362}; vocabulary applications report model fit
+  against true path richness [bohme-stads-species-discovery-2018]{359} and inspections against known true
+  defect counts [briand-capture-recapture-inspections-2000]{362}; vocabulary applications report model fit
   rather than a known total [efron-thisted-shakespeare-unseen-1976]{355}.
 - **Frame-relativity.** Estimates are relative to the generating process
   [kornish-ulrich-opportunity-spaces-2011]{361} [meincke-prompting-idea-variance-2024]{300}, the
@@ -285,3 +285,4 @@ reviews specifically.
   voting control and the exposure countercase restored (R7). Quantity–quality findings are stated as
   associations (R8). Source-depth, cite-through and conditional qualifiers are restored (R9).
 - **2026-10-20 — correction (adversarial re-check).** Per-setting estimator evaluations now cite their own attestations (R2). The ensemble statement is qualified as the source's caution (R6). The independent-first sequencing is labelled a prescription with one demonstration (R7). The categories contradiction row is qualified (R9).
+- **2026-10-20 — correction (adversarial re-check 2).** "Seeded" is replaced by the attested "known true defect counts" (R2).

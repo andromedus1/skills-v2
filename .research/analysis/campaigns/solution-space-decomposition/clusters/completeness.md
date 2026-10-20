@@ -218,11 +218,14 @@ in qualitative synthesis [booth-qes-searching-2016]{155}.
   keywording, morphological fields or roadmap layers finding more distinct families than an
   unstructured expert list (absence reported by the landscape specialist)
   [zhang-qgs-search-2011]{258} [franke-poetz-schreier-analogous-markets-2014]{273}.
-- *A completeness estimate can certify a sample of approaches.* Not supported for kinds of approaches:
-  estimator performance is measured for species, code paths, defects and screening, and applied to words, and the
-  near-unbiased condition is not shown to hold for approaches
-  [chao-colwell-chao2-inequality-2017]{350}; idea-space estimates have no known-truth comparison
-  [kornish-ulrich-opportunity-spaces-2011]{361}.
+- *A completeness estimate can certify a sample of approaches.* Not supported for kinds of approaches.
+  Estimator performance is measured in ecology [chao-sufficient-sampling-2009]{352}
+  [chao-hill-numbers-rarefaction-2014]{351}, fuzzing [bohme-stads-species-discovery-2018]{359},
+  inspections against known true defect counts [briand-capture-recapture-inspections-2000]{362} and
+  screening [callaghan-statistical-stopping-2020]{170}, and applied to vocabulary with model fit rather
+  than a known total [efron-thisted-shakespeare-unseen-1976]{355}. Chao's near-unbiased condition is not
+  shown to hold for approaches [chao-colwell-chao2-inequality-2017]{350}, and idea-space estimates have
+  no known-truth comparison [kornish-ulrich-opportunity-spaces-2011]{361}.
 - *More reviewers or perspectives find more missing items.* Mixed: perspectives did not differ
   [regnell-pbr-perspectives-different-2000]{367} and four reviewers were no better than two
   [inspection-team-size-experiment]{371}, while scenario reading raised detection in its original
@@ -281,3 +284,4 @@ Stated in the source fields' own terms; not recommendations.
   (R1). The 12-unit example is confirmed in the extended attestation (R4). The inspector quotation's
   exception is restored (R9).
 - **2026-10-20 — correction (adversarial re-check).** The estimator-setting lists are matched to their attested evaluation levels (R2).
+- **2026-10-20 — correction (adversarial re-check 2).** The setting-specific clauses now cite their own attestations (R2).
