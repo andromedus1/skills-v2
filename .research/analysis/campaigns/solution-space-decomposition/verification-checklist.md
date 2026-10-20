@@ -7,7 +7,7 @@ target:
   - .research/analysis/campaigns/solution-space-decomposition/parent.md
   - .research/analysis/campaigns/solution-space-decomposition/clusters/completeness.md
   - .research/analysis/campaigns/solution-space-decomposition/clusters/generation.md
-verdict: NEEDS-REVISION
+verdict: APPROVED
 ---
 
 # Adversarial-read checklist
@@ -527,3 +527,44 @@ attestation verification. No credential, network, permission or missing-context
 blocker prevented the re-check. Only this checklist was modified.
 
 NEEDS-REVISION
+
+## Re-check 3 (2026-10-20)
+
+Assessed commit `ae45c9187606531c38d4823aae773eccd26279ef` and its
+`.research/` diff against its parent, limited to R2's two remaining support gaps.
+Re-read the complete discipline and the relevant attestations. Its SHA-256 remains
+`6408290171aaeefdf82fd3277d01558ce2b811665c427024286dbeb0f66ebbae`.
+No delegation or external source reacquisition was used. Locations follow the
+path conventions above and refer to this assessed commit.
+
+**R2 — resolved.** Both remaining gaps are corrected:
+
+- `parent.md:121` and `specialists/coverage-estimation.md:181` now describe
+  evaluation against known true defect counts, supported explicitly by
+  `.research/attestation/briand-capture-recapture-inspections-2000.md:15` and
+  `:22`. They no longer infer that the defects were seeded.
+- `clusters/completeness.md:222` now attaches each setting-specific claim to its
+  own attestation: ecological evaluation is supported by
+  `.research/attestation/chao-sufficient-sampling-2009.md:13` and
+  `.research/attestation/chao-hill-numbers-rarefaction-2014.md:13`, `:36`;
+  fuzzing by `.research/attestation/bohme-stads-species-discovery-2018.md:15`,
+  `:30`, `:49`; inspections by the Briand passages above; screening by
+  `.research/attestation/callaghan-statistical-stopping-2020.md:13`, `:32`;
+  and vocabulary application/model fit by
+  `.research/attestation/efron-thisted-shakespeare-unseen-1976.md:13`, `:33`.
+  The vocabulary clause retains the absence of a known total. The separate
+  near-unbiasedness qualification remains attached to Chao, whose condition is
+  recorded at `.research/attestation/chao-colwell-chao2-inequality-2017.md:53`.
+
+No new unsupported claim was found in these corrections. Together with the
+preceding accepted dispositions, **R1–R9 are resolved**. This section supersedes
+the prior unresolved R2 status; the original findings and earlier re-checks are
+retained as history. The frontmatter verdict is updated to `APPROVED`.
+
+Citation lint passed with exit code 0: 1,451 citation occurrences across 21 files,
+zero broken chains, zero structurally thin attestations and 253 pattern advisories.
+URL-liveness checks were explicitly excluded from this local attestation check.
+No credential, network, permission or missing-context blocker prevented completion.
+Only this checklist was modified.
+
+APPROVED
