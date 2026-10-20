@@ -2,7 +2,8 @@
 
 These fields are a writing aid, not a new frontmatter schema, database or research
 tier. Decision, delivery and assessment fields belong in the loop record chosen under
-the skill's [Scope and authority](../SKILL.md#scope-and-authority); comparison rows
+the skill's [Scope and authority](../SKILL.md#scope-and-authority) (the Agile Workflow controller
+skeleton and re-run fields are in [controller-and-reruns.md](controller-and-reruns.md)); comparison rows
 belong in the Agentic Research artifacts that record links, while coverage mapping,
 transfer and proposals belong in the loop record. Preserve dated reports; link corrections and
 later assessments rather than changing what an earlier pass concluded.
@@ -10,7 +11,6 @@ later assessments rather than changing what an earlier pass concluded.
 ## Contents
 
 - [Record location and discovery](#record-location-and-discovery)
-- [Agile Workflow controller](#agile-workflow-controller)
 - [Charter and loop checkpoint](#charter-and-loop-checkpoint)
 - [Component coverage and coordination](#component-coverage-and-coordination)
 - [Comparison rows](#comparison-rows)
@@ -18,7 +18,6 @@ later assessments rather than changing what an earlier pass concluded.
 - [Finding record](#finding-record)
 - [Decision packet](#decision-packet)
 - [Assessment report](#assessment-report)
-- [Re-run record](#re-run-record)
 
 ## Record location and discovery
 
@@ -44,59 +43,6 @@ review's ID and scope a named body section holding its dated assessor reports,
 which link research outputs and the current baseline. They assess loop progress;
 they are neither source-direct research nor a replacement for the orchestrator's
 analytical outputs.
-
-## Agile Workflow controller
-
-Mint the controller directly, not through `agile-workflow:scope`, whose next step
-routes to design. The `methodology-review-controller` tag routes the item back to this
-skill and keeps it out of design, implementation and release binding. Add a topic tag
-such as `methodology-review` only alongside it, never instead of it. The controller
-stays at `drafting` while the review is open. On exit, move it to `done` under the
-project's retention conventions.
-
-```markdown
----
-id: methodology-review-<scope-slug>
-kind: feature
-stage: drafting
-tags: [methodology-review-controller]
-parent: null
-depends_on: []
-release_binding: null
-gate_origin: null
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
----
-
-# Methodology review: <scope>
-
-## Charter
-<step 1 fields; (operator) answers with dates; baseline>
-
-## Domain map
-<alternative-space path and version; project mapping; sample; exclusions>
-
-## Sample checkpoint
-<challenge report link; operator response; expected effort>
-
-## Commission packets
-<one per review unit, or links>
-
-## Rounds and assessments
-<round count and limit; dated assessor reports; coverage; effort>
-
-## Findings and decisions
-<finding records; decision packets; actual operator responses>
-
-## Delivery
-<handoff items, revisions and evidence>
-
-## Next step
-<the next unfulfilled step, or the exit outcome>
-```
-
-Child review items in a program use the same skeleton, with `parent` linking the
-root controller.
 
 ## Charter and loop checkpoint
 
@@ -218,12 +164,3 @@ step.
 
 “No new major findings; two previously identified risks remain by operator decision”
 must never become “zero major findings.”
-
-## Re-run record
-
-A re-run's record carries the predecessor's record and final-assessment links, the
-mapping from prior finding IDs to current ones, a fresh round count, the reused
-research and map versions with their freshness, and a what-changed baseline. Its
-report compares outcomes with the predecessor's: operator corrections to the sample,
-effort, verification churn, decision yield and assessor withdrawals. The closed
-predecessor record is never edited, except to add a forward link.

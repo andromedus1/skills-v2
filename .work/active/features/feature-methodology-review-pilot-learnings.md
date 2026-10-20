@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-pilot-learnings
 kind: feature
-stage: review
+stage: done
 tags: [methodology-review, research-pipeline]
 parent: null
 depends_on: [feature-agentic-research-pilot-fixes]
@@ -619,3 +619,41 @@ All five child stories are done.
 - the primer is grounded in the verified campaign.
 
 The validation plan (repeating the Knowledge review in project-blueprint) remains out of scope.
+
+## Review (2026-10-20)
+
+- **Weight:** `standard`, so one independent pass.
+- **Reviewer:** cross-model, Codex `gpt-6.1-sol` at high effort, via peeragent.
+- **Verdict after fixes:** Approve.
+- **Reviewer's confirmation:** no blockers; pilot traceability is broadly supported; the staging,
+  the split coverage signal, the matched remedies and the no-estimate rule align with the campaign
+  parent §5.
+
+**Findings, adjudicated:**
+
+- **Important, fixed.** The assessor brief's "Do not lower a severity" contradicted the
+  evidence-based downgrades step 4 expects (F22). Changes now must be evidence-based and are never
+  made to reach a cleaner exit.
+- **Important, fixed.** Autopilot could re-select a controller waiting for its operator. Controllers
+  are now parked within a run unless their body changes, and a stop rule reports *awaiting operator*
+  when only parked controllers remain.
+- **Important, fixed.** Release-deploy's candidate snippets excluded only `[research]` items.
+  Controllers are now excluded in both the active and the archived gather.
+- **Important, fixed.** Resume discovery still matched the `methodology-review` topic tag. It now
+  matches `methodology-review-controller`, with a legacy rule.
+- **Nit, fixed.** Scout's domain-map mode now proposes `intent: survey-landscape`. **Nit, rejected
+  in part:** the `${CLAUDE_PLUGIN_ROOT}` reference in scout predates this feature and matches the
+  sibling skills, so it is left unchanged.
+- **Nit, fixed in part.** The size limits:
+  - The controller skeleton and the re-run material moved to the new
+    `references/controller-and-reruns.md`, bringing `review-record.md` from 229 to 166 lines, under
+    the repo's 200-line reference limit.
+  - The sample checkpoint is condensed to its rules, with the staging mechanics in the challenge
+    brief.
+  - SKILL.md is at 373 lines: under the 500-line hard limit, above the 300 "when practical" target.
+    The remaining content is core protocol.
+
+**Verification after fixes:** skill-portability, convert-content-integrity and test_prompt_context
+pass, and links are clean.
+
+**Closure:** standard weight, so the item closes after the fixes are verified, with no re-review.

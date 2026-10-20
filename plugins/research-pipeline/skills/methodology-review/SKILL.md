@@ -44,7 +44,7 @@ within their stated scope.
 
 Before research, resolve one durable root loop record: in Agile Workflow, a matching
 controller item, or one minted directly (not via `agile-workflow:scope`) from the
-[controller skeleton](references/review-record.md#agile-workflow-controller), tagged
+[controller skeleton](references/controller-and-reruns.md#agile-workflow-controller), tagged
 `methodology-review-controller` without a `research` tag or `research_dials`
 (separately commissioned research items own their engagements, whose completion never
 closes it; the tag routes the item here, never to design or implementation); else an
@@ -149,52 +149,31 @@ resumed multi-part review, first read
 
 ## Sample checkpoint (before depth research)
 
-Before commissioning comparisons:
+Before commissioning comparisons, check that the sample covers every value of each
+declared dimension, and name the unsampled families. Then challenge it with a
+fresh-context challenger, using the project's cross-model preference when available.
+Follow the [completeness-challenge brief](references/assessor-briefs.md#completeness-challenge)
+exactly: its inputs are staged so the challenger lists families blind before seeing the
+sample, because exposure first hides what the challenge is meant to find.
 
-1. Check that the sample covers every value of each declared dimension at least once,
-   and name the unsampled families and why.
-2. Run the challenge with a fresh-context challenger, using the project's cross-model
-   preference when available, through the
-   [completeness-challenge brief](references/assessor-briefs.md#completeness-challenge).
-   Stage its inputs:
-   - **Blind.** It lists families from the charter alone, before seeing the sample or
-     the map's candidates.
-   - **Push.** A second pass states that first lists are usually incomplete and sets a
-     numeric target.
-   - **Compare.** Only then is the blind list compared with the sample.
-   - **Judge.** Finally the challenger judges the map's candidates and its empty cells.
+Record a coverage statement, never "complete". Lead with the blind list's adjudicated
+families **absent from the map** and those **on the map but unsampled** with an
+uncovered value. Use observed counts only; these passes support no statistical
+estimate. Match each finding to its remedy, running any re-challenge as a fresh blind
+pass:
 
-   Give it cues that differ from the sample author's: other objectives, perspectives or
-   adjacent fields. A different model alone is not a different cue.
-3. Record a coverage statement, not "complete". Lead with the blind list's adjudicated
-   families in two parts: those **absent from the map**, and those **on the map but
-   unsampled** with an uncovered dimension value. Add:
-   - overlap with the sample;
-   - held-out families absent from the map;
-   - new families per pass;
-   - naming and merging decisions;
-   - the frame.
+- absent from the map, or a held-out family absent from it → refresh the map through
+  scout, never from host recall;
+- on the map with an uncovered value → revise the sample;
+- the challenger missed held-out families → strengthen the challenge.
 
-   Give observed counts only. These passes support no statistical estimate.
-4. Match each finding to its remedy, running any re-challenge as a fresh blind pass:
-   - families absent from the map, or held-out families absent from it → refresh the
-     map through scout, never from host recall, then re-challenge;
-   - on-map families with an uncovered value → revise the sample;
-   - a challenger that misses held-out families → strengthen the challenge, because
-     its quiet result is weak evidence.
-5. Present the operator with:
-   - the map and sample;
-   - exclusions;
-   - the coverage statement and the remedies taken;
-   - evidence-feasibility triage;
-   - expected effort.
-
-   Record the actual response.
-
-No attested rule says when a sample is complete enough. Moving to depth research is the
-operator's judgement, made on the coverage statement, never on a quiet last pass. Repeat
-the challenge only when the map or sample changes materially. Until the operator
-responds, this is a checkpoint awaiting a decision; no depth research starts.
+Present the operator with the map, the sample and its exclusions, the coverage statement
+with the remedies taken, the evidence-feasibility triage and the expected effort, and
+record the actual response. No attested rule says when a sample is complete enough;
+moving to depth research is the operator's judgement on the coverage statement, never on
+a quiet last pass. Repeat the challenge only when the map or sample changes materially.
+Until the operator responds, this is a checkpoint awaiting a decision; no depth research
+starts.
 
 ## 3. Research and compare
 
@@ -370,25 +349,16 @@ Paused or waiting portions do not block unrelated authorized work.
 
 Repeat a closed review under a revised skill, after time passes or after the method
 changes by opening a new review linked to its predecessor; never reopen the closed
-record.
-
-- Give it a new review ID and record, linked to the predecessor's record and final
-  assessment.
-- Carry predecessor finding IDs forward as prior IDs; a persisting finding keeps its
-  identity and new findings get new IDs.
-- Start a fresh round count; the predecessor's limit and count do not carry over.
-- Reuse its research and domain map under the engine's freshness rules, refreshing
-  only named stale or missing coverage.
-- Record a what-changed baseline: project revisions, skill version, decisions and
-  delivery since, and expiring research.
-- Compare outcomes with the predecessor in the report: operator corrections to the
-  sample, effort, verification churn, decision yield and assessor withdrawals. This
-  is evidence about the review method, not a verdict on the project.
+record. Carry finding IDs forward, start a fresh round count, reuse research and the
+domain map under freshness rules, record a what-changed baseline and compare outcomes
+with the predecessor, following [controller-and-reruns.md](references/controller-and-reruns.md#re-run-and-longitudinal-review).
 
 ## Resume and report
 
 To resume, use the supplied record path, else the matching active
-`methodology-review` item or root `methodology-review-state.md`; follow a child
+`methodology-review-controller` item or root `methodology-review-state.md`; a legacy controller
+tagged only `methodology-review` from before this tag existed is matched only when its body is a
+review record, and gains the `methodology-review-controller` tag on resume; follow a child
 record's root backlink before dispatch; recover a closed review's record through
 retention conventions; if several match, ask which scope. Read the current revision
 and linked research, reconcile intervening changes with the last charter, preserve

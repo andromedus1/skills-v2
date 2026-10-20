@@ -33,8 +33,8 @@ Traceability. Paths are relative to `skills/methodology-review/`.
 | F19, F20, F22, F30 | SKILL.md §4: pre-check, then assessment, then packet; `assessor-briefs.md#assessment` |
 | F25, F26 | SKILL.md §5 |
 | Decision 3, F12 | SKILL.md §6: coverage against the map is report-only; actual versus expected effort |
-| F29 | SKILL.md "Re-run and longitudinal review"; `review-record.md#re-run-record` |
-| F4, F5, F6 | Scope and authority (`methodology-review-controller`, direct minting); `review-record.md#agile-workflow-controller` (skeleton) |
+| F29 | SKILL.md "Re-run and longitudinal review"; `controller-and-reruns.md#re-run-record` |
+| F4, F5, F6 | Scope and authority (`methodology-review-controller`, direct minting); `controller-and-reruns.md#agile-workflow-controller` (skeleton) |
 
 Other changes:
 - Scout gained a "Domain-map mode" (`landscape-brief` plus `vocab-capture`).

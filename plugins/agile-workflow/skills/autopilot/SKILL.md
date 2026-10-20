@@ -208,8 +208,10 @@ Routing:
   operator-adjudicated loop, not designable or implementable work: never route it to the design
   or implement families. When the review returns a checkpoint awaiting an operator decision,
   record it as **awaiting operator** in the run summary — not a defect `## Blocker` — and continue
-  with other ready items; it never counts toward `complete`. Requires the `research-pipeline`
-  plugin; without it the tag is inert.
+  with other ready items. A controller stays at `drafting` and still appears ready, so park it: do
+  not re-dispatch it in the same run unless its body has changed since that checkpoint (for example,
+  an operator response was recorded). Parked controllers never count toward `complete`. Requires the
+  `research-pipeline` plugin; without it the tag is inert.
 - `stage: drafting`, `kind: epic` -> `epic-design` (an epic carrying `[research]` is a
   research-program epic — it routes here as normal epic decomposition; its children are
   `[research]` features each carrying their own `research_dials:` registration; the tag at
@@ -308,6 +310,9 @@ After each queue rebuild:
   run Phase 8 (Final Peer Review Loop) before reporting completion.
 - If in-scope active items remain but none are ready, the goal is blocked on
   dependencies or unresolved blockers. Report the blocking ids.
+- If the only ready in-scope items are parked `methodology-review-controller` items, report the
+  goal as **awaiting operator** with their ids and pending decisions — neither complete nor
+  blocked.
 - If the user interrupts, stop at the next safe boundary and report remaining
   state without claiming completion.
 - Otherwise pick the next item and continue.

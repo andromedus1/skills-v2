@@ -97,7 +97,8 @@ For a parent assessment, also supply child assessments and coverage.
 > 4. Report coverage against the domain map: compared, operator-excluded and
 >    unexamined families bearing on in-scope decisions. Unexamined coverage is
 >    reported, not converted into a finding by itself.
-> 5. Do not lower a severity, shrink scope or treat agreement as approval.
+> 5. Change a severity only on evidence, stating it; never lower one, shrink scope or
+>    treat agreement as approval to reach a cleaner exit.
 >
 > Do this work directly; do not delegate it to another agent.
 

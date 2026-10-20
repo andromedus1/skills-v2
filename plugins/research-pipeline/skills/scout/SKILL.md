@@ -32,7 +32,7 @@ patterns, failures, and research gaps without selecting a winner.
 ## Domain-map mode
 
 When `methodology-review` (or another caller) asks for a domain map, propose
-`output_kind: [landscape-brief, vocab-capture]` and request the section shape in
+`intent: survey-landscape` and `output_kind: [landscape-brief, vocab-capture]` and request the section shape in
 [domain-map.md](../methodology-review/references/domain-map.md): jobs and outcomes,
 decision dimensions, approach families in their own terms, scenarios, evidence by
 level and open questions. Describe the topic generically; project specifics stay
