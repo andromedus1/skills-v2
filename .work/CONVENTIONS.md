@@ -43,34 +43,35 @@ Feature and epic review records carry a receipt directly after the
 **Receipt**
 - Reviewed: `<base>..<head>` — product scope, with any excluded paths
 - Reviewer: <model/class> via <peeragent job id | fresh-context sub-agent>; independent: yes|no
-- Weight: <none|light|standard|thorough|maximum> (source: caller|convention|default)
 - Findings: blockers N, important N, nits N, rejected N
 - Accepted-fix verification: <commit(s)> verified by <who/how> | none required
 ```
 
 `<head>` is a commit; a review of uncommitted work records its base commit plus
-"working tree" and classifies the resulting commits at closure. At closure, list
-every later commit that touches a consequential path:
+"working tree". At closure, enumerate later commits that touch a consequential path.
+The receipt's listed fix commits and commits whose message names another tracked
+item (which carries its own evidence) need no line. List only the exceptions:
 
 ```markdown
-**Post-review changes** (`<head>..<closure>`)
-- `<sha>` <subject> (<files>) — covered-by-pass | fix-of:<finding> verified <how> | other:<item id> | uncovered → <item id>
+**Post-review changes**
+- `<sha>` <subject> (<files>) — covered-by-pass | uncovered → <item id>
 ```
 
-`covered-by-pass` means the change was in the reviewed working tree; `other` marks
-another tracked item's work, which that item's own evidence covers.
+Commit messages name their item (`implement: <id>`, `fix: … (<id>)`, `review: <id>`).
+`covered-by-pass` means the change was in the reviewed working tree. With no
+exceptions, write `**Post-review changes**: none outside listed fixes and tracked items`.
 
 Consequential paths are plugin skills, docs, ARD core, hooks and manifests plus the
 root instruction and convention files. Enumerate them with exactly:
 
 ```bash
-git log --format='%h %s' <head>..<closure> -- 'plugins/*/skills/*' \
+git log --format='%h %s' <head>..HEAD -- 'plugins/*/skills/*' \
   'plugins/*/docs/*' 'plugins/*/ard-core/*' 'plugins/*/hooks/*' \
   'plugins/*/.claude-plugin/*' 'plugins/*/.codex-plugin/*' \
   AGENTS.md .claude/CLAUDE.md .work/CONVENTIONS.md README.md
 ```
 
-An enumerated commit without a line makes the evidence stale; `uncovered` routes
+An exception without a line makes the evidence stale; `uncovered` routes
 through normal delivery and review, and readiness then also needs that item's
 evidence. A changed hash alone does not require another pass. Standalone-story
 inline reviews keep the existing record. Reviews recorded before this convention
