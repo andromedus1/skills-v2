@@ -63,8 +63,13 @@ This fork owns `agentic-research` (Andrew, 2026-10-19). It diverges from upstrea
 where this fork's needs require: explicit Codex invocation metadata for the research
 orchestrator; a directly linked [verification-record writing aid](../plugins/agentic-research/skills/research-orchestrator/references/verification-record.md)
 that keeps assessed inputs, actual gate outcomes and pending corrections recoverable;
-and an anchor-aware `version-number` advisory in the citation lint, specified in
-`ard-core/CATALOGS.md` §3 and covered by the kernel conformance suite. Upstream changes
+an anchor-aware `version-number` advisory in the citation lint, specified in
+`ard-core/CATALOGS.md` §3 and covered by the kernel conformance suite; a `bare-citation`
+broken-chain status for handle-less `{N}` in claim-bearing artifacts, with project-root
+`source_path` resolution; and orchestrator changes from the methodology-review pilot:
+reachability-correct gates (every multi-path walk runs `adversarial-read` and `evaluate`), a
+single delegated specialist path, a sha256 read handshake as an alternative to inlining the
+discipline (never for the evaluator), and per-specialist bibliography number blocks. Upstream changes
 are merged deliberately rather than tracked; implementation and review history
 belongs to `.work/` and Git.
 

@@ -72,7 +72,7 @@ input contract is read):
    authoring or revision dispatch. The update rule is the invariant: a path becomes a lens the
    moment it is loaded for framing, and it must be in the set before any dispatch that follows.
 3. **Attach the exclusion to the dispatch-composition step, re-reading the set each time** — the
-   same step that already prepends the verbatim discipline bundle (the §5 fence: `[discipline
+   same step that already carries the discipline bundle, by handshake or inline (the §5 fence: `[discipline
    bundle] + [role brief] + [engagement params]`). Because every authoring dispatch *and every
    revision-pass dispatch* (a `NEEDS-REVISION` re-author is composed through this same step) reads
    the **current** `known_lens_paths`, a sibling lens added mid-walk is excluded from every dispatch
@@ -160,7 +160,7 @@ KICKOFF to one level, stated with its rationale; the floor and reachability rule
    source-direct attestation, no broken handles). Note it does **not** catch a lens violation — a
    handle to the prior analytical-tier artifact resolves `intra-program-resolved` (clean); the
    pre-flight exclusion is what prevents that, not the lint.
-5. **verify** — adversarial-read (rigor ≥ standard) / evaluate (rigor = full) / spot-check
+5. **verify** — adversarial-read (rigor ≥ standard, or any multi-path walk) / evaluate (rigor = full, or any multi-path walk — reachability, per the orchestrator's Verification depth) / spot-check
    (always), at the resolved rigor. **Incremental re-verification, recorded (ARD SPEC §221).** The
    stack re-runs over the **delta** — the changed or added substrate (the new/revised citation
    range) — not the whole artifact; the prior-verified set is **grandfathered**. The hard-floor

@@ -317,6 +317,10 @@
         "broken": true
       },
       {
+        "id": "bare-citation",
+        "broken": true
+      },
+      {
         "id": "resolved",
         "broken": false
       },

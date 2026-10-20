@@ -62,6 +62,14 @@ from urllib.parse import urlparse
 # {N}<->bibliography correspondence (CATALOGS §3 check 7) needs the deployment's bibliography
 # structure (not an ARD invariant), so it is deployment-mapped, not validated here.
 CITATION_RE = re.compile(r"\[([\w-]+)\]\{(\d+)\}")
+# Citation-form fence (CATALOGS §3 `bare-citation`): a `{N}` with no `[handle]` cannot
+# enter the chain. Excludes `]{N}` (a well-formed citation), `x{N}`/`_{N}` (identifiers,
+# LaTeX subscripts) and `${N}` (shell/template placeholders).
+BARE_CITATION_RE = re.compile(r"(?<![\]\w$])\{(\d+)\}")
+# The fence covers claim-bearing artifacts only (or ones declaring no provenance): source-direct
+# attestations quote their sources' own notation, and verification records refer to the
+# synthesis's numbering rather than making sourced claims.
+BARE_CITATION_PROVENANCE = {"agent-synthesis", "agent-authored-from-raw"}
 
 # Reference regex matchers, keyed by the lint pattern-category id (ARD CATALOGS §3).
 # The *categories* are the invariant diagnostic targets and are sourced from the
@@ -314,7 +322,32 @@ def intra_program_resolves(handle, analysis_dir):
     return None
 
 
-def check_citation(handle, attestation_dir, analysis_dir, calling_prov, check_urls, handle_counts):
+def project_root_for(attestation_dir):
+    """The project root a relative `source_path` resolves against: the parent of the
+    nearest `.research` ancestor of the attestation dir (None if there is none)."""
+    d = os.path.abspath(attestation_dir)
+    while True:
+        if os.path.basename(d) == ".research":
+            return os.path.dirname(d)
+        parent = os.path.dirname(d)
+        if parent == d:
+            return None
+        d = parent
+
+
+def source_path_exists(source_path, project_root):
+    """`source_path` is project-root-relative (attestation contract); resolve it there
+    first, then against the working directory for backward compatibility, so the lint's
+    verdict no longer depends on where it is run from."""
+    if os.path.isabs(source_path):
+        return os.path.exists(source_path)
+    if project_root and os.path.exists(os.path.join(project_root, source_path)):
+        return True
+    return os.path.exists(source_path)
+
+
+def check_citation(handle, attestation_dir, analysis_dir, calling_prov, check_urls, handle_counts,
+                   project_root=None):
     """Canonical-handle fence + six-check sequence + non-broken statuses + thin flag.
     Returns a finding dict."""
     # Canonical-handle fence (homoglyph / case): the wire-form captures [\w-]+
@@ -355,7 +388,7 @@ def check_citation(handle, attestation_dir, analysis_dir, calling_prov, check_ur
         return {"status": "acquisition-candidate", "severity": "none", "thin": False}
     # Check 4 — source resolution. Path failures are errors; URL failures warn.
     if "source_path" in fm:
-        if not os.path.exists(fm["source_path"]):
+        if not source_path_exists(fm["source_path"], project_root):
             return {"status": "unreachable-source", "severity": "medium", "thin": False}
     elif "source_url" in fm:
         if check_urls and not url_alive(fm["source_url"]):
@@ -400,13 +433,19 @@ def _code_block_mask(lines):
     """Return per-line bool mask: True means the line is inside (or is) a fenced code
     block and should be fully skipped by the pattern scanner."""
     mask = [False] * len(lines)
-    in_block = False
+    fence = None   # (char, length) of the open fence, or None
     for i, line in enumerate(lines):
-        if line.lstrip().startswith("```"):
-            in_block = not in_block
-            mask[i] = True  # the fence line itself is also masked
+        m = re.match(r"\s{0,3}(`{3,}|~{3,})", line)
+        if fence is None:
+            if m:
+                fence = (m.group(1)[0], len(m.group(1)))
+                mask[i] = True  # the fence line itself is also masked
         else:
-            mask[i] = in_block
+            mask[i] = True
+            # CommonMark: closed by a fence of the same char, at least as long, with nothing after.
+            if m and m.group(1)[0] == fence[0] and len(m.group(1)) >= fence[1] \
+                    and not line[m.end():].strip():
+                fence = None
     return mask
 
 
@@ -425,14 +464,90 @@ def _is_in_url(line, pos):
 
 def _is_in_inline_code(line, pos):
     """True iff character position `pos` in `line` falls inside backtick-delimited
-    inline code. Walks the chars toggling a flag on each backtick."""
-    in_code = False
-    for i, ch in enumerate(line):
-        if ch == "`":
-            in_code = not in_code
-        if i == pos:
-            return in_code
+    inline code. A span opened by a run of N backticks closes at the next run of exactly N
+    (CommonMark), so double-backtick spans containing a single backtick are handled."""
+    i = 0
+    while i < len(line):
+        if line[i] != "`":
+            i += 1
+            continue
+        j = i
+        while j < len(line) and line[j] == "`":
+            j += 1
+        run = j - i
+        k = j
+        close = None
+        while k < len(line):
+            if line[k] == "`":
+                e = k
+                while e < len(line) and line[e] == "`":
+                    e += 1
+                if e - k == run:
+                    close = (k, e)
+                    break
+                k = e
+            else:
+                k += 1
+        if close is None:
+            return False   # an unmatched run opens no span
+        if i <= pos < close[1]:
+            return True
+        i = close[1]
     return False
+
+
+def _inline_code_spans(lines, skip):
+    """Per-line (start, end) column ranges covered by inline code spans. CommonMark spans
+    may cross line breaks within a paragraph (not blank lines), so spans are matched over
+    each paragraph's joined text: a run of N backticks closes at the next run of exactly N.
+    `skip` marks lines (frontmatter, fenced code) that break paragraphs and are ignored."""
+    spans = {i: [] for i in range(len(lines))}
+    para = []
+    def flush():
+        if not para:
+            return
+        text = "\n".join(lines[i] for i in para)
+        starts, pos = [], 0
+        for i in para:                       # offset of each line in the joined text
+            starts.append(pos)
+            pos += len(lines[i]) + 1
+        k = 0
+        while k < len(text):
+            if text[k] != "`":
+                k += 1
+                continue
+            e = k
+            while e < len(text) and text[e] == "`":
+                e += 1
+            run, close, q = e - k, None, e
+            while q < len(text):
+                if text[q] == "`":
+                    r = q
+                    while r < len(text) and text[r] == "`":
+                        r += 1
+                    if r - q == run:
+                        close = r
+                        break
+                    q = r
+                else:
+                    q += 1
+            if close is None:
+                k = e                        # unmatched run opens no span
+                continue
+            for idx, i in enumerate(para):   # project [k, close) onto each line
+                a, b = starts[idx], starts[idx] + len(lines[i])
+                lo, hi = max(k, a), min(close, b)
+                if lo < hi:
+                    spans[i].append((lo - a, hi - a))
+            k = close
+        para.clear()
+    for i, line in enumerate(lines):
+        if skip[i] or not line.strip():
+            flush()
+        else:
+            para.append(i)
+    flush()
+    return spans
 
 
 # Citation statuses whose attestation body can anchor a version token on the citing
@@ -530,7 +645,7 @@ def _version_noise(line, matches):
 
 
 def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_citation, do_pattern, do_thin,
-              check_urls, body_cache=None):
+              check_urls, body_cache=None, project_root=None):
     with open(path, encoding="utf-8") as fh:
         text = fh.read()
     fm = parse_frontmatter(text)
@@ -541,7 +656,8 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
     citations, patterns, thin, sc_omitted, campaign_unbound = [], [], [], set(), set()
     if do_citation:
         for m in CITATION_RE.finditer(text):
-            f = check_citation(m.group(1), attestation_dir, analysis_dir, calling_prov, check_urls, handle_counts)
+            f = check_citation(m.group(1), attestation_dir, analysis_dir, calling_prov, check_urls, handle_counts,
+                               project_root)
             line = text.count("\n", 0, m.start()) + 1
             f.update({"handle": m.group(1), "n": int(m.group(2)), "line": line})
             citations.append(f)
@@ -553,6 +669,22 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
                 campaign_unbound.add(m.group(1))
             if do_thin and f.pop("thin", False):
                 thin.append({"handle": m.group(1), "line": line})
+        # Citation-form fence: bare `{N}` outside frontmatter, fenced code, inline code and URLs.
+        bare_scope = fm.get("provenance") in BARE_CITATION_PROVENANCE or "provenance" not in fm
+        lines = text.splitlines() if bare_scope else []
+        fm_skip = _frontmatter_line_count(lines)
+        code_mask = _code_block_mask(lines)
+        skip = [i < fm_skip or code_mask[i] for i in range(len(lines))]
+        code_spans = _inline_code_spans(lines, skip)
+        for lineno, line in enumerate(lines, 1):
+            if skip[lineno - 1]:
+                continue
+            for m in BARE_CITATION_RE.finditer(line):
+                if any(lo <= m.start() < hi for lo, hi in code_spans[lineno - 1]) \
+                        or _is_in_url(line, m.start()):
+                    continue
+                citations.append({"status": "bare-citation", "severity": "high", "handle": None,
+                                  "n": int(m.group(1)), "line": lineno})
     if do_pattern:
         # line -> bodies of cited attestations that can anchor a version token there.
         body_cache = {} if body_cache is None else body_cache
@@ -569,7 +701,8 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
             bib = None if lineno <= fm_skip or code_mask[lineno - 1] else _bib_entry(line)
             if bib:
                 handle = bib.group("a") or bib.group("b") or bib.group("c")
-                f = check_citation(handle, attestation_dir, analysis_dir, True, False, handle_counts)
+                f = check_citation(handle, attestation_dir, analysis_dir, True, False, handle_counts,
+                                   project_root)
                 if f["status"] in ANCHOR_STATUSES:
                     anchored.setdefault(lineno, []).append(
                         _attestation_body(handle, attestation_dir, body_cache))
@@ -640,6 +773,8 @@ def _build_stats(results, attestation_dir):
     for r in results:
         for c in r["citations"]:
             h = c["handle"]
+            if h is None:   # bare-citation: no handle to count
+                continue
             if h not in handle_files:
                 handle_files[h] = []
             if r["file"] not in handle_files[h]:
@@ -653,7 +788,8 @@ def _build_stats(results, attestation_dir):
     for r in results:
         counts = {}
         for c in r["citations"]:
-            counts[c["handle"]] = counts.get(c["handle"], 0) + 1
+            if c["handle"] is not None:
+                counts[c["handle"]] = counts.get(c["handle"], 0) + 1
         by_file[r["file"]] = counts
 
     # Part 3: attestation-tier audit (walk attestation_dir independent of lint targets).
@@ -690,6 +826,9 @@ def main():
     ap.add_argument("target", help="markdown file or directory to lint")
     ap.add_argument("--attestation-dir", default=".research/attestation")
     ap.add_argument("--analysis-dir", default=".research/analysis")
+    ap.add_argument("--project-root", default=None,
+                    help="root that relative attestation source_path values resolve against "
+                         "(default: parent of the attestation dir's .research ancestor, else cwd)")
     ap.add_argument("--format", choices=("markdown", "json"), default="markdown")
     ap.add_argument("--exit-code-on", choices=("high", "medium", "low", "none"), default="none")
     ap.add_argument("--no-citation-check", action="store_true")
@@ -704,11 +843,12 @@ def main():
 
     matchers, non_broken = load_catalog_config(args.catalogs)
     handle_counts = source_handle_counts(args.attestation_dir)
+    project_root = args.project_root or project_root_for(args.attestation_dir)
     body_cache = {}   # attestation path -> body, shared across files (one read per run)
 
     results = [lint_file(p, args.attestation_dir, args.analysis_dir, matchers, handle_counts,
                          not args.no_citation_check, not args.no_pattern_check,
-                         not args.no_thin_check, not args.no_url_check, body_cache)
+                         not args.no_thin_check, not args.no_url_check, body_cache, project_root)
                for p in collect(args.target)]
 
     broken = [c for r in results for c in r["citations"] if c["status"] not in non_broken]
@@ -743,7 +883,8 @@ def main():
                 continue
             print(f"\n## {r['file']}")
             for c in flags:
-                print(f"  [{c['severity']}] L{c['line']} [{c['handle']}]{{{c['n']}}} → {c['status']}")
+                cite = f"[{c['handle']}]{{{c['n']}}}" if c["handle"] else f"{{{c['n']}}}"
+                print(f"  [{c['severity']}] L{c['line']} {cite} → {c['status']}")
             for c in notes:
                 print(f"  [info] L{c['line']} [{c['handle']}]{{{c['n']}}} → {c['status']}")
             for t in r["thin"]:

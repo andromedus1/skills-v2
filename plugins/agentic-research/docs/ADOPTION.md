@@ -32,10 +32,12 @@ before authoring new engagements on a fresh repo; it is preserve-only and operat
 The anti-fabrication core (*ARD SPEC §4–5*) is the discipline bundle at
 [`ard-core/kernel/discipline.md`](../ard-core/kernel/discipline.md) — the single source. The
 `research-discipline` skill wraps it (the skill supplies only the propagation frontmatter + the
-concept→path mapping); the orchestrator inlines that body unaltered into every authoring dispatch
-so the discipline reaches sub-contexts (*ARD SPEC §5*). It is **not restated here** — read it at
-the source. The bundle travels verbatim into each dispatch, never paraphrased (*ARD SPEC §4.6, §5*);
-that in-dispatch fidelity is the drift fence.
+concept→path mapping); the orchestrator delivers that body unaltered into every authoring
+dispatch so the discipline reaches sub-contexts (*ARD SPEC §5*) — by a read handshake (the
+sub-agent reads the file and echoes its sha256) where the sub-agent can read the repository, else
+inlined verbatim, and always inlined for the isolated evaluator. It is **not restated here** — read
+it at the source. The bundle arrives whole, never paraphrased (*ARD SPEC §4.6, §5*); that
+fidelity is the drift fence.
 
 ## The verification floor
 

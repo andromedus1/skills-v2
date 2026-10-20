@@ -1,7 +1,9 @@
 # Dispatch role brief — evaluator
 
 *A dispatch role brief, not a committed agent. The `research-orchestrator` composes a Task
-dispatch as `[verbatim research-discipline bundle]` + `[this brief]` + `[engagement params]`.
+dispatch as `[verbatim research-discipline bundle]` + `[this brief]` + `[engagement params]` —
+always inlined for this role, never by read handshake, so your isolation never depends on
+opening repository files.
 Suggested dispatch: a general sub-agent with `Read` only (isolation by minimal tools — it
 returns its evaluation inline rather than writing; see Output); model `opus`.*
 

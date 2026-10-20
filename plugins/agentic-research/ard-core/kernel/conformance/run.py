@@ -3,7 +3,7 @@
 # ARD lint conformance runner.
 #
 # Runs the lint over the golden fixtures and asserts it reproduces the canonical
-# verdicts in expected.json: every citation status (all 7 broken + 4 non-broken),
+# verdicts in expected.json: every citation status (all 8 broken + 4 non-broken),
 # the GR.5 thin flag, and every lint pattern category. Run this to validate the
 # reference lint, or any re-implementation of it, against ARD's truth (ARD root-0054).
 #
@@ -216,6 +216,43 @@ def main():
             elif kind == "flagged" and ln not in fired:
                 failures.append(f"version-anchor: {rel} L{ln} version-number is unanchored "
                                 f"and must fire, but did not")
+
+    # ── Check group 1e: citation-form fence — bare `{N}` (CATALOGS §3 bare-citation) ──
+    # A `{N}` with no handle cannot enter the chain; counting only well-formed citations
+    # let an all-bare brief lint "0 resolved · 0 broken". Kept in its own fixture dir so
+    # the baseline/stats groups over briefs/ are unaffected.
+    bare = expected.get("bare_citation")
+    if bare:
+        out_bare = run_lint(args.lint, os.path.join(HERE, bare["file"]), ATT_DIR, ANA_DIR)
+        got_bare = sorted((c["line"], c["n"]) for r in out_bare["results"] for c in r["citations"]
+                          if c["status"] == "bare-citation")
+        broken_bare = [c for c in out_bare["broken_chains"] if c["status"] == "bare-citation"]
+        for ln, n in bare["flagged"]:
+            n_lint += 1
+            if (ln, n) not in got_bare:
+                failures.append(f"bare-citation: L{ln} {{{n}}} must fire, but did not")
+        n_lint += 1
+        if len(broken_bare) != len(bare["flagged"]) or any(c["severity"] != "high" for c in broken_bare):
+            failures.append(f"bare-citation: expected {len(bare['flagged'])} high-severity broken "
+                            f"chains, got {[(c['line'], c['severity']) for c in broken_bare]}")
+        for ln in bare["quiet_lines"]:
+            n_lint += 1
+            if any(g[0] == ln for g in got_bare):
+                failures.append(f"bare-citation: L{ln} must not fire (well-formed / placeholder / "
+                                f"code / URL), but did")
+        # A code span crossing a line break masks a {N} on its continuation line.
+        for ln, n in bare.get("quiet_citations", []):
+            n_lint += 1
+            if (ln, n) in got_bare:
+                failures.append(f"bare-citation: L{ln} {{{n}}} is inside a multiline code span and "
+                                f"must not fire, but did")
+        # Non-claim-bearing provenance (a verification record referring to a synthesis's
+        # numbering) is out of the fence's scope.
+        for rel in bare.get("out_of_scope_files", []):
+            n_lint += 1
+            out_oos = run_lint(args.lint, os.path.join(HERE, rel), ATT_DIR, ANA_DIR)
+            if any(c["status"] == "bare-citation" for r in out_oos["results"] for c in r["citations"]):
+                failures.append(f"bare-citation: {rel} is not claim-bearing and must not fire")
 
     # ── Check group 8: --stats mode — attestation-tier audit ────────────────────
     out_stats = run_lint(args.lint, BRIEFS_DIR, ATT_DIR, ANA_DIR, extra_args=["--stats"])

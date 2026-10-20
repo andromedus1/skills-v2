@@ -159,6 +159,8 @@ updated: YYYY-MM-DD
 - non-canonical-handle: the handle is not ASCII-lowercase (uppercase or homoglyph) — use the
   canonical handle.
 - duplicate-frontmatter-key: the attestation repeats a frontmatter key (split-brain) — keep one.
+- bare-citation: a `{N}` with no `[handle]` — the claim never enters the chain, so nothing
+  resolved it. Add the full attestation handle, or attest the source first.
 - colliding-handle: two attestation files declare source_handle: <handle> for different
   sources — rename one source's handle (and its citations) so each handle names one source.
 - mismatched-source-handle: the attestation's source_handle field ≠ its filename/cited handle.
@@ -172,7 +174,7 @@ for a high finding the chain must lint clean at `--exit-code-on high`; for a med
 clear at `--exit-code-on medium`. Re-run the lint to confirm.>
 ```
 
-Use a short, stable slug derived from `(handle, status)` so re-runs match (`gate-citations-rfc6749-unresolved`).
+Use a short, stable slug derived from `(handle, status)` so re-runs match (`gate-citations-rfc6749-unresolved`). A `bare-citation` finding has `handle: null`; group a file's bare citations into one item keyed by `(file, null, bare-citation)`, slugged from the file's `.research/`-relative path with `/` → `-` and `.md` dropped (`gate-citations-analysis-campaigns-<slug>-parent-bare-citation`) so same-named files in different campaigns never collide, listing every line.
 
 ### Phase 5: Commit
 

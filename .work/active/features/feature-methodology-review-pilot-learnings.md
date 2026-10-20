@@ -4,11 +4,11 @@ kind: feature
 stage: drafting
 tags: [methodology-review, research-pipeline]
 parent: null
-depends_on: []
+depends_on: [feature-agentic-research-pilot-fixes]
 release_binding: null
 gate_origin: null
 created: 2026-10-19
-updated: 2026-10-19
+updated: 2026-10-20
 ---
 
 # Methodology-review: pilot learnings and a domain-map front end
@@ -303,6 +303,60 @@ this pilot, comparing:
 
 Reuse the existing research under freshness rules. It is TTL-bounded to
 2027-01-19/20.
+
+## Design decisions
+
+Captured from the `--only-questions` pass with Andrew on 2026-10-20. Treat these
+as fixed inputs for feature-design.
+
+1. **Domain map: step 0 of methodology-review, with split ownership.** A new
+   step 0 commissions the map through `research-pipeline:scout` →
+   `agentic-research:research-orchestrator`, with a structured domain-map
+   output. The two halves are owned separately:
+   - **External alternative space** (research-owned): approach families
+     described in their own terms, evidence by level and open questions. It is a
+     versioned, refreshable `.research/` artifact that a component-then-suite
+     program can reuse (F31).
+   - **Project mapping** (loop-record-owned): jobs, decisions, the charter
+     sample drawn from the map, and coverage against it.
+
+   This split also settles F7/F18. Project transfer and proposals belong to the
+   loop record, not to research. No second research engine and no new skill.
+2. **Sample completeness: an independent challenge, then an operator gate.**
+   Before any depth specialists launch:
+   - A fresh-context pass (cross-model where available) applies the
+     decomposition strategies to the map and sample to find missing approach
+     families.
+   - An operator checkpoint then shows the map, the sample, the gaps, the F28
+     evidence-feasibility triage, and the expected dispatch count and effort
+     (F12, as information, not a cap).
+3. **Coverage gaps against the map are report-only.** Unexamined approach
+   families that bear on in-scope decisions are listed in the assessment report
+   and the exit report. They never block a "Clean within reviewed scope" exit.
+4. **Strategy research produces a new primer.** Commission an Agentic Research
+   engagement on systematic ways to decompose a solution space into genuinely
+   different approaches; set its dials at kickoff and favor thoroughness.
+   Distill the result into a new primer doc under `plugins/research-pipeline/docs/`,
+   following the precedent of `brief-first-principles-frameworks.md` →
+   `first-principles.md`. Attach the new primer, `first-principles.md` and
+   `oblique-strategies.md` to specific methodology-review steps: domain map,
+   charter sample, completeness challenge and per-facet briefs.
+5. **The Agentic Research fixes become a sibling feature with their own PR.**
+   F8, F15, F16, F17, F21, F24 and F27 move to a separate `agentic-research`
+   feature, drained in the same run. Land F21 (rigor table vs `evaluate`
+   reachability) and F27 (bare-citation lint) before the strategy research runs,
+   because both affect that engagement's gates.
+6. **F4 is fixed with a fork-patched tag route.** Agile-workflow gains a
+   documented fork patch: items tagged `methodology-review` route to
+   `research-pipeline:methodology-review`, mirroring the existing `[research]` →
+   research-orchestrator route. Autopilot and the design family then hand the
+   controller to that skill instead of designing it. methodology-review mints
+   its controller directly from a bundled body skeleton, not through
+   `agile-workflow:scope` (F5, F6).
+
+**Out of scope for this drain:** the validation plan (repeating the Knowledge
+review under the revised skill) runs in project-blueprint, after merge, and only
+when Andrew places that project in scope.
 
 ## Design questions for feature-design
 
