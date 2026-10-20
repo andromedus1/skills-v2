@@ -29,3 +29,7 @@ and the whole suite follow only if Andrew elects to continue after assessing it.
 This item stays parked here as the skills-v2 side: findings about the skill
 itself (fit for longitudinal re-review, component shape, scout pairing) come
 back as skills-v2 items. Skill baseline for the pilot: research-pipeline 0.5.0.
+
+**Pilot started 2026-10-19.** Skill findings are collected in
+`feature-methodology-review-pilot-learnings`, which also carries Andrew's
+domain-map front-end direction. Design waits for the pilot's round-1 assessment.
