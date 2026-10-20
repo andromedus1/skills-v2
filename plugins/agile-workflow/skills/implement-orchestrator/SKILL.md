@@ -54,7 +54,9 @@ self-approval.
 
 ## Scope arguments
 
-Accept the orchestration argument shapes defined in `principles` Part V:
+Accept the orchestration argument shapes defined in `principles` Part V (every shape skips
+`[methodology-review-controller]` items — review controllers owned by
+`research-pipeline:methodology-review`, never implementation work):
 
 - no argument or `--all` selects the full implementing queue;
 - a feature id selects the feature and all implementing child-story checkpoints

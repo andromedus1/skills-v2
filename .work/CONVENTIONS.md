@@ -134,6 +134,7 @@ normal ship path.
 - `[perf]` routes feature items to `/agile-workflow:perf-design`
 - `[needs-brief]` routes epic/feature items through `/research-pipeline:brief` before design
 - `[needs-research]` routes through one of `/research`, `/deep-research`, or `/research-program` before brief
+- `[methodology-review-controller]` marks a methodology-review controller record; it routes to `/research-pipeline:methodology-review` and never to the design, implement or release flow. `methodology-review` alone is an ordinary topic tag
 
 ## Design-skill routing
 

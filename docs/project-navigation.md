@@ -95,6 +95,14 @@ these additions when syncing upstream. Upstream's Antigravity root `plugins/*/pl
 manifests and `.agents/plugins.json` are not carried, except `plugins/workbench/plugin.json`,
 which Workbench's own validator and tests read.
 
+A routing patch adds the `[methodology-review-controller]` tag: Autopilot routes such items to
+`research-pipeline:methodology-review` and reports a pending operator decision as awaiting
+operator rather than as a blocker; `feature-design` treats them as misrouted; and
+`release-deploy` never binds them. The patched files are
+`skills/autopilot/SKILL.md`, `skills/feature-design/SKILL.md`,
+`skills/implement-orchestrator/SKILL.md` and `skills/release-deploy/SKILL.md`. `work-view --ready` still lists controllers, because the
+`[scan]`-style exclusion is compiled into the binary.
+
 ## Regenerate the knowledge index
 
 From the repository root, run the existing generator with PyYAML available:

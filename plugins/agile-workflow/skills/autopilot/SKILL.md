@@ -203,6 +203,13 @@ this caller note in every delegated prompt:
 
 Routing:
 
+- any stage, `tags: [methodology-review-controller]` -> `research-pipeline:methodology-review`
+  (**cross-plugin**; resume the review at its next unfulfilled step). The controller records an
+  operator-adjudicated loop, not designable or implementable work: never route it to the design
+  or implement families. When the review returns a checkpoint awaiting an operator decision,
+  record it as **awaiting operator** in the run summary — not a defect `## Blocker` — and continue
+  with other ready items; it never counts toward `complete`. Requires the `research-pipeline`
+  plugin; without it the tag is inert.
 - `stage: drafting`, `kind: epic` -> `epic-design` (an epic carrying `[research]` is a
   research-program epic — it routes here as normal epic decomposition; its children are
   `[research]` features each carrying their own `research_dials:` registration; the tag at
