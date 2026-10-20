@@ -1,7 +1,7 @@
 ---
 id: story-rp-orphan-conformance-fixtures
 kind: story
-stage: review
+stage: done
 tags: [research-pipeline, cleanup]
 parent: null
 depends_on: []
@@ -37,3 +37,10 @@ Removed `plugins/research-pipeline/scripts/conformance/` (10 files).
 - The canonical fixtures and their runner live in agentic-research.
 
 **Verification:** research-pipeline `skill-portability` and `resolve-agentic-research` pass.
+
+## Review (2026-10-20, bounded inline; standalone story)
+
+**Lenses:** references, packaging and tests. Nothing in the repo, CI, manifests or docs references
+the removed path, and the canonical fixtures remain in agentic-research.
+
+**Verdict:** approve, with no findings.

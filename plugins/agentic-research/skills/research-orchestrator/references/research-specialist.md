@@ -25,7 +25,10 @@ author without it** (the ARD SPEC §5 fence).
    (`WebFetch` / `Read`). For each, author a per-source attestation at
    `.research/attestation/<handle>.md` *before* writing any claim that cites it — paraphrased
    summary + key passages with source-internal anchors + normative-minimum frontmatter
-   (`source_handle`, `fetched`, `source_url` or `source_path`, `provenance: source-direct`).
+   (`source_handle`, `fetched`, `source_url` or `source_path`, `provenance: source-direct`), plus
+   `substrate_confidence` set to exactly one of `source-direct`, `search-summary`, `snippet`,
+   `snippet-thin` or `unspecified`, with no inline comment. Use `search-summary` when you read only
+   an abstract or a tool-processed extract; the lint reads any other value as `unspecified`.
    No synthesis prose in attestation files.
 2. **Author your within-specialist brief** at the path the orchestrator gave you. Carry:
    - `[handle]{N}` citations on every load-bearing claim (chain: claim → handle → attestation → source).

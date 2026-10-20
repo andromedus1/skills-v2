@@ -69,7 +69,7 @@ Twelve baseline source classes identify which attestation-body shape and handle 
 | `talk-podcast` | `<speaker>-<talk-slug>` | transcript-source (hand-cleaned vs auto-captioned) |
 | `source-code` | `<project>-<component>` | subclass (`engine` / `dependency` / `gameplay-foundations` / `gameplay-systems`); license (SPDX — varies per source, check per-piece) |
 
-**Engagement-time bracketing** (`bracket` verb) fires structurally when the goal is claim-validation or external-calibration, or for sources whose engagement mode is "audit existing framing"; it is optional otherwise, where the attestation primitive does the structural fence. Optional cross-class frontmatter: `extraction_pipeline` (records the pipeline used — drift-detectability across re-extractions) and `substrate_confidence` (`source-direct` / `search-summary` / `snippet-thin` — engagement depth, defaulting to source-direct).
+**Engagement-time bracketing** (`bracket` verb) fires structurally when the goal is claim-validation or external-calibration, or for sources whose engagement mode is "audit existing framing"; it is optional otherwise, where the attestation primitive does the structural fence. Optional cross-class frontmatter: `extraction_pipeline` (records the pipeline used — drift-detectability across re-extractions) and `substrate_confidence` (`source-direct` / `search-summary` / `snippet` / `snippet-thin` / `unspecified` — engagement depth, defaulting to source-direct; an unrecognised value reads as `unspecified`, never as source-direct).
 
 ### Per-class IP profile + raw-layer treatment
 
