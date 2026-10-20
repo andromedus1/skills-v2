@@ -87,7 +87,9 @@ peeragent's alias table and runtime discovery for concrete IDs, the operator lin
 names are treated as dated examples. Three agile-workflow tests carry macOS fixes: `hooks/scripts/test_prompt_context.py`
 resolves `/private/var` paths, `scripts/tests/agent-metadata.test.sh` asserts the absent
 `package.json` instead of reading it, and `scripts/tests/convert-content-integrity.test.sh`
-replaces bash-4 `mapfile`. The fork's `scripts/bump-version.sh` refuses to bump on `main`
+replaces bash-4 `mapfile`. `scripts/tests/work-view-dist-version.test.sh` skips the dogfood version check when the
+committed `.work/bin/work-view` (the maintainer's native macOS build) cannot execute on the CI host,
+because this fork's refresh job does not replace the dogfood with a Linux binary. The fork's `scripts/bump-version.sh` refuses to bump on `main`
 and omits upstream's Workbench version stamping and Antigravity manifests, so
 [`bump-version.test.sh`](../plugins/agile-workflow/scripts/tests/bump-version.test.sh)
 seeds its scratch repository on a named branch and covers that guard. Preserve
