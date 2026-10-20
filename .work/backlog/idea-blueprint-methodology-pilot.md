@@ -33,3 +33,10 @@ back as skills-v2 items. Skill baseline for the pilot: research-pipeline 0.5.0.
 **Pilot started 2026-10-19.** Skill findings are collected in
 `feature-methodology-review-pilot-learnings`, which also carries Andrew's
 domain-map front-end direction. Design waits for the pilot's round-1 assessment.
+
+**Pilot complete, 2026-10-20.** The Knowledge review closed at "Stopped with
+retained risks" after 2 of 5 rounds. Andrew decided that the rollout to further
+components and the suite waits for this skill revision.
+`feature-methodology-review-pilot-learnings` holds F1–F27 and is now unblocked
+for design: its start condition, the pilot's round-1 assessment, is met, and
+the pilot is complete.

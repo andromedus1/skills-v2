@@ -42,10 +42,9 @@ then targets that map rather than a host-authored sample:
 The map may also be reusable across related reviews, for example per component
 and then for a whole suite.
 
-**Start condition.** Design waits for the pilot's round-1 assessment, so that
-findings from the steps not yet exercised are included: findings and decision
-packet, adjudication, fresh reassessment and exit. Append those findings below
-before feature-design.
+**Start condition: met (2026-10-20).** The pilot completed both rounds and
+closed. All findings are below. Andrew gated the component and suite rollout on
+this revision, and plans to address it in a separate session.
 
 ## Pilot findings (2026-10-19)
 
