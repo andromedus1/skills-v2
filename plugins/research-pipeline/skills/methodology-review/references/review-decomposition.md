@@ -23,6 +23,11 @@ assessment; independent adoption marks a program, not every child. Keep mutually
 dependent decisions together and declare dependencies between independently
 assessable ones. Each shared question has one owner whose results others reference.
 
+Map once at the root across the whole scope before cutting children, so the map
+does not presuppose component boundaries ([domain-map.md](domain-map.md#reuse-refresh-and-programs)).
+Shared research serves consistency and comparability; children deepen it only where
+their own decisions need more.
+
 If the boundary cannot yet be chosen, state the uncertainty: ask the operator when
 intent or constraints are missing, otherwise commission bounded discovery for the
 specific evidence gap, never an exhaustive review to find the scope.
@@ -49,6 +54,10 @@ Pass this skill and reference to a child worker with:
   covered questions and expected contribution.
 - **Charter:** baseline, scope/exclusions, outcomes, criteria/scenarios and
   inherited constraints.
+- **Domain map:** the root's shared alternative-space version and the child's slice
+  of the project mapping. The child draws its sample from the shared map and extends
+  it only through a refresh, never a private copy, so siblings compare against one
+  space.
 - **Evidence:** relevant current artifacts and known gaps; source verification
   stays with Agentic Research.
 - **Coordination:** dependencies, shared-question owner, root round/limit and

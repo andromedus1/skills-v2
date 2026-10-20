@@ -3,18 +3,22 @@
 These fields are a writing aid, not a new frontmatter schema, database or research
 tier. Decision, delivery and assessment fields belong in the loop record chosen under
 the skill's [Scope and authority](../SKILL.md#scope-and-authority); comparison rows
-belong in the Agentic Research artifacts that record links. Preserve dated reports; link corrections and
+belong in the Agentic Research artifacts that record links, while coverage mapping,
+transfer and proposals belong in the loop record. Preserve dated reports; link corrections and
 later assessments rather than changing what an earlier pass concluded.
 
 ## Contents
 
 - [Record location and discovery](#record-location-and-discovery)
+- [Agile Workflow controller](#agile-workflow-controller)
 - [Charter and loop checkpoint](#charter-and-loop-checkpoint)
 - [Component coverage and coordination](#component-coverage-and-coordination)
 - [Comparison rows](#comparison-rows)
+- [Transfer and proposals](#transfer-and-proposals)
 - [Finding record](#finding-record)
 - [Decision packet](#decision-packet)
 - [Assessment report](#assessment-report)
+- [Re-run record](#re-run-record)
 
 ## Record location and discovery
 
@@ -41,10 +45,67 @@ which link research outputs and the current baseline. They assess loop progress;
 they are neither source-direct research nor a replacement for the orchestrator's
 analytical outputs.
 
+## Agile Workflow controller
+
+Mint the controller directly, not through `agile-workflow:scope`, whose next step
+routes to design. The `methodology-review-controller` tag routes the item back to this
+skill and keeps it out of design, implementation and release binding. Add a topic tag
+such as `methodology-review` only alongside it, never instead of it. The controller
+stays at `drafting` while the review is open. On exit, move it to `done` under the
+project's retention conventions.
+
+```markdown
+---
+id: methodology-review-<scope-slug>
+kind: feature
+stage: drafting
+tags: [methodology-review-controller]
+parent: null
+depends_on: []
+release_binding: null
+gate_origin: null
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+---
+
+# Methodology review: <scope>
+
+## Charter
+<step 1 fields; (operator) answers with dates; baseline>
+
+## Domain map
+<alternative-space path and version; project mapping; sample; exclusions>
+
+## Sample checkpoint
+<challenge report link; operator response; expected effort>
+
+## Commission packets
+<one per review unit, or links>
+
+## Rounds and assessments
+<round count and limit; dated assessor reports; coverage; effort>
+
+## Findings and decisions
+<finding records; decision packets; actual operator responses>
+
+## Delivery
+<handoff items, revisions and evidence>
+
+## Next step
+<the next unfulfilled step, or the exit outcome>
+```
+
+Child review items in a program use the same skeleton, with `parent` linking the
+root controller.
+
 ## Charter and loop checkpoint
 
 Record the target, review questions and the skill's step 1 charter, plus completed
 assessment rounds, the latest verified research artifact and the next required step.
+Record the domain-map version the sample drew from, the sample checkpoint's challenge
+report and operator response, and expected effort (engagements, dispatches,
+assessments, rounds); add actual effort as it accrues. Effort is information for the
+operator, never a cap.
 Separate fixed constraints from hypotheses by checking project intent, never by
 assumption.
 
@@ -83,15 +144,29 @@ For each representative approach, record:
 |---|---|
 | Intended use | Users, job, context, constraints; why it is in the sample |
 | Native approach | Its own concepts, workflow and configuration, before our terms |
-| Coverage mapping | Direct, delegated, partial, explicitly excluded or unknown; capabilities outside our categories |
 | Scenario | Common task/input with positive, adverse and correction paths |
 | Method | Acquisition, reasoning, evaluation, human decisions, action, learning as applicable |
 | Evidence | Source chain and inspected revision/date; claim, demonstration or measurement |
 | Consequence | Outcome quality, uncertainty, human/operating burden, limitations, tradeoffs |
-| Transfer | What to retain, simplify, adopt, integrate or test here, and why context supports it |
 
-Choose representative methods, not a vendor quota. Assign no numerical aggregate
+These rows describe each alternative in its own terms; research never maps it onto
+this project. Choose representative methods, not a vendor quota. Assign no numerical aggregate
 score without agreed weights and evidence adequate for that precision.
+
+## Transfer and proposals
+
+Keep these in the loop record, beside the verified comparisons they draw on, and
+never in the research artifact:
+
+| Field | Content |
+|---|---|
+| Coverage mapping | How the alternative's capabilities relate to ours: direct, delegated, partial, explicitly excluded or unknown, including capabilities outside our categories |
+| Transfer | What to retain, simplify, adopt, integrate or test here, and why context supports it |
+| Proposal | The finding and decision-packet choice it feeds, by stable ID |
+
+A proposal cites the research's non-recommending decision-relevance section. The
+research states the conditions under which an alternative would win; the loop record
+argues whether those conditions hold here.
 
 ## Finding record
 
@@ -143,3 +218,12 @@ step.
 
 “No new major findings; two previously identified risks remain by operator decision”
 must never become “zero major findings.”
+
+## Re-run record
+
+A re-run's record carries the predecessor's record and final-assessment links, the
+mapping from prior finding IDs to current ones, a fresh round count, the reused
+research and map versions with their freshness, and a what-changed baseline. Its
+report compares outcomes with the predecessor's: operator corrections to the sample,
+effort, verification churn, decision yield and assessor withdrawals. The closed
+predecessor record is never edited, except to add a forward link.

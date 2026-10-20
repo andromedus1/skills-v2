@@ -2,9 +2,10 @@
 name: methodology-review
 description: >
   Compare a project's methods, workflows and assumptions with relevant products,
-  projects and research. Scout alternative approaches, assess a whole project or
-  selected component, decompose broader reviews into useful component reviews, and
-  iterate through operator decisions and fresh assessment. Use for
+  projects and research. Map the domain's alternative approaches, challenge the
+  sample for missing families, assess a whole project or selected component,
+  decompose broader reviews into useful component reviews, re-run closed reviews
+  over time, and iterate through operator decisions and fresh assessment. Use for
   methodological assessment or comparison with prior art, not ordinary code review
   or documentation consistency checks.
 ---
@@ -35,10 +36,12 @@ analysis are the agent's. Reuse prior explicit authorization and settled answers
 within their stated scope.
 
 Before research, resolve one durable root loop record: in Agile Workflow, a matching
-item or one scoped via `agile-workflow:scope`, tagged `methodology-review` without a
-`research` tag or `research_dials` (separately commissioned research items own their
-engagements, whose completion never closes it); else an established decision
-tracker, never mixing trackers; else root `methodology-review-state.md` with existing
+controller item, or one minted directly (not via `agile-workflow:scope`) from the
+[controller skeleton](references/review-record.md#agile-workflow-controller), tagged
+`methodology-review-controller` without a `research` tag or `research_dials`
+(separately commissioned research items own their engagements, whose completion never
+closes it; the tag routes the item here, never to design or implementation); else an
+established decision tracker, never mixing trackers; else root `methodology-review-state.md` with existing
 planning frontmatter, never under `.research/` and without bootstrapping `.work/`.
 Give concurrent reviews named sections; never overwrite another. The record holds
 operator decisions, delivery links and dated full-scope assessments; research
@@ -47,21 +50,53 @@ it. Never rewrite a completed research report to reflect decisions or implementa
 status. Consult [review-record.md](references/review-record.md) when first recording the
 charter, findings or decisions (existing schemas, no new ARD tier).
 
+## 0. Map the domain
+
+Before chartering comparisons, build or reuse a **domain map**, the structured view of
+the reviewed topic that the sample, research facets and coverage report all reference
+([domain-map.md](references/domain-map.md)). Its halves have different owners:
+
+- **Alternative space** (research-owned): jobs and outcomes, decision dimensions,
+  approach families in their own terms, scenarios, evidence by level and open
+  questions. Commission it through `research-pipeline:scout` in domain-map mode,
+  describing the topic generically; it is a refreshable landscape brief, never edited
+  to reflect decisions.
+- **Project mapping** (loop-record-owned): in-scope jobs and decisions, where the
+  current method sits in the space, and the sample drawn from it.
+
+Reuse a current map that covers the topic, such as a parent's, sibling's or
+predecessor's, refreshing it only for a named coverage or freshness gap. A program maps
+once at the root for every child.
+
 ## 1. Set a review charter
 
-Read project intent, instructions, knowledge navigation, existing research and
-delivery state. Record:
+Read project intent, instructions, knowledge navigation, existing research, delivery
+state and other reviews whose scope overlaps. Record the fields below. Ask the operator
+only the **(operator)** fields not already settled; the host determines the rest from
+evidence and records its basis.
 
-- Users, jobs, outcomes, constraints and the decisions this review may change.
-- Scope, baseline revision/digests, project-wide or component-only coverage and
-  deliberate exclusions.
+- **(operator)** Users, jobs, outcomes, constraints and the decisions this review may
+  change.
+- **(operator)** Scope, project-wide or component-only coverage and deliberate
+  exclusions; the host records the baseline revision/digests.
 - Assumptions, disputed requirements and evidence that could change them; operator
-  constraints versus inherited design choices.
+  constraints versus inherited design choices. The operator confirms disputed ones.
+- Overlapping reviews: a settled decision is a constraint; a pending one is an input
+  this review neither re-adjudicates nor absorbs. Link it and exclude or depend on its
+  scope; ask only if the overlap changes what this review may decide.
 - Scenarios and criteria: outcome quality, evidence, uncertainty, human effort,
   correction/learning, operating burden and applicability.
-- Search vectors and a provisional sample of genuinely different approaches, with a
-  simpler baseline when relevant; explain consequential exclusions.
-- Confirmed research settings, completion criteria and round limit: propose mixed
+- A sample of genuinely different approaches drawn from the map's families, with a
+  simpler baseline when relevant; explain each consequential exclusion. Never author
+  the sample from recall.
+- Evidence feasibility for each decision: literature-settleable, experiment-needed or
+  mixed, using existing research (a documented evidence absence counts). Propose an
+  experiment track early for experiment-needed decisions rather than expecting
+  sources to settle them.
+- Expected effort: anticipated engagements and dispatches, fresh assessments and
+  rounds. This is information for the operator, never a cap or a reason to trim
+  coverage or verification depth.
+- **(operator)** Confirmed research settings, completion criteria and round limit: propose mixed
   scope authority and standard verification unless context differs (the
   orchestrator settles its dials); default to at most five complete root assessment
   rounds including the first, changeable by the operator.
@@ -77,7 +112,8 @@ work. A suite landscape or pilot may help set boundaries but is never mandatory.
 ## 2. Map decisions and select the review shape
 
 Map decisions, assumptions, shared constraints and scenarios before choosing a
-shape. Start unsplit; split only when distinct comparisons would improve a decision,
+shape. Alongside the domain's own decision dimensions, include **discovery**: what the
+current method omits or underexplores relative to the map. Start unsplit; split only when distinct comparisons would improve a decision,
 never for folder counts, topic breadth, research volume or distinct evidence domains
 alone.
 
@@ -97,13 +133,36 @@ approval; changed scope or constraints do. For a split, uncertain boundary or
 resumed multi-part review, first read
 [review-decomposition.md](references/review-decomposition.md).
 
+## Sample checkpoint (before depth research)
+
+Before commissioning comparisons:
+
+1. Compare the sample with the map and name the unsampled families and why.
+2. Have a fresh-context assessor, with the project's cross-model preference when
+   available, challenge the map and sample for missing families or framings using the
+   [completeness-challenge brief](references/assessor-briefs.md#completeness-challenge).
+   Its proposals are evidence. Add a missing family by refreshing the map through
+   scout, never from host recall.
+3. Present the operator with the map, sample, exclusions, challenge results,
+   evidence-feasibility triage and expected effort; record the actual response.
+
+Repeat the challenge only when the map or sample changes materially. Until the
+operator responds, this is a checkpoint awaiting a decision; no depth research starts.
+
 ## 3. Research and compare
 
 Per review unit, name the evidence gap and the decision a finding could change.
 Reuse sufficient current research under the engine's source/refresh rules; use
 `research-pipeline:scout` for missing landscape coverage, not every round.
-Commission comparisons via `agentic-research:research-orchestrator` with the unit's
-charter, decision relevance and proposed output; the engine discovers facets. Review
+Commission comparisons via `agentic-research:research-orchestrator` with a
+[commission packet](references/commission-packet.md): charter fields, map and sample,
+evidence levels, scenarios, default dials and a required non-recommending
+decision-relevance section. Every dispatch references the packet by path rather than
+restating it; the engine discovers facets. Research owns comparisons in each
+alternative's own terms and their evidence; the loop record owns coverage mapping,
+transfer and proposals. If the operator widens scope mid-review, record a new baseline
+and extend a running engagement only within its registered scope authority; otherwise
+commission a linked new engagement. Review
 shape sets neither research shape nor rigor (a focused review may need a large
 campaign). `research-pipeline:research-program` is for separately commissioned
 engagements and their dependencies, not for review children as such. Preserve
@@ -111,9 +170,9 @@ confirmed settings within their agreed scope.
 
 Ask the research to:
 
-- Describe alternatives in their own categories before mapping them, including other
-  configurations, deliberately omitted work and capabilities beyond our inventory;
-  a longer feature list is not a better method.
+- Describe alternatives in their own categories, including other configurations,
+  deliberately omitted work and capabilities beyond our inventory, leaving their
+  mapping onto ours to the loop record; a longer feature list is not a better method.
 - Compare the same user job under stated constraints, noting audience, scale and
   purpose differences; a documentation gap is unknown unless absence is evidenced,
   and advertised capability is not execution evidence.
@@ -139,6 +198,12 @@ orchestrator-owned pass, not a second verification stack. A clean exit still nee
 the step 6 assessment, even at floor rigor; one pass serves both only if its actual
 scope and structured result satisfy both. Refresh the project's existing knowledge
 index after new research artifacts; never bootstrap one elsewhere.
+
+Before anything reaches the operator: check each draft finding against the current
+artifact text it relies on and drop or correct any misreading; then have the fresh
+assessor of [step 6](#6-fresh-reassessment-and-exit) assess the draft findings with the
+[assessment brief](references/assessor-briefs.md#assessment); then present the packet
+with the assessor's withdrawals and downgrades.
 
 Deduplicate findings under [stable IDs](references/review-record.md#finding-record)
 and separate methodological findings from incidental doc/code defects. A **major**
@@ -187,6 +252,12 @@ erasing earlier-scope findings.
   resulting revision and evidence. If delivery happens elsewhere or later,
   checkpoint as awaiting change and resume when its evidence exists.
 
+When the operator declines or changes a path that other findings or recommendations
+depended on, such as a measurement, an experiment or another remedy, re-present those
+dependent findings on the changed basis in the same batch. Authorized remedies sharing a
+delivery surface may be bundled into one delivery item that keeps each finding ID and
+its exact authorization.
+
 Rejecting or deferring neither falsifies a proposal's evidence nor verifies a
 remedy; record the retained risk, rationale and any revisit trigger. Do not re-ask
 on an unchanged baseline; reopen only for materially new evidence, changed
@@ -215,6 +286,12 @@ already independent initial assessment can be the exit report. A parent assessor
 also weighs child assessments, coverage and baselines for combined effects; all
 children passing is insufficient.
 
+The assessment reports coverage against the domain map: families compared, excluded
+by the operator with reasons, and unexamined. Unexamined families bearing on an
+in-scope decision are listed in the assessment and exit report but do not by
+themselves block a clean exit. It also reports actual effort beside the charter
+estimate.
+
 Read the exit from that assessment, not the author's confidence or a targeted grep;
 a bounded review never proves universal quality. When several outcomes apply, report
 every finding's status; the highest-ranked outcome is primary.
@@ -238,6 +315,25 @@ limit with clean conditions unmet, report Incomplete or the more specific
 awaiting/stopped outcome, never clean; only the operator can extend the limit.
 Paused or waiting portions do not block unrelated authorized work.
 
+## Re-run and longitudinal review
+
+Repeat a closed review under a revised skill, after time passes or after the method
+changes by opening a new review linked to its predecessor; never reopen the closed
+record.
+
+- Give it a new review ID and record, linked to the predecessor's record and final
+  assessment.
+- Carry predecessor finding IDs forward as prior IDs; a persisting finding keeps its
+  identity and new findings get new IDs.
+- Start a fresh round count; the predecessor's limit and count do not carry over.
+- Reuse its research and domain map under the engine's freshness rules, refreshing
+  only named stale or missing coverage.
+- Record a what-changed baseline: project revisions, skill version, decisions and
+  delivery since, and expiring research.
+- Compare outcomes with the predecessor in the report: operator corrections to the
+  sample, effort, verification churn, decision yield and assessor withdrawals. This
+  is evidence about the review method, not a verdict on the project.
+
 ## Resume and report
 
 To resume, use the supplied record path, else the matching active
@@ -249,7 +345,8 @@ decisions and finding IDs, and identify the next unfulfilled step. Never infer
 approval from an item's presence or its research engagement's completion. Split
 reviews follow the [resume rules](references/review-decomposition.md#rounds-stopping-and-resume).
 
-Report the assessed scope/baseline, approaches sampled, major findings by status,
+Report the assessed scope/baseline, approaches sampled and map coverage, expected
+versus actual effort, major findings by status,
 operator decisions, authorized changes and verification, unresolved risks and exact
 exit reason, linking research outputs and the operational record. Keep the result
 usable without an implementation or a tracked work substrate.

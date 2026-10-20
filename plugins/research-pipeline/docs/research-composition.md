@@ -27,14 +27,17 @@ kickoff and remains authoritative for the engagement.
 | `brief` | resolve a work-item-blocking knowledge gap | commissioning-linked brief |
 | `deep-research` | investigate a consequential multi-facet domain | campaign |
 | `research-program` | coordinate multiple decision-linked research arcs | research epic with registered feature engagements |
-| `methodology-review` | compare methods and iterate through operator decisions | verified research comparisons plus operational assessment/decision records |
+| `methodology-review` | compare methods against a mapped alternative space and iterate through operator decisions | a domain map (scout landscape), commissioned comparisons, plus operational assessment/decision records |
 
 These are starting profiles, not separate engines or fixed cost tiers. The
 orchestrator discovers fan-out and confirms rigor according to the downstream
 decision.
 
-`methodology-review` maps methodological decisions before selecting its review
-shape. A child can repeat the same comparison/adjudication/reassessment protocol
+`methodology-review` first builds or reuses a domain map: the alternative space is
+a scout landscape brief owned by research, and the project mapping and sample live in
+the review's loop record. It then maps methodological decisions before selecting its
+review shape, and has the sample challenged for missing families before commissioning
+comparisons. A child can repeat the same comparison/adjudication/reassessment protocol
 within a smaller scope, with research depth chosen separately. Research execution
 and cross-source synthesis remain with Agentic Research. Approved changes use the
 normal handoff/delivery routes. See
