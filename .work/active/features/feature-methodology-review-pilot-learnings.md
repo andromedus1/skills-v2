@@ -42,6 +42,36 @@ then targets that map rather than a host-authored sample:
 The map may also be reusable across related reviews, for example per component
 and then for a whole suite.
 
+**Operator direction, Andrew, 2026-10-20 (end of pilot):**
+
+- **Surfacing alternatives is the key step.** Improve it substantially. It is
+  the lead objective of this revision, ahead of the other edit priorities.
+- **Research strategies for breaking down alternatives.** This means
+  systematic ways to decompose a solution space into genuinely different
+  approaches, so that the review's sample is complete rather than authored
+  from recall. Treat this as a **research question for the revision itself**,
+  commissioned through Agentic Research. The plugin may already hold part of
+  the answer in its primers. Attach the relevant primers to methodology-review,
+  as other research-pipeline skills attach `first-principles.md` and
+  `system-design.md` (for example feature-design, epic-design, architecture
+  and ideate). Candidate primers to evaluate:
+  - `docs/first-principles.md`: Open/decompose moves, such as Decompose to
+    Fundamentals and Question Deeply, and Challenge moves, such as Invert and
+    Seek Falsification;
+  - `docs/oblique-strategies.md`: lateral moves for when the sample is stuck
+    or over-constrained;
+  - `docs/system-design.md`;
+  - `docs/brief-first-principles-frameworks.md`;
+  - `docs/first-principles-architecture.md`.
+
+  Decide which moves apply at which step: domain map, charter sample,
+  sample-completeness check, and per-facet research briefs.
+- **Thoroughness over efficiency.** Andrew always prefers thoroughness. High
+  agent cost is acceptable. F12/F31 are reframed accordingly: show cost as
+  information for the operator, not as a budget cap, and never trade coverage
+  or verification depth for cost. F31's reuse across a program is still
+  wanted, for consistency and comparability rather than for savings.
+
 **Start condition: met (2026-10-20).** The pilot completed both rounds and
 closed. All findings are below. Andrew gated the component and suite rollout on
 this revision, and plans to address it in a separate session.
@@ -206,7 +236,7 @@ pilot. The intent sources are:
 | Close the loop through delivery | **Met** | Decision → research-handoff items → delivered and reviewed → verified in round 2 |
 | Component, then suite program (decomposition) | **Untested** | Component-only charter. The decomposition guidance and shared round limit were not exercised |
 | Longitudinal re-review over time | **Untested, and the next test** | Andrew plans to repeat the Knowledge review with the revised skill. The skill has no guidance for re-running a closed review under a new skill version or after time passes (F29) |
-| Proportionate effort, scalable to 6 components and the suite | **Not met** | About 20 agent dispatches plus resumes for one component, with no cost shown up front (F12). At this cost, a full rollout is impractical without reuse and budgets |
+| Effort visibility (operator preference: thoroughness over efficiency) | **Partly met** | About 20 agent dispatches plus resumes for one component. The cost is acceptable to Andrew, but it was not shown up front (F12). Thoroughness should not be reduced to save cost |
 
 **New findings from this assessment:**
 
@@ -229,17 +259,25 @@ pilot. The intent sources are:
   assessment, the host should verify each draft finding against the current
   artifact text. KMR-03 was a host misreading of the lifecycle; the assessor
   caught it, but a cheap pre-check would have avoided it.
-- **F31. Program-scale economics.** For component-then-suite programs, the
-  skill should plan a shared domain map and shared research across children,
-  with lighter per-child research and an explicit budget per child. Repeating
-  a full campaign per component does not scale.
+- **F31. Program-scale reuse.** For component-then-suite programs, the skill
+  should plan a shared domain map and shared research across children, so
+  children compare against one consistent alternative space. Per-child
+  research then deepens where a child's decisions need it. The goal is
+  consistency and comparability, not savings. Andrew prefers thoroughness over
+  efficiency, so no per-child budget caps.
 
 **Suggested edit priorities for the skill revision:**
 
-1. **Domain-map front end with sample-completeness check** (Andrew's
-   direction; F11, F14). Pair it with F28's evidence-feasibility triage and
-   F31's reuse across children.
-2. **Cost and effort visibility with an operator budget** (F12, F31).
+1. **Surfacing alternatives: the lead objective (Andrew).**
+   - A domain-map front end with a sample-completeness check (F11, F14).
+   - Research strategies for decomposing the alternative space, commissioned
+     as research for this revision.
+   - Primers attached to the skill (`first-principles.md`,
+     `oblique-strategies.md`, and others as evaluated).
+   - Pair this with F28's evidence-feasibility triage and F31's shared map
+     across children.
+2. **Cost and effort visibility as information, not a cap** (F12). Andrew
+   prefers thoroughness over efficiency.
 3. **Commission-packet template** including a non-recommending
    decision-relevance section, and a clear review/research ownership boundary
    (F7, F9, F10, F18, F23).
@@ -268,6 +306,13 @@ Reuse the existing research under freshness rules. It is TTL-bounded to
 
 ## Design questions for feature-design
 
+- **Surfacing alternatives:**
+  - Which strategies for decomposing a solution space should the skill
+    prescribe? Research it first.
+  - Which primers attach, at which steps?
+  - How does the operator review the domain map and the sample, so they can add
+    approaches before any depth research, rather than mid-campaign as in the
+    pilot?
 - Should the domain map be a new Research Pipeline entry point, a step-0 phase of
   methodology-review, or a reuse of scout with a structured output kind (for
   example landscape plus vocabulary capture)? What does Agentic Research own
