@@ -22,7 +22,7 @@ key_findings:
   - Chao-type estimators give lower bounds under heterogeneous detection; sample coverage (share of abundance or incidence probability already represented, not share of kinds) is more robustly estimable than the number of missing kinds.
   - Every completeness figure is conditional on the generating process, the identity threshold that merges near-duplicates, the rank counted and the frame of dimensions or known items.
   - Estimator inputs differ: capture–recapture needs two or more captures treated as independent, incidence estimators replicated units, abundance estimators frequency counts, screening tests a random sample of the remainder; few occasions widen intervals, and inspection studies advise against fewer than four inspectors unless shown to work in a particular environment.
-  - In screening, the baseline-rate and 50-consecutive-misses heuristics each missed the 95% recall target in about 39% of runs, and median thematic-saturation stopping points left 18–22% of observed themes unseen; reading these as evidence about any quiet last pass is a transfer.
+  - In screening, the baseline-rate and 50-consecutive-misses heuristics each missed the 95% recall target in about 39% of runs, and at thematic-saturation stopping points median coverage of observed themes was 78–82%; reading these as evidence about any quiet last pass is a transfer.
   - Missing items can mean missing categories; independent maps of one topic overlap little, and part of their disagreement is classification, not retrieval.
   - Models detected planted omissions far less often than planted wrong inclusions, and one abstract-level study reports the same direction for human testers; marking where content is absent recovered much of the gap in one surface benchmark.
 ---
@@ -64,7 +64,7 @@ The fields keep apart three things that a single word "complete" can conflate:
 
 The ecological estimators of Section 3 are the closest formal treatment of the third quantity;
 their validity for kinds of methods or approaches is untested in the attested sources
-[chao-colwell-chao2-inequality-2017]{350} {inferred: absence across the coverage-estimation sources}.
+[chao-colwell-chao2-inequality-2017]{350} {inferred: absence}.
 
 ## 2. Completeness signals and their evidential status
 
@@ -86,8 +86,7 @@ their validity for kinds of methods or approaches is untested in the attested so
 | Overlap between independent repetitions | Low overlap signals unseen items | Disagreement is partly classification [kitchenham-slr-repeatability-2011]{260} [el-emam-defect-classification-repeatability-1998]{372} | measured |
 | New items fall into new categories | Missing items imply missing kinds | Shown in one review [kitchenham-slr-repeatability-2011]{260} | measured (one case) |
 
-{inferred: aggregate — rows are composed from the cited attestations; evidence labels follow the
-specialist briefs.}
+{inferred: aggregate}
 
 ## 3. Convergent findings
 
@@ -132,7 +131,7 @@ could overestimate severely or fail to produce an estimate [briand-capture-recap
 extractor-level}. Adaptive samplers bias estimates downward
 [bohme-residual-risk-greybox-2021]{360}.
 
-### 3.3 "Nothing new in the last run" is not evidence of completeness
+### 3.3 Non-yield and saturation stopping rules are not evidence of completeness
 
 - In technology-assisted screening, stopping after 50 consecutive irrelevant items or at a baseline
   rate missed the 95% recall target in about 39% of runs [callaghan-statistical-stopping-2020]{170};
@@ -287,3 +286,4 @@ Stated in the source fields' own terms; not recommendations.
 - **2026-10-20 — correction (adversarial re-check 2).** The setting-specific clauses now cite their own attestations (R2).
 - **2026-10-20 — correction (evaluate round 1).** Prose notes about specialists are replaced by closed-vocabulary markers (G2). "Median" is restored on the 18–22% figure (G9).
 - **2026-10-20 — correction (evaluate round 2).** The omission claim rests on models, with the human study at abstract depth (G4/N2). The 39% figure is split by rule with a transfer note (G6/N2). Process-describing scope lines are removed.
+- **2026-10-20 — correction (evaluate round 3 notes).** Marker prose is trimmed, the §3.3 heading is corrected, and the median placement is fixed.

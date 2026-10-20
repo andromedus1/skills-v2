@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-pilot-learnings-strategy-research
 kind: story
-stage: implementing
+stage: done
 tags: [methodology-review, research-pipeline, research]
 parent: feature-methodology-review-pilot-learnings
 depends_on: []
@@ -194,3 +194,30 @@ synthesis still passes the reachability-required gates.
 - **Acquisitions:** `acquisitions.md` written with 2 blocking entries (the
   Siebert & Keeney 2015 full text; Gettys 1987) and enriching entries. Promotion
   to `.work/` is proposed to the operator, not written.
+
+### Verification record and completion (2026-10-20)
+
+| Gate | Required | Assessed inputs | Result |
+|---|---|---|---|
+| lint (floor) | yes | 22 campaign files | 0 broken, 0 thin; 1,494 resolved; handle↔number mismatches 0 across the campaign |
+| adversarial-read | yes (`full`, and multi-path reachability) | parent, both clusters, eight specialists, 156 attestations | Codex `gpt-6.1-sol` (a different model family). NEEDS-REVISION (R1–R9), then three targeted re-checks; **APPROVED**. Record: `verification-checklist.md` |
+| evaluate | yes (`full`, and cross-specialist reachability) | parent and both clusters plus the seed only, inlined; the evaluator ran in an empty working directory | Claude Opus (xhigh) via peeragent. Round 1 NEEDS-REVISION; round 2 NEEDS-REVISION (N1, N2); round 3 **APPROVED**, with minor notes applied. Record: `campaign-evaluation.md` |
+| spot-check (floor) | yes | 12 sampled load-bearing specifics plus the evaluator's spot-check list | All present in their attestations. One comparison was not attested (lens-anchored debate versus single-agent generation) and is now marked as an absence |
+
+**Corrections made by the lead:**
+- The R4 attestation was extended from the fetched PDF (12 point counts).
+- 24 nonstandard `substrate_confidence` values were normalized.
+- Correction logs were added to the parent, both clusters and four specialists.
+
+**Stop-rule judgement:** each re-run showed material progress. The one new detail a revision introduced ("seeded") was a propagated specific, corrected in place.
+
+**Gap disclosed for the record:** the read handshake was used for specialists and the adversarial reader; the evaluator always had the bundle inlined.
+
+**Outputs:**
+- `.research/analysis/campaigns/solution-space-decomposition/parent.md`, which includes the §5 adoption recommendations;
+- `clusters/generation.md` and `clusters/completeness.md`;
+- `specialists/*.md` (8);
+- `acquisitions.md`, with 2 blocking candidates (the Siebert & Keeney 2015 full text; Gettys 1987). Promotion to `.work/` is proposed to the operator, not written;
+- 181 bibliography entries merged into `.research/references.md`.
+
+**Shape:** fan-out of 8 specialists (5 declared, 3 emergent under `mixed` authority), with nested cluster synthesis at the program-scale threshold. Resolved rigor: `full`.

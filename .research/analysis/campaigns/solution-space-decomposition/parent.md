@@ -23,7 +23,7 @@ summary: >-
   trigger as an inference. Structured generators are advocated more than measured.
 key_findings:
   - Unaided human generation recovers roughly 30–50% of later-recognised objectives or alternatives, and omitted items are about as important as found ones; language-model narrowing is measured as similarity and category coverage, not as this recovery fraction.
-  - Upfront examples, similarity feedback and standard multi-agent debate narrowed sets where tested; voting over independent responses did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a dynamic multi-generation pool in another (abstract-level). Independent generation before discussion is a prescription, with pooling demonstrated in one case whose reference was the pooled union.
+  - Upfront examples, similarity feedback and standard multi-agent debate narrowed sets where tested; voting over independent responses did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a dynamic multi-generation pool in another (the widening study at search-summary depth). Independent generation before discussion is a prescription, with pooling demonstrated in one case whose reference was the pooled union.
   - Measured second-pass gains come from stating the first pass is incomplete with a numeric target, or showing prior items with an instruction to differ; more time does not help.
   - No attested source validates a completeness estimator for families of methods or approaches; capture–recapture needs at least two passes, incidence estimators need replicated sampling units, abundance estimators need frequency counts from a sample, and screening tests need a random sample of the remainder; estimates are frame-relative and are not certification.
   - In screening, the baseline-rate and 50-consecutive-misses heuristics each missed the 95% recall target in about 39% of runs, and median thematic-saturation stopping points left part of the observed themes unseen; applying this to "the last challenge pass added nothing" is a transfer.
@@ -44,7 +44,7 @@ completeness). Most generation evidence is from student or crowd lab studies and
 language models; most completeness evidence is from evidence synthesis, ecology, software inspection
 and testing, and classification research. Transfer to kinds of methods or approaches is analogical
 throughout: no attested source tests these techniques on samples of approaches to a methodology.
-{inferred: absence across all eight facets} Evidence levels: **advocated** (including designed
+{inferred: absence} Evidence levels: **advocated** (including designed
 procedures), **demonstrated**, **measured**; "mixed" marks measured results that disagree.
 Reduced-depth sources are marked.
 
@@ -91,7 +91,7 @@ the *operator* is the person who adjudicates the review's decisions.
 | Independent generation, then pooled union | Advocated (prescribed) [bond-carlson-keeney-improving-objectives-2010]{453}; demonstrated in one case where executives listed on average 36% of a 39-objective aggregate built from their pooled lists [bond-carlson-keeney-objectives-2008]{452} | "More complete than any one" holds by construction against a pooled reference, and says nothing about families every lister missed {inferred: aggregate}; a different model alone does not establish independent coverage [artificial-hivemind-homogeneity-2025]{307}, while distinct cues to one model raised coverage [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312} |
 | Second pass with "first lists are incomplete" and a numeric target | Measured: +2.77 to +4.87 items, with no quality loss in the successful arms [bond-carlson-keeney-improving-objectives-2010]{453} | Objectives, one MBA population |
 | See prior items, instruction to differ (LLM) | Measured: lowest similarity [meincke-prompting-idea-variance-2024]{300}; human-level distinctness [noveltybench-humanlike-diversity-2025]{310} | Caveats on model version; gains vanish as pools deplete |
-| Distinct cue per draw (ordinary personas; persistent agent lenses) | Measured in single studies: personas raised between-session spread [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}; lens-anchored debate gained 26.2% semantic diversity over homogeneous debate, which itself fell below single-agent generation; a comparison with single-agent generation is not attested [creative-mad-debate-diversity-2026]{317} | One model or one preprint each; celebrity personas were mixed [meincke-prompting-idea-variance-2024]{300} |
+| Distinct cue per draw (ordinary personas; persistent agent lenses) | Measured in single studies: personas raised between-session spread [deng-brucks-toubia-llm-idea-diversity-barriers-2026]{312}; lens-anchored debate gained 26.2% semantic diversity over homogeneous debate, which itself fell below single-agent generation; a comparison with single-agent generation is not attested {inferred: absence} [creative-mad-debate-diversity-2026]{317} | One model or one preprint each; celebrity personas were mixed [meincke-prompting-idea-variance-2024]{300} |
 | Categories as a second pass | Mixed: +30% self-generated in a second pass, but confounded with the second opportunity, and no reliable gain over a motivated deeper review [bond-carlson-keeney-improving-objectives-2010]{453} | Upfront categories did not reduce misses [bond-carlson-keeney-improving-objectives-2010]{453} |
 | Abstraction for distant retrieval (compare two analogs; concrete constraint schemas) | Measured: 21% → 45% transfer [gick-holyoak-schema-induction-1983]{416}; relevant yet distant inspirations [kittur-scaling-analogical-innovation-2019]{415} | A review reports Zahner et al. finding that too-abstract framing lowers fit, and that the right balance is unclear [vasconcelos-crilly-inspiration-fixation-2016]{418} |
 | Distant or analogous-domain sources | Mixed: novelty up and usability down [franke-poetz-schreier-analogous-markets-2014]{273}; contradictory lab results [chan-fu-analogy-distance-commonness-2011]{403} [fu-near-far-analogy-2013]{404} | No sweet spot was located in the attested sources {inferred: absence} |
@@ -252,7 +252,7 @@ steps (c) and (d) use it.
 9. Report a descriptive, frame-relative coverage statement rather than "complete". The primary signal
    comes from the challenger's pre-exposure list, counted after the family-versus-variation adjudication
    of recommendation 5, in two parts: (i) families **absent from the map**, and whether they open new
-   dimensions or empty cells [kitchenham-slr-repeatability-2011]{375}; (ii) families **on the map but not
+   dimensions [kitchenham-slr-repeatability-2011]{375} or empty cells [nickerson-taxonomy-development-method-2013]{200}; (ii) families **on the map but not
    sampled**, and whether each carries a dimension value the sample does not cover (intended exclusions
    under recommendation 4 are expected and are not gaps). Record whether each addition came from the
    unforced or the targeted pass of recommendation 7. Report alongside: the adjudicated observed union;
@@ -261,7 +261,8 @@ steps (c) and (d) use it.
    [wohlin-hybrid-search-snowballing-2022]{160}; classification-boundary decisions; and the frame. Keep the
    observed count distinct from any estimated total. No model-based estimate, including sample coverage,
    is supported for these passes, because the sample is a purposive draw from the map rather than a
-   capture, there are only two or three occasions where inspection guidance advises four or more
+   capture, there are only two or three occasions where inspection guidance advises four or more unless shown to work
+   in a particular environment
    [briand-capture-recapture-inspections-2000]{362}, and shared model priors may correlate the passes
    [artificial-hivemind-homogeneity-2025]{307}, against the independence capture–recapture assumes
    [bron-chao-estimator-tar-2024]{169}. {inferred: aggregate} Avoid "nothing new in the last pass" as a
@@ -270,9 +271,13 @@ steps (c) and (d) use it.
     families absent from the map, trigger a **map refresh** and a re-challenge of the affected decisions.
     On-map families carrying an uncovered dimension value (part (ii)) trigger a **sample revision**. If
     the held-out families are also used to test the challenger, a challenger that misses held-out
-    families gives weak evidence, and the remedy is a **stronger challenge** (more distinct cues, another
+    families gives a quiet result that is weak evidence of completeness, and the remedy is a **stronger challenge** (more distinct cues, another
     targeted pass), not a map refresh. Proceeding to depth research is otherwise a judgement by the review's
-    operator, informed by the coverage statement, since no attested rule decides it. `extends`
+    operator, informed by the coverage statement, since no attested rule decides it. Run any re-challenge or
+    stronger challenge as a fresh pass under recommendations 6–8, not by the already-exposed challenger.
+    Under recommendation 4's full field coverage, part (ii) fires only when the draw missed a value or
+    adjudication reclassified a family; and because full field coverage covers single values, not
+    combinations, part (ii) cannot flag a family distinguished only by an uncovered combination. `extends`
 11. Separate retrieval gaps from classification disagreements (merged or split families) when passes
     disagree [el-emam-defect-classification-repeatability-1998]{372}
     [briand-capture-recapture-inspections-2000]{362}.
@@ -386,3 +391,4 @@ steps (c) and (d) use it.
   Notes addressed: "on average" restored, lens-debate baseline, heading, Kastner/Rücker confidence
   markers, Johnson and Raab side restored, absence marker, "Prescribed" mapped to advocated, "author"
   clarified.
+- **2026-10-20 — correction (evaluate round 3 notes).** Marker prose is trimmed. The depth label on the exposure finding is corrected. The inspector exception is carried into rec 9. An absence marker is added. Empty cells are cited to Nickerson. Re-challenges are fresh passes, and the part (ii) firing conditions and combination limit are stated in rec 10.

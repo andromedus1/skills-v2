@@ -1,6 +1,6 @@
 # Auto-generated. DO NOT EDIT BY HAND.
 # On-demand layer — load when surfacing a specific doc's full context.
-generated_at: '2026-10-20T19:53:20Z'
+generated_at: '2026-10-20T21:23:39Z'
 generated_from: frontmatter
 schema_version: 1
 documents:
@@ -279,3 +279,240 @@ documents:
     - 'Numeric thresholds are not commensurable across sources: ''effective false positive'' (no action
       taken), ''false positive'' (cannot happen), ''not-useful rate'' (click ratio), and ''override rate''
       measure different things.'
+  .research/analysis/campaigns/solution-space-decomposition/clusters/completeness.md:
+    summary: 'Cross-specialist synthesis over four facets (search completeness, coverage estimation, taxonomy
+      construction, landscape mapping) on how a sample of approaches or kinds can be checked for completeness
+      before depth work. Across the fields, completeness of the process, recall of items against a known
+      set, and completeness of the set of kinds or families are distinct quantities. For families of methods
+      or approaches, only the first two have measured practice in the attested corpus; richness estimators
+      are evaluated in their own settings (ecology, fuzzing, inspections) and applied to vocabulary with
+      model fit rather than a known total. Every estimate is relative to a frame (the generating process,
+      the identity threshold for a kind, the chosen dimensions, the known set), and each estimator has
+      its own inputs: two or more captures for capture–recapture, replicated units for incidence data,
+      frequency counts for abundance data, or a random sample of the remainder for screening tests. "No
+      new items in the last run" rules measurably fail or are unvalidated. Models detected planted omissions
+      markedly less often than planted wrong inclusions (one abstract-level study reports the same direction
+      for human testers), and disagreement between passes is partly classification rather than retrieval.'
+    key_findings:
+    - No attested source validates a completeness estimate for families of methods or approaches; measured
+      practice there covers item recall against a known or pooled set, while richness estimators are evaluated
+      in ecology, fuzzing and inspections and applied to vocabulary.
+    - Chao-type estimators give lower bounds under heterogeneous detection; sample coverage (share of
+      abundance or incidence probability already represented, not share of kinds) is more robustly estimable
+      than the number of missing kinds.
+    - Every completeness figure is conditional on the generating process, the identity threshold that
+      merges near-duplicates, the rank counted and the frame of dimensions or known items.
+    - Estimator inputs differ: capture–recapture needs two or more captures treated as independent, incidence
+        estimators replicated units, abundance estimators frequency counts, screening tests a random sample
+        of the remainder; few occasions widen intervals, and inspection studies advise against fewer than
+        four inspectors unless shown to work in a particular environment.
+    - In screening, the baseline-rate and 50-consecutive-misses heuristics each missed the 95% recall
+      target in about 39% of runs, and at thematic-saturation stopping points median coverage of observed
+      themes was 78–82%; reading these as evidence about any quiet last pass is a transfer.
+    - Missing items can mean missing categories; independent maps of one topic overlap little, and part
+      of their disagreement is classification, not retrieval.
+    - Models detected planted omissions far less often than planted wrong inclusions, and one abstract-level
+      study reports the same direction for human testers; marking where content is absent recovered much
+      of the gap in one surface benchmark.
+  .research/analysis/campaigns/solution-space-decomposition/clusters/generation.md:
+    summary: Cross-specialist synthesis over four facets (design-space methods, decision-option generation,
+      analogous-domain search, LLM ideation diversity) on how to generate a set of genuinely different
+      approaches rather than variations of one. Unaided human generation recovers roughly a third to a
+      half of later-recognised items; LLM generation, measured by similarity and category coverage, narrows
+      mainly across independent draws and across models. In the conditions tested, upfront examples, similarity
+      feedback and standard multi-agent debate narrowed sets, while voting over independent responses
+      did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a dynamic
+      multi-generation pool in another (the widening study at search-summary depth); independent generation
+      before discussion, then pooling, widened a set in one case. Measured gains come from a second pass
+      that states the first is incomplete, conditioning on prior output with an instruction to differ,
+      objectives or purpose as stimuli, and abstraction at a workable level for distant retrieval. Structured
+      generators (morphological fields, QOC, set-based design, strategy tables) are advocated or demonstrated,
+      not measured against unstructured generation, and the effect of domain distance is mixed.
+    key_findings:
+    - Unaided generation of objectives and alternatives recovers roughly 30–50% of later-recognised items,
+      and omitted items are about as important as generated ones.
+    - LLM idea pools are narrower mainly across independent draws and across models; a single session's
+      list can look varied while repeated draws return the same modes.
+    - In the conditions tested, upfront examples (more misses), similarity feedback and standard multi-agent
+      debate narrowed sets; voting over independent responses did not; exposure to AI ideas narrowed collective
+      diversity in one study and widened it in a dynamic multi-generation pool in another (the widening
+      study at search-summary depth); independent lists pooled before discussion gave a more complete
+      set in one case, against a reference built from those lists.
+    - Measured gains come from a second pass with a warning and a numeric target, from generation that
+      sees prior items and is told to differ, from distinct per-draw cues, and from objectives or purpose
+      used as stimuli.
+    - The fields test "different approach" by the abstraction level at which ideas diverge (principle
+      versus embodiment), a different value on a declared dimension, or non-equivalence under a declared
+      relation.
+    - Structured generators lack controlled evidence of better coverage; the one reported matrix-size
+      result was negative, TRIZ results are mixed, and the effect of domain distance on novelty and quality
+      is contradictory.
+  .research/analysis/campaigns/solution-space-decomposition/parent.md:
+    summary: Campaign synthesis over eight facets (design-space methods, decision-option generation, analogous-domain
+      search, LLM ideation diversity, search completeness, coverage estimation, taxonomy construction,
+      landscape mapping). Unaided human generation recovers roughly a third to a half of later-recognised
+      objectives or alternatives and narrows toward familiar examples and a person's dominant category;
+      language-model generation, measured differently, converges on the same modes across independent
+      draws and across models. Remedies with measured support in their tested settings are an objectives-
+      or purpose-first generation key, a second pass that states the first is incomplete and sets a target,
+      generation that sees prior items and is told to differ, and abstraction at a workable level for
+      distant retrieval; independent generation before group discussion is a prescription, with pooling
+      demonstrated in one case; upfront examples, similarity feedback and standard multi-agent debate
+      narrowed sets in the studies that tested them. No attested source validates a completeness estimator
+      for families of methods or approaches; completeness signals are relative to a declared frame, each
+      estimator has its own input and independence assumptions, and a model-based lower bound applies
+      only where those assumptions hold, while "nothing new in the last pass" measurably fails in screening.
+      Models detected planted omissions far less often than planted wrong inclusions. No attested source
+      gives a validated rule for when to stop challenging a sample and begin depth research; the synthesis
+      offers an escalation trigger as an inference. Structured generators are advocated more than measured.
+    key_findings:
+    - Unaided human generation recovers roughly 30–50% of later-recognised objectives or alternatives,
+      and omitted items are about as important as found ones; language-model narrowing is measured as
+      similarity and category coverage, not as this recovery fraction.
+    - Upfront examples, similarity feedback and standard multi-agent debate narrowed sets where tested;
+      voting over independent responses did not; exposure to AI ideas narrowed collective diversity in
+      one study and widened it in a dynamic multi-generation pool in another (the widening study at search-summary
+      depth). Independent generation before discussion is a prescription, with pooling demonstrated in
+      one case whose reference was the pooled union.
+    - Measured second-pass gains come from stating the first pass is incomplete with a numeric target,
+      or showing prior items with an instruction to differ; more time does not help.
+    - No attested source validates a completeness estimator for families of methods or approaches; capture–recapture
+      needs at least two passes, incidence estimators need replicated sampling units, abundance estimators
+      need frequency counts from a sample, and screening tests need a random sample of the remainder;
+      estimates are frame-relative and are not certification.
+    - In screening, the baseline-rate and 50-consecutive-misses heuristics each missed the 95% recall
+      target in about 39% of runs, and median thematic-saturation stopping points left part of the observed
+      themes unseen; applying this to "the last challenge pass added nothing" is a transfer.
+    - Models detected planted omissions far less often than planted wrong inclusions and judged presented
+      candidates much more accurately than they authored full sets; one abstract-level study found human
+      testers detecting more commission than omission faults.
+    - Fields distinguish a different approach from a variation by the abstraction level of divergence,
+      a different value on a declared dimension, or non-equivalence under a declared relation; every such
+      test depends on the frame chosen.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/analogous-domain-search.md:
+    summary: 'Within-specialist brief on finding different solution approaches by searching distant or
+      analogous domains: broadcast search and solver distance, analogous-market search, design-by-analogy
+      with near vs far sources, problem abstraction as a retrieval key (functional models, WordTrees,
+      purpose-mechanism schemas, multi-analog schema induction, LLM-generated analogies), and design fixation
+      as the cause of variations-of-one-idea. Measured effects of distance are mixed and partly contradictory:
+      distant sources raise novelty and variance in some studies and lower novelty and quality in others;
+      several report a too-near/too-far band, and one large field study finds an inverse distance–creativity
+      relation. The more consistent measured findings concern the retrieval step: unaided retrieval is
+      surface-bound, problem abstraction and comparison across multiple analogs improve far retrieval,
+      and retrieval that is diverse in mechanism while staying close in purpose beats both keyword-similar
+      and random stimuli in one controlled test.'
+  .research/analysis/campaigns/solution-space-decomposition/specialists/coverage-estimation.md:
+    summary: 'Within-specialist brief on two linked questions. First, how ecological species-richness
+      and sample-coverage estimators (Chao1/Chao2, iChao, jackknife, ACE, Good–Turing coverage and discovery
+      probability, rarefaction/extrapolation, Hill numbers, accumulation curves) estimate how complete
+      a sample of distinct kinds is, what they assume, how they behave with few singletons and doubletons,
+      and how they have been carried into vocabulary size, software testing, inspection defect counts
+      and idea generation. Second, what the evidence says about whether human or model reviewers detect
+      missing items, how structured and free review compare, and when independent passes disagree because
+      of classification rather than retrieval. Main findings: singleton/doubleton estimators are lower
+      bounds under heterogeneity; sample coverage is estimable when richness is not; estimates are relative
+      to the sampling process and to the identity threshold that defines a "kind"; small, adaptive or
+      few-pass samples underestimate; omissions are detected markedly less often than commissions by both
+      humans and models; and a large share of between-pass disagreement in reviews and mappings is classification,
+      not retrieval.'
+  .research/analysis/campaigns/solution-space-decomposition/specialists/decision-option-generation.md:
+    summary: Within-specialist brief for the decision-option-generation facet. Decision analysis and judgment-and-decision-making
+      research measure how incomplete unaided generation of objectives and alternatives is (roughly a
+      third to a half of later-recognized items, with overlooked items about as important as generated
+      ones), using a generate-then-recognize design against an independently compiled master list. It
+      reports which prompts change that (warning-plus-numeric-challenge, objectives as stimuli, second-pass
+      categories, aggregation of independent generators) and which do not (more time or rumination, upfront
+      examples, upfront categories for misses), documents illusory completeness (fault-tree omission insensitivity,
+      including experts), and records a quality-versus-quantity split (more options are associated with
+      lower mean quality but can be associated with higher best-option quality, correlationally and problem-dependently;
+      a university release reports few distinct alternatives scoring better than many similar ones). Strategy
+      tables and value-focused brainstorming are advocated without controlled evidence in the attested
+      corpus.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/design-space-methods.md:
+    summary: How general morphological analysis, morphological matrices, TRIZ, QOC/Design Space Analysis,
+      set-based concurrent engineering, software design spaces and objective-driven alternative generation
+      construct an option space, keep alternatives from collapsing into variations of one idea, and prune;
+      what completeness signals they offer (full-field coverage, consistency-reduced solution space, abstraction-weighted
+      variety, master-list recall, capture-recapture style estimates); and how thin the measured evidence
+      is relative to the advocated benefits.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/landscape-mapping.md:
+    summary: Within-specialist brief. Compares how patent landscape reports (WIPO guidelines, RIPL reporting
+      standard, automated seed-expansion landscaping), systematic mapping studies in software engineering
+      (Petersen keywording, known-set / quasi-gold-standard search validation, hybrid snowballing), general
+      morphological analysis and scenario methods, technology roadmapping, technology intelligence / horizon
+      scanning, and competitive / analogous-market search define landscape boundaries, organise items
+      into families, guard against blind spots (vocabulary mismatch, single-source and single-domain search,
+      seed dependence) and check coverage. Most of the field's moves are advocated in guidelines; measured
+      evidence exists mainly for search recall against a known set, for the low overlap of independent
+      maps or reviews of the same topic, and for the novelty gain of drawing on analogous domains. No
+      tradition reports a validated completeness estimate for the set of families (as opposed to items
+      within known families).
+  .research/analysis/campaigns/solution-space-decomposition/specialists/llm-ideation-diversity.md:
+    summary: Within-specialist brief. Measured evidence that LLM-generated or LLM-assisted idea pools
+      are less diverse than independent human pools, chiefly at the collective/across-sample level and
+      across model families; alignment-linked mode collapse; recall (not encoding) limits on long-tail
+      items; and an authoring-versus-judging asymmetry in which omissions resist review. Techniques with
+      measured diversity gains (multi-step "generate then make different" chain-of-thought, ordinary personas,
+      verbalized sampling, in-context regeneration, explicit dimension/approach elicitation, lens-anchored
+      multi-agent setups) are separated from advocated or qualitatively evaluated ones, and null/negative
+      results (seeding, similarity feedback, hybrid select, temperature, standard debate, celebrity personas,
+      creativity system prompts) are reported. Diversity/coverage metrics (embedding dispersion, dedup-threshold
+      unique counts, capture-recapture estimates, exhaustion curves, category-combination counts, learned
+      equivalence classes, human ratings) and their validity limits are catalogued.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/search-completeness.md:
+    summary: Evidence-synthesis and qualitative-research methods for deciding when a set of retrieved
+      items is complete enough to stop. Covers multi-strategy search, citation chasing, known-item and
+      relative-recall benchmarks, capture-recapture, statistical stopping for screening, and saturation.
+      Most rules are advocated rather than validated, several measurably fail, and most completeness estimators
+      depend on overlap between independent passes.
+    key_findings:
+    - Reporting standards (PRISMA-S) cover how complete the search report is, not how complete the retrieved
+      set is; the main guidance says objective stopping is hard and little evaluated.
+    - Supplementary strategies (snowballing, citation tracking, expert contact, specialist sources) often
+      find items that database search missed, but the added yield varies widely with topic, and the evidence
+      comes mostly from weak designs.
+    - Relative recall and known-item checks only measure against what the combined passes already found.
+      They can look high even when true recall is low.
+    - Capture-recapture gives a number-missed estimate from overlap between passes. It assumes independent
+      passes, and estimates swing with model choice; under heterogeneity Chao's estimator is a lower bound.
+    - In screening, stopping after N consecutive irrelevant items or at a baseline rate missed the 95%
+      recall target in about 39% of runs. Hypothesis-test criteria achieved their stated confidence at
+      a cost in extra screening.
+    - Saturation is a judgement about unobserved items. Measured stopping points still leave a fraction
+      of eventual themes unseen, and code-level saturation arrives before meaning-level saturation.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/taxonomy-construction.md:
+    summary: Methods for building taxonomies, typologies and faceted classifications of a domain's objects,
+      what they treat as "genuinely different", and the completeness (ending) conditions they prescribe.
+      Covers the Nickerson–Varshney–Muntermann iterative method, Bailey's conceptual/empirical typology
+      construction (cite-through), logical division and MECE, facet analysis, the four epistemic routes
+      to forming classes, explanatory typologies, morphological fields, and participant-sorting methods
+      (concept mapping, card sorting). Ending conditions are designed and advocated, not validated; measured
+      evidence exists for the reliability of classifying objects into a fixed scheme and for the stability
+      of sort-derived groupings, but not for whether a scheme's dimensions are complete.
+    key_findings:
+    - The IS taxonomy method defines a taxonomy as dimensions of mutually exclusive, collectively exhaustive
+      characteristics, chosen by a purpose-derived meta-characteristic, built through alternating empirical-to-conceptual
+      and conceptual-to-empirical iterations until objective and subjective ending conditions hold. Its
+      authors say the meta-characteristic critically shapes the result and that the same meta-characteristic
+      can yield different taxonomies.
+    - The objective ending conditions are mostly stability checks on the last iteration (no new or merged
+      dimensions, no merged or split objects, every characteristic populated, unique cells). They test
+      convergence on the objects examined, not coverage of unexamined ones; the authors give no evidence
+      that meeting them signals completeness.
+    - Surveys of practice find ending conditions rarely stated (17% of journal taxonomies) and, when stated,
+      often asserted without detail (16 of 38) or selectively dropped, including dropping mutual exclusivity
+      for readability.
+    - Classification sources treat MECE as an ideal that working schemes rarely meet. Exhaustivity is
+      usually secured with a residual "other" class, not by showing coverage; exclusivity is fragile when
+      more than one basis of division is mixed.
+    - Measured reliability concerns assigning objects to an existing scheme. Defect-classification kappas
+      of 0.66–0.82 have been reported, but in another study raters disagreed 43% of the time while nearly
+      all of them (97%) still gave each item exactly one category. A feeling that categories don't overlap
+      is therefore not evidence that raters agree.
+    - Sorting-based methods (card sorting, concept mapping) have measured cross-study stability of item
+      groupings (Mantel r 0.61–0.93; 63–93% navigation-scheme agreement) and a sample-size curve (r 0.90
+      with full-sample similarity at 15 sorters). Where the dendrogram is cut, and how many clusters to
+      keep, is left to judgement.
+    - Knowledge-organization critiques hold that the choice of dimensions, the similarity measure and
+      the epistemic route (logical division, phenetic similarity, genealogy, purpose) each change the
+      resulting classes, and that no neutral or single correct classification exists.

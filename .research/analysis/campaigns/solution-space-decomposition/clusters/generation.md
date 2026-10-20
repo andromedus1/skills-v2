@@ -10,7 +10,7 @@ summary: >-
   mainly across independent draws and across models. In the conditions tested, upfront examples,
   similarity feedback and standard multi-agent debate narrowed sets, while voting over independent
   responses did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a
-  dynamic multi-generation pool in another (abstract-level);
+  dynamic multi-generation pool in another (the widening study at search-summary depth);
   independent generation before discussion, then pooling, widened a set in one case. Measured gains come from a second pass that states the first is
   incomplete, conditioning on prior output with an instruction to differ, objectives or purpose as
   stimuli, and abstraction at a workable level for distant retrieval. Structured generators
@@ -19,7 +19,7 @@ summary: >-
 key_findings:
   - Unaided generation of objectives and alternatives recovers roughly 30–50% of later-recognised items, and omitted items are about as important as generated ones.
   - LLM idea pools are narrower mainly across independent draws and across models; a single session's list can look varied while repeated draws return the same modes.
-  - In the conditions tested, upfront examples (more misses), similarity feedback and standard multi-agent debate narrowed sets; voting over independent responses did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a dynamic multi-generation pool in another (abstract-level); independent lists pooled before discussion gave a more complete set in one case.
+  - In the conditions tested, upfront examples (more misses), similarity feedback and standard multi-agent debate narrowed sets; voting over independent responses did not; exposure to AI ideas narrowed collective diversity in one study and widened it in a dynamic multi-generation pool in another (the widening study at search-summary depth); independent lists pooled before discussion gave a more complete set in one case, against a reference built from those lists.
   - Measured gains come from a second pass with a warning and a numeric target, from generation that sees prior items and is told to differ, from distinct per-draw cues, and from objectives or purpose used as stimuli.
   - The fields test "different approach" by the abstraction level at which ideas diverge (principle versus embodiment), a different value on a declared dimension, or non-equivalence under a declared relation.
   - Structured generators lack controlled evidence of better coverage; the one reported matrix-size result was negative, TRIZ results are mixed, and the effect of domain distance on novelty and quality is contradictory.
@@ -94,7 +94,8 @@ pool widened it [ashkinaze-ai-ideas-collective-diversity-2024]{304} {confidence:
   pool, high exposure to AI ideas increased collective diversity
   [ashkinaze-ai-ideas-collective-diversity-2024]{304} {confidence: search-summary}.
 - Pooling independent lists before discussion widened the set: each of 12 executives listed on
-  average 36% of 39 objectives, and "the aggregated list ... was a much more complete set"
+  average 36% of 39 objectives, and "the aggregated list ... was a much more complete set" — a reference
+  built from those same lists, so it says nothing about objectives every lister missed {inferred: aggregate}
   [bond-carlson-keeney-objectives-2008]{452}. The prescription is independent generation first,
   because "communication may redirect individuals' from their own ideas"
   [bond-carlson-keeney-improving-objectives-2010]{453}. Distinct per-agent "cognitive lenses" with each
@@ -297,3 +298,4 @@ Stated in the source fields' own terms; not recommendations.
   associations (R8). The category-timing qualifiers are restored (R9).
 - **2026-10-20 — correction (evaluate round 1).** The fault-tree evidence is reframed as concerning reviewers of a presented structure in §1 (H2; the transfer-observation occurrence was corrected in round 2). The 26.2% figure is restated as the attested gain over homogeneous debate (G9). The prose note is replaced by an `extends` marker (G2).
 - **2026-10-20 — correction (evaluate round 2).** Both sides of the exposure contradiction are carried in the summary, key finding and §2.1 (X1/N2). The transfer observation no longer cites the fault-tree study as evidence about generators (H2/N2). Gettys is grounded through a cite-through (G7/N2). The marker form is corrected and the process-describing scope line removed.
+- **2026-10-20 — correction (evaluate round 3 notes).** The depth label is corrected and the pooled-reference caveat carried down.
