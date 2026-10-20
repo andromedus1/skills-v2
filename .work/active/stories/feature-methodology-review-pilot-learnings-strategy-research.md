@@ -156,3 +156,9 @@ the synthesis is nested:
 
 This keeps each cross-join at four facets while every cross-specialist
 synthesis still passes the reachability-required gates.
+- `coverage-estimation`: handshake echo matches; lint 171 resolved, 0 broken; 19
+  attestations authored and 8 reused; no personal data sent. Its two suggested
+  facets (a deduplication protocol for kinds; techniques that make absence
+  visible) are already partly evidenced across the returned briefs. They go
+  into the parent as open questions and `Revisit if` triggers, not a ninth
+  dispatch, since the fan-out is already past the program-scale threshold.
