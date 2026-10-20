@@ -287,3 +287,18 @@ F15 keeps the §5 content guarantee and the evaluator's FR.1 isolation.
 
 **Closure:** standard weight, so the item closes after the fixes are verified,
 with no re-review.
+
+**Receipt**
+- Reviewed: `main..b8db53a3` — product scope `plugins/` (excluded: `.work/`, `docs/`)
+- Reviewer: Codex `gpt-6.1-sol` (medium) via peeragent job `20261020T195046Z-716a2054`; independent: yes
+- Findings: blockers 1, important 1, nits 1, rejected 0
+- Accepted-fix verification: `30e054ad` verified by host (conformance 132/132 with new negatives
+  failing on the pre-fix lint; lint unit tests; refresh-scan; skill-metadata; skill-portability)
+
+**Post-review changes**
+- `cccc0b81` fix: bare-citation fence masks inline code spans across line breaks
+  (`lint-citations.py`, conformance fixture, `run.py`, `expected.json`, README). This is
+  uncovered → `feature-agentic-research-pilot-fixes`. It came from the autopilot final completion
+  review (peeragent job `20261020T213051Z-4c95e503`, Codex `gpt-6.1-sol`, independent) and was
+  verified by the host: conformance 134/134, the new quiet-citation check fails on the prior lint,
+  and the repo corpus has 0 bare-citation hits.
