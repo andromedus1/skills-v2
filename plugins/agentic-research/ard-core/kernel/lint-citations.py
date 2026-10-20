@@ -30,12 +30,13 @@
 #   - Per-category: version-number skipped in URLs and inline code; count and
 #     decimal-with-attribution skipped in attestation files; composed-effort-estimate
 #     and comparative-superlative skipped in blockquotes.
-#   - version-number flags a version "without an in-corpus anchor" (CATALOGS §3):
-#     skipped in source-direct attestations (the anchor tier), and on a line whose
-#     citation resolves to an attestation (resolved / reduced-substrate-attestation)
-#     whose body contains the same version token. A cited line whose attestations
-#     lack the token still fires. Known hole: a coincident token elsewhere in the
-#     cited attestation's body also anchors the line.
+#   - version-number flags a version "without an in-corpus anchor" (CATALOGS §3).
+#     Anchors: a source-direct attestation (the anchor tier); a line citing, or a
+#     bibliography entry naming, a resolved / reduced-substrate-attestation whose
+#     body contains the same version token. Not versions: tokens inside a citation,
+#     document locators (§3.1, Section 4.2, Table 2.1), arXiv IDs and revisions,
+#     percentages, and decimal statistics (kappa 0.76, p = 0.05). Known hole: a
+#     coincident token elsewhere in the cited attestation's body also anchors.
 #
 # Usage:
 #   python3 lint-citations.py <brief-or-dir>
@@ -73,7 +74,11 @@ REFERENCE_MATCHERS = {
         r"\b\d+(?:\.\d+)?%?\b(?=[^\n]{0,40}(?:arXiv|et al\.|[A-Z][a-z]+ et al|paper|\bpp?\.\s*\d))"
         r"|(?:arXiv|et al\.|paper)[^\n]{0,40}\b\d+(?:\.\d+)?%?\b"
     ),
-    "version-number": re.compile(r"\b[vV]?\d+(?:\.\d+)+\b|\bversion\s+\d+\b"),
+    "version-number": re.compile(
+        r"\b[vV]?\d+(?:\.\d+)+\b"          # dotted: 2.4.0, v0.8.2, 3.12
+        r"|(?i:\bversion\s+\d+\b)"         # version 3 / Version 3
+        r"|(?<![\w-])[vV]\d+\b"             # standalone dotless: v2 (not Claude-v1)
+    ),
     "count-without-unit-citation": re.compile(
         r"\b[\d,]+\s+(?:lines|pages|words|files|tokens|developers?)\b|~\s*[\d,]+\s+(?:lines|loc)\b",
         re.IGNORECASE,
@@ -463,6 +468,67 @@ def _attestation_body(handle, attestation_dir, cache):
     return cache[path]
 
 
+# Version-shaped tokens that are not version claims (see _version_noise).
+# Document locators: §3.1, §B.3.2, Section 3.7, sections 1, 3.3-4.2, Table 4.1, Appendix B.9.
+_LOCATOR_PRE = re.compile(
+    r"(?i)(?:§+\s*|\b(?:sections?|secs?\.|tables?|tabs?\.|figures?|figs?\.|"
+    r"appendix|appendices|app\.|chapters?|ch\.|eqs?\.|equations?)\s+)"
+    r"(?:[A-Z]?[\d.]+\s*(?:[-–,/]|and|&)\s*)*[A-Z]?\.?$")
+_ARXIV_ID = re.compile(r"\d{4}\.\d{4,5}")
+# "arXiv v2", "arXiv HTML v2", "arXiv 2306.05685 v4"
+_ARXIV_REV_PRE = re.compile(r"(?i)\barxiv[:\s]+(?:(?:html|pdf|abs)\s+)?(?:\d{4}\.\d{4,5}\s*)?$")
+_ARXIV_REV_POST = re.compile(r"(?i)\s+of\s+(?:arxiv:?\s*)?\d{4}\.\d{4,5}")  # "v4 of 2306.05685"
+# Statistic words stand alone; short symbols (p, r) count only with an operator,
+# so "Python 3.11 or 3.12" and "R 4.3" still fire.
+_STAT_PRE = re.compile(
+    r"(?i)(?:\b(?:kappa|κ|pearson|spearman|kendall|correlation|accuracy|precision|"
+    r"recall|f1|auc|bleu|rouge(?:-\w+)?|score|mean|median|sd|std)\b\s*(?:of\s+|[:=]\s*)?"
+    r"|[=<>≤≥≈±]\s*)$")
+_STAT_CHAIN = re.compile(r"(?i)^\s*\)?\s*(?:vs\.?|versus|to|and|or|[-–/,])\s*$")
+# A bibliography / references entry line names its attestation by handle:
+#   "12. **handle** — Title"   "| 12 / handle | Title |"   "### 12. Title — `handle`"
+_BIB_ENTRY = re.compile(
+    r"^\s*(?:\d+\.\s+\*\*(?P<a>[a-z0-9][a-z0-9-]*)\*\*"
+    r"|\|\s*\d+\s*/\s*(?P<b>[a-z0-9][a-z0-9-]*)\s*\|"
+    r"|#{2,6}\s+\d+\.\s.*—\s*`(?P<c>[a-z0-9][a-z0-9-]*)`\s*$)")
+
+
+def _bib_entry(line):
+    """The bibliography-entry match on `line`, or None."""
+    return _BIB_ENTRY.match(line)
+
+
+def _version_noise(line, matches):
+    """Start offsets of version-number matches on `line` that are not version claims:
+    inside a citation or a bibliography entry's own handle; a document locator; an
+    arXiv ID or revision; a percentage; or a single-dot decimal statistic (after a
+    statistic word/operator, or chained from one by vs/to/and). `matches` are in
+    line order; a statistic chain extends only from an excluded statistic."""
+    masked = [c.span() for c in CITATION_RE.finditer(line)]
+    bib = _bib_entry(line)
+    if bib:
+        g = next(k for k in "abc" if bib.group(k))
+        masked.append(bib.span(g))
+    noise, stat_end = set(), None
+    for m in matches:
+        tok, pre, post = m.group(0), line[:m.start()], line[m.end():]
+        core = tok.lstrip("vV")
+        is_stat = tok[0].isdigit() and tok.count(".") == 1 and (
+            _STAT_PRE.search(pre[-28:]) is not None
+            or (stat_end is not None and _STAT_CHAIN.match(line[stat_end:m.start()]) is not None))
+        if is_stat:
+            stat_end = m.end()
+        if (is_stat
+                or any(s <= m.start() < e for s, e in masked)
+                or _LOCATOR_PRE.search(pre[-40:])
+                or _ARXIV_ID.fullmatch(core)
+                or ("." not in tok and tok[0] in "vV"
+                    and (_ARXIV_REV_PRE.search(pre[-32:]) or _ARXIV_REV_POST.match(post)))
+                or re.match(r"%|\s*percent\b", post)):
+            noise.add(m.start())
+    return noise
+
+
 def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_citation, do_pattern, do_thin,
               check_urls, body_cache=None):
     with open(path, encoding="utf-8") as fh:
@@ -498,6 +564,15 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
         lines = text.splitlines()
         fm_skip = _frontmatter_line_count(lines)   # number of leading lines to skip
         code_mask = _code_block_mask(lines)
+        # A bibliography entry anchors its own line by the attestation it names.
+        for lineno, line in enumerate(lines, 1):
+            bib = None if lineno <= fm_skip or code_mask[lineno - 1] else _bib_entry(line)
+            if bib:
+                handle = bib.group("a") or bib.group("b") or bib.group("c")
+                f = check_citation(handle, attestation_dir, analysis_dir, True, False, handle_counts)
+                if f["status"] in ANCHOR_STATUSES:
+                    anchored.setdefault(lineno, []).append(
+                        _attestation_body(handle, attestation_dir, body_cache))
         for lineno, line in enumerate(lines, 1):
             # Skip YAML frontmatter and fenced code blocks entirely.
             if lineno <= fm_skip:
@@ -507,12 +582,17 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
             has_cite = bool(CITATION_RE.search(line))
             in_bq = _is_blockquote(line)
             for cat, rx in matchers.items():
+                noise = None
                 for m in rx.finditer(line):
                     pos = m.start()
                     # Per-category suppression rules (on top of the context masks above):
                     if cat == "version-number":
                         # Version strings inside URLs or inline code are structural, not claims.
                         if _is_in_url(line, pos) or _is_in_inline_code(line, pos):
+                            continue
+                        if noise is None:
+                            noise = _version_noise(line, list(rx.finditer(line)))
+                        if pos in noise:
                             continue
                         # Anchored: the attestation tier, or a cited attestation carrying the token.
                         if is_attestation:
