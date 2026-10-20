@@ -116,6 +116,21 @@ this item stands alone. **(M)** marks material findings.
   for review comparisons. The pilot chose `calibrate-external` with
   `[synthesis-brief, questions-list]`.
 
+**Research execution (added 2026-10-19, mid-pilot; F15–F17 are agentic-research)**
+
+- **F15. The discipline inlining costs a lot.** The verbatim discipline bundle
+  plus role brief was inlined into 9 dispatches: a large fixed cost. Consider a
+  read-the-file handshake with a content-hash echo.
+- **F16. One specialist cited short handles.** It produced 160 broken chains,
+  which lint caught. The specialist role brief should state the full-handle
+  citation form; dispatches that stated it had no breaks.
+- **F17. Lint depends on the working directory.** Lint resolves `source_path`
+  relative to the working directory, which gives false `unreachable-source`
+  findings when run from `.research/`.
+- **F18. Proposal ownership is blurry.** The research parent's "candidate
+  transfer" column overlaps the review's step-4 findings, which reinforces F7.
+  Decide which artifact owns proposals.
+
 ## Design questions for feature-design
 
 - Should the domain map be a new Research Pipeline entry point, a step-0 phase of
