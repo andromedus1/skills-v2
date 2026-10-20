@@ -89,3 +89,17 @@ the source class. Specialists may surface emergent facets as acquisition or
     (SPEC §7, model diversity);
   - `evaluate` by an isolated `opus` evaluator, with the bundle inlined;
   - lint and spot-check by the lead.
+
+### In-flight re-scope (2026-10-20, `mixed` authority)
+
+**Emergent facet 6, `coverage-estimation`.** This covers species-richness and
+sample-coverage estimators for samples of kinds, plus whether reviewers detect
+omissions and how reliably they agree on category boundaries. The
+`llm-ideation-diversity` and `search-completeness` specialists both flagged it
+independently on return. It bears directly on the completeness signal named in
+`decision_relevance`. Dispatched to one more `opus` specialist with bibliography
+block 350–399; the handle reuse list was passed to avoid collisions.
+
+**Returns so far.**
+- `llm-ideation-diversity`: handshake echo matches; lint 160 resolved, 0 broken.
+- `search-completeness`: handshake echo matches; lint 118 resolved, 0 broken.
