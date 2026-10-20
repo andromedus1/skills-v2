@@ -1,9 +1,19 @@
 ---
-id: idea-lint-substrate-confidence-enum
+id: story-lint-substrate-confidence-enum
+kind: story
+stage: implementing
+tags: [agentic-research]
+parent: null
+depends_on: []
+release_binding: null
+gate_origin: null
 created: 2026-10-20
 updated: 2026-10-20
-tags: [agentic-research]
 ---
+
+# Lint: unknown substrate_confidence values and inline comments read as full-depth
+
+## Brief
 
 The agentic-research citation lint has two silent passes that overstate how deeply a source was engaged:
 
@@ -19,3 +29,6 @@ This is the same silent-pass class as F27.
 - Strip inline comments in `parse_frontmatter`.
 - Add conformance fixtures.
 - State the allowed values in the specialist brief.
+
+Scoped 2026-10-20 from backlog `idea-lint-substrate-confidence-enum` at Andrew's direction (housekeeping during the Codex
+validation run). It merges via PR. Version bumps and install updates wait until that run ends.
