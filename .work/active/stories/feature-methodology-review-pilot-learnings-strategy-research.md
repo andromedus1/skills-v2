@@ -103,3 +103,14 @@ block 350–399; the handle reuse list was passed to avoid collisions.
 **Returns so far.**
 - `llm-ideation-diversity`: handshake echo matches; lint 160 resolved, 0 broken.
 - `search-completeness`: handshake echo matches; lint 118 resolved, 0 broken.
+
+- `landscape-mapping`: handshake echo matches; lint 137 resolved, with 2 low
+  `unreachable-source` URL-liveness warnings on one handle that WebFetch did
+  read. It reused the design-space specialist's GMA attestations and deleted
+  its own duplicate.
+
+**Emergent facet 7, `analogous-domain-search`.** This covers distant and
+analogous-domain search, design-by-analogy and fixation. `landscape-mapping`
+flagged it as covered only lightly, and it is the measured basis for one of the
+lateral moves (an alternative found in an unrelated field). Dispatched with
+bibliography block 400–449.
