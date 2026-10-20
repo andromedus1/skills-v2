@@ -156,6 +156,33 @@ this item stands alone. **(M)** marks material findings.
   verifier runs). The commission packet (F9) should require that section from
   the first draft, explicitly non-recommending (see F7/F18).
 
+**Delivery and round 2 (added 2026-10-20)**
+
+- **F24 (agentic-research). No option to delegate a single facet.** The
+  orchestrator's light path (one facet) requires authoring inline. After a
+  long session the host had to delegate one specialist to protect its
+  context. Add a "single delegated specialist" option (same discipline
+  inlining and gates; no cross-synthesis, so `evaluate` stays unreachable).
+- **F25 (positive, plus one gap). Operator decision handling worked.** The
+  rules held: a decision authorizes only what it answers, a retained major
+  blocks a clean exit, and adoption is not implementation. The gap: when the
+  operator declines the measurement path that an assessor's recommendation
+  depended on, the skill does not prompt the host to re-present the dependent
+  findings. Here, KMR-03 depended on EX-1 measurement, and the host
+  re-presented it manually.
+- **F26. No rule for bundling remedies.** `research-handoff` defaults to one
+  item per finding. The pilot bundled three authorized lifecycle remedies into
+  one `[prose]` delivery item. State that authorized remedies may be bundled
+  by delivery surface.
+- **F27 (M, agentic-research). The lint passes bare citations silently.** A
+  brief with 207 bare `{N}` citations, without `[handle]`, linted as "0
+  resolved · 0 broken", which is a clean-looking result that checked nothing.
+  Flag bare numeric citations, or resolve them through `references.md`.
+- **Round-2 outcome:** "Stopped with retained risks". The operator retained
+  major KMR-01. Four remedies were verified, and one new minor finding
+  emerged. The exit ranking handled a retained major plus pending minor work
+  coherently.
+
 ## Design questions for feature-design
 
 - Should the domain map be a new Research Pipeline entry point, a step-0 phase of
