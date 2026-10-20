@@ -131,6 +131,31 @@ this item stands alone. **(M)** marks material findings.
   transfer" column overlaps the review's step-4 findings, which reinforces F7.
   Decide which artifact owns proposals.
 
+**Findings, assessment and verification (added 2026-10-19, end of round 1)**
+
+- **F19. The order of assessment and the operator's decision packet is
+  unspecified.** Should host draft findings be independently assessed *before*
+  the operator sees the packet? The pilot did so and benefited (see F22). Make
+  it explicit.
+- **F20. No bundled assessor brief template.** The pilot host wrote it from
+  scratch, from `review-record.md#assessment-report`.
+- **F21 (M, agentic-research). The orchestrator's rigor table contradicts its
+  own reachability rule.** The table shows `evaluate` only at `full`. The rule
+  says `evaluate` "re-enters the floor of any cross-specialist synthesis". The
+  host followed the table, skipped `evaluate` and closed early. The round-1
+  cross-model assessor caught it.
+- **F22 (positive). Independent assessment improved the packet.** The fresh
+  cross-model assessor withdrew one host-proposed major finding (KMR-03) and
+  downgraded another (KMR-02), each with exact project-text evidence. The
+  layering of the review's assessment over the research gates worked.
+- **F23 (M). An under-specified commission caused verification churn.** The
+  commission did not require a decision-relevance section: evidence per
+  decision, the adopt-if-an-alternative-wins conditional, and the next evidence.
+  `evaluate` then failed for that reason. Adding the section created new claim
+  surface, and qualifier drift needed two further gate passes (about 3 extra
+  verifier runs). The commission packet (F9) should require that section from
+  the first draft, explicitly non-recommending (see F7/F18).
+
 ## Design questions for feature-design
 
 - Should the domain map be a new Research Pipeline entry point, a step-0 phase of
