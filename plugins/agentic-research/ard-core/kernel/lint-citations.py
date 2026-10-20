@@ -433,13 +433,19 @@ def _code_block_mask(lines):
     """Return per-line bool mask: True means the line is inside (or is) a fenced code
     block and should be fully skipped by the pattern scanner."""
     mask = [False] * len(lines)
-    in_block = False
+    fence = None   # (char, length) of the open fence, or None
     for i, line in enumerate(lines):
-        if line.lstrip().startswith("```"):
-            in_block = not in_block
-            mask[i] = True  # the fence line itself is also masked
+        m = re.match(r"\s{0,3}(`{3,}|~{3,})", line)
+        if fence is None:
+            if m:
+                fence = (m.group(1)[0], len(m.group(1)))
+                mask[i] = True  # the fence line itself is also masked
         else:
-            mask[i] = in_block
+            mask[i] = True
+            # CommonMark: closed by a fence of the same char, at least as long, with nothing after.
+            if m and m.group(1)[0] == fence[0] and len(m.group(1)) >= fence[1] \
+                    and not line[m.end():].strip():
+                fence = None
     return mask
 
 
@@ -458,13 +464,35 @@ def _is_in_url(line, pos):
 
 def _is_in_inline_code(line, pos):
     """True iff character position `pos` in `line` falls inside backtick-delimited
-    inline code. Walks the chars toggling a flag on each backtick."""
-    in_code = False
-    for i, ch in enumerate(line):
-        if ch == "`":
-            in_code = not in_code
-        if i == pos:
-            return in_code
+    inline code. A span opened by a run of N backticks closes at the next run of exactly N
+    (CommonMark), so double-backtick spans containing a single backtick are handled."""
+    i = 0
+    while i < len(line):
+        if line[i] != "`":
+            i += 1
+            continue
+        j = i
+        while j < len(line) and line[j] == "`":
+            j += 1
+        run = j - i
+        k = j
+        close = None
+        while k < len(line):
+            if line[k] == "`":
+                e = k
+                while e < len(line) and line[e] == "`":
+                    e += 1
+                if e - k == run:
+                    close = (k, e)
+                    break
+                k = e
+            else:
+                k += 1
+        if close is None:
+            return False   # an unmatched run opens no span
+        if i <= pos < close[1]:
+            return True
+        i = close[1]
     return False
 
 

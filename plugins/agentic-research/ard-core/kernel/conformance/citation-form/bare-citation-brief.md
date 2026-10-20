@@ -16,3 +16,16 @@ Inline code `{4}` and a URL https://example.com/a{5} stay quiet.
 ```
 A fenced block {6} stays quiet.
 ```
+
+Double-backtick code ``{7} with a ` tick`` stays quiet.
+
+~~~
+A tilde fence {8} stays quiet.
+~~~
+
+````
+```
+A shorter inner fence does not close the outer one {9}.
+````
+
+After the fences a bare {10} fires again.

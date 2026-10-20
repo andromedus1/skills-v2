@@ -1,7 +1,7 @@
 ---
 id: feature-agentic-research-pilot-fixes
 kind: feature
-stage: review
+stage: done
 tags: [agentic-research]
 parent: null
 depends_on: []
@@ -250,3 +250,40 @@ Claude/Codex manifest parity: no manifest changes are expected.
 - **The bare-citation regex over-matching.** It could fire on templating or
   JSON in prose. **Fallback:** code and inline-code masks, a `$` lookbehind and
   conformance negatives.
+
+## Review (2026-10-20)
+
+- **Weight:** `standard` (the default), so one independent pass.
+- **Reviewer:** cross-model, Codex `gpt-6.1-sol` at medium effort, via
+  peeragent.
+- **Verdict after fixes:** Approve.
+
+The reviewer confirmed two things: F21's reading of SPEC §3.1/§7 is right, and
+F15 keeps the §5 content guarantee and the evaluator's FR.1 isolation.
+
+**Findings, adjudicated:**
+
+- **Blocker, fixed.** The bare-citation fence reused incomplete code masks, so
+  it fired inside double-backtick spans and `~~~` fences. The fix:
+  - `_code_block_mask` now follows CommonMark fences: backtick or tilde, closed
+    only by the same character at equal or greater length.
+  - `_is_in_inline_code` now matches backtick runs of equal length.
+  - New conformance negatives cover lines 20, 23 and 28, plus a positive after
+    the fences. All of them fail against the pre-fix lint.
+- **Important, fixed.** The gate-citations bare-citation slug used only the file
+  stem, so same-named `parent.md` files in different campaigns would collide.
+  The slug now derives from the `.research/`-relative path.
+- **Nit, fixed.** Stale verbatim-only propagation text remained in
+  `docs/ADOPTION.md` and in two orchestrator passages.
+
+**Verification:**
+
+- Conformance passes 132/132.
+- The lint unit tests pass 4/4.
+- The refresh-scan suite passes.
+- The skill-metadata and skill-portability tests pass.
+- `catalogs.json` is in sync with CATALOGS.md.
+- The repo corpus has 0 bare-citation hits.
+
+**Closure:** standard weight, so the item closes after the fixes are verified,
+with no re-review.

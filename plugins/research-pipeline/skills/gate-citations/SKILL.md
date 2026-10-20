@@ -174,7 +174,7 @@ for a high finding the chain must lint clean at `--exit-code-on high`; for a med
 clear at `--exit-code-on medium`. Re-run the lint to confirm.>
 ```
 
-Use a short, stable slug derived from `(handle, status)` so re-runs match (`gate-citations-rfc6749-unresolved`). A `bare-citation` finding has `handle: null`; group a file's bare citations into one item keyed by `(file, null, bare-citation)`, slugged from the file stem (`gate-citations-<file-stem>-bare-citation`), listing every line.
+Use a short, stable slug derived from `(handle, status)` so re-runs match (`gate-citations-rfc6749-unresolved`). A `bare-citation` finding has `handle: null`; group a file's bare citations into one item keyed by `(file, null, bare-citation)`, slugged from the file's `.research/`-relative path with `/` → `-` and `.md` dropped (`gate-citations-analysis-campaigns-<slug>-parent-bare-citation`) so same-named files in different campaigns never collide, listing every line.
 
 ### Phase 5: Commit
 
