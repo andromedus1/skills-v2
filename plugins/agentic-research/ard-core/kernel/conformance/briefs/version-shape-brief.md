@@ -42,7 +42,7 @@ The load test ran 3.5 times longer.
 Pinned to GPT-3.5 for the judge.
 Lattice version 2.3.0 remains a supported line.
 Table 2 lists Lattice 2.6.0 as current.
-Builds target Python 3.11 or 3.12.
+Builds target Python 3.12 or 3.11. [version-anchor-src]{1}
 Statistics ran on R 4.3.
 The Orbit client moved to v4. [version-anchor-src]{1}
 The arXiv paper and Lattice v2 differ.

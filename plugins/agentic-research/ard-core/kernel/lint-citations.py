@@ -484,7 +484,7 @@ _STAT_PRE = re.compile(
     r"(?i)(?:\b(?:kappa|κ|pearson|spearman|kendall|correlation|accuracy|precision|"
     r"recall|f1|auc|bleu|rouge(?:-\w+)?|score|mean|median|sd|std)\b\s*(?:of\s+|[:=]\s*)?"
     r"|[=<>≤≥≈±]\s*)$")
-_STAT_CHAIN = re.compile(r"(?i)^\s*\)?\s*(?:vs\.?|versus|to|and|or|[-–/,])\s*$")
+_STAT_CHAIN = re.compile(r"(?i)^\s*(?:\)\s*)?(?:vs\.?|versus|to|and|or|[-–/,])\s*$")
 # A bibliography / references entry line names its attestation by handle:
 #   "12. **handle** — Title"   "| 12 / handle | Title |"   "### 12. Title — `handle`"
 _BIB_ENTRY = re.compile(
