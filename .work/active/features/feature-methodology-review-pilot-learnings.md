@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-pilot-learnings
 kind: feature
-stage: drafting
+stage: implementing
 tags: [methodology-review, research-pipeline]
 parent: null
 depends_on: [feature-agentic-research-pilot-fixes]
@@ -357,6 +357,212 @@ as fixed inputs for feature-design.
 **Out of scope for this drain:** the validation plan (repeating the Knowledge
 review under the revised skill) runs in project-blueprint, after merge, and only
 when Andrew places that project in scope.
+
+
+## Design-time refinements (autopilot judgment, 2026-10-20)
+
+- **Decision 6, refined: the route tag is `methodology-review-controller`, not
+  `methodology-review`.** This repo, and adopters, use `methodology-review` as a
+  topic tag on ordinary work about the skill, including this feature and its
+  stories. A route on that tag would hand those items to the review skill. A
+  dedicated controller tag keeps "route this item to methodology-review"
+  separate from "this item is about methodology-review". The skill's controller
+  definition changes from "tagged `methodology-review` without `research`" to
+  "tagged `methodology-review-controller`".
+- **Controllers stay in `work-view --ready`.** The `[scan]` exclusion is
+  compiled into the `work-view` binary. Patching it means a fork binary change
+  plus a rebuild, which is out of proportion here. Routing at the skill level
+  delivers the operative fix: no design, implement or release skill acts on a
+  controller.
+
+## Architectural choice
+
+Three shapes were considered:
+
+- **A. Revise methodology-review in place (chosen).** Add a step 0 domain map,
+  built by `scout` in a structured domain-map mode. Scout uses the existing
+  `survey-landscape` intent and `landscape-brief` + `vocab-capture` output
+  kinds, so the map is an ordinary refreshable landscape brief under
+  `.research/analysis/`. The project-side mapping (jobs, decisions, the sample
+  drawn from the map, coverage) lives in the loop record. Deep templates move to
+  directly linked references: the domain map, the commission packet and the
+  assessor briefs.
+- **B. A separate domain-map skill.** Rejected by design decision 1. It adds a
+  skill to maintain, for a step only reviews use.
+- **C. A new `domain-map` output kind in Agentic Research.** Rejected. It would
+  extend ARD's inventory to serve a pipeline concern, and `landscape-brief`
+  with `vocab-capture` already carries the shape. Required sections are a
+  commissioning request, not an engine change.
+
+**Machinery forecast.** A adds no new state owner:
+
+- The map lives in the existing research tier.
+- The project mapping lives in the existing loop record.
+- The completeness challenge is one more fresh-context dispatch, using the same
+  pattern as the step-6 assessor.
+- The F4 fork patch adds routing rows only, with no binary or `work-view`
+  change. Consequence: `work-view --ready` still lists a controller, but no
+  design or implement skill will act on it.
+
+**Trickiest unit: the strategy research and primer (S1, S2).** Their content is
+unknown until the research returns, and the lead objective depends on them. They
+are therefore commissioned first and run alongside the skill-core and routing
+stories. The skill-core story leaves explicit seams (step 0, the
+sample-completeness checkpoint, facet briefs) that S5 fills from the primer.
+
+## Implementation Units
+
+### Unit 1 (S1): Strategy research engagement
+
+**Story:** `feature-methodology-review-pilot-learnings-strategy-research`, a
+`[research]` story with `research_dials`.
+
+The question: what systematic strategies decompose a solution space into
+genuinely different approaches? And how can a sample of approaches be checked
+for completeness before depth research, including stopping rules and coverage
+estimates?
+
+Declared facets (`mixed` scope authority, so more may emerge):
+
+1. Design-space and morphological methods, for example general morphological
+   analysis, TRIZ, design-rationale QOC and set-based design.
+2. Systematic-review search strategy and completeness, for example search
+   saturation, capture–recapture, citation chasing and PRISMA-S.
+3. Taxonomy and faceted-classification construction methods.
+4. Technology and landscape mapping practice, for example patent landscaping,
+   technology scouting and scenario methods.
+5. LLM and agent ideation diversity and coverage failures, for example
+   homogenization and diversity techniques.
+
+**Decision relevance:** which moves the new primer prescribes at each
+methodology-review step (domain map, charter sample, completeness challenge,
+facet briefs), and which completeness signal the challenge reports.
+
+**Acceptance:**
+- [ ] A campaign exists under
+  `.research/analysis/campaigns/solution-space-decomposition/`.
+- [ ] Every gate passed at `full` rigor (multi-path, so `adversarial-read` and
+  `evaluate` both ran).
+- [ ] The engagement record is in the story body.
+
+### Unit 2 (S2): Surfacing-alternatives primer
+
+**File:** `plugins/research-pipeline/docs/surfacing-alternatives.md`, a new
+primer. It mirrors the `first-principles.md` shape: preamble, moves, a per-step
+workflow, guardrails and related documents. It also has a "Grounding" note
+linking the campaign. It contains no `[handle]{N}` citations, because the docs
+tier is not a research tier. It states which moves apply at which
+methodology-review step, and how it composes with `first-principles.md` (Open
+and Challenge) and `oblique-strategies.md` (lateral moves when the sample is
+stuck).
+
+**Acceptance:**
+- [ ] Every move traces to a finding in the campaign, or is explicitly labeled
+  as practice without evidence.
+- [ ] The per-step table covers all four steps.
+- [ ] It has `knowledge-index` frontmatter consistent with the sibling primers.
+
+### Unit 3 (S3): methodology-review core revision
+
+**Files:** `plugins/research-pipeline/skills/methodology-review/SKILL.md`, new
+references `domain-map.md`, `commission-packet.md` and `assessor-briefs.md`,
+plus edits to `review-record.md`, `review-decomposition.md`,
+`plugins/research-pipeline/skills/scout/SKILL.md` (domain-map mode),
+`docs/research-composition.md` (the profile row) and `agents/openai.yaml` if
+the description changes.
+
+| Skill area | Change | Findings |
+|---|---|---|
+| New step 0 | Map the domain. Reuse a current map, or commission one through scout. External alternative space goes to research; project mapping goes to the loop record. | F11, F31 |
+| Step 1 | Mark operator-owned kickoff questions apart from host fields. Add a rule for overlapping prior reviews: a pending prior decision is a constraint input, never silently absorbed. Add "discovery" as a decision dimension. Add evidence-feasibility triage per decision, with an early experiment track. Draw the sample from the map. | F1, F2, F14, F28 |
+| New Checkpoint M | Map and sample, before any depth research: an independent completeness challenge, then the operator gate showing the map, sample, gaps, triage, and expected dispatch count and effort, as information, never a cap. | F11, F12 |
+| Step 3 | A commission packet with default dials (`calibrate-external`; `synthesis-brief` + `questions-list`). The required non-recommending decision-relevance section covers evidence per decision, the adopt-if-an-alternative-wins conditional, and the next evidence. Ownership: research owns comparisons, the loop record owns transfer and proposals. A route for mid-review scope expansion: amend the engagement within its scope authority, else open a new linked engagement. | F7, F9, F10, F13, F18, F23 |
+| Step 4 | Host pre-check of each draft finding against current text. Independent assessment happens before the operator packet. The bundled assessor brief. | F19, F20, F22, F30 |
+| Step 5 | Re-present dependent findings when the operator declines the path they relied on. Authorized remedies may be bundled by delivery surface. | F25, F26 |
+| Step 6 | Coverage gaps against the map are report-only. A tally of actual effort sits beside the estimate. | decision 3, F12 |
+| New "Re-run and longitudinal review" section | New review id linked to its predecessor; prior IDs carried forward; no inherited round count; research reused under freshness rules; a what-changed baseline; outcome comparison across versions. | F29 |
+| `review-record.md` | The Agile Workflow controller skeleton, minted directly with tag `methodology-review-controller` (not via `scope`). The Transfer field moves to the loop record. Re-run and effort fields. | F4, F5, F6, F7 |
+| `review-decomposition.md` | Children share the root map; per-child research deepens only where a child's decisions need it. | F31 |
+
+**Acceptance:**
+- [ ] Each F-number above maps to a specific rule in the skill or a reference.
+- [ ] SKILL.md stays focused, with deep templates in references.
+- [ ] No ARD discipline is copied into the pipeline.
+- [ ] skill-portability passes.
+- [ ] Every relative link resolves.
+
+### Unit 4 (S4): Agile-workflow routing fork patch (F4)
+
+**Files:**
+- `plugins/agile-workflow/skills/autopilot/SKILL.md`: a routing row for
+  `[methodology-review-controller]` items at any stage, handed to
+  `research-pipeline:methodology-review` to resume. An item awaiting an
+  operator decision is reported as *awaiting operator*, not as a defect
+  blocker.
+- `plugins/agile-workflow/skills/feature-design/SKILL.md` and
+  `plugins/research-pipeline/skills/{feature-design,epic-design}/SKILL.md`:
+  misroute guards.
+- `plugins/agile-workflow/skills/implement-orchestrator/SKILL.md`: an exclusion,
+  if it selects implementing items.
+- `plugins/agile-workflow/skills/release-deploy/SKILL.md`: controllers never bind
+  to a release.
+- `.work/CONVENTIONS.md`: the tag convention.
+- `docs/project-navigation.md`: a fork-patch record.
+
+**Acceptance:**
+- [ ] Every skill that routes drafting, implementing or review items names the
+  route or the exclusion.
+- [ ] The fork-patch note lists the patched files.
+- [ ] Agile-workflow tests pass (`convert-content-integrity`,
+  `test_prompt_context`).
+
+### Unit 5 (S5): Primer attachment and strategy-specific steps
+
+**Files:** methodology-review `SKILL.md`, plus `domain-map.md` and
+`assessor-briefs.md`. Optionally `scout/SKILL.md`.
+
+Add "Read … for consideration" lines in the established style, plus the moves
+applied at step 0, at Checkpoint M's completeness challenge, and in the facet
+briefs, as the research supports.
+
+**Acceptance:**
+- [ ] The primers are attached at named steps.
+- [ ] The completeness challenge brief uses the researched strategies and
+  completeness signal.
+
+## Implementation Order
+
+1. **S1 research and S4 routing patch.** Independent, and S1 takes the longest.
+2. **S3 skill core.** It needs no research output and leaves seams for S5.
+3. **S2 primer**, after S1.
+4. **S5 attachment**, after S2 and S3.
+5. Feature verification and review, then the PR.
+
+## Testing
+
+- `plugins/research-pipeline/scripts/tests/skill-portability.test.sh` checks
+  skill shape and frontmatter.
+- A relative-link check over the methodology-review skill, its references and
+  the new primer: a scripted check run at verification.
+- The agile-workflow tests touched by S4: `convert-content-integrity.test.sh`
+  and `hooks/scripts/test_prompt_context.py`.
+- Knowledge-index regeneration plus `--lint-only` for the new primer's
+  frontmatter.
+- Behavioral validation (repeating the Knowledge review in project-blueprint) is
+  out of scope for this drain; see design decisions.
+
+## Risks
+
+- **The research yields no decisive strategy set.** **Fallback:** the primer
+  states the evidence gaps, uses the strongest supported moves plus the
+  existing first-principles and oblique moves, and labels unsupported practice.
+- **SKILL.md bloat**, since the skill is already dense. **Fallback:** move the
+  templates to references and keep SKILL.md to rules.
+- **Fork-patch drift against upstream agile-workflow.** **Fallback:** documented
+  in `project-navigation.md`, so it is preserved on sync.
+- **Least sure:** whether autopilot should drive controllers at all, as opposed
+  to skipping them. The chosen route resumes the controller and stops at the
+  operator gates, consistent with decision 6.
 
 ## Design questions for feature-design
 
