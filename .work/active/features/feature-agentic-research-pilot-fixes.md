@@ -1,7 +1,7 @@
 ---
 id: feature-agentic-research-pilot-fixes
 kind: feature
-stage: implementing
+stage: review
 tags: [agentic-research]
 parent: null
 depends_on: []
