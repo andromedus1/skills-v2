@@ -66,7 +66,7 @@ that keeps assessed inputs, actual gate outcomes and pending corrections recover
 an anchor-aware `version-number` advisory in the citation lint, specified in
 `ard-core/CATALOGS.md` §3 and covered by the kernel conformance suite; a `bare-citation`
 broken-chain status for handle-less `{N}` in claim-bearing artifacts, with project-root
-`source_path` resolution; and orchestrator changes from the methodology-review pilot:
+`source_path` resolution, and unrecognised `substrate_confidence` values read as `unspecified`; and orchestrator changes from the methodology-review pilot:
 reachability-correct gates (every multi-path walk runs `adversarial-read` and `evaluate`), a
 single delegated specialist path, a sha256 read handshake as an alternative to inlining the
 discipline (never for the evaluator), and per-specialist bibliography number blocks. Upstream changes

@@ -254,6 +254,20 @@ def main():
             if any(c["status"] == "bare-citation" for r in out_oos["results"] for c in r["citations"]):
                 failures.append(f"bare-citation: {rel} is not claim-bearing and must not fire")
 
+    # ── Check group 1f: substrate_confidence values (unknown → unspecified; comments) ──
+    sce = expected.get("substrate_confidence_enum")
+    if sce:
+        out_sc = run_lint(args.lint, os.path.join(HERE, sce["file"]), ATT_DIR, ANA_DIR)
+        got_sc = {c["handle"]: c["status"] for r in out_sc["results"] for c in r["citations"]}
+        for handle, want in sce["statuses"].items():
+            n_lint += 1
+            if got_sc.get(handle) != want:
+                failures.append(f"substrate_confidence: [{handle}] expected {want}, got {got_sc.get(handle)}")
+        n_lint += 1
+        if out_sc.get("substrate_confidence_unknown") != sce["unknown"]:
+            failures.append(f"substrate_confidence: unknown values expected {sce['unknown']}, "
+                            f"got {out_sc.get('substrate_confidence_unknown')}")
+
     # ── Check group 8: --stats mode — attestation-tier audit ────────────────────
     out_stats = run_lint(args.lint, BRIEFS_DIR, ATT_DIR, ANA_DIR, extra_args=["--stats"])
     stats = out_stats.get("stats", {})

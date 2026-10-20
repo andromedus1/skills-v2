@@ -115,6 +115,8 @@ REFERENCE_MATCHERS = {
 DEFAULT_NON_BROKEN = {"resolved", "intra-program-resolved",
                       "reduced-substrate-attestation", "acquisition-candidate"}
 SEVERITY_RANK = {"high": 3, "medium": 2, "low": 1, "none": 0}
+# substrate_confidence values (CATALOGS §2/§3). Anything else reads as `unspecified`.
+REDUCED_SUBSTRATE = ("search-summary", "snippet", "snippet-thin", "unspecified")
 
 
 def load_catalog_config(catalogs_path):
@@ -155,8 +157,18 @@ def parse_frontmatter(text):
                 "substrate_confidence", "acquisition_status"):
         matches = re.findall(rf"^{key}:\s*(.+?)\s*$", block, re.MULTILINE)
         if matches:
-            fields[key] = matches[-1].strip().strip("\"'")
+            fields[key] = _scalar(matches[-1])
     return fields
+
+
+def _scalar(raw):
+    """A YAML scalar value without quotes or a trailing ` # comment` (a `#` not preceded by
+    whitespace, as in a URL fragment, is part of the value)."""
+    raw = raw.strip()
+    if raw[:1] in ("'", '"'):
+        close = raw.find(raw[0], 1)
+        return raw[1:close] if close != -1 else raw.strip("\"'")
+    return re.sub(r"\s+#.*$", "", raw).strip()
 
 
 def frontmatter_duplicate_keys(text):
@@ -403,8 +415,13 @@ def check_citation(handle, attestation_dir, analysis_dir, calling_prov, check_ur
     thin = is_thin_attestation(body_after_frontmatter(text))
     sc = fm.get("substrate_confidence")
     # `unspecified` is the future fail-closed default — an explicit substrate gap now.
-    if sc in ("search-summary", "snippet", "snippet-thin", "unspecified"):
+    if sc in REDUCED_SUBSTRATE:
         return {"status": "reduced-substrate-attestation", "severity": "none", "thin": thin}
+    # An unrecognised value must not read as full depth: treat it as `unspecified` (a
+    # reduced-depth gap) and surface it so the attestation can be corrected.
+    if sc is not None and sc != "source-direct":
+        return {"status": "reduced-substrate-attestation", "severity": "none", "thin": thin,
+                "sc_unknown": sc}
     # Omission still reads source-direct (grace period) but is flagged deprecated:
     # a future MAJOR flips the default to fail-closed (omission -> unspecified -> gap).
     return {"status": "resolved", "severity": "none", "thin": thin, "sc_omitted": sc is None}
@@ -654,6 +671,7 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
     # source-attested by design, not composed claims.
     is_attestation = fm.get("provenance") == "source-direct"
     citations, patterns, thin, sc_omitted, campaign_unbound = [], [], [], set(), set()
+    sc_unknown = {}
     if do_citation:
         for m in CITATION_RE.finditer(text):
             f = check_citation(m.group(1), attestation_dir, analysis_dir, calling_prov, check_urls, handle_counts,
@@ -665,6 +683,8 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
             # omits substrate_confidence still reads source-direct but is flagged.
             if f.pop("sc_omitted", False):
                 sc_omitted.add(m.group(1))
+            if "sc_unknown" in f:
+                sc_unknown[m.group(1)] = f.pop("sc_unknown")
             if f.pop("campaign_unbound", False):
                 campaign_unbound.add(m.group(1))
             if do_thin and f.pop("thin", False):
@@ -756,7 +776,8 @@ def lint_file(path, attestation_dir, analysis_dir, matchers, handle_counts, do_c
                     patterns.append({"category": cat, "line": lineno, "text": line.strip()[:120]})
                     break  # one finding per category per line is enough
     return {"file": path, "citations": citations, "patterns": patterns, "thin": thin,
-            "sc_omitted": sorted(sc_omitted), "campaign_unbound": sorted(campaign_unbound)}
+            "sc_omitted": sorted(sc_omitted), "campaign_unbound": sorted(campaign_unbound),
+            "sc_unknown": sc_unknown}
 
 
 def collect(target):
@@ -856,6 +877,8 @@ def main():
     # Grace-period deprecation: resolved attestations omitting substrate_confidence
     # (deduped across files). Warn-only — does not contribute to exit-code severity.
     sc_omitted_all = sorted({h for r in results for h in r["sc_omitted"]})
+    # Unrecognised substrate_confidence values: read as `unspecified` (reduced depth). Warn-only.
+    sc_unknown_all = {h: v for r in results for h, v in r.get("sc_unknown", {}).items()}
     # cN- campaign handles whose campaign number the kernel cannot bind (deployment-mapped):
     # surfaced (not silently clean) so a fabricated / cross-campaign handle stays visible.
     # Warn-only — does not contribute to exit-code severity.
@@ -871,6 +894,7 @@ def main():
     if args.format == "json":
         payload = {"results": results, "broken_chains": broken, "thin_attestations": thin_all,
                    "substrate_confidence_omitted": sc_omitted_all,
+                   "substrate_confidence_unknown": sc_unknown_all,
                    "campaign_unbound": campaign_unbound_all}
         if stats is not None:
             payload["stats"] = stats
@@ -895,6 +919,12 @@ def main():
         print(f"\n{len(results)} file(s) · {n_ok} resolved/non-broken citation(s) · "
               f"{len(broken)} broken · {len(thin_all)} thin · "
               f"{sum(len(r['patterns']) for r in results)} pattern flag(s)")
+        if sc_unknown_all:
+            print(f"\n[warning] {len(sc_unknown_all)} cited attestation(s) declare an unrecognised "
+                  f"substrate_confidence — read as `unspecified` (reduced depth). Use one of "
+                  f"source-direct, {', '.join(REDUCED_SUBSTRATE)}:")
+            for h, v in sorted(sc_unknown_all.items()):
+                print(f"  - {h}: {v!r}")
         if sc_omitted_all:
             print(f"\n[deprecation] {len(sc_omitted_all)} cited attestation(s) omit "
                   f"substrate_confidence — omission defaults to source-direct (DEPRECATED; a "

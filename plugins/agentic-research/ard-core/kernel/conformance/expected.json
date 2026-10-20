@@ -56,5 +56,16 @@
     "quiet_citations": [[34, 11]],
     "quiet_lines": [12, 13, 14, 17, 20, 23, 28],
     "out_of_scope_files": ["citation-form/verification-record.md"]
+  },
+  "substrate_confidence_enum": {
+    "_comment": "substrate_confidence parsing: an unrecognised value reads as unspecified (reduced-substrate-attestation) and is surfaced; a trailing ` # comment` is stripped; a URL fragment is kept.",
+    "file": "substrate-confidence/brief.md",
+    "statuses": {
+      "sc-unknown-src": "reduced-substrate-attestation",
+      "sc-comment-reduced-src": "reduced-substrate-attestation",
+      "sc-comment-direct-src": "resolved",
+      "sc-fragment-src": "resolved"
+    },
+    "unknown": {"sc-unknown-src": "abstract-only"}
   }
 }
