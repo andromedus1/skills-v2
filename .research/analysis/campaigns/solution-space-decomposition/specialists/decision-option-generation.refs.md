@@ -1,3 +1,10 @@
+---
+title: "decision-option-generation bibliography block (450-466)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the decision-option-generation specialist; entries are merged into .research/references.md in block order."
+---
+
 450. **siebert-keeney-alternatives-2015** — Creating More and Better Alternatives for Decisions Using Objectives (Siebert & Keeney, Operations Research 63(5), 2015; abstract and RePEc record). Fetched 2026-10-20. Source: https://ideas.repec.org/a/inm/oropre/v63y2015i5p1144-1158.html.
 451. **siebert-keeney-press-2015** — Entscheiden ohne Tunnelblick (Universität Bayreuth press release 168/2015). Fetched 2026-10-20. Source: https://www.presse.uni-bayreuth.de/de/archiv/2015/168-Qualitaet-von-Entscheidungen.pdf.
 452. **bond-carlson-keeney-objectives-2008** — Generating Objectives: Can Decision Makers Articulate What They Want? (Management Science 54(1), 2008). Fetched 2026-10-20. Source: https://www.scheller.gatech.edu/directory/research/marketing/bond/pdf/bond_carlson_keeney-man-sci-2008.pdf.

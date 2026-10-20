@@ -1,3 +1,10 @@
+---
+title: "taxonomy-construction bibliography block (200-217)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the taxonomy-construction specialist; entries are merged into .research/references.md in block order."
+---
+
 # taxonomy-construction — bibliography block 200–249
 
 200. **nickerson-taxonomy-development-method-2013** — A method for taxonomy development and its application in information systems. Fetched 2026-10-20. Source: https://d-nb.info/1256597325/34.

@@ -1,3 +1,10 @@
+---
+title: "coverage-estimation bibliography block (350-377)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the coverage-estimation specialist; entries are merged into .research/references.md in block order."
+---
+
 # coverage-estimation specialist references (block 350-399)
 
 350. **chao-colwell-chao2-inequality-2017** — Thirty years of progeny from Chao's inequality: Estimating and comparing richness with incidence data and incomplete sampling. Fetched 2026-10-20. Source: https://gwern.net/doc/statistics/order/capture/2017-chao.pdf.

@@ -1,3 +1,10 @@
+---
+title: "search-completeness bibliography block (150-177)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the search-completeness specialist; entries are merged into .research/references.md in block order."
+---
+
 # search-completeness specialist references (block 150-199)
 
 150. **prisma-s-rethlefsen-2021** — PRISMA-S: an extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews. Fetched 2026-10-20. Source: https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7839230/fullTextXML.

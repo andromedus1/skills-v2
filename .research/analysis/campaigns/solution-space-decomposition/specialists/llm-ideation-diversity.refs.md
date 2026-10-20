@@ -1,3 +1,10 @@
+---
+title: "llm-ideation-diversity bibliography block (300-322)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the llm-ideation-diversity specialist; entries are merged into .research/references.md in block order."
+---
+
 300. **meincke-prompting-idea-variance-2024** — Prompting Diverse Ideas: Increasing AI Idea Variance. Fetched 2026-10-20. Source: https://arxiv.org/abs/2402.01727.
 301. **meincke-chatgpt-brainstorm-diversity-2025** — New in Nature: ChatGPT Decreases Idea Diversity in Brainstorming (Wharton Mack Institute summary). Fetched 2026-10-20. Source: https://mackinstitute.wharton.upenn.edu/2025/new-in-nature-chatgpt-decreases-idea-diversity-in-brainstorming/.
 302. **doshi-hauser-genai-collective-diversity-2024** — Generative AI enhances individual creativity but reduces the collective diversity of novel content. Fetched 2026-10-20. Source: https://pmc.ncbi.nlm.nih.gov/articles/PMC11244532.

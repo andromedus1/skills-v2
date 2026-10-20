@@ -1,3 +1,10 @@
+---
+title: "analogous-domain-search bibliography block (400-423)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the analogous-domain-search specialist; entries are merged into .research/references.md in block order."
+---
+
 400. **jeppesen-lakhani-marginality-broadcast-search-2010** — Marginality and Problem Solving Effectiveness in Broadcast Search. Fetched 2026-10-20. Source: https://dash.harvard.edu/server/api/core/bitstreams/7312037c-740f-6bd4-e053-0100007fdf3b/content.
 401. **acar-van-den-ende-knowledge-distance-2016** — Knowledge Distance, Cognitive-Search Processes, and Creativity: The Making of Winning Solutions in Science Contests. Fetched 2026-10-20. Source: https://repub.eur.nl/pub/82213/REPUB-82213_OA.pdf.
 402. **franke-poetz-schreier-analogous-markets-2014** — Integrating Problem Solvers from Analogous Markets in New Product Ideation. Fetched 2026-10-20. Source: https://www.wu.ac.at/fileadmin/wu/d/i/mm/paper/2014_NF_MP_MS_Management_Science.pdf.

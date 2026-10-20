@@ -1,3 +1,10 @@
+---
+title: "landscape-mapping bibliography block (250-273)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the landscape-mapping specialist; entries are merged into .research/references.md in block order."
+---
+
 250. **wipo-plr-guidelines-trippe-2015** — Guidelines for Preparing Patent Landscape Reports (WIPO; A. Trippe). Fetched 2026-10-20. Source: https://www.wipo.int/edocs/pubdocs/en/wipo_pub_946.pdf.
 251. **smith-ripl-statement-2018** — Reporting Items for Patent Landscapes (RIPL): The RIPL Statement. Fetched 2026-10-20. Source: https://ora.ox.ac.uk/objects/uuid:d410055d-605b-4d21-b26a-28ed0e98030c/files/m6d248c0673fb9b55193b68e0ef39af1f.
 252. **smith-patent-landscape-reporting-thesis-2018** — Patent Landscape Reporting Quality and Predicting Drug Approval (J. A. Smith, DPhil thesis). Fetched 2026-10-20. Source: https://ora.ox.ac.uk/objects/uuid:c6215056-9e45-4710-af72-7fb68c8d2996/files/m03bd7066e156cb7c4c32a436473412c2.

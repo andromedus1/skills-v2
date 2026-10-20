@@ -1,6 +1,6 @@
 # Auto-generated. DO NOT EDIT BY HAND.
 # On-demand layer — load when surfacing a specific doc's full context.
-generated_at: '2026-10-20T21:23:39Z'
+generated_at: '2026-10-20T21:23:52Z'
 generated_from: frontmatter
 schema_version: 1
 documents:
@@ -401,6 +401,9 @@ documents:
       surface-bound, problem abstraction and comparison across multiple analogs improve far retrieval,
       and retrieval that is diverse in mechanism while staying close in purpose beats both keyword-similar
       and random stimuli in one controlled test.'
+  .research/analysis/campaigns/solution-space-decomposition/specialists/analogous-domain-search.refs.md:
+    summary: Pre-merge bibliography block for the analogous-domain-search specialist; entries are merged
+      into .research/references.md in block order.
   .research/analysis/campaigns/solution-space-decomposition/specialists/coverage-estimation.md:
     summary: 'Within-specialist brief on two linked questions. First, how ecological species-richness
       and sample-coverage estimators (Chao1/Chao2, iChao, jackknife, ACE, Good–Turing coverage and discovery
@@ -415,6 +418,9 @@ documents:
       few-pass samples underestimate; omissions are detected markedly less often than commissions by both
       humans and models; and a large share of between-pass disagreement in reviews and mappings is classification,
       not retrieval.'
+  .research/analysis/campaigns/solution-space-decomposition/specialists/coverage-estimation.refs.md:
+    summary: Pre-merge bibliography block for the coverage-estimation specialist; entries are merged into
+      .research/references.md in block order.
   .research/analysis/campaigns/solution-space-decomposition/specialists/decision-option-generation.md:
     summary: Within-specialist brief for the decision-option-generation facet. Decision analysis and judgment-and-decision-making
       research measure how incomplete unaided generation of objectives and alternatives is (roughly a
@@ -428,6 +434,9 @@ documents:
       a university release reports few distinct alternatives scoring better than many similar ones). Strategy
       tables and value-focused brainstorming are advocated without controlled evidence in the attested
       corpus.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/decision-option-generation.refs.md:
+    summary: Pre-merge bibliography block for the decision-option-generation specialist; entries are merged
+      into .research/references.md in block order.
   .research/analysis/campaigns/solution-space-decomposition/specialists/design-space-methods.md:
     summary: How general morphological analysis, morphological matrices, TRIZ, QOC/Design Space Analysis,
       set-based concurrent engineering, software design spaces and objective-driven alternative generation
@@ -435,6 +444,9 @@ documents:
       what completeness signals they offer (full-field coverage, consistency-reduced solution space, abstraction-weighted
       variety, master-list recall, capture-recapture style estimates); and how thin the measured evidence
       is relative to the advocated benefits.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/design-space-methods.refs.md:
+    summary: Pre-merge bibliography block for the design-space-methods specialist; entries are merged
+      into .research/references.md in block order.
   .research/analysis/campaigns/solution-space-decomposition/specialists/landscape-mapping.md:
     summary: Within-specialist brief. Compares how patent landscape reports (WIPO guidelines, RIPL reporting
       standard, automated seed-expansion landscaping), systematic mapping studies in software engineering
@@ -447,6 +459,9 @@ documents:
       maps or reviews of the same topic, and for the novelty gain of drawing on analogous domains. No
       tradition reports a validated completeness estimate for the set of families (as opposed to items
       within known families).
+  .research/analysis/campaigns/solution-space-decomposition/specialists/landscape-mapping.refs.md:
+    summary: Pre-merge bibliography block for the landscape-mapping specialist; entries are merged into
+      .research/references.md in block order.
   .research/analysis/campaigns/solution-space-decomposition/specialists/llm-ideation-diversity.md:
     summary: Within-specialist brief. Measured evidence that LLM-generated or LLM-assisted idea pools
       are less diverse than independent human pools, chiefly at the collective/across-sample level and
@@ -459,6 +474,9 @@ documents:
       creativity system prompts) are reported. Diversity/coverage metrics (embedding dispersion, dedup-threshold
       unique counts, capture-recapture estimates, exhaustion curves, category-combination counts, learned
       equivalence classes, human ratings) and their validity limits are catalogued.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/llm-ideation-diversity.refs.md:
+    summary: Pre-merge bibliography block for the llm-ideation-diversity specialist; entries are merged
+      into .research/references.md in block order.
   .research/analysis/campaigns/solution-space-decomposition/specialists/search-completeness.md:
     summary: Evidence-synthesis and qualitative-research methods for deciding when a set of retrieved
       items is complete enough to stop. Covers multi-strategy search, citation chasing, known-item and
@@ -480,6 +498,9 @@ documents:
       a cost in extra screening.
     - Saturation is a judgement about unobserved items. Measured stopping points still leave a fraction
       of eventual themes unseen, and code-level saturation arrives before meaning-level saturation.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/search-completeness.refs.md:
+    summary: Pre-merge bibliography block for the search-completeness specialist; entries are merged into
+      .research/references.md in block order.
   .research/analysis/campaigns/solution-space-decomposition/specialists/taxonomy-construction.md:
     summary: Methods for building taxonomies, typologies and faceted classifications of a domain's objects,
       what they treat as "genuinely different", and the completeness (ending) conditions they prescribe.
@@ -516,3 +537,6 @@ documents:
     - Knowledge-organization critiques hold that the choice of dimensions, the similarity measure and
       the epistemic route (logical division, phenetic similarity, genealogy, purpose) each change the
       resulting classes, and that no neutral or single correct classification exists.
+  .research/analysis/campaigns/solution-space-decomposition/specialists/taxonomy-construction.refs.md:
+    summary: Pre-merge bibliography block for the taxonomy-construction specialist; entries are merged
+      into .research/references.md in block order.

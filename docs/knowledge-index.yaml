@@ -6,9 +6,9 @@
 #   2 = enforce (missing v2 fields are errors)
 # Set to 2 once the project's docs are fully backfilled to v2 frontmatter.
 schema_version: 1
-generated_at: 2026-10-20T21:23:39Z
+generated_at: 2026-10-20T21:23:52Z
 generated_from: frontmatter
-total_docs: 38
+total_docs: 46
 
 documents:
   # ── planning ──────────────────────────────────────────────────────────────
@@ -211,12 +211,26 @@ documents:
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: Analogous-domain search for genuinely different approaches"
 
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/analogous-domain-search.refs.md
+    title: analogous-domain-search bibliography block (400-423)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: analogous-domain-search bibliography block (400-423)"
+
   - path: .research/analysis/campaigns/solution-space-decomposition/specialists/coverage-estimation.md
     title: Coverage estimation for samples of kinds, and reviewer detection of omissions
     type: campaign
     kind: research
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: Coverage estimation for samples of kinds, and reviewer detection of omissions"
+
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/coverage-estimation.refs.md
+    title: coverage-estimation bibliography block (350-377)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: coverage-estimation bibliography block (350-377)"
 
   - path: .research/analysis/campaigns/solution-space-decomposition/specialists/decision-option-generation.md
     title: Decision-analysis and JDM research on generating alternatives and objectives
@@ -225,12 +239,26 @@ documents:
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: Decision-analysis and JDM research on generating alternatives and objectives"
 
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/decision-option-generation.refs.md
+    title: decision-option-generation bibliography block (450-466)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: decision-option-generation bibliography block (450-466)"
+
   - path: .research/analysis/campaigns/solution-space-decomposition/specialists/design-space-methods.md
     title: Design-space and morphological methods for generating genuinely different alternatives
     type: campaign
     kind: research
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: Design-space and morphological methods for generating genuinely different alternatives"
+
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/design-space-methods.refs.md
+    title: design-space-methods bibliography block (100-118)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: design-space-methods bibliography block (100-118)"
 
   - path: .research/analysis/campaigns/solution-space-decomposition/specialists/landscape-mapping.md
     title: Landscape mapping methods — how practitioner and research traditions bound, cluster, de-blind and coverage-check a solution landscape
@@ -239,12 +267,26 @@ documents:
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: Landscape mapping methods — how practitioner and research traditions bound, cluster, de-blind and coverage-check a solution landscape"
 
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/landscape-mapping.refs.md
+    title: landscape-mapping bibliography block (250-273)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: landscape-mapping bibliography block (250-273)"
+
   - path: .research/analysis/campaigns/solution-space-decomposition/specialists/llm-ideation-diversity.md
     title: LLM ideation diversity — homogenization, mode collapse, recall limits, diversity-raising techniques and how coverage is measured
     type: campaign
     kind: research
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: LLM ideation diversity — homogenization, mode collapse, recall limits, diversity-raising techniques and how coverage is measured"
+
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/llm-ideation-diversity.refs.md
+    title: llm-ideation-diversity bibliography block (300-322)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: llm-ideation-diversity bibliography block (300-322)"
 
   - path: .research/analysis/campaigns/solution-space-decomposition/specialists/search-completeness.md
     title: Search completeness and stopping signals in evidence synthesis
@@ -253,12 +295,26 @@ documents:
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: Search completeness and stopping signals in evidence synthesis"
 
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/search-completeness.refs.md
+    title: search-completeness bibliography block (150-177)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: search-completeness bibliography block (150-177)"
+
   - path: .research/analysis/campaigns/solution-space-decomposition/specialists/taxonomy-construction.md
     title: Taxonomy construction — how classification schemes decompose a domain and decide when they are complete
     type: campaign
     kind: research
     updated: 2026-10-20
     consumer_hint: "Agentic Research campaign: Taxonomy construction — how classification schemes decompose a domain and decide when they are complete"
+
+  - path: .research/analysis/campaigns/solution-space-decomposition/specialists/taxonomy-construction.refs.md
+    title: taxonomy-construction bibliography block (200-217)
+    type: campaign
+    kind: research
+    updated: 2026-10-20
+    consumer_hint: "Agentic Research campaign: taxonomy-construction bibliography block (200-217)"
 
   - path: .research/analysis/campaigns/solution-space-decomposition/verification-checklist.md
     title: "Solution-space decomposition: adversarial-read verification checklist"

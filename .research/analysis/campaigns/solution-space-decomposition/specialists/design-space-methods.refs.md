@@ -1,3 +1,10 @@
+---
+title: "design-space-methods bibliography block (100-118)"
+provenance: generated-listing
+updated: 2026-10-20
+summary: "Pre-merge bibliography block for the design-space-methods specialist; entries are merged into .research/references.md in block order."
+---
+
 100. **ritchey-gma-general-method** — General Morphological Analysis: A general method for non-quantified modelling (Ritchey). Fetched 2026-10-20. Source: https://archive.org/download/ritchey_swemorph_Gma/gma.pdf.
 101. **ritchey-psm-gma-2006** — Problem structuring using computer-aided morphological analysis (Ritchey, JORS 2006). Fetched 2026-10-20. Source: https://www.swemorph.com/pdf/psm-gma.pdf.
 102. **johansen-gma-scenario-classes-2018** — Scenario modelling with morphological analysis (Johansen, TFSC 2018). Fetched 2026-10-20. Source: https://ideas.repec.org/a/eee/tefoso/v126y2018icp116-125.html.
