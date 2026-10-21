@@ -1,7 +1,7 @@
 ---
 id: idea-blueprint-methodology-pilot
 created: 2026-10-19
-updated: 2026-10-19
+updated: 2026-10-20
 tags: [methodology-review, research-pipeline]
 ---
 
@@ -40,3 +40,7 @@ components and the suite waits for this skill revision.
 `feature-methodology-review-pilot-learnings` holds F1–F27 and is now unblocked
 for design: its start condition, the pilot's round-1 assessment, is met, and
 the pilot is complete.
+
+**Groom note (2026-10-20):** the skill side is delivered (research-pipeline 0.6.0, re-run
+semantics and the scout domain-map front end). Andrew kept this item parked as the skills-v2 home
+for findings from the Codex-driven Knowledge re-run. Archive it once those findings are filed.

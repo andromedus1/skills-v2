@@ -1,8 +1,9 @@
 ---
 id: idea-pi-enhanced-adoption
 created: 2026-08-02
-updated: 2026-08-02
+updated: 2026-10-20
 tags: [pi, plugins, models, workflow, security, upstream]
+depends_on: [idea-pi-plugin-apfs-lock-probe]
 ---
 
 Resume the investigation into adopting Nathan Klisch's `@nklisch/pi-enhanced`
@@ -95,3 +96,8 @@ capture preserves the harness, model-mode, safety, and peer-review findings.
 - Should the shared model matrix document a Pi behavioral-mode column, keeping
   model, reasoning effort, workflow role, and Clearance reviewer selection
   explicitly separate?
+
+**Groom note (2026-10-20):** this item depends on `idea-pi-plugin-apfs-lock-probe`, the
+upstream Darwin filesystem-lock blocker, and stays a separate item. The "verified local state"
+notes are stale: the project now lives at `/Users/andromedus/dev/skills-v2`, and `pi` is not
+installed on this machine. Re-verify before acting.
