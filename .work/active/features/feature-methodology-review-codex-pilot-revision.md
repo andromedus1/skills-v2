@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-codex-pilot-revision
 kind: feature
-stage: review
+stage: done
 tags: [methodology-review, research-pipeline, prose]
 parent: null
 depends_on: []
@@ -169,3 +169,40 @@ The text gives these to host or operator judgement on purpose. Rigid tests would
 the overbuilding the conventions warn about. The older (0.6.0) text would fail FS2
 (unconditional refresh) and FS5 (the pilot's actual extra dispatch), so the packet
 discriminates.
+
+## Review (2026-10-26)
+
+**Verdict**: Approve with comments, after receiver adjudication. The reviewer's
+verdict was Request changes.
+
+**Blockers**: none remaining. One reviewer blocker was accepted and fixed in
+`9f0a9f2d`. The combined remedy bullet let an uncovered dimension value be "recorded"
+instead of revising the sample, which weakened the old value-coverage floor. The
+remedies are now split: uncovered value → revise the sample. A consequential
+exclusion despite full value coverage → revise the sample or record a
+principle-level reason.
+**Important**: accepted and fixed in `9f0a9f2d`. The next-pilot success criteria would
+have penalized a legitimate re-challenge after a consequential refresh, or a later
+assessment after an authorized remedy. They now target unnecessary repetition and
+an eligible one-assessment exit.
+**Nits**: none.
+**Rejected**: none.
+
+**Notes**: feature substrate review, standard weight, one independent pass, no
+re-review. The reviewer confirmed that C1–C5 are proportionate and supported by the
+pilot evidence. Decision-remote omissions stay visible to the operator. The rank 1
+rewrite keeps the stop-with-no-risks behavior and lets new choices reach rank 2.
+ARD ownership and harness neutrality hold, and the plan authorizes nothing. The
+reviewer's portability run was blocked by its sandbox (no PyYAML or uv cache, a
+known environment limit in MODEL-NOTES), so the host ran it. Fix verification by
+the host: diff re-read, `git diff --check` clean, skill-portability ok. The fix
+restores the forward scenarios' FS1 expectation and changes no FS outcome.
+
+**Receipt**
+- Reviewed: `42aa97c4..f4a9b3d7` — `plugins/research-pipeline/skills/methodology-review/`, `.work/backlog/idea-methodology-review-next-pilot.md`; work-record files excluded
+- Reviewer: Codex `gpt-6.1-sol` medium via peeragent job `20261026T183254Z-b74191ec`; independent: yes (cross-model; host Claude)
+- Weight: standard (source: project default)
+- Findings: blockers 1, important 1, nits 0, rejected 0
+- Accepted-fix verification: `9f0a9f2d` verified by host (checks in Notes)
+
+**Post-review changes**: none outside listed fixes and tracked items
