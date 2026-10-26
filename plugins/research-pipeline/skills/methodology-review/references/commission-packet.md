@@ -15,6 +15,10 @@ orchestrator remains authoritative for its kickoff, dials and verification.
   comparison finds what>
 - **Domain map:** <path and version of the alternative space>; sampled families and
   representatives; baseline; excluded families with reasons
+- **Evidence reuse:** existing verified research bearing on each decision, especially
+  measured and contrary results, including records outside the map's source set. The
+  map catalogs methods; it is not the comparison's evidence corpus. The orchestrator's
+  relevance checks still own source selection
 - **Charter fields:** users, jobs and outcomes; constraints (fixed versus disputed);
   scenarios with adverse and correction paths; criteria
 - **Evidence levels:** separate designed, documented, demonstrated and independently

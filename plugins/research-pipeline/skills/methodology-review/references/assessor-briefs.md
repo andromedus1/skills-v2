@@ -19,6 +19,13 @@ what the exposure hid. Each stage's output is recorded before the next stage's i
 are given. A re-challenge is always a fresh challenger starting at stage 1, never the
 already-exposed one.
 
+Blindness is input isolation, not only prompt staging. Before stage 1, check what the
+challenger's environment shows automatically, such as working-tree status and
+filenames, memory, instructions and the frame's own values. Remove or isolate anything
+that names map or sample families, by whatever mechanism the host has. Keep required
+safety and project instructions, and record the cues they still give. If candidate
+names stay visible, report the challenge as cued with that limit, never as blind.
+
 **Stage 1, blind.** Give only the charter's jobs, outcomes, constraints and decisions;
 the declared frame (dimensions and the rule for "same family"); and the challenger's
 cue. The cue must differ from the sample author's, for example a different objective as
@@ -99,6 +106,9 @@ For a parent assessment, also supply child assessments and coverage.
 >    reported, not converted into a finding by itself.
 > 5. Change a severity only on evidence, stating it; never lower one, shrink scope or
 >    treat agreement as approval to reach a cleaner exit.
+> 6. Carry the exact operator decisions as given. An explicit retain/defer decision on
+>    an unchanged basis needs no fresh confirmation; if a new choice is needed for
+>    progress, name it and the evidence that makes it new.
 >
 > Do this work directly; do not delegate it to another agent.
 
@@ -106,4 +116,6 @@ For a parent assessment, also supply child assessments and coverage.
 [assessment report](review-record.md#assessment-report) shape, including counts and
 IDs, coverage against the map, actual versus expected effort when supplied, and one
 exit outcome from the skill with its reason. Exit outcomes apply to round or exit
-assessments only; a step-4 pre-packet assessment returns finding statuses only.
+assessments only. A step-4 pre-packet assessment returns finding statuses only, unless
+it covers the whole charter on the current baseline: then it counts as one round and
+also returns the exit.

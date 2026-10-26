@@ -59,7 +59,10 @@ Record this in the review's loop record, never in research:
    workable abstraction (purpose fixed, mechanism varied).
 4. Read the result and draft the project mapping, declaring the frame: dimensions, the
    rule for "same family" (divergence at the principle level or on a declared
-   dimension), and the generators used. Then run the skill's
+   dimension), and the generators used. Keep dimension values reusable across
+   families; coarsen values that nearly name individual families before the blind
+   challenge, since they leak the inventory and make value coverage tautological.
+   Then run the skill's
    [sample checkpoint](../SKILL.md#sample-checkpoint-before-depth-research).
 
 The specific decomposition strategies to apply at each step are in the
@@ -70,10 +73,10 @@ The specific decomposition strategies to apply at each step are in the
 - **Versioning.** The alternative space follows Agentic Research's correction,
   reversal and refresh rules. A refresh supersedes a prior map and keeps it as
   history. Record which map version the sample drew from in the loop record.
-- **Refresh triggers.** A family the challenge finds absent from the map, a held-out
-  family absent from it, a depth-research source that opens a new category, or a family
-  the operator adds; an expiring
-  `temporal_contract`; material change in the field; or a re-run whose
+- **Refresh triggers.** A family the challenge finds absent from the map that bears on
+  an in-scope decision (decision-remote ones are recorded as coverage limits), a
+  held-out family absent from it, a depth-research source that opens a new category,
+  or a family the operator adds; an expiring `temporal_contract`; material change in the field; or a re-run whose
   what-changed baseline names the area. Refresh only the named gap.
 - **Programs.** A component-then-suite program maps once at the root, covering the
   whole suite without presupposing component boundaries. Children draw their samples
