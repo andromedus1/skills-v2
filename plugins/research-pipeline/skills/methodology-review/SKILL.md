@@ -168,8 +168,9 @@ pass:
   from it → refresh the map through scout for that gap, never from host recall;
 - absent from the map but bearing on no recorded decision → record it with its
   relevance as an explicit coverage limit for the operator; never expand by default;
-- on the map with an uncovered value, or excluded without a principle-level reason a
-  decision needs → revise the sample or record that reason;
+- on the map with an uncovered value → revise the sample;
+- excluded despite full value coverage while carrying a principle or combination a
+  decision turns on → revise the sample or record a principle-level reason;
 - the challenger missed held-out families → strengthen the challenge.
 
 Present the operator with the map, the sample and its exclusions, the coverage statement

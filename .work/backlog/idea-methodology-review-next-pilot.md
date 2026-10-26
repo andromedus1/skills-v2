@@ -66,8 +66,10 @@ usage only, and claim no total cost the tools do not report.
 ## Evidence that would change the decision
 
 - **Supports the revision:** the review reaches comparison with recorded coverage
-  limits and does not repeat challenges. Exit follows from one assessment without a
-  ritual question. The operator says the packet changed or substantiated a choice.
+  limits and without unnecessary repeat challenges. A consequential refresh may still
+  need one. Where one assessment is eligible on an unchanged baseline, the exit
+  follows from it without a ritual question. The operator says the packet changed or
+  substantiated a choice.
 - **Against it:** breadth still loops before any decision. Decision-remote families
   get refreshed anyway. The operator finds the packet restates known limits. Effort
   exceeds the forecast with no matching yield.
