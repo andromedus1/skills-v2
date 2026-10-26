@@ -150,9 +150,11 @@ resumed multi-part review, first read
 ## Sample checkpoint (before depth research)
 
 Before commissioning comparisons, check that the sample covers every value of each
-declared dimension, and name the unsampled families. Then challenge it with a
-fresh-context challenger, using the project's cross-model preference when available.
-Follow the [completeness-challenge brief](references/assessor-briefs.md#completeness-challenge)
+declared dimension, and name the unsampled families. Value coverage is a floor, not a
+selection rule: also check each exclusion for a principle or combination that a
+recorded decision turns on. Then challenge it with a fresh-context challenger, using
+the project's cross-model preference when available. Follow the
+[completeness-challenge brief](references/assessor-briefs.md#completeness-challenge)
 exactly: its inputs are staged so the challenger lists families blind before seeing the
 sample, because exposure first hides what the challenge is meant to find.
 
@@ -162,9 +164,13 @@ uncovered value. Use observed counts only; these passes support no statistical
 estimate. Match each finding to its remedy, running any re-challenge as a fresh blind
 pass:
 
-- absent from the map, or a held-out family absent from it → refresh the map through
-  scout, never from host recall;
+- absent from the map and bearing on an in-scope decision, or a held-out family absent
+  from it → refresh the map through scout for that gap, never from host recall;
+- absent from the map but bearing on no recorded decision → record it with its
+  relevance as an explicit coverage limit for the operator; never expand by default;
 - on the map with an uncovered value → revise the sample;
+- excluded despite full value coverage while carrying a principle or combination a
+  decision turns on → revise the sample or record a principle-level reason;
 - the challenger missed held-out families → strengthen the challenge.
 
 Present the operator with the map, the sample and its exclusions, the coverage statement
@@ -182,8 +188,8 @@ Reuse sufficient current research under the engine's source/refresh rules; use
 `research-pipeline:scout` for missing landscape coverage, not every round.
 Commission comparisons via `agentic-research:research-orchestrator` with a
 [commission packet](references/commission-packet.md): charter fields, map and sample,
-evidence levels, scenarios, default dials and a required non-recommending
-decision-relevance section. Every dispatch references the packet by path rather than
+existing decision-relevant evidence beyond the map's sources, evidence levels,
+scenarios, default dials and a required non-recommending decision-relevance section. Every dispatch references the packet by path rather than
 restating it; the engine discovers facets. Research owns comparisons in each
 alternative's own terms and their evidence; the loop record owns coverage mapping,
 transfer and proposals. If the operator widens scope mid-review, record a new baseline
@@ -225,9 +231,10 @@ Finish the engagement's required verification before calling recommendations
 verified. Seed it with sample bias, comparability, source support and criteria
 favoring the current design; under adversarial-read rigor these are lenses for that
 orchestrator-owned pass, not a second verification stack. A clean exit still needs
-the step 6 assessment, even at floor rigor; one pass serves both only if its actual
-scope and structured result satisfy both. Refresh the project's existing knowledge
-index after new research artifacts; never bootstrap one elsewhere.
+the step 6 assessment, even at floor rigor. One pass serves both, and counts once, when
+it covers the whole charter on the current baseline and returns both finding statuses
+and the exit. Refresh the project's existing knowledge index after new research
+artifacts; never bootstrap one elsewhere.
 
 Before anything reaches the operator: check each draft finding against the current
 artifact text it relies on and drop or correct any misreading; then have the fresh
@@ -290,8 +297,8 @@ its exact authorization.
 
 Rejecting or deferring neither falsifies a proposal's evidence nor verifies a
 remedy; record the retained risk, rationale and any revisit trigger. Do not re-ask
-on an unchanged baseline; reopen only for materially new evidence, changed
-constraints or an explicit operator request. Correct a false finding when evidence
+on an unchanged baseline; reopen only for materially new evidence, a fired revisit
+trigger, changed constraints or an explicit operator request. Correct a false finding when evidence
 warrants, however popular its proposal.
 
 ## 6. Fresh reassessment and exit
@@ -324,11 +331,13 @@ estimate.
 
 Read the exit from that assessment, not the author's confidence or a targeted grep;
 a bounded review never proves universal quality. When several outcomes apply, report
-every finding's status; the highest-ranked outcome is primary.
+every finding's status; the highest-ranked outcome is primary. An explicit retain/defer
+decision, including one a re-run inherits, needs no fresh closure question until a
+[step 5](#5-operator-adjudication-and-authorized-action) reason reopens it.
 
 | Rank | Outcome | Condition → next action |
 |---|---|---|
-| 1 on explicit operator stop | **Stopped with retained risks** (**Incomplete** if none) | Operator stops or retains/defers a material issue → list those findings and revisit conditions; dispositioned, not clean. |
+| 1 | **Stopped with retained risks** (**Incomplete** if none) | Operator stops the review, or explicit retain/defer decisions leave a material issue and the assessment names no new choice needed for progress → list those findings and revisit conditions; dispositioned, not clean. |
 | 2 | **Awaiting decision** | A choice needed for progress is unanswered → present the decision packet and checkpoint; no dependent changes. |
 | 3 | **Awaiting change or evidence** | An accepted direction lacks a verified remedy, or an authorized experiment/delivery is pending → link the owner/item/evidence needed; not resolved. |
 | 4 | **Incomplete** | Required coverage/verification is unavailable, the round limit is reached, or an unchanged round would add no evidence or authorized progress → report the limitation and concrete next step; never manufacture convergence. |
@@ -371,3 +380,7 @@ versus actual effort, major findings by status,
 operator decisions, authorized changes and verification, unresolved risks and exact
 exit reason, linking research outputs and the operational record. Keep the result
 usable without an implementation or a tracked work substrate.
+
+Every checkpoint message names the overall phase, what is complete, what remains and
+whether the operator must respond; an approved landscape or sample is never presented
+as a finished review.

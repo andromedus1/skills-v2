@@ -77,6 +77,12 @@ record.
 - Start a fresh round count; the predecessor's limit and count do not carry over.
 - Reuse its research and domain map under the engine's freshness rules, refreshing
   only named stale or missing coverage.
+- If the map is regenerated, crosswalk each predecessor sample family or configuration
+  to it: covered, partial, or prior-comparison-only at its dated depth. A neighboring
+  family is not equivalence. Report mutable product claims as dated, since an
+  unexpired freshness window does not make them current, and revalidate none for
+  coverage alone. The crosswalk reports coverage and commissions no new landscape;
+  held-out and decision-bearing gaps still follow the sample checkpoint's remedies.
 - Record a what-changed baseline: project revisions, skill version, decisions and
   delivery since, and expiring research.
 - Compare outcomes with the predecessor in the report: operator corrections to the
@@ -87,7 +93,8 @@ record.
 
 A re-run's record carries the predecessor's record and final-assessment links, the
 mapping from prior finding IDs to current ones, a fresh round count, the reused
-research and map versions with their freshness, and a what-changed baseline. Its
-report compares outcomes with the predecessor's: operator corrections to the sample,
-effort, verification churn, decision yield and assessor withdrawals. The closed
+research and map versions with their freshness, any predecessor-sample crosswalk, and
+a what-changed baseline. Its report compares outcomes with the predecessor's: operator
+corrections to the sample, effort, verification churn, decision yield and assessor
+withdrawals. The closed
 predecessor record is never edited, except to add a forward link.
