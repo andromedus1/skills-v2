@@ -79,9 +79,10 @@ record.
   only named stale or missing coverage.
 - If the map is regenerated, crosswalk each predecessor sample family or configuration
   to it: covered, partial, or prior-comparison-only at its dated depth. A neighboring
-  family is not equivalence, and an unexpired freshness window does not make mutable
-  product claims current. The crosswalk reports coverage; it commissions no new
-  landscape by itself.
+  family is not equivalence. Report mutable product claims as dated, since an
+  unexpired freshness window does not make them current, and revalidate none for
+  coverage alone. The crosswalk reports coverage and commissions no new landscape;
+  held-out and decision-bearing gaps still follow the sample checkpoint's remedies.
 - Record a what-changed baseline: project revisions, skill version, decisions and
   delivery since, and expiring research.
 - Compare outcomes with the predecessor in the report: operator corrections to the

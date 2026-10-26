@@ -296,8 +296,8 @@ its exact authorization.
 
 Rejecting or deferring neither falsifies a proposal's evidence nor verifies a
 remedy; record the retained risk, rationale and any revisit trigger. Do not re-ask
-on an unchanged baseline; reopen only for materially new evidence, changed
-constraints or an explicit operator request. Correct a false finding when evidence
+on an unchanged baseline; reopen only for materially new evidence, a fired revisit
+trigger, changed constraints or an explicit operator request. Correct a false finding when evidence
 warrants, however popular its proposal.
 
 ## 6. Fresh reassessment and exit
@@ -331,9 +331,8 @@ estimate.
 Read the exit from that assessment, not the author's confidence or a targeted grep;
 a bounded review never proves universal quality. When several outcomes apply, report
 every finding's status; the highest-ranked outcome is primary. An explicit retain/defer
-decision, including one a re-run inherits, stands on an unchanged basis without a fresh
-closure question; a fired revisit trigger, changed constraint or new material finding
-reopens it.
+decision, including one a re-run inherits, needs no fresh closure question until a
+[step 5](#5-operator-adjudication-and-authorized-action) reason reopens it.
 
 | Rank | Outcome | Condition → next action |
 |---|---|---|

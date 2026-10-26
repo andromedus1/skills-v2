@@ -1,7 +1,7 @@
 ---
 id: feature-methodology-review-codex-pilot-revision
 kind: feature
-stage: implementing
+stage: review
 tags: [methodology-review, research-pipeline, prose]
 parent: null
 depends_on: []
@@ -120,3 +120,52 @@ Readers get only the scenario text.
 | FS5 | Re-run: KMR-01 is a major finding that the operator explicitly retained in the predecessor. No trigger fired and the basis is unchanged. The first fresh full-scope assessment finds no new major finding and no new choice. | Exit: Stopped with retained risks from that one assessment. No closure question and no second assessment. Variant: a named revisit trigger fired, so reopen that decision (Awaiting decision). |
 | FS6 | Before the stage-1 challenge, the working tree's status lists files named after map families, and the frame's values near-name the families. | Coarsen the frame values and remove or isolate the exposed names before dispatch. Otherwise report the challenge as cued, with that limit. Required safety and project instructions stay. No particular tool is required. |
 | FS7 | The map is source-approved and the challenge is done. The host messages the operator. | The message says the review is at its sample checkpoint, that comparison and whole-scope assessment remain, and that a response is needed. It does not present the review as finished. |
+
+## Implementation notes
+
+- Execution capability: inline host (Opus), prose mode. The work is cohesive text
+  edits across five files, with no coordination need.
+- Review weight: standard (project default). This is a consequential skill change
+  (exit contract, refresh rule), so it uses the feature review boundary.
+- Files changed: `methodology-review/SKILL.md` (+12 lines, 385 total),
+  `references/{assessor-briefs,commission-packet,controller-and-reruns,domain-map}.md`.
+  Next-pilot plan: `.work/backlog/idea-methodology-review-next-pilot.md`.
+- Tests added/removed: none in-repo, because no stable executable interface changed.
+  Behavioral evidence comes from the forward scenarios below. Structural checks:
+  skill-portability ok, `git diff --check` clean, 0 broken relative links or
+  anchors. Both hosts load the same `./skills/` tree, so the Claude and Codex
+  manifests are unchanged.
+- Simplification: the unconditional "absent from the map → refresh" remedy is
+  replaced, not extended. The step 6 retention sentence points to step 5's
+  reopen list instead of restating it.
+- Discrepancies from design: two clarifications were added after the scenario run.
+  - Step 5's reopen list now names a fired revisit trigger. Before, only the exit
+    table implied it (Claude reader, S5).
+  - The crosswalk reports mutable claims as dated without revalidating them, and
+    it leaves the held-out and decision-bearing refresh remedies in force (Codex
+    reader S4, Claude reader S4).
+  Both narrow wording toward the expected outcomes, so the scenarios were not
+  re-run.
+- Adjacent issues parked: none.
+
+### Forward scenarios run (2026-10-26)
+
+Same packet (scratch `mr-scenarios.md`, S1–S7 = FS1–FS7) sent to two fresh readers.
+They read only the five changed files and never saw the expected outcomes.
+
+| Scenario | Codex `gpt-6-luna` high (job `20261026T183043Z-ee4b4c9e`) | Claude fresh sub-agent |
+|---|---|---|
+| FS1 full value coverage, decision-relevant exclusion | revise or record a principle-level reason before the challenge ✓ | same ✓ |
+| FS2 one decision-bearing and two remote absent families | refresh one, record two as limits, no quiet pass ✓ | same ✓ |
+| FS3 older evidence outside the map | in packet; no new methodology-review gate ✓ | same ✓ |
+| FS4 old configuration, neighbors only | prior-comparison-only; no new landscape ✓ (read an implied currency check → clarified) | same ✓ (held-out interplay → clarified) |
+| FS5 inherited retained major, one assessment | Stopped with retained risks; no closure question; no second assessment; trigger fired → reopen ✓ | same; variant is Awaiting decision ✓ |
+| FS6 exposed filenames, family-encoding values | isolate, coarsen, otherwise report cued ✓ | same ✓ |
+| FS7 checkpoint message | phase, remaining work, response needed ✓ | same ✓ |
+
+Ambiguities not adopted: the choice of isolation mechanism, the "partial" vs
+"prior-only" test, whether a one-family refresh is "material", and message format.
+The text gives these to host or operator judgement on purpose. Rigid tests would be
+the overbuilding the conventions warn about. The older (0.6.0) text would fail FS2
+(unconditional refresh) and FS5 (the pilot's actual extra dispatch), so the packet
+discriminates.
